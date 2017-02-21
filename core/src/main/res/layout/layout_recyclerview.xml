@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <com.core.widget.recyclerview.pullrefreshlayout.SwipeToLoadLayout
+        android:id="@+id/swipeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!--<include-->
+            <!--android:id="@id/swipe_refresh_header"-->
+            <!--layout="@layout/layout_refresh_header" />-->
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@id/swipe_target"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </com.core.widget.recyclerview.pullrefreshlayout.SwipeToLoadLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_list1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
+</FrameLayout>
