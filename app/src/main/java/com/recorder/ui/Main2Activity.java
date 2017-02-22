@@ -20,6 +20,6 @@ public class Main2Activity extends CoreBaseActivity {
 
     @Override
     public void initView(Bundle savedInstanceState) {
-        setToolBar(toolbar,"杭鹏伟");
+        setToolBar(toolbar, "杭鹏伟");
     }
 }
