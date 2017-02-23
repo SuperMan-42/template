@@ -20,6 +20,7 @@ public class Main2Activity extends CoreBaseActivity {
 
     @Override
     public void initView(Bundle savedInstanceState) {
+        setStatusBarColor(getResources().getColor(R.color.colorPrimary), 0);
         setToolBar(toolbar, "杭鹏伟");
     }
 }
