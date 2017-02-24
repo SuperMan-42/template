@@ -1,9 +1,7 @@
 package com.recorder.ui;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -13,12 +11,14 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.core.base.CoreBaseActivity;
+import com.getbase.floatingactionbutton.FloatingActionButton;
+import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.jaeger.library.StatusBarUtil;
 import com.recorder.R;
 
 public class MainActivity extends CoreBaseActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-
+    FloatingActionsMenu menuMultipleActions;
     @Override
     public int getLayoutId() {
         return R.layout.activity_main;
@@ -28,15 +28,15 @@ public class MainActivity extends CoreBaseActivity
     public void initView(Bundle savedInstanceState) {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+        final View actionB = findViewById(R.id.action_b);
+        FloatingActionButton actionC = new FloatingActionButton(getBaseContext());
+        actionC.setTitle("Hide/Show Action above");
+        actionC.setSize(FloatingActionButton.SIZE_MINI);
+        actionC.setOnClickListener(v -> actionB.setVisibility(actionB.getVisibility() == View.GONE ? View.VISIBLE : View.GONE));
+        final FloatingActionButton actionA = (FloatingActionButton) findViewById(R.id.action_a);
+        actionA.setOnClickListener(view -> actionA.setTitle("Action A clicked"));
+        menuMultipleActions = (FloatingActionsMenu) findViewById(R.id.multiple_actions);
+        menuMultipleActions.addButton(actionC);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
