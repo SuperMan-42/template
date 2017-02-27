@@ -33,4 +33,5 @@ dependencies {
     compile 'com.android.support.constraint:constraint-layout:1.0.0-beta4'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
     compile 'com.getbase:floatingactionbutton:1.10.1'
+    compile 'com.android.support.constraint:constraint-layout:1.0.0'
 }
