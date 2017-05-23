@@ -11,7 +11,20 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        ndk {
+            moduleName "native"
+            abiFilters "armeabi", "armeabi-v7a"
+            ldLibs "log"
+        }
     }
+
+    externalNativeBuild {
+        ndkBuild {
+            path "src/main/jni/Android.mk"
+        }
+    }
+
     buildTypes {
         release {
             minifyEnabled false

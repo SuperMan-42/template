@@ -15,31 +15,31 @@ import java.util.HashMap;
 import java.util.Random;
 
 public class Util {
-    public static final String SELF_PACKAGE_NAME = "com.mindmac.eagleeye";
-    public static final String LOG_TAG = "EagleEye";
+    public static final String SELF_PACKAGE_NAME = "com.recorder";
+    public static final String LOG_TAG = "007";
 
-    public static final String NATIVE_LIB = "eagleeyenative";
+    public static final String NATIVE_LIB = "native";
     public static final String NATIVE_LIB_PATH = String.format("/data/data/%s/lib/lib%s.so",
             Util.SELF_PACKAGE_NAME, Util.NATIVE_LIB);
 
     // Native Hook
-    public static final String NATIVE_UIDS_PROP_KEY = "rw.eagleeye.nt.uids";
+    public static final String NATIVE_UIDS_PROP_KEY = "007.nt.uids";
     public static final String CUSTOM_NATIVE_LIB_NAMES_CONFIG = "native_lib.config";
     public static final HashMap<Integer, Boolean> NATIVE_UIDS_MAP = new HashMap<Integer, Boolean>();
     public static final HashMap<String, Boolean> CUSTOM_NATIVE_LIB_NAMES_MAP = new HashMap<String, Boolean>();
 
     // Java framework Hook
-    public static final String FRAMEWORK_UIDS_PROP_KEY = "rw.eagleeye.fr.uids";
+    public static final String FRAMEWORK_UIDS_PROP_KEY = "007.fr.uids";
     public static HashMap<Integer, Boolean> FRAMEWORK_UIDS_MAP = new HashMap<Integer, Boolean>();
 
-    public static final String FRAMEWORK_SYSTEM_API_NUM_PROP_KEY = "rw.eagleeye.fr.sys_api_num";
+    public static final String FRAMEWORK_SYSTEM_API_NUM_PROP_KEY = "007.fr.sys_api_num";
     public static int FRAMEWORK_SYSTEM_API_NUM = 500;
 
     public static final String FRAMEWORK_SYSTEM_API_HOOK_CONFIG = "fr_sys_apis.config";
     public static ArrayList<String> FRAMEWORK_SYSTEM_UN_HOOKED_APIS = new ArrayList<String>();
 
 
-    public static final String FRAMEWORK_APP_API_NUM_PROP_KEY = "rw.eagleeye.fr.app_api_num";
+    public static final String FRAMEWORK_APP_API_NUM_PROP_KEY = "007.fr.app_api_num";
     public static int FRAMEWORK_APP_API_NUM = 500;
 
     public static final String FRAMEWORK_APP_API_HOOK_CONFIG = "fr_app_apis.config";
