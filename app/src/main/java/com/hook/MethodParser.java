@@ -239,8 +239,7 @@ public class MethodParser {
 //                URI uri = ((HttpUriRequest) arg).getURI();
 //                argValue = uri.toString();
 //            } else
-//                argValue = arg.toString();
-            argValue = "hpw_http";
+            argValue = arg.toString();
         } catch (Exception ex) {
             // Do noting
         }
