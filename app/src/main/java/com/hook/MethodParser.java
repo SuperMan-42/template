@@ -2,8 +2,14 @@ package com.hook;
 
 import android.text.TextUtils;
 
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpUriRequest;
+import org.apache.http.util.EntityUtils;
+
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -227,19 +233,19 @@ public class MethodParser {
     private static String parseArg(Object arg) {
         String argValue = "null";
         try {
-//            if (arg instanceof HttpPost) {
-//                URI uri = ((HttpPost) arg).getURI();
-//                byte[] postBytes = EntityUtils.toByteArray(((HttpPost) arg).getEntity());
-//                String postStrHex = Util.toHex(postBytes);
-//                argValue = String.format("uri=%s && post=%s", uri.toString(), postStrHex);
-//            } else if (arg instanceof HttpGet) {
-//                URI uri = ((HttpGet) arg).getURI();
-//                argValue = uri.toString();
-//            } else if (arg instanceof HttpUriRequest) {
-//                URI uri = ((HttpUriRequest) arg).getURI();
-//                argValue = uri.toString();
-//            } else
-            argValue = arg.toString();
+            if (arg instanceof HttpPost) {
+                URI uri = ((HttpPost) arg).getURI();
+                byte[] postBytes = EntityUtils.toByteArray(((HttpPost) arg).getEntity());
+                String postStrHex = Util.toHex(postBytes);
+                argValue = String.format("uri=%s && post=%s", uri.toString(), postStrHex);
+            } else if (arg instanceof HttpGet) {
+                URI uri = ((HttpGet) arg).getURI();
+                argValue = uri.toString();
+            } else if (arg instanceof HttpUriRequest) {
+                URI uri = ((HttpUriRequest) arg).getURI();
+                argValue = uri.toString();
+            } else
+                argValue = arg.toString();
         } catch (Exception ex) {
             // Do noting
         }
