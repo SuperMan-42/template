@@ -5,9 +5,8 @@ import com.core.CoreApp;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
-import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
@@ -17,14 +16,11 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class RxService {
     private static final int TIMEOUT_READ = 20;
     private static final int TIMEOUT_CONNECTION = 10;
-    private static final HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY);
     private static CacheInterceptor cacheInterceptor = new CacheInterceptor();
     private static OkHttpClient okHttpClient = new OkHttpClient.Builder()
             //SSL证书
             .sslSocketFactory(TrustManager.getUnsafeOkHttpClient())
             .hostnameVerifier(org.apache.http.conn.ssl.SSLSocketFactory.ALLOW_ALL_HOSTNAME_VERIFIER)
-            //打印日志
-            .addInterceptor(interceptor)
             //设置Cache
             .addNetworkInterceptor(cacheInterceptor)//缓存方面需要加入这个拦截器
             .addInterceptor(cacheInterceptor)
@@ -45,10 +41,9 @@ public class RxService {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(url)
                 .client(okHttpClient)
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         return retrofit.create(clazz);
     }
 }
-

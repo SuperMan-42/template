@@ -1,7 +1,5 @@
 package com.core.base;
 
-import com.core.RxManager;
-
 /**
  * Created by hpw on 16/10/28.
  */
@@ -9,7 +7,6 @@ import com.core.RxManager;
 public abstract class CoreBasePresenter<M, T> {
     public M mModel;
     public T mView;
-    public RxManager mRxManager = new RxManager();
 
     public void attachVM(T v, M m) {
         this.mView = v;
@@ -18,7 +15,6 @@ public abstract class CoreBasePresenter<M, T> {
     }
 
     public void detachVM() {
-        mRxManager.clear();
         mView = null;
         mModel = null;
     }

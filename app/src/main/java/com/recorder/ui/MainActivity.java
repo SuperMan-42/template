@@ -19,6 +19,7 @@ import com.recorder.R;
 public class MainActivity extends CoreBaseActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     FloatingActionsMenu menuMultipleActions;
+
     @Override
     public int getLayoutId() {
         return R.layout.activity_main;

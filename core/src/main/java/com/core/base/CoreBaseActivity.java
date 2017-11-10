@@ -108,6 +108,8 @@ public abstract class CoreBaseActivity<T extends CoreBasePresenter, E extends Co
 
     @Override
     public void onBackPressed() {
+        if (mSwipeBackHelper.isSliding())
+            return;
         mSwipeBackHelper.backward();
     }
 

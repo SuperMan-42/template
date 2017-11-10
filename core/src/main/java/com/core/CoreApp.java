@@ -4,7 +4,7 @@ import android.app.Application;
 import android.content.Context;
 import android.content.res.Resources;
 
-import cn.bingoogolapple.swipebacklayout.BGASwipeBackManager;
+import cn.bingoogolapple.swipebacklayout.BGASwipeBackHelper;
 
 /**
  * Created by hpw on 16/10/28.
@@ -16,7 +16,7 @@ public abstract class CoreApp extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        BGASwipeBackManager.getInstance().init(this);
+        BGASwipeBackHelper.init(this, null);
         mApp = this;
     }
 
