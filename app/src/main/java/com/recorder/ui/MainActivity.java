@@ -10,49 +10,55 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.core.base.CoreBaseActivity;
+import com.core.base.BaseActivity;
+import com.core.di.component.AppComponent;
+import com.core.utils.CoreUtils;
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.jaeger.library.StatusBarUtil;
 import com.recorder.R;
 
-public class MainActivity extends CoreBaseActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
     FloatingActionsMenu menuMultipleActions;
 
     @Override
-    public int getLayoutId() {
+    public void setupActivityComponent(AppComponent appComponent) {
+
+    }
+
+    @Override
+    public int getLayoutResID(Bundle savedInstanceState) {
         return R.layout.activity_main;
     }
 
     @Override
     public void initView(Bundle savedInstanceState) {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         final View actionB = findViewById(R.id.action_b);
         FloatingActionButton actionC = new FloatingActionButton(getBaseContext());
         actionC.setTitle("Hide/Show Action above");
         actionC.setSize(FloatingActionButton.SIZE_MINI);
         actionC.setOnClickListener(v -> actionB.setVisibility(actionB.getVisibility() == View.GONE ? View.VISIBLE : View.GONE));
-        final FloatingActionButton actionA = (FloatingActionButton) findViewById(R.id.action_a);
+        final FloatingActionButton actionA = findViewById(R.id.action_a);
         actionA.setOnClickListener(view -> actionA.setTitle("Action A clicked"));
-        menuMultipleActions = (FloatingActionsMenu) findViewById(R.id.multiple_actions);
+        menuMultipleActions = findViewById(R.id.multiple_actions);
         menuMultipleActions.addButton(actionC);
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         StatusBarUtil.setColorForDrawerLayout(this, drawer, getResources().getColor(R.color.colorPrimary), 0);
     }
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
@@ -91,7 +97,7 @@ public class MainActivity extends CoreBaseActivity
         if (id == R.id.nav_camera) {
             // Handle the camera action
         } else if (id == R.id.nav_gallery) {
-            startActivity(Main2Activity.class);
+            CoreUtils.startActivity(Main2Activity.class);
         } else if (id == R.id.nav_slideshow) {
 
         } else if (id == R.id.nav_manage) {
@@ -102,7 +108,7 @@ public class MainActivity extends CoreBaseActivity
 
         }
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
