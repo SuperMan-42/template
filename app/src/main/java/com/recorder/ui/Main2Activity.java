@@ -3,7 +3,6 @@ package com.recorder.ui;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.support.v7.widget.Toolbar;
 
 import com.core.base.AdapterViewPager;
 import com.core.base.BaseActivity;
@@ -20,8 +19,6 @@ import me.majiajie.pagerbottomtabstrip.PageNavigationView;
 
 public class Main2Activity extends BaseActivity {
 
-    @BindView(R.id.toolbar)
-    Toolbar toolbar;
     @BindView(R.id.navigation)
     PageNavigationView navigation;
     @BindView(R.id.viewPager)
@@ -42,7 +39,7 @@ public class Main2Activity extends BaseActivity {
     @Override
     public void initView(Bundle savedInstanceState) {
         setStatusBarColor(CoreUtils.getColor(this, R.color.colorPrimary), 0);
-        toolbar.setTitle("昊翔");
+        setTitle("昊翔");
         mNavigationController = navigation.material()
                 .addItem(R.drawable.ic_nearby_teal_24dp, CoreUtils.getString(this, R.string.Home))
                 .addItem(R.drawable.ic_nearby_teal_24dp, CoreUtils.getString(this, R.string.Equity))
@@ -69,7 +66,7 @@ public class Main2Activity extends BaseActivity {
 
             @Override
             public void onPageSelected(int position) {
-                toolbar.setTitle(viewPager.getAdapter().getPageTitle(viewPager.getCurrentItem()));
+                setTitle(viewPager.getAdapter().getPageTitle(viewPager.getCurrentItem()));
             }
 
             @Override

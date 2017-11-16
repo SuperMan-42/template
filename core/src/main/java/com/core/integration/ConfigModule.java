@@ -54,7 +54,6 @@ public interface ConfigModule {
      */
     void injectActivityLifecycle(Context context, List<Application.ActivityLifecycleCallbacks> lifecycles);
 
-
     /**
      * 使用{@link FragmentManager.FragmentLifecycleCallbacks}在Fragment的生命周期中注入一些操作
      *

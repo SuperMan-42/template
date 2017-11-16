@@ -27,7 +27,7 @@
             android:value="1920" />
 
         <meta-data
-            android:name="com.core.di.module.GlobalConfigModule"
+            android:name="com.recorder.GlobalConfiguration"
             android:value="ConfigModule" />
 
         <activity

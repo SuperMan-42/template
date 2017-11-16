@@ -30,8 +30,6 @@ import com.core.http.imageloader.ImageConfig;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.annotations.NonNull;
-import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 
@@ -107,23 +105,13 @@ public class GlideImageLoaderStrategy implements BaseImageLoaderStrategy<ImageCo
         if (config.isClearDiskCache()) {//清除本地缓存
             Observable.just(0)
                     .observeOn(Schedulers.io())
-                    .subscribe(new Consumer<Integer>() {
-                        @Override
-                        public void accept(@NonNull Integer integer) throws Exception {
-                            Glide.get(ctx).clearDiskCache();
-                        }
-                    });
+                    .subscribe(integer -> Glide.get(ctx).clearDiskCache());
         }
 
         if (config.isClearMemory()) {//清除内存缓存
             Observable.just(0)
                     .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(new Consumer<Integer>() {
-                        @Override
-                        public void accept(@NonNull Integer integer) throws Exception {
-                            Glide.get(ctx).clearMemory();
-                        }
-                    });
+                    .subscribe(integer -> Glide.get(ctx).clearMemory());
         }
     }
 

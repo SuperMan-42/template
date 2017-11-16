@@ -25,7 +25,6 @@ import com.core.utils.DataHelper;
 import com.google.gson.Gson;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -41,7 +40,6 @@ import me.jessyan.rxerrorhandler.handler.listener.ResponseErrorListener;
 import okhttp3.HttpUrl;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
-import okhttp3.Response;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -62,22 +60,18 @@ public class ClientModule {
      * @param client
      * @param httpUrl
      * @return
-     * @author: jess
-     * @date 8/30/16 1:15 PM
      */
     @Singleton
     @Provides
-    Retrofit provideRetrofit(Application application, @Nullable RetrofitConfiguration configuration, Retrofit.Builder builder, OkHttpClient client
-            , HttpUrl httpUrl, Gson gson) {
-        builder
-                .baseUrl(httpUrl)//域名
+    Retrofit provideRetrofit(Application application, @Nullable RetrofitConfiguration configuration,
+                             Retrofit.Builder builder, OkHttpClient client, HttpUrl httpUrl, Gson gson) {
+        builder.baseUrl(httpUrl)//域名
                 .client(client);//设置okhttp
 
         if (configuration != null)
             configuration.configRetrofit(application, builder);
 
-        builder
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())//使用 Rxjava
+        builder.addCallAdapterFactory(RxJava2CallAdapterFactory.create())//使用 Rxjava
                 .addConverterFactory(GsonConverterFactory.create(gson));//使用 Gson
         return builder.build();
     }
@@ -98,12 +92,7 @@ public class ClientModule {
                 .addNetworkInterceptor(intercept);
 
         if (handler != null)
-            builder.addInterceptor(new Interceptor() {
-                @Override
-                public Response intercept(Chain chain) throws IOException {
-                    return chain.proceed(handler.onHttpRequestBefore(chain, chain.request()));
-                }
-            });
+            builder.addInterceptor(chain -> chain.proceed(handler.onHttpRequestBefore(chain, chain.request())));
 
         if (interceptors != null) {//如果外部提供了interceptor的集合则遍历添加
             for (Interceptor interceptor : interceptors) {
@@ -149,8 +138,7 @@ public class ClientModule {
             rxCache = configuration.configRxCache(application, builder);
         }
         if (rxCache != null) return rxCache;
-        return builder
-                .persistence(cacheDirectory, new GsonSpeaker());
+        return builder.persistence(cacheDirectory, new GsonSpeaker());
     }
 
     /**

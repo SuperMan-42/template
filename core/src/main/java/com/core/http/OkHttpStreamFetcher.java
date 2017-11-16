@@ -39,8 +39,7 @@ import okhttp3.ResponseBody;
 /**
  * Fetches an {@link InputStream} using the okhttp library.
  */
-public class OkHttpStreamFetcher implements DataFetcher<InputStream>,
-        okhttp3.Callback {
+public class OkHttpStreamFetcher implements DataFetcher<InputStream>, okhttp3.Callback {
     private static final String TAG = "OkHttpFetcher";
     private final Call.Factory client;
     private final GlideUrl url;
@@ -87,7 +86,6 @@ public class OkHttpStreamFetcher implements DataFetcher<InputStream>,
         if (Log.isLoggable(TAG, Log.DEBUG)) {
             Log.d(TAG, "OkHttp failed to obtain result", e);
         }
-
         callback.onLoadFailed(e);
     }
 

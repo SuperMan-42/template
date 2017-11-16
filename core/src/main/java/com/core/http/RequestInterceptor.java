@@ -70,9 +70,7 @@ public class RequestInterceptor implements Interceptor {
     @Override
     public Response intercept(Chain chain) throws IOException {
         Request request = chain.request();
-
         boolean logRequest = printLevel == Level.ALL || (printLevel != Level.NONE && printLevel == Level.REQUEST);
-
         if (logRequest) {
             boolean hasRequestBody = request.body() != null;
             //打印请求信息
@@ -92,8 +90,8 @@ public class RequestInterceptor implements Interceptor {
             Timber.w("Http Error: " + e);
             throw e;
         }
-        long t2 = logResponse ? System.nanoTime() : 0;
 
+        long t2 = logResponse ? System.nanoTime() : 0;
         if (logResponse) {
             String bodySize = originalResponse.body().contentLength() != -1 ? originalResponse.body().contentLength() + "-byte" : "unknown-length";
             //打印响应时间以及响应头
@@ -103,7 +101,6 @@ public class RequestInterceptor implements Interceptor {
 
         //打印响应结果
         String bodyString = printResult(request, originalResponse.newBuilder().build(), logResponse);
-
         if (mHandler != null)//这里可以比客户端提前一步拿到服务器返回的结果,可以做一些操作,比如token超时,重新获取
             return mHandler.onHttpResultResponse(bodyString, chain, originalResponse);
 
@@ -136,8 +133,6 @@ public class RequestInterceptor implements Interceptor {
                         .get("Content-Encoding");
 
                 Buffer clone = buffer.clone();
-
-
                 //解析response content
                 bodyString = parseContent(responseBody, encoding, clone);
             } catch (IOException e) {
