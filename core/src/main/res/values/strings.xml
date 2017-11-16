@@ -6,4 +6,6 @@
     <string name="library_pull_to_refresh_loadmore">加载中…</string>
     <string name="library_pull_to_refresh_all">已显示全部</string>
     <string name="load_failed">加载失败，请点我重试</string>
+    <string name="refresh_pull">下拉加载内容</string>
+    <string name="refresh_down">正在努力加载</string>
 </resources>

@@ -1,12 +1,12 @@
 /**
  * Copyright 2013 Joan Zapata
- *
+ * <p>
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -36,6 +36,9 @@ import android.widget.ProgressBar;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.core.utils.ThirdViewUtil;
+import com.zhy.autolayout.utils.AutoUtils;
+
 import java.util.HashSet;
 import java.util.LinkedHashSet;
 
@@ -64,7 +67,7 @@ public class BaseViewHolder extends RecyclerView.ViewHolder {
         this.childClickViewIds = new LinkedHashSet<>();
         this.itemChildLongClickViewIds = new LinkedHashSet<>();
         convertView = view;
-
+        if (ThirdViewUtil.USE_AUTOLAYOUT == 1) AutoUtils.autoSize(view);//适配
     }
 
     public HashSet<Integer> getItemChildLongClickViewIds() {
@@ -72,7 +75,7 @@ public class BaseViewHolder extends RecyclerView.ViewHolder {
     }
 
     public HashSet<Integer> getChildClickViewIds() {
-        return  childClickViewIds;
+        return childClickViewIds;
     }
 
     public View getConvertView() {
@@ -93,6 +96,12 @@ public class BaseViewHolder extends RecyclerView.ViewHolder {
         return this;
     }
 
+    public BaseViewHolder setTextSize(int viewId, float size) {
+        TextView view = getView(viewId);
+        view.setTextSize(size);
+        return this;
+    }
+
     public BaseViewHolder setText(int viewId, @StringRes int strId) {
         TextView view = getView(viewId);
         view.setText(strId);
@@ -106,7 +115,7 @@ public class BaseViewHolder extends RecyclerView.ViewHolder {
      * @param imageResId The image resource id.
      * @return The BaseViewHolder for chaining.
      */
-    public BaseViewHolder setImageResource(int viewId,@DrawableRes int imageResId) {
+    public BaseViewHolder setImageResource(int viewId, @DrawableRes int imageResId) {
         ImageView view = getView(viewId);
         view.setImageResource(imageResId);
         return this;
@@ -309,6 +318,7 @@ public class BaseViewHolder extends RecyclerView.ViewHolder {
 
     /**
      * Sets the on click listener of the view.
+     *
      * @param viewId   The view id.
      * @param listener The on click listener;
      * @return The BaseViewHolder for chaining.
@@ -322,6 +332,7 @@ public class BaseViewHolder extends RecyclerView.ViewHolder {
 
     /**
      * add childView id
+     *
      * @param viewId add the child view id   can support childview click
      * @return
      */
@@ -332,10 +343,11 @@ public class BaseViewHolder extends RecyclerView.ViewHolder {
 
     /**
      * add long click view id
+     *
      * @param viewId
      * @return
      */
-    public BaseViewHolder addOnLongClickListener(int viewId){
+    public BaseViewHolder addOnLongClickListener(int viewId) {
         itemChildLongClickViewIds.add(viewId);
         return this;
     }

@@ -45,12 +45,12 @@ public class CoreRecyclerView extends LinearLayout implements BaseQuickAdapter.R
 
     public CoreRecyclerView initView(Context context) {
         View view = LayoutInflater.from(context).inflate(R.layout.layout_recyclerview, null);
-        view.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+        view.setLayoutParams(new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         addView(view);
-        mSwipeRefreshLayout = (SwipeToLoadLayout) findViewById(R.id.swipeLayout);
+        mSwipeRefreshLayout = findViewById(R.id.swipeLayout);
         mSwipeRefreshLayout.setEnabled(false);
         mSwipeRefreshLayout.setRefreshEnabled(false);
-        mRecyclerView = (RecyclerView) findViewById(R.id.swipe_target);
+        mRecyclerView = findViewById(R.id.swipe_target);
         return this;
     }
 
@@ -72,12 +72,11 @@ public class CoreRecyclerView extends LinearLayout implements BaseQuickAdapter.R
     public CoreRecyclerView init(RecyclerView.LayoutManager layoutManager, BaseQuickAdapter mQuickAdapter, Boolean isRefresh) {
         if (isRefresh != true) {
             mSwipeRefreshLayout.setVisibility(GONE);
-            mRecyclerView = (RecyclerView) findViewById(R.id.rv_list1);
+            mRecyclerView = findViewById(R.id.rv_list1);
             mRecyclerView.setVisibility(VISIBLE);
         }
         mRecyclerView.setLayoutManager(layoutManager != null ? layoutManager : new LinearLayoutManager(getContext()));
         this.mQuickAdapter = mQuickAdapter;
-        mRecyclerView.setAdapter(mQuickAdapter);
         mQuickAdapter.openLoadAnimation();
         mRecyclerView.setAdapter(mQuickAdapter);
         return this;
@@ -288,6 +287,10 @@ public class CoreRecyclerView extends LinearLayout implements BaseQuickAdapter.R
 
     public void setRecyclerView(RecyclerView mRecyclerView) {
         this.mRecyclerView = mRecyclerView;
+    }
+
+    public SwipeToLoadLayout getSwipeRefreshLayout() {
+        return mSwipeRefreshLayout;
     }
 }
 

@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <com.core.widget.recyclerview.pullrefreshlayout.SwipeToLoadLayout
+    <com.core.widget.recyclerview1.pullrefreshlayout.SwipeToLoadLayout
         android:id="@+id/swipeLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -17,7 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
-    </com.core.widget.recyclerview.pullrefreshlayout.SwipeToLoadLayout>
+    </com.core.widget.recyclerview1.pullrefreshlayout.SwipeToLoadLayout>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_list1"

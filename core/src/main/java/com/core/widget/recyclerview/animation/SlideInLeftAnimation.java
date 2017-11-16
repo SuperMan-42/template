@@ -6,7 +6,6 @@ import android.view.View;
 
 public class SlideInLeftAnimation implements BaseAnimation {
 
-
   @Override
   public Animator[] getAnimators(View view) {
     return new Animator[] {

@@ -6,7 +6,6 @@ import android.view.View;
 
 public class SlideInBottomAnimation implements BaseAnimation {
 
-
     @Override
     public Animator[] getAnimators(View view) {
         return new Animator[]{

@@ -11,7 +11,6 @@ import com.core.widget.recyclerview.BaseQuickAdapter;
  */
 public abstract   class OnItemClickListener extends SimpleClickListener {
 
-
     @Override
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
         SimpleOnItemClick(adapter,view,position);

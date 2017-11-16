@@ -10,4 +10,8 @@
     <string name="Private">私募</string>
     <string name="Dynamic">动态</string>
     <string name="My">我的</string>
+    <string name="title_activity_main3">Main3Activity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
 </resources>

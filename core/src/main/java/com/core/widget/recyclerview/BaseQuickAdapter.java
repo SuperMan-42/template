@@ -182,9 +182,12 @@ public abstract class BaseQuickAdapter<T, K extends BaseViewHolder> extends Recy
      * @param position
      */
     public void remove(int position) {
-        mData.remove(position);
-        notifyItemRemoved(position + getHeaderLayoutCount());
+        try {
+            mData.remove(position);
+            notifyItemRemoved(position + getHeaderLayoutCount());
+        } catch (Exception ignored) {
 
+        }
     }
 
     /**
@@ -215,6 +218,23 @@ public abstract class BaseQuickAdapter<T, K extends BaseViewHolder> extends Recy
         }
         mLastPosition = -1;
         notifyDataSetChanged();
+    }
+
+    /**
+     * setting up a new instance to data;
+     *
+     * @param data
+     */
+    public void setNewDataNo(List<T> data) {
+        this.mData = data == null ? new ArrayList<T>() : data;
+        if (mRequestLoadMoreListener != null) {
+            mNextLoadEnable = true;
+            // mFooterLayout = null;
+        }
+        if (loadMoreFailedView != null) {
+            removeFooterView(loadMoreFailedView);
+        }
+        mLastPosition = -1;
     }
 
     /**
@@ -1131,6 +1151,12 @@ public abstract class BaseQuickAdapter<T, K extends BaseViewHolder> extends Recy
      */
     public int expandAll(int position, boolean init) {
         return expandAll(position, true, !init);
+    }
+
+    public void expandAll() {
+        for (int i = mData.size() - 1 + getHeaderLayoutCount(); i >= getHeaderLayoutCount(); i--) {
+            expandAll(i, false, false);
+        }
     }
 
     private int recursiveCollapse(@IntRange(from = 0) int position) {
