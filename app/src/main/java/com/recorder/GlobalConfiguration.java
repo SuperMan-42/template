@@ -8,12 +8,15 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.TextView;
 
 import com.core.base.delegate.AppLifecycles;
 import com.core.di.module.GlobalConfigModule;
 import com.core.integration.ConfigModule;
 import com.core.utils.DataHelper;
+import com.orhanobut.logger.AndroidLogAdapter;
+import com.orhanobut.logger.FormatStrategy;
+import com.orhanobut.logger.Logger;
+import com.orhanobut.logger.PrettyFormatStrategy;
 import com.squareup.leakcanary.LeakCanary;
 import com.squareup.leakcanary.RefWatcher;
 
@@ -45,8 +48,20 @@ public class GlobalConfiguration implements ConfigModule {
 
             @Override
             public void onCreate(Application application) {
-                if (BuildConfig.LOG_DEBUG) {//Timber日志打印
-                    Timber.plant(new Timber.DebugTree());
+                if (BuildConfig.LOG_DEBUG) {//日志打印
+                    FormatStrategy formatStrategy = PrettyFormatStrategy.newBuilder().tag("hpw").build();
+                    Logger.addLogAdapter(new AndroidLogAdapter(formatStrategy) {
+                        @Override
+                        public boolean isLoggable(int priority, String tag) {
+                            return BuildConfig.LOG_DEBUG;
+                        }
+                    });
+                    Timber.plant(new Timber.DebugTree() {
+                        @Override
+                        protected void log(int priority, String tag, String message, Throwable t) {
+                            Logger.log(priority, tag, message, t);
+                        }
+                    });
                 }
                 //leakCanary内存泄露检查
                 ((App) application).getAppComponent().extras().put(RefWatcher.class.getName(), BuildConfig.USE_CANARY ? LeakCanary.install(application) : RefWatcher.DISABLED);
@@ -72,7 +87,6 @@ public class GlobalConfiguration implements ConfigModule {
         lifecycles.add(new Application.ActivityLifecycleCallbacks() {
             @Override
             public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
-                Timber.d(activity + " - onActivityCreated");
                 //这里全局给Activity设置toolbar和title,你想象力有多丰富,这里就有多强大,以前放到BaseActivity的操作都可以放到这里
                 if (activity.findViewById(R.id.toolbar) != null) {
                     if (activity instanceof AppCompatActivity) {
@@ -84,9 +98,6 @@ public class GlobalConfiguration implements ConfigModule {
                             activity.getActionBar().setDisplayShowTitleEnabled(false);
                         }
                     }
-                }
-                if (activity.findViewById(R.id.toolbar_title) != null) {
-                    ((TextView) activity.findViewById(R.id.toolbar_title)).setText(activity.getTitle());
                 }
                 if (activity.findViewById(R.id.toolbar_left) != null) {
                     activity.findViewById(R.id.toolbar_left).setOnClickListener(v -> activity.onBackPressed());

@@ -25,7 +25,9 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.AttributeSet;
 import android.view.View;
+import android.widget.TextView;
 
+import com.core.R;
 import com.core.base.delegate.IActivity;
 import com.core.integration.lifecycle.ActivityLifecycleable;
 import com.core.mvp.IPresenter;
@@ -71,7 +73,6 @@ public abstract class BaseActivity<P extends IPresenter> extends AppCompatActivi
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         initSwipeBackFinish();
-        super.onCreate(savedInstanceState);
         try {
             int layoutResID = getLayoutResID(savedInstanceState);
             if (layoutResID != 0) {//如果initView返回0,框架则不会调用setContentView(),当然也不会 Bind ButterKnife
@@ -82,6 +83,7 @@ public abstract class BaseActivity<P extends IPresenter> extends AppCompatActivi
         } catch (Exception e) {
             e.printStackTrace();
         }
+        super.onCreate(savedInstanceState);
         initView(savedInstanceState);
     }
 
@@ -165,5 +167,9 @@ public abstract class BaseActivity<P extends IPresenter> extends AppCompatActivi
 
     public void setStatusBarColor(@ColorInt int color, @IntRange(from = 0, to = 255) int statusBarAlpha) {
         StatusBarUtil.setColorForSwipeBack(this, color, statusBarAlpha);
+    }
+
+    public void title(CharSequence title) {
+        ((TextView) findViewById(R.id.toolbar_title)).setText(title);
     }
 }

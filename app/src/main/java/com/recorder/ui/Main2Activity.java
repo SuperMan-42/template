@@ -39,7 +39,7 @@ public class Main2Activity extends BaseActivity {
     @Override
     public void initView(Bundle savedInstanceState) {
         setStatusBarColor(CoreUtils.getColor(this, R.color.colorPrimary), 0);
-        setTitle("昊翔");
+        title("昊翔");
         mNavigationController = navigation.material()
                 .addItem(R.drawable.ic_nearby_teal_24dp, CoreUtils.getString(this, R.string.Home))
                 .addItem(R.drawable.ic_nearby_teal_24dp, CoreUtils.getString(this, R.string.Equity))
@@ -66,7 +66,7 @@ public class Main2Activity extends BaseActivity {
 
             @Override
             public void onPageSelected(int position) {
-                setTitle(viewPager.getAdapter().getPageTitle(viewPager.getCurrentItem()));
+                title(viewPager.getAdapter().getPageTitle(viewPager.getCurrentItem()));
             }
 
             @Override
