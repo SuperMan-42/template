@@ -1,11 +1,10 @@
-package com.haoxiang.ui;
+package com.recorder.ui;
 
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -13,10 +12,11 @@ import android.view.View;
 import com.core.base.BaseActivity;
 import com.core.di.component.AppComponent;
 import com.core.utils.CoreUtils;
+import com.core.widget.autolayout.AutoToolbar;
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
-import com.haoxiang.R;
 import com.jaeger.library.StatusBarUtil;
+import com.recorder.R;
 
 public class MainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
     FloatingActionsMenu menuMultipleActions;
@@ -33,7 +33,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
     @Override
     public void initView(Bundle savedInstanceState) {
-        Toolbar toolbar = findViewById(R.id.toolbar);
+        AutoToolbar toolbar = findViewById(R.id.toolbar);
         findViewById(R.id.toolbar_left).setVisibility(View.GONE);
         setSupportActionBar(toolbar);
         title("昊翔");

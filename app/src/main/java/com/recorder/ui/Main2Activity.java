@@ -1,4 +1,4 @@
-package com.haoxiang.ui;
+package com.recorder.ui;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -8,19 +8,19 @@ import com.core.base.AdapterViewPager;
 import com.core.base.BaseActivity;
 import com.core.di.component.AppComponent;
 import com.core.utils.CoreUtils;
-import com.haoxiang.R;
+import com.recorder.R;
+import com.recorder.widget.AutoPageNavigationView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import me.majiajie.pagerbottomtabstrip.NavigationController;
-import me.majiajie.pagerbottomtabstrip.PageNavigationView;
 
 public class Main2Activity extends BaseActivity {
 
     @BindView(R.id.navigation)
-    PageNavigationView navigation;
+    AutoPageNavigationView navigation;
     @BindView(R.id.viewPager)
     ViewPager viewPager;
 

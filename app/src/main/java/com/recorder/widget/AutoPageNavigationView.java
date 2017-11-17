@@ -1,4 +1,4 @@
-package com.haoxiang.widget;
+package com.recorder.widget;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
