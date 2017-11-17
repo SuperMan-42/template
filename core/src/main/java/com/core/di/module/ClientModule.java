@@ -133,11 +133,11 @@ public class ClientModule {
     @Provides
     RxCache provideRxCache(Application application, @Nullable RxCacheConfiguration configuration, @Named("RxCacheDirectory") File cacheDirectory) {
         RxCache.Builder builder = new RxCache.Builder();
-        RxCache rxCache = null;
+        RxCache.Builder rxCache = null;
         if (configuration != null) {
             rxCache = configuration.configRxCache(application, builder);
         }
-        if (rxCache != null) return rxCache;
+        if (rxCache != null) return rxCache.persistence(cacheDirectory, new GsonSpeaker());
         return builder.persistence(cacheDirectory, new GsonSpeaker());
     }
 
@@ -187,6 +187,6 @@ public class ClientModule {
          * @param builder
          * @return
          */
-        RxCache configRxCache(Context context, RxCache.Builder builder);
+        RxCache.Builder configRxCache(Context context, RxCache.Builder builder);
     }
 }
