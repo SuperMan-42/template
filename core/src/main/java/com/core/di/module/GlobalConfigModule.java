@@ -16,7 +16,6 @@
 package com.core.di.module;
 
 import android.app.Application;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 
@@ -27,7 +26,6 @@ import com.core.http.RequestInterceptor;
 import com.core.http.imageloader.BaseImageLoaderStrategy;
 import com.core.http.imageloader.glide.GlideImageLoaderStrategy;
 import com.core.integration.cache.Cache;
-import com.core.integration.cache.CacheType;
 import com.core.integration.cache.LruCache;
 import com.core.utils.DataHelper;
 
@@ -189,14 +187,10 @@ public class GlobalConfigModule {
     @Singleton
     @Provides
     Cache.Factory provideCacheFactory(Application application) {
-        return mCacheFactory == null ? new Cache.Factory() {
-            @NonNull
-            @Override
-            public Cache build(CacheType type) {
-                //若想自定义 LruCache 的 size, 或者不想使用 LruCache , 想使用自己自定义的策略
-                //并使用 GlobalConfigModule.Builder#cacheFactory() 扩展
-                return new LruCache(type.calculateCacheSize(application));
-            }
+        return mCacheFactory == null ? type -> {
+            //若想自定义 LruCache 的 size, 或者不想使用 LruCache , 想使用自己自定义的策略
+            //并使用 GlobalConfigModule.Builder#cacheFactory() 扩展
+            return new LruCache(type.calculateCacheSize(application));
         } : mCacheFactory;
     }
 

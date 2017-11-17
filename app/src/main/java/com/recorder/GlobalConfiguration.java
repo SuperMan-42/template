@@ -10,8 +10,8 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.core.base.delegate.AppLifecycles;
-import com.core.di.module.ClientModule;
 import com.core.di.module.GlobalConfigModule;
 import com.core.http.GlobalHttpHandler;
 import com.core.http.RequestInterceptor;
@@ -27,7 +27,6 @@ import com.squareup.leakcanary.RefWatcher;
 
 import java.util.List;
 
-import io.rx_cache2.internal.RxCache;
 import okhttp3.Interceptor;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -77,12 +76,7 @@ public class GlobalConfiguration implements ConfigModule {
                     CoreUtils.snackbarText(t.getMessage());
                 })
                 .gsonConfiguration((context12, builder1) -> builder1.serializeNulls())
-                .rxCacheConfiguration(new ClientModule.RxCacheConfiguration() {
-                    @Override
-                    public RxCache.Builder configRxCache(Context context13, RxCache.Builder builder12) {
-                        return builder12.useExpiredDataIfLoaderNotAvailable(true);
-                    }
-                });
+                .rxCacheConfiguration((context13, builder12) -> builder12.useExpiredDataIfLoaderNotAvailable(true));
     }
 
     @Override
@@ -113,14 +107,14 @@ public class GlobalConfiguration implements ConfigModule {
                     });
                 }
                 //leakCanary内存泄露检查
-                ((App) application).getAppComponent().extras().put(RefWatcher.class.getName(), BuildConfig.USE_CANARY ? LeakCanary.install(application) : RefWatcher.DISABLED);
+                CoreUtils.obtainAppComponentFromContext(context).extras().put(RefWatcher.class.getName(), BuildConfig.USE_CANARY ? LeakCanary.install(application) : RefWatcher.DISABLED);
 
                 //ARouter初始化
-//                if (BuildConfig.LOG_DEBUG) {
-//                    ARouter.openLog();     // 打印日志
-//                    ARouter.openDebug();   // 开启调试模式(如果在InstantRun模式下运行，必须开启调试模式！线上版本需要关闭,否则有安全风险)
-//                }
-//                ARouter.init(application); // 尽可能早，推荐在Application中初始化
+                if (BuildConfig.LOG_DEBUG) {
+                    ARouter.openLog();     // 打印日志
+                    ARouter.openDebug();   // 开启调试模式(如果在InstantRun模式下运行，必须开启调试模式！线上版本需要关闭,否则有安全风险)
+                }
+                ARouter.init(application); // 尽可能早，推荐在Application中初始化
 
                 CoreUtils.obtainAppComponentFromContext(application).appManager().setHandleListener((appManager, message) -> {
                     switch (message.what) {
@@ -207,7 +201,7 @@ public class GlobalConfiguration implements ConfigModule {
 
             @Override
             public void onFragmentDestroyed(FragmentManager fm, Fragment f) {
-                ((RefWatcher) ((App) f.getActivity().getApplication()).getAppComponent().extras().get(RefWatcher.class.getName())).watch(f);
+                ((RefWatcher) CoreUtils.obtainAppComponentFromContext(f.getActivity().getApplication()).extras().get(RefWatcher.class.getName())).watch(f);
             }
         });
     }
