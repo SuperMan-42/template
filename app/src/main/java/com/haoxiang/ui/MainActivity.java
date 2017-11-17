@@ -1,4 +1,4 @@
-package com.recorder.ui;
+package com.haoxiang.ui;
 
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -15,8 +15,8 @@ import com.core.di.component.AppComponent;
 import com.core.utils.CoreUtils;
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
+import com.haoxiang.R;
 import com.jaeger.library.StatusBarUtil;
-import com.recorder.R;
 
 public class MainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
     FloatingActionsMenu menuMultipleActions;

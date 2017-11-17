@@ -11,7 +11,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.android"
+        applicationId "com.haoxiang"
         minSdkVersion rootProject.ext.android["minSdkVersion"]
         targetSdkVersion rootProject.ext.android["targetSdkVersion"]
         versionCode rootProject.ext.android["versionCode"]

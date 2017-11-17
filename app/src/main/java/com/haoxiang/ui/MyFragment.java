@@ -1,4 +1,4 @@
-package com.recorder.ui;
+package com.haoxiang.ui;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 
 import com.core.base.BaseFragment;
 import com.core.di.component.AppComponent;
-import com.recorder.R;
+import com.haoxiang.R;
 
 /**
  * Created by hpw on 17-11-16.

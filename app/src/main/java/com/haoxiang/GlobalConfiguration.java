@@ -1,4 +1,4 @@
-package com.recorder;
+package com.haoxiang;
 
 import android.app.Activity;
 import android.app.Application;

@@ -1,4 +1,4 @@
-package com.recorder.ui;
+package com.haoxiang.ui;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -8,7 +8,7 @@ import com.core.base.AdapterViewPager;
 import com.core.base.BaseActivity;
 import com.core.di.component.AppComponent;
 import com.core.utils.CoreUtils;
-import com.recorder.R;
+import com.haoxiang.R;
 
 import java.util.ArrayList;
 import java.util.List;
