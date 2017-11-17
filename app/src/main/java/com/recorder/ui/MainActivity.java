@@ -34,7 +34,9 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     @Override
     public void initView(Bundle savedInstanceState) {
         Toolbar toolbar = findViewById(R.id.toolbar);
+        findViewById(R.id.toolbar_left).setVisibility(View.GONE);
         setSupportActionBar(toolbar);
+        title("昊翔");
         final View actionB = findViewById(R.id.action_b);
         FloatingActionButton actionC = new FloatingActionButton(getBaseContext());
         actionC.setTitle("Hide/Show Action above");

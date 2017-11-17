@@ -38,8 +38,8 @@ public class Main2Activity extends BaseActivity {
 
     @Override
     public void initView(Bundle savedInstanceState) {
+        title("首页");
         setStatusBarColor(CoreUtils.getColor(this, R.color.colorPrimary), 0);
-        title("昊翔");
         mNavigationController = navigation.material()
                 .addItem(R.drawable.ic_nearby_teal_24dp, CoreUtils.getString(this, R.string.Home))
                 .addItem(R.drawable.ic_nearby_teal_24dp, CoreUtils.getString(this, R.string.Equity))
