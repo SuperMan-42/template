@@ -15,9 +15,10 @@
  */
 package com.core.base;
 
-import android.app.Application;
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.multidex.MultiDex;
+import android.support.multidex.MultiDexApplication;
 import android.view.View;
 
 import com.core.base.delegate.AppDelegate;
@@ -28,14 +29,12 @@ import com.core.utils.Preconditions;
 import java.util.ArrayList;
 import java.util.List;
 
-import cn.bingoogolapple.swipebacklayout.BGASwipeBackHelper;
-
 /**
  * ================================================
  * 本框架由 MVP + Dagger2 + Retrofit + RxJava + Androideventbus + Butterknife 组成
  * ================================================
  */
-public class BaseApplication extends Application implements App {
+public class BaseApplication extends MultiDexApplication implements App {
     private AppLifecycles mAppDelegate;
     protected List<Class<? extends View>> list = new ArrayList<>();
 
@@ -48,6 +47,7 @@ public class BaseApplication extends Application implements App {
     @Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
+        MultiDex.install(this);
         if (mAppDelegate == null)
             this.mAppDelegate = new AppDelegate(base);
         this.mAppDelegate.attachBaseContext(base);
@@ -56,7 +56,6 @@ public class BaseApplication extends Application implements App {
     @Override
     public void onCreate() {
         super.onCreate();
-        BGASwipeBackHelper.init(this, list);
         if (mAppDelegate != null)
             this.mAppDelegate.onCreate(this);
     }

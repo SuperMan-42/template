@@ -17,8 +17,6 @@ android {
         versionCode rootProject.ext.android["versionCode"]
         versionName rootProject.ext.android["versionName"]
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-        vectorDrawables.useSupportLibrary = true
-
         // dex突破65535的限制
         multiDexEnabled true
         //alibaba ARouter
@@ -27,6 +25,7 @@ android {
                 arguments = [moduleName: project.getName()]
             }
         }
+        vectorDrawables.useSupportLibrary = true
     }
     buildTypes {
         debug {
@@ -50,6 +49,11 @@ android {
         disable 'InvalidPackage'
         disable "ResourceType"
         abortOnError false
+    }
+
+    dexOptions {
+        incremental true
+        javaMaxHeapSize "4g"
     }
 }
 

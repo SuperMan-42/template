@@ -6,8 +6,8 @@ android {
     useLibrary 'org.apache.http.legacy'
 
     compileOptions {
-        targetCompatibility 1.8
-        sourceCompatibility 1.8
+        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_1_8
     }
 
     defaultConfig {
@@ -119,4 +119,5 @@ dependencies {
     api rootProject.ext.dependencies["timber"]
     api rootProject.ext.dependencies["logger"]
     testApi rootProject.ext.dependencies["junit"]
+    api rootProject.ext.dependencies["multidex"]
 }

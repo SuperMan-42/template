@@ -41,11 +41,11 @@ public class Main2Activity extends BaseActivity {
         title("首页");
         setStatusBarColor(CoreUtils.getColor(this, R.color.colorPrimary), 0);
         mNavigationController = navigation.material()
-                .addItem(R.drawable.ic_nearby_teal_24dp, CoreUtils.getString(this, R.string.Home))
-                .addItem(R.drawable.ic_nearby_teal_24dp, CoreUtils.getString(this, R.string.Equity))
-                .addItem(R.drawable.ic_nearby_teal_24dp, CoreUtils.getString(this, R.string.Private))
-                .addItem(R.drawable.ic_nearby_teal_24dp, CoreUtils.getString(this, R.string.Dynamic))
-                .addItem(R.drawable.ic_nearby_teal_24dp, CoreUtils.getString(this, R.string.My))
+                .addItem(R.mipmap.ic_nav_theme, CoreUtils.getString(this, R.string.Home))
+                .addItem(R.mipmap.ic_nav_theme, CoreUtils.getString(this, R.string.Equity))
+                .addItem(R.mipmap.ic_nav_theme, CoreUtils.getString(this, R.string.Private))
+                .addItem(R.mipmap.ic_nav_theme, CoreUtils.getString(this, R.string.Dynamic))
+                .addItem(R.mipmap.ic_nav_theme, CoreUtils.getString(this, R.string.My))
                 .build();
         List<Fragment> fragments = new ArrayList<>();
         fragments.add(new MyFragment());

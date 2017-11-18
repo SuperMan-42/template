@@ -1,4 +1,4 @@
-package com.recorder;
+package com.recorder.app;
 
 import android.app.Activity;
 import android.app.Application;
@@ -22,11 +22,14 @@ import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.FormatStrategy;
 import com.orhanobut.logger.Logger;
 import com.orhanobut.logger.PrettyFormatStrategy;
+import com.recorder.BuildConfig;
+import com.recorder.R;
 import com.squareup.leakcanary.LeakCanary;
 import com.squareup.leakcanary.RefWatcher;
 
 import java.util.List;
 
+import cn.bingoogolapple.swipebacklayout.BGASwipeBackHelper;
 import okhttp3.Interceptor;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -91,6 +94,7 @@ public class GlobalConfiguration implements ConfigModule {
 
             @Override
             public void onCreate(Application application) {
+                BGASwipeBackHelper.init(application, null);
                 if (BuildConfig.LOG_DEBUG) {//日志打印
                     FormatStrategy formatStrategy = PrettyFormatStrategy.newBuilder().tag("hpw").build();
                     Logger.addLogAdapter(new AndroidLogAdapter(formatStrategy) {

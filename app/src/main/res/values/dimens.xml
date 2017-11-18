@@ -7,5 +7,5 @@
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="dimen_16dp">16dp</dimen>
     <!--自定义-->
-    <dimen name="dimen_50dp">50dp</dimen>
+    <dimen name="dimen_150px">150px</dimen>
 </resources>
