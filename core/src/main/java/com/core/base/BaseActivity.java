@@ -31,6 +31,7 @@ import com.core.R;
 import com.core.base.delegate.IActivity;
 import com.core.integration.lifecycle.ActivityLifecycleable;
 import com.core.mvp.IPresenter;
+import com.core.utils.CoreUtils;
 import com.jaeger.library.StatusBarUtil;
 import com.trello.rxlifecycle2.android.ActivityEvent;
 
@@ -84,6 +85,7 @@ public abstract class BaseActivity<P extends IPresenter> extends AppCompatActivi
             e.printStackTrace();
         }
         super.onCreate(savedInstanceState);
+        setStatusBarColor(CoreUtils.getColor(this, R.color.colorPrimary), 0);
         initView(savedInstanceState);
     }
 

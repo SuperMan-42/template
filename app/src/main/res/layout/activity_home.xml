@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.core.widget.autolayout.AutoConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context="com.recorder.mvp.ui.activity.HomeActivity">
+
+    <include layout="@layout/view_toolbar" />
+
+    <View
+        android:id="@+id/divider"
+        style="@style/divider"
+        app:layout_constraintBottom_toTopOf="@id/navigation" />
+
+    <com.recorder.widget.AutoPageNavigationView
+        android:id="@+id/navigation"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/dimen_150px"
+        android:background="@color/white"
+        app:NavigationPaddingBottom="-9px"
+        app:NavigationPaddingTop="-9px"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewPager"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/divider"
+        app:layout_constraintTop_toBottomOf="@id/toolbar" />
+
+    <LinearLayout
+        android:id="@+id/ll_filter"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar">
+
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="135px"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="#87878C"
+                android:gravity="center"
+                android:text="重置"
+                android:textColor="@color/white"
+                android:textSize="48px" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                android:background="#4D57B6"
+                android:gravity="center"
+                android:text="确定"
+                android:textColor="@color/white"
+                android:textSize="48px" />
+        </LinearLayout>
+    </LinearLayout>
+
+</com.core.widget.autolayout.AutoConstraintLayout>
