@@ -27,8 +27,8 @@ android {
         }
         vectorDrawables.useSupportLibrary = true
 
-        ndk{
-            moduleName "hx_lib"
+        ndk {
+            abiFilters "armeabi", "armeabi-v7a", "x86", "mips"
         }
     }
     buildTypes {
@@ -46,6 +46,12 @@ android {
             shrinkResources true
             zipAlignEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    externalNativeBuild {
+        cmake {
+            path 'CMakeLists.txt'
         }
     }
 

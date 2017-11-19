@@ -24,11 +24,13 @@ import com.orhanobut.logger.Logger;
 import com.orhanobut.logger.PrettyFormatStrategy;
 import com.recorder.BuildConfig;
 import com.recorder.R;
+import com.recorder.YshNameValuePair;
 import com.recorder.mvp.model.api.Api;
 import com.recorder.mvp.ui.activity.HomeActivity;
 import com.squareup.leakcanary.LeakCanary;
 import com.squareup.leakcanary.RefWatcher;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import cn.bingoogolapple.swipebacklayout.BGASwipeBackHelper;
@@ -70,10 +72,12 @@ public class GlobalConfiguration implements ConfigModule {
 
                     @Override
                     public Request onHttpRequestBefore(Interceptor.Chain chain, Request request) {
-                        /* 如果需要再请求服务器之前做一些操作,则重新返回一个做过操作的的requeat如增加header,不做操作则直接返回request参数
-                           return chain.request().newBuilder().header("token", tokenId)
-                                  .build(); */
-                        return request;
+//                         如果需要再请求服务器之前做一些操作,则重新返回一个做过操作的的requeat如增加header,不做操作则直接返回request参数
+                        YshNameValuePair nameValuePair = new YshNameValuePair("version", "20");
+                        List<YshNameValuePair> list = new ArrayList<>();
+                        list.add(nameValuePair);
+                        return chain.request().newBuilder().header("sign", new Jni().getSign(context, list))
+                                .build();
                     }
                 })
                 .responseErrorListener((context1, t) -> {
