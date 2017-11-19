@@ -26,6 +26,10 @@ android {
             }
         }
         vectorDrawables.useSupportLibrary = true
+
+        ndk{
+            moduleName "hx_lib"
+        }
     }
     buildTypes {
         debug {
