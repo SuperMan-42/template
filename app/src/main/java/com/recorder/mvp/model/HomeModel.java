@@ -7,8 +7,12 @@ import com.core.integration.IRepositoryManager;
 import com.core.mvp.BaseModel;
 import com.google.gson.Gson;
 import com.recorder.mvp.contract.HomeContract;
+import com.recorder.mvp.model.api.service.service;
+import com.recorder.mvp.model.entity.ReferFilter;
 
 import javax.inject.Inject;
+
+import io.reactivex.Observable;
 
 @ActivityScope
 public class HomeModel extends BaseModel implements HomeContract.Model {
@@ -27,5 +31,10 @@ public class HomeModel extends BaseModel implements HomeContract.Model {
         super.onDestroy();
         this.mGson = null;
         this.mApplication = null;
+    }
+
+    @Override
+    public Observable<ReferFilter> getFilter() {
+        return mRepositoryManager.obtainRetrofitService(service.class).getFilter(20);
     }
 }

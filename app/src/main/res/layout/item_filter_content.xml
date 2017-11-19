@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+    <View
+        android:layout_width="25px"
+        android:layout_height="105px" />
+
+    <TextView
+        android:id="@+id/tv_filter_content"
+        android:layout_width="0dp"
+        android:layout_height="105px"
+        android:layout_weight="1"
+        android:background="@drawable/bga_round"
+        android:gravity="center"
+        android:textColor="#333333"
+        android:textSize="42px"
+        tools:text="智能硬件" />
+
+    <View
+        android:id="@+id/view_space"
+        android:layout_width="25px"
+        android:layout_height="105px"
+        android:visibility="gone" />
+</LinearLayout>

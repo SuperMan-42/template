@@ -24,6 +24,8 @@ import com.orhanobut.logger.Logger;
 import com.orhanobut.logger.PrettyFormatStrategy;
 import com.recorder.BuildConfig;
 import com.recorder.R;
+import com.recorder.mvp.model.api.Api;
+import com.recorder.mvp.ui.activity.HomeActivity;
 import com.squareup.leakcanary.LeakCanary;
 import com.squareup.leakcanary.RefWatcher;
 
@@ -44,7 +46,7 @@ public class GlobalConfiguration implements ConfigModule {
     @Override
     public void applyOptions(Context context, GlobalConfigModule.Builder builder) {
         //使用builder可以为框架配置一些配置信息
-        builder.baseurl("http://gank.io/")
+        builder.baseurl(Api.APP_DOMAIN)
                 .cacheFile(DataHelper.getCacheFile(context))
                 .globalHttpHandler(new GlobalHttpHandler() {
                     @Override
@@ -153,7 +155,7 @@ public class GlobalConfiguration implements ConfigModule {
                         }
                     }
                 }
-                if (activity.findViewById(R.id.toolbar_left) != null) {
+                if (activity.findViewById(R.id.toolbar_left) != null && !(activity instanceof HomeActivity)) {
                     activity.findViewById(R.id.toolbar_left).setOnClickListener(v -> activity.onBackPressed());
                 }
             }

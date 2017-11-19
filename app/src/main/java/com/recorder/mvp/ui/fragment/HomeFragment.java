@@ -14,6 +14,7 @@ import com.recorder.R;
 import com.recorder.di.component.DaggerHomeComponent;
 import com.recorder.di.module.HomeModule;
 import com.recorder.mvp.contract.HomeContract;
+import com.recorder.mvp.model.entity.ReferFilter;
 import com.recorder.mvp.presenter.HomePresenter;
 
 import static com.core.utils.Preconditions.checkNotNull;
@@ -86,6 +87,11 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
 
     @Override
     public void killMyself() {
+
+    }
+
+    @Override
+    public void showFilter(ReferFilter referFilter) {
 
     }
 }

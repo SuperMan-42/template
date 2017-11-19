@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <View
+        android:id="@+id/view_space"
+        android:layout_width="match_parent"
+        android:layout_height="25px" />
+
+
+    <View style="@style/divider" />
+
+    <TextView
+        android:id="@+id/tv_filter_header"
+        android:layout_width="match_parent"
+        android:layout_height="90px"
+        android:background="#F9F9F9"
+        android:gravity="center"
+        android:textSize="42px"
+        tools:text="行业" />
+
+    <View style="@style/divider" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="25px" />
+
+</LinearLayout>
