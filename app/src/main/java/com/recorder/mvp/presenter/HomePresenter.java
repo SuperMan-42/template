@@ -53,7 +53,7 @@ public class HomePresenter extends BasePresenter<HomeContract.Model, HomeContrac
                 .subscribe(new ErrorHandleSubscriber<ReferFilter>(mErrorHandler) {
                     @Override
                     public void onNext(ReferFilter referFilter) {
-                        mRootView.showFilter(referFilter);
+                        mRootView.showFilter(mImageLoader, referFilter);
                     }
                 });
     }

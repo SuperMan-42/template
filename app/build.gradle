@@ -93,4 +93,5 @@ dependencies {
     annotationProcessor rootProject.ext.dependencies["arouter-compiler"]
     implementation 'com.getbase:floatingactionbutton:1.10.1'
     implementation 'me.majiajie:pager-bottom-tab-strip:2.2.2'
+    implementation "com.squareup.okhttp3:logging-interceptor:3.2.0"
 }

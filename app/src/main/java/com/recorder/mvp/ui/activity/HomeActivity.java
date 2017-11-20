@@ -16,6 +16,7 @@ import android.view.View;
 import com.core.base.AdapterViewPager;
 import com.core.base.BaseActivity;
 import com.core.di.component.AppComponent;
+import com.core.http.imageloader.ImageLoader;
 import com.core.utils.CoreUtils;
 import com.core.widget.recyclerview.BaseMultiItemQuickAdapter;
 import com.core.widget.recyclerview.BaseViewHolder;
@@ -159,15 +160,16 @@ public class HomeActivity extends BaseActivity<HomePresenter> implements HomeCon
     }
 
     @Override
-    public void showFilter(ReferFilter referFilter) {
+    public void showFilter(ImageLoader imageLoader, ReferFilter referFilter) {
         HeaderItem headerItem = new HeaderItem("行业", null);
-        for (int i = 0; i < 10; i++) {
-            headerItem.addSubItem(new ContentItem("全部", (i + 1) % 4 == 0));
+        ReferFilter.DataEntity data = referFilter.getData();
+        for (int i = 0; i < data.getTrade().size(); i++) {
+            headerItem.addSubItem(new ContentItem(data.getTrade().get(i), (i + 1) % 4 == 0));
         }
         res.add(headerItem);
         HeaderItem headerItem1 = new HeaderItem("轮次", null);
-        for (int i = 0; i < 8; i++) {
-            headerItem1.addSubItem(new ContentItem("智能", (i + 1) % 4 == 0));
+        for (int i = 0; i < data.getRounds().size(); i++) {
+            headerItem1.addSubItem(new ContentItem(data.getRounds().get(i), (i + 1) % 4 == 0));
         }
         res.add(headerItem1);
         ExpandableItemAdapter adapter = new ExpandableItemAdapter(res);

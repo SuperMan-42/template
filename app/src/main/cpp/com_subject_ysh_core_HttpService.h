@@ -12,7 +12,7 @@ extern "C" {
  * Method:    getSign
  * Signature: (Landroid/content/Context;Ljava/util/List;)Ljava/lang/String;
  */
-JNIEXPORT jstring JNICALL Java_com_recorder_app_Jni_getSign(JNIEnv *, jobject, jobject, jobject);
+JNIEXPORT jstring JNICALL Java_com_recorder_app_Jni_getSign(JNIEnv *, jobject, jobject, jstring);
 
 #ifdef __cplusplus
 }

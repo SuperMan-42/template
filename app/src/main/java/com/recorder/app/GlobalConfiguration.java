@@ -3,6 +3,7 @@ package com.recorder.app;
 import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -24,13 +25,13 @@ import com.orhanobut.logger.Logger;
 import com.orhanobut.logger.PrettyFormatStrategy;
 import com.recorder.BuildConfig;
 import com.recorder.R;
-import com.recorder.YshNameValuePair;
 import com.recorder.mvp.model.api.Api;
 import com.recorder.mvp.ui.activity.HomeActivity;
+import com.recorder.utils.DeviceInfoUtils;
 import com.squareup.leakcanary.LeakCanary;
 import com.squareup.leakcanary.RefWatcher;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import cn.bingoogolapple.swipebacklayout.BGASwipeBackHelper;
@@ -44,6 +45,8 @@ import timber.log.Timber;
  */
 
 public class GlobalConfiguration implements ConfigModule {
+
+    private static CacheInterceptor cacheInterceptor = new CacheInterceptor();
 
     @Override
     public void applyOptions(Context context, GlobalConfigModule.Builder builder) {
@@ -73,10 +76,30 @@ public class GlobalConfiguration implements ConfigModule {
                     @Override
                     public Request onHttpRequestBefore(Interceptor.Chain chain, Request request) {
 //                         如果需要再请求服务器之前做一些操作,则重新返回一个做过操作的的requeat如增加header,不做操作则直接返回request参数
-                        YshNameValuePair nameValuePair = new YshNameValuePair("version", "20");
-                        List<YshNameValuePair> list = new ArrayList<>();
-                        list.add(nameValuePair);
-                        return chain.request().newBuilder().header("sign", new Jni().getSign(context, list))
+                        String content = chain.request().url().query();
+                        String time = String.valueOf(System.currentTimeMillis() / 1000);
+                        if (TextUtils.isEmpty(content)) {
+                            content = "time=" + time;
+                        } else {
+                            content = (content + "&time=" + time);
+                        }
+                        String[] strings = content.split("&");
+                        Arrays.sort(strings);
+                        StringBuilder stringBuilder = new StringBuilder();
+                        for (String string : strings) {
+                            stringBuilder.append(string).append("|");
+                        }
+                        return chain.request().newBuilder()
+                                .url(chain.request().url().newBuilder()
+                                        .addQueryParameter("time", time)
+                                        .addQueryParameter("sign", new Jni().getSign(context, stringBuilder.toString()))
+                                        .build())
+                                .addHeader("DIVERSION-VERSION", "20")
+//                                .addHeader("SESSION-TOKEN", null)
+                                .addHeader("Uid", "0")
+                                .addHeader("DEVICE-INFO", DeviceInfoUtils.createDeviceInfo(context))
+                                .addHeader("PLATFORM", "api")
+                                .addHeader("User-Agent", getUserAgent(context))
                                 .build();
                     }
                 })
@@ -84,7 +107,7 @@ public class GlobalConfiguration implements ConfigModule {
                     Logger.d("=============>" + t.getMessage());
                     CoreUtils.snackbarText(t.getMessage());
                 })
-                .gsonConfiguration((context12, builder1) -> builder1.serializeNulls())
+                .gsonConfiguration((context12, builder1) -> builder1.serializeNulls().enableComplexMapKeySerialization())
                 .rxCacheConfiguration((context13, builder12) -> builder12.useExpiredDataIfLoaderNotAvailable(true));
     }
 
@@ -214,5 +237,17 @@ public class GlobalConfiguration implements ConfigModule {
                 ((RefWatcher) CoreUtils.obtainAppComponentFromContext(f.getActivity().getApplication()).extras().get(RefWatcher.class.getName())).watch(f);
             }
         });
+    }
+
+    private static String getUserAgent(Context context) {
+        StringBuffer sb = new StringBuffer("YuanShiHui ");
+        String versionName = "1.0";
+        try {
+            versionName = context.getPackageManager().getPackageInfo(context.getPackageName(), 0).versionName;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        sb.append(versionName).append(" android").append(android.os.Build.VERSION.SDK_INT);
+        return sb.toString();
     }
 }

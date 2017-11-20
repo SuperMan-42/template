@@ -22,7 +22,6 @@ JNIEXPORT jobject append(JNIEnv *env, jobject obj, jstring s) {
     return obj;
 }
 
-
 /**
  * 实现类似stringbuffer的toString的方法
  */
@@ -149,96 +148,39 @@ char *jstringTostring(JNIEnv *env, jstring jstr) {
     return rtn;
 }
 
-
 /*
  * Class:     com_subject_ysh_core_HttpService
  * Method:    getSign
  * Signature: (Landroid/content/Context;Ljava/util/List;)Ljava/lang/String;
  */
-JNIEXPORT jstring JNICALL Java_com_recorder_app_Jni_getSign(JNIEnv *env, jobject obj, jobject context, jobject pairs) {
-
-    jclass YshNameValuePairCls = env->FindClass("com/recorder/YshNameValuePair");
-
-    //转换为数组
-    jclass ListCls = env->FindClass("java/util/List");
-    jmethodID List_toArray = env->GetMethodID(ListCls, "toArray",
-                                              "([Ljava/lang/Object;)[Ljava/lang/Object;");
-    jmethodID List_size = env->GetMethodID(ListCls, "size", "()I");
-
-    jint pairsSize = env->CallIntMethod(pairs, List_size);
-    jobjectArray arrayPairs = env->NewObjectArray(pairsSize, YshNameValuePairCls, NULL);
-    arrayPairs = (jobjectArray) env->CallObjectMethod(pairs, List_toArray, arrayPairs);
-
-
-    //Arrays.sort排序
-    jclass ArraysCls = env->FindClass("java/util/Arrays");
-    jmethodID Arrays_sort = env->GetStaticMethodID(ArraysCls, "sort", "([Ljava/lang/Object;)V");
-    env->CallStaticVoidMethod(ArraysCls, Arrays_sort, arrayPairs);
-
-    //创建StringBuffer
+JNIEXPORT jstring JNICALL
+Java_com_recorder_app_Jni_getSign(JNIEnv *env, jobject obj, jobject context, jstring content) {
+//    //创建StringBuffer
     jclass strBufferCls = env->FindClass("java/lang/StringBuffer");
     jmethodID bufferInitId = env->GetMethodID(strBufferCls, "<init>", "()V");
     jobject strBufferObj = env->NewObject(strBufferCls, bufferInitId);
-
-
-    jmethodID YshNameValuePair_getName = env->GetMethodID(YshNameValuePairCls, "getName",
-                                                          "()Ljava/lang/String;");
-    jmethodID YshNameValuePair_getValue = env->GetMethodID(YshNameValuePairCls, "getValue",
-                                                           "()Ljava/lang/String;");
-
-
-    //key=value|key=value 拼接
-    jstring eq = env->NewStringUTF("=");
     jstring spilt = env->NewStringUTF("|");
-
-    jint size = (env)->GetArrayLength(arrayPairs);
-    for (int i = 0; i < size; i++) {
-
-        jobject valuePair = (env)->GetObjectArrayElement(arrayPairs, i);
-        jstring name = (jstring) env->CallObjectMethod(valuePair, YshNameValuePair_getName);
-        jstring value = (jstring) env->CallObjectMethod(valuePair, YshNameValuePair_getValue);
-
-        append(env, strBufferObj, name);
-        append(env, strBufferObj, eq);
-        append(env, strBufferObj, toLowerCase(env, value));
-        append(env, strBufferObj, spilt);
-    }
-
-    int length = sb_length(env, strBufferObj);
-    strBufferObj = deleteCharAt(env, strBufferObj, length - 1);
+    append(env, strBufferObj, content);
     //转换小写
-
     //拼上SESSOIN-TOKEN
     jstring session_token = getSessionToken(env, context);
     if (session_token != NULL) {
         jint utfLength = env->GetStringUTFLength(session_token);
         if (utfLength > 0) {
-            append(env, strBufferObj, spilt);
             append(env, strBufferObj, session_token);
+            append(env, strBufferObj, spilt);
         }
     }
-
     //拼接APP_KEY
-    append(env, strBufferObj, spilt);
     jstring app_key = env->NewStringUTF(APP_KEY);
     append(env, strBufferObj, app_key);
-
     jstring sign = toString(env, strBufferObj);
 //	LOGD("########## sign = %s", jstringTostring(env,sign));
-
     //计算MD5值
     std::string str(returnstring(env, sign));
     std::string md5_a = md5(str);
     const char *md5_b = md5_a.data();
-
 //	sign = returnjstring(env,md5_b);
-//
 //	LOGD("########## sign_md5 = %s", jstringTostring(env,sign));
-
     return returnjstring(env, md5_b);
 }
-
-
-
-
-

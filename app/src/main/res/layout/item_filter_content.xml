@@ -15,7 +15,9 @@
         android:layout_height="105px"
         android:layout_weight="1"
         android:background="@drawable/bga_round"
+        android:ellipsize="end"
         android:gravity="center"
+        android:maxLines="1"
         android:textColor="#333333"
         android:textSize="42px"
         tools:text="智能硬件" />

@@ -37,6 +37,7 @@ import java.util.List;
 public class BaseApplication extends MultiDexApplication implements App {
     private AppLifecycles mAppDelegate;
     protected List<Class<? extends View>> list = new ArrayList<>();
+    private static Context context;
 
     /**
      * 这里会在 {@link BaseApplication#onCreate} 之前被调用,可以做一些较早的初始化
@@ -56,6 +57,7 @@ public class BaseApplication extends MultiDexApplication implements App {
     @Override
     public void onCreate() {
         super.onCreate();
+        context = this;
         if (mAppDelegate != null)
             this.mAppDelegate.onCreate(this);
     }
@@ -82,5 +84,9 @@ public class BaseApplication extends MultiDexApplication implements App {
         Preconditions.checkNotNull(mAppDelegate, "%s cannot be null", AppDelegate.class.getName());
         Preconditions.checkState(mAppDelegate instanceof App, "%s must be implements %s", AppDelegate.class.getName(), App.class.getName());
         return ((App) mAppDelegate).getAppComponent();
+    }
+
+    public static Context getContext() {
+        return context;
     }
 }

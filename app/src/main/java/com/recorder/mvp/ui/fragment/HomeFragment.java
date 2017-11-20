@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 
 import com.core.base.BaseFragment;
 import com.core.di.component.AppComponent;
+import com.core.http.imageloader.ImageLoader;
 import com.core.utils.CoreUtils;
 import com.recorder.R;
 import com.recorder.di.component.DaggerHomeComponent;
@@ -91,7 +92,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
     }
 
     @Override
-    public void showFilter(ReferFilter referFilter) {
+    public void showFilter(ImageLoader imageLoader, ReferFilter referFilter) {
 
     }
 }
