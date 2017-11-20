@@ -46,8 +46,6 @@ import timber.log.Timber;
 
 public class GlobalConfiguration implements ConfigModule {
 
-    private static CacheInterceptor cacheInterceptor = new CacheInterceptor();
-
     @Override
     public void applyOptions(Context context, GlobalConfigModule.Builder builder) {
         //使用builder可以为框架配置一些配置信息
