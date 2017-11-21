@@ -57,6 +57,9 @@
         <activity
             android:name=".mvp.ui.activity.AuthInfoActivity"
             android:theme="@style/CoreAppTheme.Transparent" />
+        <activity
+            android:name=".mvp.ui.activity.EquityDetailsActivity"
+            android:theme="@style/CoreAppTheme.Transparent" />
     </application>
 
 </manifest>

@@ -30,7 +30,11 @@ import com.recorder.di.module.HomeModule;
 import com.recorder.mvp.contract.HomeContract;
 import com.recorder.mvp.model.entity.ReferFilter;
 import com.recorder.mvp.presenter.HomePresenter;
+import com.recorder.mvp.ui.fragment.DynamicFragment;
+import com.recorder.mvp.ui.fragment.EquityFragment;
 import com.recorder.mvp.ui.fragment.HomeFragment;
+import com.recorder.mvp.ui.fragment.MyFragment;
+import com.recorder.mvp.ui.fragment.PrivateFragment;
 import com.recorder.widget.AutoPageNavigationView;
 
 import java.util.ArrayList;
@@ -95,10 +99,10 @@ public class HomeActivity extends BaseActivity<HomePresenter> implements HomeCon
                 .build();
         List<Fragment> fragments = new ArrayList<>();
         fragments.add(HomeFragment.newInstance());
-        fragments.add(HomeFragment.newInstance());
-        fragments.add(HomeFragment.newInstance());
-        fragments.add(HomeFragment.newInstance());
-        fragments.add(HomeFragment.newInstance());
+        fragments.add(EquityFragment.newInstance());
+        fragments.add(PrivateFragment.newInstance());
+        fragments.add(DynamicFragment.newInstance());
+        fragments.add(MyFragment.newInstance());
         CharSequence[] strings = new CharSequence[]{CoreUtils.getString(this, R.string.Home), CoreUtils.getString(this, R.string.Equity),
                 CoreUtils.getString(this, R.string.Private), CoreUtils.getString(this, R.string.Dynamic), CoreUtils.getString(this, R.string.My)};
         AdapterViewPager adapterViewPager = new AdapterViewPager(getSupportFragmentManager(), fragments, strings);
