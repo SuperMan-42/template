@@ -233,3 +233,8 @@
 
 -keep public class com.alibaba.android.arouter.routes.**{*;}
 -keep class * implements com.alibaba.android.arouter.facade.template.ISyringe{*;}
+
+# banner 的混淆代码
+-keep class com.youth.banner.** {
+    *;
+ }

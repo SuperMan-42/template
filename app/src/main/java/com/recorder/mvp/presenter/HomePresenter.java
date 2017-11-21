@@ -57,4 +57,8 @@ public class HomePresenter extends BasePresenter<HomeContract.Model, HomeContrac
                     }
                 });
     }
+
+    public ImageLoader getImageLoader() {
+        return mImageLoader;
+    }
 }

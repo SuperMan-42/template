@@ -14,7 +14,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
-import com.alibaba.android.arouter.launcher.ARouter;
 import com.core.base.AdapterViewPager;
 import com.core.base.BaseActivity;
 import com.core.di.component.AppComponent;
@@ -160,7 +159,6 @@ public class HomeActivity extends BaseActivity<HomePresenter> implements HomeCon
             case R.id.toolbar_right:
                 break;
             case R.id.tv_filter_reset:
-                ARouter.getInstance().build("/app/LoginActivity").navigation();
                 break;
             case R.id.tv_filter_do:
                 break;

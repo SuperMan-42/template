@@ -7,20 +7,36 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.core.base.BaseFragment;
 import com.core.di.component.AppComponent;
 import com.core.http.imageloader.ImageLoader;
+import com.core.http.imageloader.glide.ImageConfigImpl;
 import com.core.utils.CoreUtils;
+import com.core.widget.recyclerview.BaseQuickAdapter;
+import com.core.widget.recyclerview.BaseViewHolder;
+import com.core.widget.recyclerview.CoreRecyclerView;
 import com.recorder.R;
 import com.recorder.di.component.DaggerHomeComponent;
 import com.recorder.di.module.HomeModule;
 import com.recorder.mvp.contract.HomeContract;
 import com.recorder.mvp.model.entity.ReferFilter;
 import com.recorder.mvp.presenter.HomePresenter;
+import com.recorder.widget.GlideImageLoader;
+import com.youth.banner.Banner;
+import com.youth.banner.BannerConfig;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.BindView;
 
 import static com.core.utils.Preconditions.checkNotNull;
 
 public class HomeFragment extends BaseFragment<HomePresenter> implements HomeContract.View {
+
+    @BindView(R.id.recyclerview)
+    CoreRecyclerView recyclerView;
 
     public static HomeFragment newInstance() {
         HomeFragment fragment = new HomeFragment();
@@ -44,7 +60,36 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
 
     @Override
     public void initData(Bundle savedInstanceState) {
-
+        View view = CoreUtils.inflate(getContext(), R.layout.item_home_header);
+        Banner banner = view.findViewById(R.id.banner);
+        List<String> list = new ArrayList<>();
+        list.add("http://ww4.sinaimg.cn/large/006uZZy8jw1faic1xjab4j30ci08cjrv.jpg");
+        list.add("http://ww4.sinaimg.cn/large/006uZZy8jw1faic21363tj30ci08ct96.jpg");
+        list.add("http://ww4.sinaimg.cn/large/006uZZy8jw1faic259ohaj30ci08c74r.jpg");
+        list.add("http://ww4.sinaimg.cn/large/006uZZy8jw1faic2b16zuj30ci08cwf4.jpg");
+        list.add("http://ww4.sinaimg.cn/large/006uZZy8jw1faic2e7vsaj30ci08cglz.jpg");
+        list.add("http://bpic.588ku.com/element_origin_min_pic/00/00/05/115732f19cc0079.jpg");
+        list.add("http://bpic.588ku.com/element_origin_min_pic/00/00/05/115732f1ac12d1d.jpg");
+        list.add("http://bpic.588ku.com/element_origin_min_pic/00/00/05/115732f1bad97d1.jpg");
+        list.add("http://bpic.588ku.com/element_origin_min_pic/00/00/05/115732f1c83c228.jpg");
+        list.add("http://bpic.588ku.com/element_origin_min_pic/00/00/05/115732f1d53e3dd.jpg");
+        list.add("http://bpic.588ku.com/element_origin_min_pic/00/00/05/115732f1e37fea9.jpg");
+        list.add("http://bpic.588ku.com/element_origin_min_pic/00/00/05/115732f1ef4d709.jpg");
+        list.add("http://bpic.588ku.com/element_origin_min_pic/00/00/05/115732f20b3ea10.jpg");
+        list.add("http://bpic.588ku.com/element_origin_min_pic/00/00/05/115732f21927f8d.jpg");
+        banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR)
+                .setIndicatorGravity(BannerConfig.CENTER)
+                .setImageLoader(new GlideImageLoader())
+                .setImages(list)
+                .start();
+        recyclerView.init(new BaseQuickAdapter<String, BaseViewHolder>(R.layout.item_home, list) {
+            @Override
+            protected void convert(BaseViewHolder holder, String item) {
+                mPresenter.getImageLoader().loadImage(getContext(), ImageConfigImpl.builder().url(item).imageView(holder.getView(R.id.im_pic)).build());
+                holder.itemView.setOnClickListener(view1 -> ARouter.getInstance().build("/app/LoginActivity").navigation());
+            }
+        }, false);
+        recyclerView.addHeaderView(view);
     }
 
     /**

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.core.widget.autolayout.AutoConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:paddingLeft="30px"
+    android:paddingRight="30px">
+
+    <View
+        android:id="@+id/view_space"
+        android:layout_width="match_parent"
+        android:layout_height="40px"
+        android:background="#F5F5F5" />
+
+    <TextView
+        android:id="@+id/tv_tag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30px"
+        android:background="@drawable/bga_textview_blue"
+        android:text="私募"
+        android:textColor="@color/white"
+        android:textSize="39px"
+        app:layout_constraintTop_toBottomOf="@id/view_space" />
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30px"
+        android:text="小白1号基金"
+        android:textColor="#333333"
+        android:textSize="45px"
+        app:layout_constraintLeft_toRightOf="@id/tv_tag"
+        app:layout_constraintTop_toTopOf="@id/tv_tag" />
+
+    <ImageView
+        android:id="@+id/im_pic"
+        android:layout_width="match_parent"
+        android:layout_height="540px"
+        android:layout_marginTop="40px"
+        android:scaleType="fitXY"
+        app:layout_constraintTop_toBottomOf="@id/tv_tag"
+        app:srcCompat="@color/colorAccent" />
+
+    <com.recorder.widget.AutoNumberProgressBar
+        android:id="@+id/numberProgressBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40px"
+        android:background="@color/transparent"
+        app:layout_constraintTop_toBottomOf="@id/im_pic"
+        app:progress_current="50"
+        app:progress_max="100"
+        app:progress_radius="30px"
+        app:progress_reached_bar_height="51px"
+        app:progress_reached_color="#5486DF"
+        app:progress_text_color="#7986FF"
+        app:progress_text_size="36px"
+        app:progress_text_visibility="visible"
+        app:progress_unreached_bar_height="51px"
+        app:progress_unreached_color="#E4E7EE" />
+
+    <TextView
+        android:id="@+id/tv_investment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="40px"
+        android:layout_marginTop="40px"
+        android:textColor="#666666"
+        android:textSize="42px"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/numberProgressBar"
+        tools:text="起投金额: 1万" />
+
+    <TextView
+        android:id="@+id/tv_financing"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#666666"
+        android:textSize="42px"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tv_investment"
+        tools:text="融资总额: 40万" />
+</com.core.widget.autolayout.AutoConstraintLayout>
