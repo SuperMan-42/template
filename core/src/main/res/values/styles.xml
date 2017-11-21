@@ -19,7 +19,7 @@
         <item name="android:textColorPrimary">@android:color/white</item>
     </style>
 
-    <style name="activityAnim">
+    <style name="activityAnim" parent="@android:style/Animation">
         <item name="android:activityOpenEnterAnimation">@anim/slide_in_right</item>
         <item name="android:activityOpenExitAnimation">@anim/slide_out_left</item>
         <item name="android:activityCloseEnterAnimation">@anim/slide_in_left</item>
