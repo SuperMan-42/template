@@ -21,4 +21,15 @@
             <enum name="invisible" value="1" />
         </attr>
     </declare-styleable>
+
+    <declare-styleable name="ProgressBar">
+        <attr name="textSize" format="dimension" />
+        <attr name="loadingColor" format="color" />
+        <attr name="stopColor" format="color" />
+        <attr name="finishColor" format="color" />
+        <attr name="bgColor" format="color" />
+        <attr name="radius" format="dimension" />
+        <attr name="borderWidth" format="dimension" />
+        <attr name="isBgFill" format="boolean" />
+    </declare-styleable>
 </resources>

@@ -35,11 +35,13 @@ import android.view.ViewParent;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.core.base.App;
 import com.core.di.component.AppComponent;
+import com.core.http.imageloader.glide.ImageConfigImpl;
 import com.core.integration.AppManager;
 
 import java.security.MessageDigest;
@@ -436,6 +438,10 @@ public class CoreUtils {
     public static AppComponent obtainAppComponentFromContext(Context context) {
         Preconditions.checkState(context.getApplicationContext() instanceof App, "Application does not implements App");
         return ((App) context.getApplicationContext()).getAppComponent();
+    }
+
+    public static void imgLoader(Context context, String url, ImageView view) {
+        obtainAppComponentFromContext(context).imageLoader().loadImage(context, ImageConfigImpl.builder().url(url).imageView(view).build());
     }
 
     /**

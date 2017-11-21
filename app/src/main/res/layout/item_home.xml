@@ -46,23 +46,37 @@
         app:layout_constraintTop_toBottomOf="@id/tv_tag"
         app:srcCompat="@color/colorAccent" />
 
-    <com.recorder.widget.AutoNumberProgressBar
+    <!--<com.recorder.widget.AutoNumberProgressBar-->
+    <!--android:id="@+id/numberProgressBar"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_marginTop="40px"-->
+    <!--android:background="@color/transparent"-->
+    <!--app:layout_constraintTop_toBottomOf="@id/im_pic"-->
+    <!--app:progress_current="50"-->
+    <!--app:progress_max="100"-->
+    <!--app:progress_radius="30px"-->
+    <!--app:progress_reached_bar_height="51px"-->
+    <!--app:progress_reached_color="#5486DF"-->
+    <!--app:progress_text_color="#7986FF"-->
+    <!--app:progress_text_size="36px"-->
+    <!--app:progress_text_visibility="visible"-->
+    <!--app:progress_unreached_bar_height="51px"-->
+    <!--app:progress_unreached_color="#E4E7EE" />-->
+
+    <com.recorder.widget.AutoProgressBar
         android:id="@+id/numberProgressBar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="51px"
         android:layout_marginTop="40px"
-        android:background="@color/transparent"
+        android:background="#00000000"
+        app:borderWidth="0px"
+        app:finishColor="#5486DF"
         app:layout_constraintTop_toBottomOf="@id/im_pic"
-        app:progress_current="50"
-        app:progress_max="100"
-        app:progress_radius="30px"
-        app:progress_reached_bar_height="51px"
-        app:progress_reached_color="#5486DF"
-        app:progress_text_color="#7986FF"
-        app:progress_text_size="36px"
-        app:progress_text_visibility="visible"
-        app:progress_unreached_bar_height="51px"
-        app:progress_unreached_color="#E4E7EE" />
+        app:loadingColor="#5486DF"
+        app:radius="30px"
+        app:stopColor="#5486DF"
+        app:textSize="36px" />
 
     <TextView
         android:id="@+id/tv_investment"

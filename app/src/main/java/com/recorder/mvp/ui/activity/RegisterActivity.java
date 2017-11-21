@@ -12,7 +12,6 @@ import com.alibaba.android.arouter.launcher.ARouter;
 import com.core.base.BaseActivity;
 import com.core.di.component.AppComponent;
 import com.core.utils.CoreUtils;
-import com.core.widget.CustomPopupWindow;
 import com.recorder.R;
 import com.recorder.di.component.DaggerRegisterComponent;
 import com.recorder.di.module.RegisterModule;
@@ -94,9 +93,7 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter> implements
                 flDialog.setVisibility(View.VISIBLE);
                 break;
             case R.id.tv_go_authentication:
-                CustomPopupWindow.builder().contentView(CustomPopupWindow.inflateView(this, R.layout.layout_dialog_one_button))
-                        .customListener(contentView -> {
-                        }).build().show();
+                ARouter.getInstance().build("/app/AuthActivity").navigation();
                 break;
             case R.id.tv_go_home:
                 ARouter.getInstance().build("/app/HomeActivity").navigation();

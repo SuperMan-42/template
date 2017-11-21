@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.core.widget.autolayout.AutoConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F0F2F5">
+
+    <include layout="@layout/view_toolbar" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/et_name"
+                android:layout_width="match_parent"
+                android:layout_height="132px"
+                android:layout_marginLeft="45px"
+                android:layout_marginRight="45px"
+                android:layout_marginTop="54px"
+                android:background="@drawable/bga_textview"
+                android:hint="真实姓名"
+                android:paddingLeft="45px"
+                android:textColorHint="#999999"
+                android:textSize="45px" />
+
+            <EditText
+                android:id="@+id/et_id"
+                android:layout_width="match_parent"
+                android:layout_height="132px"
+                android:layout_marginLeft="45px"
+                android:layout_marginRight="45px"
+                android:layout_marginTop="45px"
+                android:background="@drawable/bga_textview"
+                android:hint="身份证号码"
+                android:paddingLeft="45px"
+                android:textColorHint="#999999"
+                android:textSize="45px" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="80px"
+                android:layout_marginTop="60px"
+                android:background="#F0F2F5"
+                android:gravity="center_vertical"
+                android:paddingLeft="45px"
+                android:text="请上传身份证明(必填)"
+                android:textColor="#333333"
+                android:textSize="45px" />
+
+            <ImageView
+                android:id="@+id/im_positive"
+                android:layout_width="750px"
+                android:layout_height="450px"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="84px"
+                android:background="@drawable/bga_round" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="10px"
+                android:text="上传身份证正面"
+                android:textColor="#666666"
+                android:textSize="42px" />
+
+            <ImageView
+                android:id="@+id/im_other"
+                android:layout_width="750px"
+                android:layout_height="450px"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="84px"
+                android:background="@drawable/bga_round" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="10px"
+                android:text="上传身份证背面"
+                android:textColor="#666666"
+                android:textSize="42px" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="80px"
+                android:layout_marginTop="60px"
+                android:background="#F0F2F5"
+                android:gravity="center_vertical"
+                android:paddingLeft="45px"
+                android:text="请上传资产证明"
+                android:textColor="#333333"
+                android:textSize="45px" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="45px"
+                android:layout_marginRight="45px"
+                android:layout_marginTop="57px"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/im_agree"
+                    android:layout_width="66px"
+                    android:layout_height="66px"
+                    android:src="@mipmap/ic_nav_theme" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20px"
+                    android:layout_weight="1"
+                    android:text="勾选并承诺净资产不低于1000万的单位或者其他符合证监会规定的合格投资者" />
+            </LinearLayout>
+
+            <com.core.widget.recyclerview.CoreRecyclerView
+                android:id="@+id/recyclerview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="45px"
+                android:layout_marginTop="60px" />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#F0F2F5">
+
+                <TextView
+                    android:id="@+id/tv_next"
+                    android:layout_width="match_parent"
+                    android:layout_height="120px"
+                    android:layout_marginBottom="60px"
+                    android:layout_marginLeft="45px"
+                    android:layout_marginRight="45px"
+                    android:layout_marginTop="60px"
+                    android:background="@drawable/bga_button"
+                    android:gravity="center"
+                    android:text="下一步"
+                    android:textColor="@color/white"
+                    android:textSize="45px" />
+            </FrameLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <include layout="@layout/include_success" />
+
+</com.core.widget.autolayout.AutoConstraintLayout>

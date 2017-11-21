@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F0F2F5"
+    android:orientation="vertical"
+    tools:context="com.recorder.mvp.ui.activity.AuthActivity">
+
+    <include layout="@layout/view_toolbar" />
+
+    <com.core.widget.autolayout.AutoConstraintLayout
+        android:id="@+id/cl_1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="45px"
+        android:layout_marginRight="45px"
+        android:layout_marginTop="70px"
+        android:background="@color/white">
+
+        <ImageView
+            android:id="@+id/im_head"
+            android:layout_width="252px"
+            android:layout_height="252px"
+            android:layout_marginBottom="45px"
+            android:layout_marginLeft="36px"
+            android:layout_marginTop="45px"
+            android:src="@color/colorPrimary"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="36px"
+            android:layout_marginTop="40px"
+            android:text="股权投资人"
+            android:textColor="#333333"
+            android:textSize="45px"
+            app:layout_constraintBottom_toTopOf="@+id/tv_content"
+            app:layout_constraintLeft_toRightOf="@id/im_head"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_content"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="40px"
+            android:layout_marginRight="45px"
+            android:layout_marginTop="30px"
+            android:text="需要认购20%以上股份,才能通过认证成为股权投资人"
+            android:textColor="#666666"
+            android:textSize="42px"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="@id/tv_title"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_title" />
+
+        <TextView
+            android:id="@+id/tv_auth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="#FFA100"
+            android:paddingLeft="30px"
+            android:paddingRight="20px"
+            android:text="待认证"
+            android:textColor="@color/white"
+            android:textSize="39px"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </com.core.widget.autolayout.AutoConstraintLayout>
+
+    <com.core.widget.autolayout.AutoConstraintLayout
+        android:id="@+id/cl_2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="45px"
+        android:layout_marginRight="45px"
+        android:layout_marginTop="45px"
+        android:background="@color/white">
+
+        <ImageView
+            android:id="@+id/im_head1"
+            android:layout_width="252px"
+            android:layout_height="252px"
+            android:layout_marginBottom="45px"
+            android:layout_marginLeft="36px"
+            android:layout_marginTop="45px"
+            android:src="@color/colorPrimary"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_title1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="36px"
+            android:layout_marginTop="40px"
+            android:text="合格投资人"
+            android:textColor="#333333"
+            android:textSize="45px"
+            app:layout_constraintBottom_toTopOf="@+id/tv_content1"
+            app:layout_constraintLeft_toRightOf="@id/im_head1"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_content1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="40px"
+            android:layout_marginRight="45px"
+            android:layout_marginTop="30px"
+            android:text="需要认购20%以上股份,才能通过认证成为股权投资人"
+            android:textColor="#666666"
+            android:textSize="42px"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="@id/tv_title1"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_title1" />
+
+        <TextView
+            android:id="@+id/tv_auth1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="#FFA100"
+            android:paddingLeft="30px"
+            android:paddingRight="20px"
+            android:text="待认证"
+            android:textColor="@color/white"
+            android:textSize="39px"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </com.core.widget.autolayout.AutoConstraintLayout>
+
+    <com.core.widget.autolayout.AutoConstraintLayout
+        android:id="@+id/cl_3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="45px"
+        android:layout_marginRight="45px"
+        android:layout_marginTop="45px"
+        android:background="@color/white">
+
+        <ImageView
+            android:id="@+id/im_head2"
+            android:layout_width="252px"
+            android:layout_height="252px"
+            android:layout_marginBottom="45px"
+            android:layout_marginLeft="36px"
+            android:layout_marginTop="45px"
+            android:src="@color/colorPrimary"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_title2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="36px"
+            android:layout_marginTop="40px"
+            android:text="机构投资人"
+            android:textColor="#333333"
+            android:textSize="45px"
+            app:layout_constraintBottom_toTopOf="@+id/tv_content2"
+            app:layout_constraintLeft_toRightOf="@id/im_head2"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_content2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="40px"
+            android:layout_marginRight="45px"
+            android:layout_marginTop="30px"
+            android:text="需要认购20%以上股份,才能通过认证成为股权投资人"
+            android:textColor="#666666"
+            android:textSize="42px"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="@id/tv_title2"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_title2" />
+
+        <TextView
+            android:id="@+id/tv_auth2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="#FFA100"
+            android:paddingLeft="30px"
+            android:paddingRight="20px"
+            android:text="待认证"
+            android:textColor="@color/white"
+            android:textSize="39px"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </com.core.widget.autolayout.AutoConstraintLayout>
+
+</LinearLayout>
