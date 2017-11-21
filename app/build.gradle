@@ -94,5 +94,5 @@ dependencies {
     implementation 'me.majiajie:pager-bottom-tab-strip:2.2.2'
     implementation "com.squareup.okhttp3:logging-interceptor:3.2.0"
     implementation 'com.youth.banner:banner:1.4.10'
-    implementation 'com.github.LuckSiege.PictureSelector:picture_library:v2.1.7'
+    implementation 'cn.bingoogolapple:bga-banner:2.1.8@aar'
 }

@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.core.base.BaseFragment;
@@ -21,14 +22,12 @@ import com.recorder.di.module.HomeModule;
 import com.recorder.mvp.contract.HomeContract;
 import com.recorder.mvp.model.entity.ReferFilter;
 import com.recorder.mvp.presenter.HomePresenter;
-import com.recorder.widget.GlideImageLoader;
-import com.youth.banner.Banner;
-import com.youth.banner.BannerConfig;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import cn.bingoogolapple.bgabanner.BGABanner;
 
 import static com.core.utils.Preconditions.checkNotNull;
 
@@ -60,10 +59,8 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
     @Override
     public void initData(Bundle savedInstanceState) {
         View view = CoreUtils.inflate(getContext(), R.layout.item_home_header);
-        Banner banner = view.findViewById(R.id.banner);
+        BGABanner banner = view.findViewById(R.id.banner);
         List<String> list = new ArrayList<>();
-        list.add("http://ww4.sinaimg.cn/large/006uZZy8jw1faic1xjab4j30ci08cjrv.jpg");
-        list.add("http://ww4.sinaimg.cn/large/006uZZy8jw1faic21363tj30ci08ct96.jpg");
         list.add("http://ww4.sinaimg.cn/large/006uZZy8jw1faic259ohaj30ci08c74r.jpg");
         list.add("http://ww4.sinaimg.cn/large/006uZZy8jw1faic2b16zuj30ci08cwf4.jpg");
         list.add("http://ww4.sinaimg.cn/large/006uZZy8jw1faic2e7vsaj30ci08cglz.jpg");
@@ -76,11 +73,10 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
         list.add("http://bpic.588ku.com/element_origin_min_pic/00/00/05/115732f1ef4d709.jpg");
         list.add("http://bpic.588ku.com/element_origin_min_pic/00/00/05/115732f20b3ea10.jpg");
         list.add("http://bpic.588ku.com/element_origin_min_pic/00/00/05/115732f21927f8d.jpg");
-        banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR)
-                .setIndicatorGravity(BannerConfig.CENTER)
-                .setImageLoader(new GlideImageLoader())
-                .setImages(list)
-                .start();
+        list.add("http://ww4.sinaimg.cn/large/006uZZy8jw1faic1xjab4j30ci08cjrv.jpg");
+        list.add("http://ww4.sinaimg.cn/large/006uZZy8jw1faic21363tj30ci08ct96.jpg");
+        banner.setAdapter((banner1, itemView, model, position) -> CoreUtils.imgLoader(getContext(), (String) model, (ImageView) itemView));
+        banner.setData(list, null);
         recyclerView.init(new BaseQuickAdapter<String, BaseViewHolder>(R.layout.item_home, list) {
             @Override
             protected void convert(BaseViewHolder holder, String item) {
