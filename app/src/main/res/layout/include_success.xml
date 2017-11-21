@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fl_dialog"
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:background="#F0F2F5"
+    android:visibility="gone"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintTop_toBottomOf="@id/toolbar"
+    tools:showIn="@layout/activity_register">
+
+    <LinearLayout
+        android:id="@+id/ll_dialog"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="45px"
+        android:layout_marginRight="45px"
+        android:layout_marginTop="120px"
+        android:background="@drawable/bga_round_white"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="231px"
+            android:layout_height="231px"
+            android:layout_marginTop="150px"
+            android:src="@drawable/bga_button" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="96px"
+            android:text="注册成功,去认证"
+            android:textColor="#333333"
+            android:textSize="54px" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="120px"
+            android:layout_marginRight="120px"
+            android:layout_marginTop="57px"
+            android:gravity="center"
+            android:text="尊敬的用户,您已成功注册昊翔App,认证投资人资格可以查看更多项目内容"
+            android:textColor="#333333"
+            android:textSize="42px" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="120px"
+            android:layout_marginLeft="66px"
+            android:layout_marginRight="66px"
+            android:layout_marginTop="150px"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_go_authentication"
+                android:layout_width="0dp"
+                android:layout_height="120px"
+                android:layout_marginRight="111px"
+                android:layout_weight="1"
+                android:background="@drawable/bga_button_blue"
+                android:gravity="center"
+                android:text="立即认证"
+                android:textColor="@color/white"
+                android:textSize="45px" />
+
+            <TextView
+                android:id="@+id/tv_go_home"
+                android:layout_width="0dp"
+                android:layout_height="120px"
+                android:layout_weight="1"
+                android:background="@drawable/bga_button_gray"
+                android:gravity="center"
+                android:text="前往首页"
+                android:textColor="@color/white"
+                android:textSize="45px" />
+        </LinearLayout>
+    </LinearLayout>
+</FrameLayout>

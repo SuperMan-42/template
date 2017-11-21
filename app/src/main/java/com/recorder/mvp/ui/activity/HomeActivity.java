@@ -13,6 +13,8 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import com.alibaba.android.arouter.facade.annotation.Route;
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.core.base.AdapterViewPager;
 import com.core.base.BaseActivity;
 import com.core.di.component.AppComponent;
@@ -41,6 +43,7 @@ import me.majiajie.pagerbottomtabstrip.NavigationController;
 
 import static com.core.utils.Preconditions.checkNotNull;
 
+@Route(path = "/app/HomeActivity")
 public class HomeActivity extends BaseActivity<HomePresenter> implements HomeContract.View {
     @BindView(R.id.navigation)
     AutoPageNavigationView navigation;
@@ -147,7 +150,7 @@ public class HomeActivity extends BaseActivity<HomePresenter> implements HomeCon
         finish();
     }
 
-    @OnClick({R.id.toolbar_left, R.id.toolbar_right})
+    @OnClick({R.id.toolbar_left, R.id.toolbar_right, R.id.tv_filter_reset, R.id.tv_filter_do})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.toolbar_left:
@@ -155,6 +158,11 @@ public class HomeActivity extends BaseActivity<HomePresenter> implements HomeCon
                 llFilter.setVisibility(isFilterOpen ? View.VISIBLE : View.GONE);
                 break;
             case R.id.toolbar_right:
+                break;
+            case R.id.tv_filter_reset:
+                ARouter.getInstance().build("/app/LoginActivity").navigation();
+                break;
+            case R.id.tv_filter_do:
                 break;
         }
     }
