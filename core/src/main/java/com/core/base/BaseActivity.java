@@ -86,6 +86,8 @@ public abstract class BaseActivity<P extends IPresenter> extends AppCompatActivi
         }
         super.onCreate(savedInstanceState);
         setStatusBarColor(CoreUtils.getColor(this, R.color.colorPrimary), 0);
+        if (findViewById(R.id.toolbar) != null)
+            findViewById(R.id.toolbar_left).setVisibility(View.VISIBLE);
         initView(savedInstanceState);
     }
 

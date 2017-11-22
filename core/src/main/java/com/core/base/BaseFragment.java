@@ -22,7 +22,9 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
+import com.core.R;
 import com.core.base.delegate.IFragment;
 import com.core.integration.lifecycle.FragmentLifecycleable;
 import com.core.mvp.IPresenter;
@@ -77,5 +79,9 @@ public abstract class BaseFragment<P extends IPresenter> extends Fragment implem
     @Override
     public boolean useEventBus() {
         return true;
+    }
+
+    public void title(CharSequence title) {
+        ((TextView) getView().findViewById(R.id.toolbar_title)).setText(title);
     }
 }

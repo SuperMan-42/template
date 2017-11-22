@@ -36,6 +36,7 @@ import com.recorder.mvp.ui.fragment.HomeFragment;
 import com.recorder.mvp.ui.fragment.MyFragment;
 import com.recorder.mvp.ui.fragment.PrivateFragment;
 import com.recorder.widget.AutoPageNavigationView;
+import com.recorder.widget.AutoViewPager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,7 +52,7 @@ public class HomeActivity extends BaseActivity<HomePresenter> implements HomeCon
     @BindView(R.id.navigation)
     AutoPageNavigationView navigation;
     @BindView(R.id.viewPager)
-    ViewPager viewPager;
+    AutoViewPager viewPager;
     @BindView(R.id.toolbar_left)
     View back;
     @BindView(R.id.recyclerview)
@@ -89,7 +90,7 @@ public class HomeActivity extends BaseActivity<HomePresenter> implements HomeCon
     }
 
     private void initHome() {
-        title("首页");
+        title("昊翔");
         mNavigationController = navigation.material()
                 .addItem(R.mipmap.ic_nav_theme, CoreUtils.getString(this, R.string.Home))
                 .addItem(R.mipmap.ic_nav_theme, CoreUtils.getString(this, R.string.Equity))
@@ -117,6 +118,7 @@ public class HomeActivity extends BaseActivity<HomePresenter> implements HomeCon
             @Override
             public void onPageSelected(int position) {
                 title(viewPager.getAdapter().getPageTitle(viewPager.getCurrentItem()));
+                findViewById(R.id.toolbar).setVisibility(position == 4 ? View.GONE : View.VISIBLE);
             }
 
             @Override

@@ -91,10 +91,9 @@ dependencies {
     implementation rootProject.ext.dependencies["arouter"]
     implementation rootProject.ext.dependencies["cardview-v7"]
     annotationProcessor rootProject.ext.dependencies["arouter-compiler"]
-    implementation 'com.getbase:floatingactionbutton:1.10.1'
     implementation 'me.majiajie:pager-bottom-tab-strip:2.2.2'
-    implementation "com.squareup.okhttp3:logging-interceptor:3.2.0"
     implementation 'com.github.LuckSiege.PictureSelector:picture_library:v2.1.7'
     implementation 'cn.bingoogolapple:bga-banner:2.1.8@aar'
+    implementation 'de.hdodenhof:circleimageview:2.2.0'
     implementation 'com.dinuscxj:recycleritemdecoration:1.0.0'
 }

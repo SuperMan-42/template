@@ -3,26 +3,39 @@ package com.recorder.mvp.ui.fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.GridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.core.base.BaseFragment;
 import com.core.di.component.AppComponent;
 import com.core.utils.CoreUtils;
-
+import com.core.widget.recyclerview.BaseQuickAdapter;
+import com.core.widget.recyclerview.BaseViewHolder;
+import com.core.widget.recyclerview.CoreRecyclerView;
+import com.recorder.R;
 import com.recorder.di.component.DaggerMyComponent;
 import com.recorder.di.module.MyModule;
 import com.recorder.mvp.contract.MyContract;
+import com.recorder.mvp.model.entity.Bean;
 import com.recorder.mvp.presenter.MyPresenter;
 
-import com.recorder.R;
+import java.util.ArrayList;
+import java.util.List;
+
+import app.dinus.com.itemdecoration.GridDividerItemDecoration;
+import butterknife.BindView;
 
 import static com.core.utils.Preconditions.checkNotNull;
 
 public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.View {
+    @BindView(R.id.recyclerview)
+    CoreRecyclerView recyclerView;
 
     public static MyFragment newInstance() {
+
         MyFragment fragment = new MyFragment();
         return fragment;
     }
@@ -44,7 +57,32 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
 
     @Override
     public void initData(Bundle savedInstanceState) {
-
+        List<Bean> list = new ArrayList<>();
+        list.add(new Bean("http://bpic.588ku.com/element_origin_min_pic/00/00/05/115732f19cc0079.jpg", "我的消息"));
+        list.add(new Bean("http://bpic.588ku.com/element_origin_min_pic/00/00/05/115732f1ac12d1d.jpg", "投资帮助"));
+        list.add(new Bean("http://bpic.588ku.com/element_origin_min_pic/00/00/05/115732f1bad97d1.jpg", "设置"));
+        list.add(new Bean("http://bpic.588ku.com/element_origin_min_pic/00/00/05/115732f1c83c228.jpg", "推荐项目"));
+        list.add(new Bean("http://bpic.588ku.com/element_origin_min_pic/00/00/05/115732f1d53e3dd.jpg", "推荐给朋友"));
+        list.add(new Bean("http://bpic.588ku.com/element_origin_min_pic/00/00/05/115732f1e37fea9.jpg", "投资人认证"));
+        GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 3) {
+            @Override
+            public boolean canScrollVertically() {
+                return false;
+            }
+        };
+        layoutManager.setAutoMeasureEnabled(true);
+        recyclerView.init(layoutManager, new BaseQuickAdapter<Bean, BaseViewHolder>(R.layout.item_my, list) {
+            @Override
+            protected void convert(BaseViewHolder holder, Bean item) {
+                CoreUtils.imgLoader(getContext(), item.getKey(), holder.getView(R.id.im_pic));
+                holder.setText(R.id.tv_content, item.getValue());
+                holder.itemView.setOnClickListener(view1 -> ARouter.getInstance().build("/app/EquityDetailsActivity").navigation());
+            }
+        }, false);
+        GridDividerItemDecoration dividerItemDecoration = new GridDividerItemDecoration(getActivity(), GridDividerItemDecoration.GRID_DIVIDER_VERTICAL);
+        dividerItemDecoration.setVerticalDivider(CoreUtils.getDrawablebyResource(getContext(), R.drawable.bga_divider));
+        dividerItemDecoration.setHorizontalDivider(CoreUtils.getDrawablebyResource(getContext(), R.drawable.bga_divider));
+        recyclerView.getRecyclerView().addItemDecoration(dividerItemDecoration);
     }
 
     /**
