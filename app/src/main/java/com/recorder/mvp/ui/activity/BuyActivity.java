@@ -3,50 +3,40 @@ package com.recorder.mvp.ui.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.widget.ImageView;
 
-import com.alibaba.android.arouter.facade.annotation.Route;
 import com.core.base.BaseActivity;
 import com.core.di.component.AppComponent;
 import com.core.utils.CoreUtils;
 
-import com.jaeger.library.StatusBarUtil;
-import com.recorder.di.component.DaggerEquityDetailsComponent;
-import com.recorder.di.module.EquityDetailsModule;
-import com.recorder.mvp.contract.EquityDetailsContract;
-import com.recorder.mvp.presenter.EquityDetailsPresenter;
+import com.recorder.di.component.DaggerBuyComponent;
+import com.recorder.di.module.BuyModule;
+import com.recorder.mvp.contract.BuyContract;
+import com.recorder.mvp.presenter.BuyPresenter;
 
 import com.recorder.R;
 
-import butterknife.BindView;
-
 import static com.core.utils.Preconditions.checkNotNull;
 
-@Route(path = "/app/EquityDetailsActivity")
-public class EquityDetailsActivity extends BaseActivity<EquityDetailsPresenter> implements EquityDetailsContract.View {
-    @BindView(R.id.im_bg)
-    ImageView imBg;
+public class BuyActivity extends BaseActivity<BuyPresenter> implements BuyContract.View {
 
     @Override
     public void setupActivityComponent(AppComponent appComponent) {
-        DaggerEquityDetailsComponent //如找不到该类,请编译一下项目
+        DaggerBuyComponent //如找不到该类,请编译一下项目
                 .builder()
                 .appComponent(appComponent)
-                .equityDetailsModule(new EquityDetailsModule(this))
+                .buyModule(new BuyModule(this))
                 .build()
                 .inject(this);
     }
 
     @Override
     public int getLayoutResID(Bundle savedInstanceState) {
-        return R.layout.activity_equity_details; //如果你不需要框架帮你设置 setContentView(id) 需要自行设置,请返回 0
+        return R.layout.activity_buy; //如果你不需要框架帮你设置 setContentView(id) 需要自行设置,请返回 0
     }
 
     @Override
     public void initView(Bundle savedInstanceState) {
-        StatusBarUtil.setTransparent(this);
-//        StatusBarUtil.setTransparentForImageView(this, imBg);
-//        StatusBarUtil.setColorForSwipeBack(this, CoreUtils.getColor(this, R.color.white), 0);
+
     }
 
     @Override

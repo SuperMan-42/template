@@ -1,13 +1,542 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F0F2F5"
     android:orientation="vertical">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="杭鹏伟" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#EFF2F5">
+
+        <com.core.widget.autolayout.AutoConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/im_bg"
+                android:layout_width="match_parent"
+                android:layout_height="750px"
+                android:src="@color/colorAccent" />
+
+            <ImageView
+                android:id="@+id/im_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="36px"
+                android:src="@drawable/back_icon_black"
+                app:layout_constraintLeft_toLeftOf="parent" />
+
+            <ImageView
+                android:id="@+id/im_share"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="36px"
+                android:src="@drawable/share_icon_black"
+                app:layout_constraintRight_toRightOf="parent" />
+
+            <ImageView
+                android:id="@+id/im_title"
+                android:layout_width="330px"
+                android:layout_height="270px"
+                android:layout_marginTop="126px"
+                android:src="@drawable/bga_round"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="39px"
+                android:text="早山设计品牌形象"
+                android:textColor="@color/white"
+                android:textSize="54px"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/im_title" />
+
+            <TextView
+                android:id="@+id/tv_title_s"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="90px"
+                android:layout_marginRight="90px"
+                android:layout_marginTop="33px"
+                android:gravity="center"
+                android:text="目前已为全国各大知名公司提供过基础形象服务,运营服务..."
+                android:textColor="@color/white"
+                android:textSize="39px"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_title" />
+
+            <TextView
+                android:id="@+id/tv_tag"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:drawableLeft="@drawable/im_login_phone"
+                android:drawablePadding="15px"
+                android:paddingBottom="21px"
+                android:paddingLeft="36px"
+                android:paddingTop="21px"
+                android:text="创意/设计"
+                android:textColor="#333333"
+                android:textSize="42px"
+                app:layout_constraintTop_toBottomOf="@id/im_bg" />
+
+            <View
+                android:id="@+id/divider_1"
+                style="@style/divider"
+                app:layout_constraintTop_toBottomOf="@id/tv_tag" />
+
+            <LinearLayout
+                android:id="@+id/fl_progress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="40px"
+                android:layout_marginTop="25px"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:paddingBottom="18px"
+                android:paddingLeft="45px"
+                android:paddingRight="45px"
+                android:paddingTop="18px"
+                app:layout_constraintTop_toBottomOf="@id/divider_1">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="60%/剩余10天"
+                    android:textColor="#4D57B6"
+                    android:textSize="39px" />
+
+                <com.recorder.widget.AutoProgressBar
+                    android:id="@+id/numberProgressBar"
+                    android:layout_width="match_parent"
+                    android:layout_height="18px"
+                    android:layout_marginTop="15px"
+                    android:background="#00000000"
+                    app:finishColor="#4D57B6"
+                    app:loadingColor="#4D57B6"
+                    app:radius="15px"
+                    app:stopColor="#4D57B6"
+                    app:textSize="0px" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_1"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:background="@color/white"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingBottom="48px"
+                android:paddingTop="48px"
+                app:layout_constraintTop_toBottomOf="@id/fl_progress">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="A轮"
+                        android:textColor="#333333"
+                        android:textSize="45px" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6px"
+                        android:text="融资轮次"
+                        android:textColor="#9D9D9D"
+                        android:textSize="39px" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="3px"
+                    android:layout_height="90px"
+                    android:background="#E8E8E8" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="1000万"
+                        android:textColor="#333333"
+                        android:textSize="45px" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6px"
+                        android:text="目标金额"
+                        android:textColor="#9D9D9D"
+                        android:textSize="39px" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="3px"
+                    android:layout_height="90px"
+                    android:background="#E8E8E8" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="20万"
+                        android:textColor="#333333"
+                        android:textSize="45px" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6px"
+                        android:text="起投金额"
+                        android:textColor="#9D9D9D"
+                        android:textSize="39px" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="3px"
+                    android:layout_height="90px"
+                    android:background="#E8E8E8" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="20%"
+                        android:textColor="#333333"
+                        android:textSize="45px" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6px"
+                        android:text="出让股份"
+                        android:textColor="#9D9D9D"
+                        android:textSize="39px" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="30px"
+                android:orientation="vertical"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/ll_1">
+
+                <TextView
+                    android:id="@+id/tv_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="105px"
+                    android:background="@color/white"
+                    android:drawableLeft="@mipmap/title_label_icon"
+                    android:drawablePadding="10px"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="36px"
+                    android:text="项目亮点" />
+
+                <View style="@style/divider" />
+
+                <TextView
+                    android:id="@+id/tv_content_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:paddingBottom="54px"
+                    android:paddingLeft="45px"
+                    android:paddingRight="45px"
+                    android:paddingTop="22px"
+                    android:text="规模大 ：专注汽车养护服务，深耕北京、上海、广州、深圳、苏州、佛山、杭州7座城市。 服务好 ：最早向客户提供车辆检测报告，最先实现技师、订单自动化管理，最快建立保养车型档案库 质量优 ：截止2015年8月累计服务25万客户，满意度超过98% 资源全 ：最先获得B轮2000万美金融资（业内最早），努力深化拓展产品服务培训。"
+                    android:textColor="#333333"
+                    android:textSize="42px" />
+
+                <TextView
+                    android:id="@+id/tv_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="105px"
+                    android:layout_marginTop="30px"
+                    android:background="@color/white"
+                    android:drawableLeft="@mipmap/title_label_icon"
+                    android:drawablePadding="10px"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="36px"
+                    android:text="团队成员" />
+
+                <View style="@style/divider" />
+
+                <com.core.widget.recyclerview.CoreRecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_height="100px"
+                    android:background="@color/white"
+                    android:paddingLeft="45px"
+                    android:paddingRight="45px" />
+
+                <TextView
+                    android:id="@+id/tv_3"
+                    android:layout_width="match_parent"
+                    android:layout_height="105px"
+                    android:layout_marginTop="30px"
+                    android:background="@color/white"
+                    android:drawableLeft="@mipmap/title_label_icon"
+                    android:drawablePadding="10px"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="36px"
+                    android:text="项目动态" />
+
+                <View style="@style/divider" />
+
+                <!--项目动态-->
+
+                <TextView
+                    android:id="@+id/tv_4"
+                    android:layout_width="match_parent"
+                    android:layout_height="105px"
+                    android:layout_marginTop="30px"
+                    android:background="@color/white"
+                    android:drawableLeft="@mipmap/title_label_icon"
+                    android:drawablePadding="10px"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="36px"
+                    android:text="行业概况" />
+
+                <View style="@style/divider" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:paddingBottom="54px"
+                    android:paddingLeft="45px"
+                    android:paddingRight="45px"
+                    android:paddingTop="22px"
+                    android:text="规模大 ：专注汽车养护服务，深耕北京、上海、广州、深圳、苏州、佛山、杭州7座城市。 服务好 ：最早向客户提供车辆检测报告，最先实现技师、订单自动化管理，最快建立保养车型档案库 质量优 ：截止2015年8月累计服务25万客户，满意度超过98% 资源全 ：最先获得B轮2000万美金融资（业内最早），努力深化拓展产品服务培训。"
+                    android:textColor="#333333"
+                    android:textSize="42px" />
+
+                <TextView
+                    android:id="@+id/tv_5"
+                    android:layout_width="match_parent"
+                    android:layout_height="105px"
+                    android:layout_marginTop="30px"
+                    android:background="@color/white"
+                    android:drawableLeft="@mipmap/title_label_icon"
+                    android:drawablePadding="10px"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="36px"
+                    android:text="融资历史" />
+
+                <View style="@style/divider" />
+
+                <com.core.widget.recyclerview.CoreRecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_height="100px"
+                    android:background="@color/white"
+                    android:paddingLeft="45px"
+                    android:paddingRight="45px" />
+
+                <TextView
+                    android:id="@+id/tv_6"
+                    android:layout_width="match_parent"
+                    android:layout_height="105px"
+                    android:layout_marginTop="30px"
+                    android:background="@color/white"
+                    android:drawableLeft="@mipmap/title_label_icon"
+                    android:drawablePadding="10px"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="36px"
+                    android:text="项目风险提示" />
+
+                <View style="@style/divider" />
+
+                <TextView
+                    android:id="@+id/tv_content_3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:paddingBottom="54px"
+                    android:paddingLeft="45px"
+                    android:paddingRight="45px"
+                    android:paddingTop="22px"
+                    android:text="股权投资是高风险的投资行为，在您参与此项业务前，应全面了解相关法律法规，并根据自身的投资目的、投资期限、投资经验、资产状况等判断是否 具备相应的投资风险承受能力；"
+                    android:textColor="#FF6600"
+                    android:textSize="42px" />
+
+                <TextView
+                    android:id="@+id/tv_7"
+                    android:layout_width="match_parent"
+                    android:layout_height="105px"
+                    android:layout_marginTop="30px"
+                    android:background="@color/white"
+                    android:drawableLeft="@mipmap/title_label_icon"
+                    android:drawablePadding="10px"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="36px"
+                    android:text="专家及管理团队意见" />
+
+                <View style="@style/divider" />
+
+                <com.core.widget.recyclerview.CoreRecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_height="100px"
+                    android:background="@color/white"
+                    android:paddingLeft="45px"
+                    android:paddingRight="45px" />
+
+                <TextView
+                    android:id="@+id/tv_8"
+                    android:layout_width="match_parent"
+                    android:layout_height="105px"
+                    android:layout_marginTop="30px"
+                    android:background="@color/white"
+                    android:drawableLeft="@mipmap/title_label_icon"
+                    android:drawablePadding="10px"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="36px"
+                    android:text="投资方案" />
+
+                <View style="@style/divider" />
+
+                <com.core.widget.recyclerview.CoreRecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_height="100px"
+                    android:background="@color/white"
+                    android:paddingLeft="45px"
+                    android:paddingRight="45px" />
+
+                <TextView
+                    android:id="@+id/tv_9"
+                    android:layout_width="match_parent"
+                    android:layout_height="105px"
+                    android:layout_marginTop="30px"
+                    android:background="@color/white"
+                    android:drawableLeft="@mipmap/title_label_icon"
+                    android:drawablePadding="10px"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="36px"
+                    android:text="退出渠道" />
+
+                <View style="@style/divider" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:paddingBottom="54px"
+                    android:paddingLeft="45px"
+                    android:paddingRight="45px"
+                    android:paddingTop="22px"
+                    android:text="需求制定-项目开发－测试－上线－IPO"
+                    android:textColor="#333333"
+                    android:textSize="42px" />
+
+                <TextView
+                    android:id="@+id/tv_10"
+                    android:layout_width="match_parent"
+                    android:layout_height="105px"
+                    android:layout_marginTop="30px"
+                    android:background="@color/white"
+                    android:drawableLeft="@mipmap/title_label_icon"
+                    android:drawablePadding="10px"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="36px"
+                    android:text="Q&amp;A" />
+
+                <View style="@style/divider" />
+
+                <com.core.widget.recyclerview.CoreRecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_height="100px"
+                    android:background="@color/white"
+                    android:paddingLeft="45px"
+                    android:paddingRight="45px" />
+
+                <TextView
+                    android:id="@+id/tv_11"
+                    android:layout_width="match_parent"
+                    android:layout_height="105px"
+                    android:layout_marginTop="30px"
+                    android:background="@color/white"
+                    android:drawableLeft="@mipmap/title_label_icon"
+                    android:drawablePadding="10px"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="36px"
+                    android:text="投资文件" />
+
+                <View style="@style/divider" />
+
+                <com.core.widget.recyclerview.CoreRecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_height="100px"
+                    android:background="@color/white"
+                    android:paddingLeft="45px"
+                    android:paddingRight="45px" />
+
+            </LinearLayout>
+        </com.core.widget.autolayout.AutoConstraintLayout>
+
+    </ScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="147px"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:background="@color/white"
+            android:drawableTop="@drawable/im_login_phone"
+            android:textColor="#333333"
+            android:textSize="33px" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
+            android:background="#FFAC41"
+            android:drawableLeft="@drawable/im_login_phone"
+            android:textColor="@color/white"
+            android:textSize="45px" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
+            android:background="#4880FF"
+            android:drawableLeft="@drawable/im_login_phone"
+            android:textColor="@color/white"
+            android:textSize="45px" />
+    </LinearLayout>
 </LinearLayout>
