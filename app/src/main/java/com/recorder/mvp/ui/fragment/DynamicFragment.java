@@ -7,20 +7,30 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.core.base.BaseFragment;
 import com.core.di.component.AppComponent;
 import com.core.utils.CoreUtils;
-
+import com.core.widget.recyclerview.BaseQuickAdapter;
+import com.core.widget.recyclerview.BaseViewHolder;
+import com.core.widget.recyclerview.CoreRecyclerView;
+import com.core.widget.recyclerview.SpacesItemDecoration;
+import com.recorder.R;
 import com.recorder.di.component.DaggerDynamicComponent;
 import com.recorder.di.module.DynamicModule;
 import com.recorder.mvp.contract.DynamicContract;
 import com.recorder.mvp.presenter.DynamicPresenter;
 
-import com.recorder.R;
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.BindView;
 
 import static com.core.utils.Preconditions.checkNotNull;
 
 public class DynamicFragment extends BaseFragment<DynamicPresenter> implements DynamicContract.View {
+    @BindView(R.id.recyclerview)
+    CoreRecyclerView recyclerView;
 
     public static DynamicFragment newInstance() {
         DynamicFragment fragment = new DynamicFragment();
@@ -44,7 +54,29 @@ public class DynamicFragment extends BaseFragment<DynamicPresenter> implements D
 
     @Override
     public void initData(Bundle savedInstanceState) {
-
+        List<String> list = new ArrayList<>();
+        list.add("http://ww4.sinaimg.cn/large/006uZZy8jw1faic1xjab4j30ci08cjrv.jpg");
+        list.add("http://ww4.sinaimg.cn/large/006uZZy8jw1faic21363tj30ci08ct96.jpg");
+        list.add("http://ww4.sinaimg.cn/large/006uZZy8jw1faic259ohaj30ci08c74r.jpg");
+        list.add("http://ww4.sinaimg.cn/large/006uZZy8jw1faic2b16zuj30ci08cwf4.jpg");
+        list.add("http://ww4.sinaimg.cn/large/006uZZy8jw1faic2e7vsaj30ci08cglz.jpg");
+        list.add("http://bpic.588ku.com/element_origin_min_pic/00/00/05/115732f19cc0079.jpg");
+        list.add("http://bpic.588ku.com/element_origin_min_pic/00/00/05/115732f1ac12d1d.jpg");
+        list.add("http://bpic.588ku.com/element_origin_min_pic/00/00/05/115732f1bad97d1.jpg");
+        list.add("http://bpic.588ku.com/element_origin_min_pic/00/00/05/115732f1c83c228.jpg");
+        list.add("http://bpic.588ku.com/element_origin_min_pic/00/00/05/115732f1d53e3dd.jpg");
+        list.add("http://bpic.588ku.com/element_origin_min_pic/00/00/05/115732f1e37fea9.jpg");
+        list.add("http://bpic.588ku.com/element_origin_min_pic/00/00/05/115732f1ef4d709.jpg");
+        list.add("http://bpic.588ku.com/element_origin_min_pic/00/00/05/115732f20b3ea10.jpg");
+        list.add("http://bpic.588ku.com/element_origin_min_pic/00/00/05/115732f21927f8d.jpg");
+        recyclerView.init(new BaseQuickAdapter<String, BaseViewHolder>(R.layout.item_dynamic, list) {
+            @Override
+            protected void convert(BaseViewHolder holder, String item) {
+                CoreUtils.imgLoader(getContext(), item, holder.getView(R.id.im_pic));
+                holder.itemView.setOnClickListener(view1 -> ARouter.getInstance().build("/app/EquityDetailsActivity").navigation());
+            }
+        }, false);
+        recyclerView.getRecyclerView().addItemDecoration(new SpacesItemDecoration(30, 45));
     }
 
     /**
