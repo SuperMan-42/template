@@ -9,6 +9,7 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_weight="1"
         android:background="#EFF2F5">
 
         <com.core.widget.autolayout.AutoConstraintLayout
@@ -18,30 +19,35 @@
             <ImageView
                 android:id="@+id/im_bg"
                 android:layout_width="match_parent"
-                android:layout_height="750px"
-                android:src="@color/colorAccent" />
+                android:layout_height="825px"
+                android:src="@color/colorAccent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
                 android:id="@+id/im_back"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="36px"
+                android:layout_marginTop="75px"
                 android:src="@drawable/back_icon_black"
-                app:layout_constraintLeft_toLeftOf="parent" />
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
                 android:id="@+id/im_share"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="36px"
+                android:layout_marginTop="75px"
                 android:src="@drawable/share_icon_black"
-                app:layout_constraintRight_toRightOf="parent" />
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
                 android:id="@+id/im_title"
                 android:layout_width="330px"
                 android:layout_height="270px"
-                android:layout_marginTop="126px"
+                android:layout_marginTop="201px"
                 android:src="@drawable/bga_round"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
@@ -512,31 +518,56 @@
         android:layout_height="147px"
         android:orientation="horizontal">
 
-        <TextView
+        <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="2"
             android:background="@color/white"
-            android:drawableTop="@drawable/im_login_phone"
-            android:textColor="#333333"
-            android:textSize="33px" />
+            android:gravity="center">
 
-        <TextView
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawablePadding="12px"
+                android:drawableTop="@drawable/im_login_phone"
+                android:text="商业计划书"
+                android:textColor="#333333"
+                android:textSize="33px" />
+        </LinearLayout>
+
+
+        <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="3"
             android:background="#FFAC41"
-            android:drawableLeft="@drawable/im_login_phone"
-            android:textColor="@color/white"
-            android:textSize="45px" />
+            android:gravity="center">
 
-        <TextView
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/im_login_phone"
+                android:drawablePadding="12px"
+                android:text="立即咨询"
+                android:textColor="@color/white"
+                android:textSize="45px" />
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="3"
             android:background="#4880FF"
-            android:drawableLeft="@drawable/im_login_phone"
-            android:textColor="@color/white"
-            android:textSize="45px" />
+            android:gravity="center">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/im_login_phone"
+                android:drawablePadding="12px"
+                android:text="我要认购"
+                android:textColor="@color/white"
+                android:textSize="45px" />
+        </LinearLayout>
     </LinearLayout>
 </LinearLayout>

@@ -39,14 +39,18 @@ public class EquityDetailsActivity extends BaseActivity<EquityDetailsPresenter> 
 
     @Override
     public int getLayoutResID(Bundle savedInstanceState) {
+        StatusBarUtil.setTransparent(this);
         return R.layout.activity_equity_details; //如果你不需要框架帮你设置 setContentView(id) 需要自行设置,请返回 0
     }
 
     @Override
+    public boolean isTransparent() {
+        return true;
+    }
+
+    @Override
     public void initView(Bundle savedInstanceState) {
-        StatusBarUtil.setTransparent(this);
-//        StatusBarUtil.setTransparentForImageView(this, imBg);
-//        StatusBarUtil.setColorForSwipeBack(this, CoreUtils.getColor(this, R.color.white), 0);
+
     }
 
     @Override

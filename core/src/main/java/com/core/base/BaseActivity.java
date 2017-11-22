@@ -85,7 +85,8 @@ public abstract class BaseActivity<P extends IPresenter> extends AppCompatActivi
             e.printStackTrace();
         }
         super.onCreate(savedInstanceState);
-        setStatusBarColor(CoreUtils.getColor(this, R.color.colorPrimary), 0);
+        if (!isTransparent())
+            setStatusBarColor(CoreUtils.getColor(this, R.color.colorPrimary), 0);
         if (findViewById(R.id.toolbar) != null)
             findViewById(R.id.toolbar_left).setVisibility(View.VISIBLE);
         initView(savedInstanceState);
@@ -94,6 +95,10 @@ public abstract class BaseActivity<P extends IPresenter> extends AppCompatActivi
     private void initSwipeBackFinish() {
         mSwipeBackHelper = new BGASwipeBackHelper(this, this);
         mSwipeBackHelper.setIsNeedShowShadow(true);
+    }
+
+    public boolean isTransparent() {
+        return false;
     }
 
     @Override
