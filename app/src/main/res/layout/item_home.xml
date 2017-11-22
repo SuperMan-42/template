@@ -19,9 +19,14 @@
         android:layout_marginLeft="30px"
         android:layout_marginTop="30px"
         android:background="@drawable/bga_textview_blue"
+        android:gravity="center"
+        android:paddingBottom="6px"
+        android:paddingLeft="20px"
+        android:paddingRight="20px"
+        android:paddingTop="6px"
         android:text="私募"
         android:textColor="@color/white"
-        android:textSize="39px"
+        android:textSize="36px"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/view_space" />
 
@@ -85,13 +90,13 @@
         <com.recorder.widget.AutoProgressBar
             android:id="@+id/numberProgressBar"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="51px"
             android:background="#00000000"
             app:finishColor="#5486DF"
             app:loadingColor="#5486DF"
-            app:radius="30px"
+            app:radius="24px"
             app:stopColor="#5486DF"
-            app:textSize="36px" />
+            app:textSize="30px" />
     </FrameLayout>
 
     <TextView

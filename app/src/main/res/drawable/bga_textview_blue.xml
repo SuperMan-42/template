@@ -5,10 +5,6 @@
         <shape android:shape="rectangle">
             <corners android:radius="6dp" />
             <solid android:color="#525FD2" />
-            <padding android:bottom="6px" />
-            <padding android:top="6px" />
-            <padding android:left="20px" />
-            <padding android:right="20px" />
         </shape>
     </item>
 
