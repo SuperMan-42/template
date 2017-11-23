@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 
+import com.alibaba.android.arouter.facade.annotation.Route;
 import com.core.base.BaseActivity;
 import com.core.di.component.AppComponent;
 import com.core.utils.CoreUtils;
@@ -17,6 +18,7 @@ import com.recorder.R;
 
 import static com.core.utils.Preconditions.checkNotNull;
 
+@Route(path = "/app/BuyActivity")
 public class BuyActivity extends BaseActivity<BuyPresenter> implements BuyContract.View {
 
     @Override
@@ -36,7 +38,7 @@ public class BuyActivity extends BaseActivity<BuyPresenter> implements BuyContra
 
     @Override
     public void initView(Bundle savedInstanceState) {
-
+        title("我要认购");
     }
 
     @Override

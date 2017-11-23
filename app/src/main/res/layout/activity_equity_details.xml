@@ -6,11 +6,12 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <ScrollView
+    <com.core.widget.autolayout.AutoScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:background="#EFF2F5">
+        android:background="#EFF2F5"
+        android:scrollbars="none">
 
         <com.core.widget.autolayout.AutoConstraintLayout
             android:layout_width="match_parent"
@@ -511,7 +512,7 @@
             </LinearLayout>
         </com.core.widget.autolayout.AutoConstraintLayout>
 
-    </ScrollView>
+    </com.core.widget.autolayout.AutoScrollView>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -519,9 +520,10 @@
         android:orientation="horizontal">
 
         <LinearLayout
+            android:id="@+id/ll_business_plan"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="2"
+            android:layout_weight="3"
             android:background="@color/white"
             android:gravity="center">
 
@@ -537,9 +539,10 @@
 
 
         <LinearLayout
+            android:id="@+id/ll_consultation"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="3"
+            android:layout_weight="4"
             android:background="#FFAC41"
             android:gravity="center">
 
@@ -554,9 +557,10 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/ll_buy"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="3"
+            android:layout_weight="4"
             android:background="#4880FF"
             android:gravity="center">
 

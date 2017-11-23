@@ -8,10 +8,11 @@
 
     <include layout="@layout/view_toolbar" />
 
-    <ScrollView
+    <com.core.widget.autolayout.AutoScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:background="@color/white"
+        android:scrollbars="none"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/toolbar">
 
@@ -151,7 +152,7 @@
                     android:textSize="45px" />
             </FrameLayout>
         </LinearLayout>
-    </ScrollView>
+    </com.core.widget.autolayout.AutoScrollView>
 
     <include layout="@layout/include_success" />
 
