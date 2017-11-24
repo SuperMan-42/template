@@ -6,11 +6,14 @@ import com.core.di.scope.ActivityScope;
 import com.core.http.imageloader.ImageLoader;
 import com.core.integration.AppManager;
 import com.core.mvp.BasePresenter;
+import com.core.utils.RxLifecycleUtils;
 import com.recorder.mvp.contract.EquityContract;
+import com.recorder.mvp.model.entity.EquityBean;
 
 import javax.inject.Inject;
 
 import me.jessyan.rxerrorhandler.core.RxErrorHandler;
+import me.jessyan.rxerrorhandler.handler.ErrorHandleSubscriber;
 
 @ActivityScope
 public class EquityPresenter extends BasePresenter<EquityContract.Model, EquityContract.View> {
@@ -37,5 +40,16 @@ public class EquityPresenter extends BasePresenter<EquityContract.Model, EquityC
         this.mAppManager = null;
         this.mImageLoader = null;
         this.mApplication = null;
+    }
+
+    public void getEquity(String type, String label_id, String round_id, String keyword, String page, String page_size) {
+        mModel.getEquity(type, label_id, round_id, keyword, page, page_size)
+                .compose(RxLifecycleUtils.transformer(mRootView))
+                .subscribe(new ErrorHandleSubscriber<EquityBean>(mErrorHandler) {
+                    @Override
+                    public void onNext(EquityBean equityBean) {
+                        mRootView.showEquity(equityBean);
+                    }
+                });
     }
 }

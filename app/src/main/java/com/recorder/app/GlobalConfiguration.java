@@ -3,7 +3,6 @@ package com.recorder.app;
 import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
-import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -24,12 +23,19 @@ import com.orhanobut.logger.FormatStrategy;
 import com.orhanobut.logger.Logger;
 import com.orhanobut.logger.PrettyFormatStrategy;
 import com.recorder.BuildConfig;
+import com.recorder.Constants;
 import com.recorder.R;
+import com.core.http.exception.ApiErrorCode;
+import com.core.http.exception.ApiException;
 import com.recorder.mvp.model.api.Api;
+import com.recorder.mvp.model.entity.LoginBean;
 import com.recorder.mvp.ui.activity.HomeActivity;
 import com.recorder.utils.DeviceInfoUtils;
 import com.squareup.leakcanary.LeakCanary;
 import com.squareup.leakcanary.RefWatcher;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.Arrays;
 import java.util.List;
@@ -37,7 +43,9 @@ import java.util.List;
 import cn.bingoogolapple.swipebacklayout.BGASwipeBackHelper;
 import okhttp3.Interceptor;
 import okhttp3.Request;
+import okhttp3.RequestBody;
 import okhttp3.Response;
+import okio.Buffer;
 import timber.log.Timber;
 
 /**
@@ -58,6 +66,30 @@ public class GlobalConfiguration implements ConfigModule {
                            重新请求token,并重新执行请求 */
                         if (!TextUtils.isEmpty(httpResult) && RequestInterceptor.isJson(response.body().contentType())) {
                             Logger.json(httpResult);
+                            if (chain.request().url().toString().endsWith("/user/login"))
+                                CoreUtils.obtainRxCache(context).put(Constants.TOKEN, response.header("SESSION-TOKEN"));
+
+                            JSONObject jsonObject = null;
+                            try {
+                                jsonObject = new JSONObject(httpResult);
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                            //关注的重点，自定义响应码中非0的情况，一律抛出ApiException异常。
+                            //这样，我们就成功的将该异常交给onError()去处理了。
+                            int code = jsonObject.optInt("errno");
+                            switch (code) {
+                                case 0:
+                                    break;
+                                case ApiErrorCode.ERROR_USER_AUTHORIZED:
+                                    response.body().close();
+                                    ARouter.getInstance().build("/app/LoginActivity").navigation();
+                                    throw new ApiException(code, jsonObject.optString("error"));
+                                default:
+                                    response.body().close();
+                                    CoreUtils.snackbarText(jsonObject.optString("error"));
+                                    throw new ApiException(code, jsonObject.optString("error"));
+                            }
                         }
                         /* 这里如果发现token过期,可以先请求最新的token,然后在拿新的token放入request里去重新请求
                         注意在这个回调之前已经调用过proceed,所以这里必须自己去建立网络请求,如使用okhttp使用新的request去请求
@@ -74,36 +106,54 @@ public class GlobalConfiguration implements ConfigModule {
                     @Override
                     public Request onHttpRequestBefore(Interceptor.Chain chain, Request request) {
 //                         如果需要再请求服务器之前做一些操作,则重新返回一个做过操作的的requeat如增加header,不做操作则直接返回request参数
-                        String content = chain.request().url().query();
-                        String time = String.valueOf(System.currentTimeMillis() / 1000);
-                        if (TextUtils.isEmpty(content)) {
-                            content = "time=" + time;
-                        } else {
-                            content = (content + "&time=" + time);
+                        Request.Builder requestBuilder = null;
+                        try {
+                            String content;
+                            if (request.method().equals("POST")) {
+                                RequestBody requestBody = request.body();
+                                Buffer buffer = new Buffer();
+                                requestBody.writeTo(buffer);
+                                content = buffer.readUtf8();
+                            } else {
+                                content = chain.request().url().query();
+                            }
+                            String time = String.valueOf(System.currentTimeMillis() / 1000);
+                            String token = (String) CoreUtils.obtainRxCache(context).get(Constants.TOKEN);
+                            if (TextUtils.isEmpty(content)) {
+                                content = "time=" + time + (TextUtils.isEmpty(token) ? "" : "|" + token);
+                            } else {
+                                content = (content + "&time=" + time + (TextUtils.isEmpty(token) ? "" : "|" + token));
+                            }
+                            String[] strings = content.split("&");
+                            Arrays.sort(strings);
+                            StringBuilder stringBuilder = new StringBuilder();
+                            for (String string : strings) {
+                                stringBuilder.append(string).append("|");
+                            }
+                            JSONObject jsonObject = new JSONObject();
+                            LoginBean loginBean = (LoginBean) CoreUtils.obtainRxCache(context).get(Constants.LOGIN_INFO);
+                            jsonObject.put("sign", new Jni().getSign(context, stringBuilder.toString()))
+                                    .put("time", time)
+                                    .put("client", "android");
+                            if (loginBean != null) {
+                                jsonObject.put("userID", loginBean.getData().getUserID());
+                            }
+                            requestBuilder = chain.request().newBuilder()
+                                    .addHeader("DEVICE-INFO", DeviceInfoUtils.createDeviceInfo(context))
+                                    .addHeader("PLATFORM", "api")
+                                    .addHeader("AUTH-INFO", jsonObject.toString());
+                            if (token != null) {
+                                requestBuilder.addHeader("SESSION-TOKEN", token);
+                            }
+                        } catch (Exception e) {
+                            Logger.e("AUTH-INFO生成错误: " + e);
                         }
-                        String[] strings = content.split("&");
-                        Arrays.sort(strings);
-                        StringBuilder stringBuilder = new StringBuilder();
-                        for (String string : strings) {
-                            stringBuilder.append(string).append("|");
-                        }
-                        return chain.request().newBuilder()
-                                .url(chain.request().url().newBuilder()
-                                        .addQueryParameter("time", time)
-                                        .addQueryParameter("sign", new Jni().getSign(context, stringBuilder.toString()))
-                                        .build())
-                                .addHeader("DIVERSION-VERSION", "20")
-//                                .addHeader("SESSION-TOKEN", null)
-                                .addHeader("Uid", "0")
-                                .addHeader("DEVICE-INFO", DeviceInfoUtils.createDeviceInfo(context))
-                                .addHeader("PLATFORM", "api")
-                                .addHeader("User-Agent", getUserAgent(context))
-                                .build();
+                        return requestBuilder.build();
                     }
                 })
                 .responseErrorListener((context1, t) -> {
                     Logger.d("=============>" + t.getMessage());
-                    CoreUtils.snackbarText(t.getMessage());
+                    CoreUtils.snackbarText("responseErrorListener=> " + t.getMessage());
                 })
                 .gsonConfiguration((context12, builder1) -> builder1.serializeNulls().enableComplexMapKeySerialization())
                 .rxCacheConfiguration((context13, builder12) -> builder12.useExpiredDataIfLoaderNotAvailable(true));
@@ -138,7 +188,7 @@ public class GlobalConfiguration implements ConfigModule {
                     });
                 }
                 //leakCanary内存泄露检查
-                CoreUtils.obtainAppComponentFromContext(context).extras().put(RefWatcher.class.getName(), BuildConfig.USE_CANARY ? LeakCanary.install(application) : RefWatcher.DISABLED);
+                CoreUtils.obtainRxCache(context).put(RefWatcher.class.getName(), BuildConfig.USE_CANARY ? LeakCanary.install(application) : RefWatcher.DISABLED);
 
                 //ARouter初始化
                 if (BuildConfig.LOG_DEBUG) {
@@ -232,20 +282,8 @@ public class GlobalConfiguration implements ConfigModule {
 
             @Override
             public void onFragmentDestroyed(FragmentManager fm, Fragment f) {
-                ((RefWatcher) CoreUtils.obtainAppComponentFromContext(f.getActivity().getApplication()).extras().get(RefWatcher.class.getName())).watch(f);
+                ((RefWatcher) CoreUtils.obtainRxCache(f.getActivity().getApplication()).get(RefWatcher.class.getName())).watch(f);
             }
         });
-    }
-
-    private static String getUserAgent(Context context) {
-        StringBuffer sb = new StringBuffer("YuanShiHui ");
-        String versionName = "1.0";
-        try {
-            versionName = context.getPackageManager().getPackageInfo(context.getPackageName(), 0).versionName;
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
-        }
-        sb.append(versionName).append(" android").append(android.os.Build.VERSION.SDK_INT);
-        return sb.toString();
     }
 }

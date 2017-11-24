@@ -86,7 +86,7 @@ public class HomeActivity extends BaseActivity<HomePresenter> implements HomeCon
     }
 
     private void initFilter() {
-        mPresenter.getFilter();
+//        mPresenter.getFilter();
     }
 
     private void initHome() {

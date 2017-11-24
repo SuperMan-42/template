@@ -15,6 +15,8 @@
  */
 package com.core.utils;
 
+import com.core.base.BaseApplication;
+import com.core.http.exception.RetryWithToken;
 import com.core.integration.lifecycle.ActivityLifecycleable;
 import com.core.integration.lifecycle.FragmentLifecycleable;
 import com.core.integration.lifecycle.Lifecycleable;
@@ -25,7 +27,10 @@ import com.trello.rxlifecycle2.android.ActivityEvent;
 import com.trello.rxlifecycle2.android.FragmentEvent;
 import com.trello.rxlifecycle2.android.RxLifecycleAndroid;
 
+import io.reactivex.ObservableTransformer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * ================================================
@@ -104,5 +109,12 @@ public class RxLifecycleUtils {
         } else {
             throw new IllegalArgumentException("Lifecycleable not match");
         }
+    }
+
+    public static <T> ObservableTransformer<T, T> transformer(@NonNull IView view) {
+        return upstream -> upstream.retryWhen(new RetryWithToken(3, 2, BaseApplication.getContext()))
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(bindToLifecycle(view));
     }
 }

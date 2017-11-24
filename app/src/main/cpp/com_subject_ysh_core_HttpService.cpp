@@ -6,7 +6,7 @@
 #include "com_subject_ysh_core_HttpService.h"
 #include "MD5.h"
 /* Header for class com_subject_ysh_core_HttpService */
-#define APP_KEY "UJLSI98#@SJK"
+#define APP_KEY "BOLE9IAD@7jke"
 #define ENCODE "UTF-8"
 
 #define LOGD(...)  __android_log_print(ANDROID_LOG_DEBUG,"hpw",__VA_ARGS__) // 定义LOGD类型
@@ -59,16 +59,16 @@ JNIEXPORT jint sb_length(JNIEnv *env, jobject obj) {
  * 获取SessionToken
  */
 JNIEXPORT jstring getSessionToken(JNIEnv *env, jobject context) {
-//    jclass SessionCls = env->FindClass("com/subject/ysh/core/Session");
-//    jmethodID Session_getInstance = env->GetStaticMethodID(SessionCls, "getInstance",
-//                                                           "(Landroid/content/Context;)Lcom/subject/ysh/core/Session;");
-//    jmethodID Session_getSessionToken = env->GetMethodID(SessionCls, "getSessionToken",
-//                                                         "()Ljava/lang/String;");
-//
-//    jobject session = env->CallStaticObjectMethod(SessionCls, Session_getInstance, context);
-//    jstring session_token = (jstring) env->CallObjectMethod(session, Session_getSessionToken);
-//    return session_token;
-    return NULL;
+    jclass CoreUtils = env->FindClass("com/core/utils/CoreUtils");
+    jmethodID Session_getInstance = env->GetStaticMethodID(CoreUtils, "obtainRxCache",
+                                                           "(Landroid/content/Context;)Lcom.core.integration.cache;");
+    jmethodID Session_getSessionToken = env->GetMethodID(CoreUtils, "get",
+                                                         "(Ljava/lang/String;)Ljava/lang/String;");
+
+    jobject session = env->CallStaticObjectMethod(CoreUtils, Session_getInstance, context);
+    jstring session_token = (jstring) env->CallObjectMethod(session, Session_getSessionToken,
+                                                            env->NewStringUTF("token"));
+    return session_token;
 }
 
 /**
@@ -159,18 +159,7 @@ Java_com_recorder_app_Jni_getSign(JNIEnv *env, jobject obj, jobject context, jst
     jclass strBufferCls = env->FindClass("java/lang/StringBuffer");
     jmethodID bufferInitId = env->GetMethodID(strBufferCls, "<init>", "()V");
     jobject strBufferObj = env->NewObject(strBufferCls, bufferInitId);
-    jstring spilt = env->NewStringUTF("|");
     append(env, strBufferObj, content);
-    //转换小写
-    //拼上SESSOIN-TOKEN
-    jstring session_token = getSessionToken(env, context);
-    if (session_token != NULL) {
-        jint utfLength = env->GetStringUTFLength(session_token);
-        if (utfLength > 0) {
-            append(env, strBufferObj, session_token);
-            append(env, strBufferObj, spilt);
-        }
-    }
     //拼接APP_KEY
     jstring app_key = env->NewStringUTF(APP_KEY);
     append(env, strBufferObj, app_key);

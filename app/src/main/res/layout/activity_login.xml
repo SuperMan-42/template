@@ -36,6 +36,7 @@
         android:drawablePadding="30px"
         android:gravity="center_vertical"
         android:hint="手机号码"
+        android:inputType="phone"
         android:paddingLeft="40px"
         android:textColorHint="#9CADCC"
         android:textSize="45px" />
@@ -52,6 +53,7 @@
         android:drawablePadding="30px"
         android:gravity="center_vertical"
         android:hint="登录密码"
+        android:inputType="textPassword"
         android:paddingLeft="40px"
         android:textColorHint="#9CADCC"
         android:textSize="45px" />
@@ -76,7 +78,8 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginLeft="82px"
         android:layout_marginRight="82px"
-        android:layout_marginTop="120px"
+        android:layout_marginTop="90px"
+        android:padding="30px"
         android:text="忘记密码?"
         android:textColor="#9097A4"
         android:textSize="36px" />
@@ -88,9 +91,10 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginLeft="82px"
         android:layout_marginRight="82px"
-        android:layout_marginTop="250px"
+        android:layout_marginTop="210px"
         android:drawablePadding="10px"
         android:drawableRight="@drawable/im_register_right"
+        android:padding="40px"
         android:text="新用户注册"
         android:textColor="#9097A4"
         android:textSize="45px" />

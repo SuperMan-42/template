@@ -18,10 +18,8 @@ import com.recorder.R;
 import com.recorder.di.component.DaggerEquityComponent;
 import com.recorder.di.module.EquityModule;
 import com.recorder.mvp.contract.EquityContract;
+import com.recorder.mvp.model.entity.EquityBean;
 import com.recorder.mvp.presenter.EquityPresenter;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 
@@ -53,28 +51,7 @@ public class EquityFragment extends BaseFragment<EquityPresenter> implements Equ
 
     @Override
     public void initData(Bundle savedInstanceState) {
-        List<String> list = new ArrayList<>();
-        list.add("http://ww4.sinaimg.cn/large/006uZZy8jw1faic1xjab4j30ci08cjrv.jpg");
-        list.add("http://ww4.sinaimg.cn/large/006uZZy8jw1faic21363tj30ci08ct96.jpg");
-        list.add("http://ww4.sinaimg.cn/large/006uZZy8jw1faic259ohaj30ci08c74r.jpg");
-        list.add("http://ww4.sinaimg.cn/large/006uZZy8jw1faic2b16zuj30ci08cwf4.jpg");
-        list.add("http://ww4.sinaimg.cn/large/006uZZy8jw1faic2e7vsaj30ci08cglz.jpg");
-        list.add("http://bpic.588ku.com/element_origin_min_pic/00/00/05/115732f19cc0079.jpg");
-        list.add("http://bpic.588ku.com/element_origin_min_pic/00/00/05/115732f1ac12d1d.jpg");
-        list.add("http://bpic.588ku.com/element_origin_min_pic/00/00/05/115732f1bad97d1.jpg");
-        list.add("http://bpic.588ku.com/element_origin_min_pic/00/00/05/115732f1c83c228.jpg");
-        list.add("http://bpic.588ku.com/element_origin_min_pic/00/00/05/115732f1d53e3dd.jpg");
-        list.add("http://bpic.588ku.com/element_origin_min_pic/00/00/05/115732f1e37fea9.jpg");
-        list.add("http://bpic.588ku.com/element_origin_min_pic/00/00/05/115732f1ef4d709.jpg");
-        list.add("http://bpic.588ku.com/element_origin_min_pic/00/00/05/115732f20b3ea10.jpg");
-        list.add("http://bpic.588ku.com/element_origin_min_pic/00/00/05/115732f21927f8d.jpg");
-        recyclerView.init(new BaseQuickAdapter<String, BaseViewHolder>(R.layout.item_equity, list) {
-            @Override
-            protected void convert(BaseViewHolder holder, String item) {
-                CoreUtils.imgLoader(getContext(), item, holder.getView(R.id.project_img));
-                holder.itemView.setOnClickListener(view1 -> ARouter.getInstance().build("/app/EquityDetailsActivity").navigation());
-            }
-        }, false);
+        mPresenter.getEquity(null, null, null, null, null, null);
     }
 
     /**
@@ -119,5 +96,30 @@ public class EquityFragment extends BaseFragment<EquityPresenter> implements Equ
     @Override
     public void killMyself() {
 
+    }
+
+    @Override
+    public void showEquity(EquityBean equityBean) {
+        recyclerView.init(new BaseQuickAdapter<EquityBean.DataEntity.ListEntity, BaseViewHolder>(R.layout.item_equity, equityBean.getData().getList()) {
+            @Override
+            protected void convert(BaseViewHolder holder, EquityBean.DataEntity.ListEntity item) {
+                CoreUtils.imgLoader(getContext(), "http://ww4.sinaimg.cn/large/006uZZy8jw1faic1xjab4j30ci08cjrv.jpg", holder.getView(R.id.im_cover));
+                holder.setText(R.id.tv_deal_name, item.getDeal_name())
+                        .setText(R.id.tv_brief, item.getBrief())
+                        .setText(R.id.tv_labels, item.getLabels().get(0))
+                        .setText(R.id.tv_round, item.getRound())
+                        .setText(R.id.tv_online_str, item.getOnline_str());
+                EquityBean.DataEntity.ListEntity.ViewFooterEntity viewFooterEntity = item.getView_footer();
+                if (viewFooterEntity != null) {
+                    holder.setText(R.id.tv_view, String.valueOf(viewFooterEntity.getView()))
+                            .setText(R.id.tv_focus, String.valueOf(viewFooterEntity.getFocus()))
+                            .setText(R.id.tv_consult, String.valueOf(viewFooterEntity.getConsult()))
+                            .setVisible(R.id.ll_view_footer, true);
+                } else {
+                    holder.setVisible(R.id.ll_view_footer, false);
+                }
+                holder.itemView.setOnClickListener(view1 -> ARouter.getInstance().build("/app/EquityDetailsActivity").navigation());
+            }
+        }, false);
     }
 }

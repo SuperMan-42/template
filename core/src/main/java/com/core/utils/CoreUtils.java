@@ -43,6 +43,7 @@ import com.core.base.App;
 import com.core.di.component.AppComponent;
 import com.core.http.imageloader.glide.ImageConfigImpl;
 import com.core.integration.AppManager;
+import com.core.integration.cache.Cache;
 
 import java.security.MessageDigest;
 
@@ -438,6 +439,10 @@ public class CoreUtils {
     public static AppComponent obtainAppComponentFromContext(Context context) {
         Preconditions.checkState(context.getApplicationContext() instanceof App, "Application does not implements App");
         return ((App) context.getApplicationContext()).getAppComponent();
+    }
+
+    public static Cache<String, Object> obtainRxCache(Context context) {
+        return obtainAppComponentFromContext(context).extras();
     }
 
     public static void imgLoader(Context context, String url, ImageView view) {

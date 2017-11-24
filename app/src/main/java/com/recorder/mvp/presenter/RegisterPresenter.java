@@ -10,7 +10,11 @@ import com.recorder.mvp.contract.RegisterContract;
 
 import javax.inject.Inject;
 
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 import me.jessyan.rxerrorhandler.core.RxErrorHandler;
+import me.jessyan.rxerrorhandler.handler.ErrorHandleSubscriber;
+import me.jessyan.rxerrorhandler.handler.RetryWithDelay;
 
 @ActivityScope
 public class RegisterPresenter extends BasePresenter<RegisterContract.Model, RegisterContract.View> {
@@ -37,5 +41,19 @@ public class RegisterPresenter extends BasePresenter<RegisterContract.Model, Reg
         this.mAppManager = null;
         this.mImageLoader = null;
         this.mApplication = null;
+    }
+
+    public void registerUser(String mobile, String password, String code) {
+        mModel.registerUser(mobile, password, code)
+                .subscribeOn(Schedulers.io())
+                .retryWhen(new RetryWithDelay(3, 2))
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new ErrorHandleSubscriber<Object>(mErrorHandler) {
+                    @Override
+                    public void onNext(Object object) {
+                        mRootView.showRegisterSuccess(mImageLoader, object);
+                    }
+                });
     }
 }

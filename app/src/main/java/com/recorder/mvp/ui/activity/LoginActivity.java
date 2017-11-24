@@ -10,11 +10,13 @@ import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.core.base.BaseActivity;
 import com.core.di.component.AppComponent;
+import com.core.utils.CommonUtils;
 import com.core.utils.CoreUtils;
 import com.recorder.R;
 import com.recorder.di.component.DaggerLoginComponent;
 import com.recorder.di.module.LoginModule;
 import com.recorder.mvp.contract.LoginContract;
+import com.recorder.mvp.model.entity.LoginBean;
 import com.recorder.mvp.presenter.LoginPresenter;
 
 import butterknife.BindView;
@@ -84,6 +86,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
                 finish();
                 break;
             case R.id.tv_login:
+                doLogin();
                 break;
             case R.id.tv_forget_password:
                 ARouter.getInstance().build("/app/ForgetPasswordActivity").navigation();
@@ -92,5 +95,20 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
                 ARouter.getInstance().build("/app/RegisterActivity").navigation();
                 break;
         }
+    }
+
+    private void doLogin() {
+        if (!CommonUtils.isPhone(etPhone.getText().toString())) {
+            CoreUtils.snackbarText("手机号格式错误");
+            return;
+        }
+        CoreUtils.hideSoftInput(etPhone);
+        mPresenter.login(etPhone.getText().toString(), etPassword.getText().toString());
+    }
+
+    @Override
+    public void showLoginSuccess(LoginBean loginBean) {
+        CoreUtils.snackbarText("登录成功");
+        finish();
     }
 }

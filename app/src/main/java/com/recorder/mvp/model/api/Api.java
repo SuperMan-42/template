@@ -5,5 +5,5 @@ package com.recorder.mvp.model.api;
  */
 
 public interface Api {
-    String APP_DOMAIN = "http://app.yuanshihui.com/";
+    String APP_DOMAIN = "http://api-test.dreamflyc.com/";
 }

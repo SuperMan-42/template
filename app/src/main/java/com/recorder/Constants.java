@@ -5,4 +5,6 @@ package com.recorder;
  */
 
 public class Constants {
+    public static final String LOGIN_INFO = "login_info";
+    public static final String TOKEN = "token";
 }

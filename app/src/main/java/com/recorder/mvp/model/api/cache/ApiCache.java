@@ -1,6 +1,6 @@
 package com.recorder.mvp.model.api.cache;
 
-import com.recorder.mvp.model.entity.ReferFilter;
+import com.recorder.mvp.model.entity.EquityBean;
 
 import java.util.concurrent.TimeUnit;
 
@@ -13,7 +13,8 @@ import io.rx_cache2.Reply;
  * Created by hpw on 17-11-20.
  */
 
-public interface Cache {
+public interface ApiCache {
+
     @LifeCache(duration = 2, timeUnit = TimeUnit.DAYS)
-    Observable<Reply<ReferFilter>> getFilter(Observable<ReferFilter> oUsers, EvictProvider evictProvider);
+    Observable<Reply<EquityBean>> getEquity(Observable<EquityBean> oUsers, EvictProvider evictProvider);
 }

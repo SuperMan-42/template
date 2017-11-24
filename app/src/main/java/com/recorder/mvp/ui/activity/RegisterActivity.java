@@ -11,6 +11,8 @@ import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.core.base.BaseActivity;
 import com.core.di.component.AppComponent;
+import com.core.http.imageloader.ImageLoader;
+import com.core.utils.CommonUtils;
 import com.core.utils.CoreUtils;
 import com.recorder.R;
 import com.recorder.di.component.DaggerRegisterComponent;
@@ -90,7 +92,7 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter> implements
             case R.id.tv_get_code:
                 break;
             case R.id.tv_next:
-                flDialog.setVisibility(View.VISIBLE);
+                doRegister();
                 break;
             case R.id.tv_go_authentication:
                 ARouter.getInstance().build("/app/AuthActivity").navigation();
@@ -99,5 +101,21 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter> implements
                 ARouter.getInstance().build("/app/HomeActivity").navigation();
                 break;
         }
+    }
+
+    private void doRegister() {
+        if (!CommonUtils.isPhone(etPhone.getText().toString()))
+            return;
+        if (!etPassword.getText().toString().equals(etPasswordNext.getText().toString())) {
+            CoreUtils.snackbarText("两次密码输入不一致");
+            return;
+        }
+        CoreUtils.hideSoftInput(etPhone);
+        mPresenter.registerUser(etPhone.getText().toString(), etPassword.getText().toString(), etCode.getText().toString());
+    }
+
+    @Override
+    public void showRegisterSuccess(ImageLoader imageLoader, Object object) {
+        flDialog.setVisibility(View.VISIBLE);
     }
 }

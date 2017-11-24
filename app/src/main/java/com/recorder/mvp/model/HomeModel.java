@@ -7,15 +7,11 @@ import com.core.integration.IRepositoryManager;
 import com.core.mvp.BaseModel;
 import com.google.gson.Gson;
 import com.recorder.mvp.contract.HomeContract;
-import com.recorder.mvp.model.api.cache.Cache;
-import com.recorder.mvp.model.api.service.Service;
 import com.recorder.mvp.model.entity.ReferFilter;
 
 import javax.inject.Inject;
 
 import io.reactivex.Observable;
-import io.rx_cache2.EvictProvider;
-import io.rx_cache2.Reply;
 
 @ActivityScope
 public class HomeModel extends BaseModel implements HomeContract.Model {
@@ -38,11 +34,12 @@ public class HomeModel extends BaseModel implements HomeContract.Model {
 
     @Override
     public Observable<ReferFilter> getFilter() {
-        return Observable.just(mRepositoryManager
-                .obtainRetrofitService(Service.class)
-                .getFilter())
-                .flatMap(resultObservable -> mRepositoryManager.obtainCacheService(Cache.class)
-                        .getFilter(resultObservable, new EvictProvider(false))
-                        .map(Reply::getData));
+//        return Observable.just(mRepositoryManager
+//                .obtainRetrofitService(ApiService.class)
+//                .getFilter())
+//                .flatMap(resultObservable -> mRepositoryManager.obtainCacheService(ApiCache.class)
+//                        .getFilter(resultObservable, new EvictProvider(false))
+//                        .map(Reply::getData));
+        return null;
     }
 }
