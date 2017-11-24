@@ -6,15 +6,13 @@ import com.core.di.scope.ActivityScope;
 import com.core.http.imageloader.ImageLoader;
 import com.core.integration.AppManager;
 import com.core.mvp.BasePresenter;
+import com.core.utils.RxLifecycleUtils;
 import com.recorder.mvp.contract.RegisterContract;
 
 import javax.inject.Inject;
 
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
 import me.jessyan.rxerrorhandler.core.RxErrorHandler;
 import me.jessyan.rxerrorhandler.handler.ErrorHandleSubscriber;
-import me.jessyan.rxerrorhandler.handler.RetryWithDelay;
 
 @ActivityScope
 public class RegisterPresenter extends BasePresenter<RegisterContract.Model, RegisterContract.View> {
@@ -45,10 +43,7 @@ public class RegisterPresenter extends BasePresenter<RegisterContract.Model, Reg
 
     public void registerUser(String mobile, String password, String code) {
         mModel.registerUser(mobile, password, code)
-                .subscribeOn(Schedulers.io())
-                .retryWhen(new RetryWithDelay(3, 2))
-                .subscribeOn(AndroidSchedulers.mainThread())
-                .observeOn(AndroidSchedulers.mainThread())
+                .compose(RxLifecycleUtils.transformer(mRootView))
                 .subscribe(new ErrorHandleSubscriber<Object>(mErrorHandler) {
                     @Override
                     public void onNext(Object object) {

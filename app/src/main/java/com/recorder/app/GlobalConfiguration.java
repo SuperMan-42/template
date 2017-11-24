@@ -15,9 +15,13 @@ import com.core.base.delegate.AppLifecycles;
 import com.core.di.module.GlobalConfigModule;
 import com.core.http.GlobalHttpHandler;
 import com.core.http.RequestInterceptor;
+import com.core.http.exception.ApiErrorCode;
+import com.core.http.exception.ApiException;
 import com.core.integration.ConfigModule;
+import com.core.integration.cache.BCache;
 import com.core.utils.CoreUtils;
 import com.core.utils.DataHelper;
+import com.google.gson.Gson;
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.FormatStrategy;
 import com.orhanobut.logger.Logger;
@@ -25,8 +29,6 @@ import com.orhanobut.logger.PrettyFormatStrategy;
 import com.recorder.BuildConfig;
 import com.recorder.Constants;
 import com.recorder.R;
-import com.core.http.exception.ApiErrorCode;
-import com.core.http.exception.ApiException;
 import com.recorder.mvp.model.api.Api;
 import com.recorder.mvp.model.entity.LoginBean;
 import com.recorder.mvp.ui.activity.HomeActivity;
@@ -67,7 +69,7 @@ public class GlobalConfiguration implements ConfigModule {
                         if (!TextUtils.isEmpty(httpResult) && RequestInterceptor.isJson(response.body().contentType())) {
                             Logger.json(httpResult);
                             if (chain.request().url().toString().endsWith("/user/login"))
-                                CoreUtils.obtainRxCache(context).put(Constants.TOKEN, response.header("SESSION-TOKEN"));
+                                BCache.getInstance().put(Constants.TOKEN, response.header("SESSION-TOKEN"));
 
                             JSONObject jsonObject = null;
                             try {
@@ -118,7 +120,7 @@ public class GlobalConfiguration implements ConfigModule {
                                 content = chain.request().url().query();
                             }
                             String time = String.valueOf(System.currentTimeMillis() / 1000);
-                            String token = (String) CoreUtils.obtainRxCache(context).get(Constants.TOKEN);
+                            String token = BCache.getInstance().getString(Constants.TOKEN);
                             if (TextUtils.isEmpty(content)) {
                                 content = "time=" + time + (TextUtils.isEmpty(token) ? "" : "|" + token);
                             } else {
@@ -131,7 +133,7 @@ public class GlobalConfiguration implements ConfigModule {
                                 stringBuilder.append(string).append("|");
                             }
                             JSONObject jsonObject = new JSONObject();
-                            LoginBean loginBean = (LoginBean) CoreUtils.obtainRxCache(context).get(Constants.LOGIN_INFO);
+                            LoginBean loginBean = new Gson().fromJson(BCache.getInstance().getString(Constants.LOGIN_INFO), LoginBean.class);
                             jsonObject.put("sign", new Jni().getSign(context, stringBuilder.toString()))
                                     .put("time", time)
                                     .put("client", "android");

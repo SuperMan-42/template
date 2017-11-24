@@ -5,19 +5,18 @@ import android.app.Application;
 import com.core.di.scope.ActivityScope;
 import com.core.http.imageloader.ImageLoader;
 import com.core.integration.AppManager;
+import com.core.integration.cache.BCache;
 import com.core.mvp.BasePresenter;
-import com.core.utils.CoreUtils;
+import com.core.utils.RxLifecycleUtils;
+import com.google.gson.Gson;
 import com.recorder.Constants;
 import com.recorder.mvp.contract.LoginContract;
 import com.recorder.mvp.model.entity.LoginBean;
 
 import javax.inject.Inject;
 
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
 import me.jessyan.rxerrorhandler.core.RxErrorHandler;
 import me.jessyan.rxerrorhandler.handler.ErrorHandleSubscriber;
-import me.jessyan.rxerrorhandler.handler.RetryWithDelay;
 
 @ActivityScope
 public class LoginPresenter extends BasePresenter<LoginContract.Model, LoginContract.View> {
@@ -48,14 +47,11 @@ public class LoginPresenter extends BasePresenter<LoginContract.Model, LoginCont
 
     public void login(String mobile, String password) {
         mModel.login(mobile, password)
-                .subscribeOn(Schedulers.io())
-                .retryWhen(new RetryWithDelay(3, 2))
-                .subscribeOn(AndroidSchedulers.mainThread())
-                .observeOn(AndroidSchedulers.mainThread())
+                .compose(RxLifecycleUtils.transformer(mRootView))
                 .subscribe(new ErrorHandleSubscriber<LoginBean>(mErrorHandler) {
                     @Override
                     public void onNext(LoginBean loginBean) {
-                        CoreUtils.obtainRxCache(mApplication).put(Constants.LOGIN_INFO, loginBean);
+                        BCache.getInstance().put(Constants.LOGIN_INFO, new Gson().toJson(loginBean));
                         mRootView.showLoginSuccess(loginBean);
                     }
                 });

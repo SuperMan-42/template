@@ -2,7 +2,7 @@ package com.core.http.exception;
 
 import android.content.Context;
 
-import com.core.utils.CoreUtils;
+import com.core.integration.cache.BCache;
 
 import java.util.concurrent.TimeUnit;
 
@@ -40,7 +40,7 @@ public class RetryWithToken implements Function<Observable<Throwable>, Observabl
                         switch (((ApiException) throwable).getErrorCode()) {
                             case ApiErrorCode.ERROR_USER_AUTHORIZED:
                                 while (true) {
-                                    if (CoreUtils.obtainRxCache(mContext).get("token") != null) {
+                                    if (BCache.getInstance().getString("token") != null) {
                                         break;
                                     } else {
                                         sleep(1000);
@@ -50,7 +50,7 @@ public class RetryWithToken implements Function<Observable<Throwable>, Observabl
                         }
                     } else if (throwable instanceof CompositeException && ((CompositeException) throwable).getExceptions().toString().contains("ApiException")) {
                         while (true) {
-                            if (CoreUtils.obtainRxCache(mContext).get("token") != null) {
+                            if (BCache.getInstance().getString("token") != null) {
                                 break;
                             } else {
                                 sleep(1000);
