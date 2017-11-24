@@ -7,10 +7,12 @@ package com.recorder.mvp.model.entity;
 public class Bean {
     String key;
     String value;
+    String other;
 
-    public Bean(String key, String value) {
+    public Bean(String key, String value, String other) {
         this.key = key;
         this.value = value;
+        this.other = other;
     }
 
     public String getKey() {
@@ -29,11 +31,20 @@ public class Bean {
         this.value = value;
     }
 
+    public String getOther() {
+        return other;
+    }
+
+    public void setOther(String other) {
+        this.other = other;
+    }
+
     @Override
     public String toString() {
         return "Bean{" +
                 "key='" + key + '\'' +
                 ", value='" + value + '\'' +
+                ", other='" + other + '\'' +
                 '}';
     }
 }

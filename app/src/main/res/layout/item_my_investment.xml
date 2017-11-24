@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.core.widget.autolayout.AutoConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white">
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="45px"
+        android:layout_marginTop="30px"
+        android:textColor="#333333"
+        android:textSize="42px"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="早山品牌形象设计" />
+
+    <TextView
+        android:id="@+id/tv_ispay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="45px"
+        android:textColor="#FF5701"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tv_title"
+        tools:text="待支付" />
+
+    <View
+        android:id="@+id/divider"
+        style="@style/divider"
+        android:layout_marginTop="30px"
+        app:layout_constraintTop_toBottomOf="@id/tv_title" />
+
+    <ImageView
+        android:id="@+id/im_cover"
+        android:layout_width="330px"
+        android:layout_height="270px"
+        android:layout_marginTop="24px"
+        android:src="@drawable/bga_round"
+        app:layout_constraintLeft_toLeftOf="@id/tv_title"
+        app:layout_constraintTop_toBottomOf="@id/divider" />
+
+    <TextView
+        android:id="@+id/tv_tag_buy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="45px"
+        android:layout_marginTop="45px"
+        android:text="认购金额: "
+        android:textColor="#A0A0A0"
+        android:textSize="42px"
+        app:layout_constraintLeft_toRightOf="@id/im_cover"
+        app:layout_constraintTop_toBottomOf="@id/divider" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#333333"
+        android:textSize="42px"
+        app:layout_constraintLeft_toRightOf="@id/tv_tag_buy"
+        app:layout_constraintTop_toTopOf="@id/tv_tag_buy"
+        tools:text="10万元" />
+
+    <TextView
+        android:id="@+id/tv_tag_stock"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30px"
+        android:text="占股比例: "
+        android:textColor="#A0A0A0"
+        android:textSize="42px"
+        app:layout_constraintLeft_toLeftOf="@id/tv_tag_buy"
+        app:layout_constraintTop_toBottomOf="@id/tv_tag_buy" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#333333"
+        android:textSize="42px"
+        app:layout_constraintLeft_toRightOf="@id/tv_tag_stock"
+        app:layout_constraintTop_toTopOf="@id/tv_tag_stock"
+        tools:text="0.1%" />
+
+    <TextView
+        android:id="@+id/tv_tag_bond"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30px"
+        android:text="保证金: "
+        android:textColor="#A0A0A0"
+        android:textSize="42px"
+        app:layout_constraintLeft_toLeftOf="@id/tv_tag_stock"
+        app:layout_constraintTop_toBottomOf="@id/tv_tag_stock" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#333333"
+        android:textSize="42px"
+        app:layout_constraintLeft_toRightOf="@id/tv_tag_bond"
+        app:layout_constraintTop_toTopOf="@id/tv_tag_bond"
+        tools:text="￥1200元" />
+
+    <View
+        style="@style/divider"
+        android:layout_marginTop="33px"
+        app:layout_constraintTop_toBottomOf="@id/im_cover" />
+
+    <com.core.widget.autolayout.AutoConstraintLayout
+        android:id="@+id/cl_is_show"
+        android:layout_width="match_parent"
+        android:layout_height="120px"
+        android:layout_marginTop="33px"
+        app:layout_constraintTop_toBottomOf="@id/im_cover">
+
+        <TextView
+            android:id="@+id/tv_pay_bt"
+            android:layout_width="255px"
+            android:layout_height="81px"
+            android:layout_marginRight="45px"
+            android:background="@drawable/bga_textview_blue"
+            android:gravity="center"
+            android:text="支付"
+            android:textColor="#FFFFFF"
+            android:textSize="39px"
+            app:layout_constraintBottom_toBottomOf="@id/cl_is_show"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@id/cl_is_show" />
+
+        <TextView
+            android:id="@+id/tv_money"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="75px"
+            android:text="￥10万元"
+            android:textColor="#FC3F08"
+            android:textSize="39px"
+            app:layout_constraintBaseline_toBaselineOf="@+id/tv_pay_bt"
+            app:layout_constraintRight_toLeftOf="@id/tv_pay_bt" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="20px"
+            android:text="支付金额: "
+            android:textColor="#919191"
+            android:textSize="42px"
+            app:layout_constraintRight_toLeftOf="@id/tv_money"
+            app:layout_constraintTop_toTopOf="@id/tv_money" />
+    </com.core.widget.autolayout.AutoConstraintLayout>
+
+</com.core.widget.autolayout.AutoConstraintLayout>

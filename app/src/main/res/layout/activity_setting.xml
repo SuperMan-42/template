@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F0F2F5"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+    <include layout="@layout/view_toolbar" />
+
+    <ImageView
+        android:layout_width="255px"
+        android:layout_height="255px"
+        android:layout_marginTop="150px"
+        android:src="@drawable/bga_textview_blue" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="33px"
+        android:text="昊翔V1.0"
+        android:textColor="#24338A"
+        android:textSize="42px" />
+
+    <RelativeLayout
+        android:id="@+id/rl_1"
+        android:layout_width="match_parent"
+        android:layout_height="132px"
+        android:layout_marginTop="129px"
+        android:background="@color/white"
+        android:paddingLeft="45px"
+        android:paddingRight="45px">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="清理缓存"
+            android:textColor="#333333"
+            android:textSize="45px" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:drawablePadding="39px"
+            android:drawableRight="@drawable/im_login_phone"
+            android:textColor="#999999"
+            android:textSize="42px"
+            tools:text="eddie0730" />
+
+    </RelativeLayout>
+
+    <View
+        style="@style/divider"
+        android:layout_marginLeft="45px" />
+
+    <RelativeLayout
+        android:id="@+id/rl_2"
+        android:layout_width="match_parent"
+        android:layout_height="132px"
+        android:background="@color/white"
+        android:paddingLeft="45px"
+        android:paddingRight="45px">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="意见反馈"
+            android:textColor="#333333"
+            android:textSize="45px" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:drawablePadding="39px"
+            android:drawableRight="@drawable/im_login_phone"
+            android:textColor="#999999"
+            android:textSize="42px"
+            tools:text="" />
+
+    </RelativeLayout>
+
+    <View
+        style="@style/divider"
+        android:layout_marginLeft="45px" />
+
+    <RelativeLayout
+        android:id="@+id/rl_3"
+        android:layout_width="match_parent"
+        android:layout_height="132px"
+        android:background="@color/white"
+        android:paddingLeft="45px"
+        android:paddingRight="45px">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="客服中心"
+            android:textColor="#333333"
+            android:textSize="45px" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:drawablePadding="39px"
+            android:drawableRight="@drawable/im_login_phone"
+            android:textColor="#999999"
+            android:textSize="42px"
+            tools:text="" />
+
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="132px"
+        android:layout_marginTop="120px"
+        android:background="@color/white"
+        android:gravity="center"
+        android:text="退出登录"
+        android:textColor="#24338a"
+        android:textSize="45px" />
+</LinearLayout>

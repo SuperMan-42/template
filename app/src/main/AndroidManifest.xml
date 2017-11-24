@@ -67,6 +67,24 @@
         <activity
             android:name=".mvp.ui.activity.BuyActivity"
             android:theme="@style/CoreAppTheme.Transparent" />
+        <activity
+            android:name=".mvp.ui.activity.MyInvestmentActivity"
+            android:theme="@style/CoreAppTheme.Transparent" />
+        <activity
+            android:name=".mvp.ui.activity.MyAttentionActivity"
+            android:theme="@style/CoreAppTheme.Transparent" />
+        <activity
+            android:name=".mvp.ui.activity.BackStageManagerActivity"
+            android:theme="@style/CoreAppTheme.Transparent" />
+        <activity
+            android:name=".mvp.ui.activity.PersonActivity"
+            android:theme="@style/CoreAppTheme.Transparent" />
+        <activity
+            android:name=".mvp.ui.activity.ModifyPasswordActivity"
+            android:theme="@style/CoreAppTheme.Transparent" />
+        <activity
+            android:name=".mvp.ui.activity.SettingActivity"
+            android:theme="@style/CoreAppTheme.Transparent" />
     </application>
 
 </manifest>

@@ -27,6 +27,7 @@ import java.util.List;
 
 import app.dinus.com.itemdecoration.GridDividerItemDecoration;
 import butterknife.BindView;
+import butterknife.OnClick;
 
 import static com.core.utils.Preconditions.checkNotNull;
 
@@ -58,12 +59,12 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
     @Override
     public void initData(Bundle savedInstanceState) {
         List<Bean> list = new ArrayList<>();
-        list.add(new Bean("http://bpic.588ku.com/element_origin_min_pic/00/00/05/115732f19cc0079.jpg", "我的消息"));
-        list.add(new Bean("http://bpic.588ku.com/element_origin_min_pic/00/00/05/115732f1ac12d1d.jpg", "投资帮助"));
-        list.add(new Bean("http://bpic.588ku.com/element_origin_min_pic/00/00/05/115732f1bad97d1.jpg", "设置"));
-        list.add(new Bean("http://bpic.588ku.com/element_origin_min_pic/00/00/05/115732f1c83c228.jpg", "推荐项目"));
-        list.add(new Bean("http://bpic.588ku.com/element_origin_min_pic/00/00/05/115732f1d53e3dd.jpg", "推荐给朋友"));
-        list.add(new Bean("http://bpic.588ku.com/element_origin_min_pic/00/00/05/115732f1e37fea9.jpg", "投资人认证"));
+        list.add(new Bean("http://bpic.588ku.com/element_origin_min_pic/00/00/05/115732f19cc0079.jpg", "我的消息", "/app/SettingActivity"));
+        list.add(new Bean("http://bpic.588ku.com/element_origin_min_pic/00/00/05/115732f1ac12d1d.jpg", "投资帮助", "/app/SettingActivity"));
+        list.add(new Bean("http://bpic.588ku.com/element_origin_min_pic/00/00/05/115732f1bad97d1.jpg", "设置", "/app/SettingActivity"));
+        list.add(new Bean("http://bpic.588ku.com/element_origin_min_pic/00/00/05/115732f1c83c228.jpg", "推荐项目", "/app/SettingActivity"));
+        list.add(new Bean("http://bpic.588ku.com/element_origin_min_pic/00/00/05/115732f1d53e3dd.jpg", "推荐给朋友", "/app/SettingActivity"));
+        list.add(new Bean("http://bpic.588ku.com/element_origin_min_pic/00/00/05/115732f1e37fea9.jpg", "投资人认证", "/app/SettingActivity"));
         GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 3) {
             @Override
             public boolean canScrollVertically() {
@@ -76,7 +77,7 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
             protected void convert(BaseViewHolder holder, Bean item) {
                 CoreUtils.imgLoader(getContext(), item.getKey(), holder.getView(R.id.im_pic));
                 holder.setText(R.id.tv_content, item.getValue());
-                holder.itemView.setOnClickListener(view1 -> ARouter.getInstance().build("/app/EquityDetailsActivity").navigation());
+                holder.itemView.setOnClickListener(view1 -> ARouter.getInstance().build(item.getOther()).navigation());
             }
         }, false);
         GridDividerItemDecoration dividerItemDecoration = new GridDividerItemDecoration(getActivity(), GridDividerItemDecoration.GRID_DIVIDER_VERTICAL);
@@ -127,5 +128,23 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
     @Override
     public void killMyself() {
 
+    }
+
+    @OnClick({R.id.profile_image, R.id.ll_investment, R.id.ll_attention, R.id.ll_manager})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.profile_image:
+                ARouter.getInstance().build("/app/PersonActivity").navigation();
+                break;
+            case R.id.ll_investment:
+                ARouter.getInstance().build("/app/MyInvestmentActivity").navigation();
+                break;
+            case R.id.ll_attention:
+                ARouter.getInstance().build("/app/MyAttentionActivity").navigation();
+                break;
+            case R.id.ll_manager:
+                ARouter.getInstance().build("/app/BackStageManagerActivity").navigation();
+                break;
+        }
     }
 }

@@ -42,6 +42,7 @@
             android:orientation="horizontal">
 
             <LinearLayout
+                android:id="@+id/ll_investment"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -69,6 +70,7 @@
                 android:background="#BFBFBF" />
 
             <LinearLayout
+                android:id="@+id/ll_attention"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -96,6 +98,7 @@
                 android:background="#BFBFBF" />
 
             <LinearLayout
+                android:id="@+id/ll_manager"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
