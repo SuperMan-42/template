@@ -6,19 +6,22 @@ import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.core.base.BaseActivity;
 import com.core.di.component.AppComponent;
 import com.core.http.imageloader.ImageLoader;
-import com.core.utils.CommonUtils;
 import com.core.utils.CoreUtils;
+import com.core.widget.CustomPopupWindow;
 import com.recorder.R;
 import com.recorder.di.component.DaggerRegisterComponent;
 import com.recorder.di.module.RegisterModule;
+import com.recorder.mvp.contract.ForgetPasswordContract;
 import com.recorder.mvp.contract.RegisterContract;
 import com.recorder.mvp.presenter.RegisterPresenter;
+import com.recorder.utils.CommonUtils;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -26,7 +29,7 @@ import butterknife.OnClick;
 import static com.core.utils.Preconditions.checkNotNull;
 
 @Route(path = "/app/RegisterActivity")
-public class RegisterActivity extends BaseActivity<RegisterPresenter> implements RegisterContract.View {
+public class RegisterActivity extends BaseActivity<RegisterPresenter> implements RegisterContract.View, ForgetPasswordContract.View {
 
     @BindView(R.id.et_phone)
     EditText etPhone;
@@ -38,6 +41,10 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter> implements
     EditText etPasswordNext;
     @BindView(R.id.fl_dialog)
     FrameLayout flDialog;
+    @BindView(R.id.tv_get_code)
+    TextView tvGetCode;
+
+    CustomPopupWindow dialog;
 
     @Override
     public void setupActivityComponent(AppComponent appComponent) {
@@ -73,6 +80,9 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter> implements
     public void showMessage(@NonNull String message) {
         checkNotNull(message);
         CoreUtils.snackbarText(message);
+        if (message.equals(CoreUtils.getString(this, R.string.text_smsCode))) {
+            CommonUtils.getCode(tvGetCode);
+        }
     }
 
     @Override
@@ -90,6 +100,7 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter> implements
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_get_code:
+                getCode();
                 break;
             case R.id.tv_next:
                 doRegister();
@@ -104,10 +115,13 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter> implements
     }
 
     private void doRegister() {
-        if (!CommonUtils.isPhone(etPhone.getText().toString()))
+        if (!CommonUtils.isPhone(etPhone.getText().toString())) {
+            CoreUtils.snackbarText(CoreUtils.getString(this, R.string.text_phone));
             return;
+        }
         if (!etPassword.getText().toString().equals(etPasswordNext.getText().toString())) {
-            CoreUtils.snackbarText("两次密码输入不一致");
+            CustomPopupWindow.builder().contentView(CoreUtils.inflate(this, R.layout.layout_dialog_one_button)).isOutsideTouch(false)
+                    .customListener(contentView -> contentView.findViewById(R.id.tv_sure).setOnClickListener(view -> CustomPopupWindow.killMySelf())).build().show();
             return;
         }
         CoreUtils.hideSoftInput(etPhone);
@@ -117,5 +131,15 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter> implements
     @Override
     public void showRegisterSuccess(ImageLoader imageLoader, Object object) {
         flDialog.setVisibility(View.VISIBLE);
+    }
+
+    public void getCode() {
+        CoreUtils.hideSoftInput(this);
+        if (!CommonUtils.isPhone(etPhone.getText().toString())) {
+            CoreUtils.snackbarText(CoreUtils.getString(this, R.string.text_phone));
+            return;
+        }
+        CommonUtils.getCode(tvGetCode);
+        mPresenter.smsCode(etPhone.getText().toString(), "1", null);
     }
 }

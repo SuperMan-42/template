@@ -5,11 +5,12 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
-import com.alibaba.android.arouter.launcher.ARouter;
 import com.core.base.BaseActivity;
 import com.core.di.component.AppComponent;
+import com.recorder.utils.CommonUtils;
 import com.core.utils.CoreUtils;
 import com.recorder.R;
 import com.recorder.di.component.DaggerForgetPasswordComponent;
@@ -29,6 +30,8 @@ public class ForgetPasswordActivity extends BaseActivity<ForgetPasswordPresenter
     EditText etPhone;
     @BindView(R.id.et_code)
     EditText etCode;
+    @BindView(R.id.tv_get_code)
+    TextView tvGetCode;
 
     @Override
     public void setupActivityComponent(AppComponent appComponent) {
@@ -64,6 +67,9 @@ public class ForgetPasswordActivity extends BaseActivity<ForgetPasswordPresenter
     public void showMessage(@NonNull String message) {
         checkNotNull(message);
         CoreUtils.snackbarText(message);
+        if (message.equals(CoreUtils.getString(this, R.string.text_smsCode))) {
+            CommonUtils.getCode(tvGetCode);
+        }
     }
 
     @Override
@@ -75,15 +81,24 @@ public class ForgetPasswordActivity extends BaseActivity<ForgetPasswordPresenter
     @Override
     public void killMyself() {
         finish();
+        overridePendingTransition(R.anim.slide_in_right, R.anim.empty);
     }
 
     @OnClick({R.id.tv_get_code, R.id.tv_next})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_get_code:
+                CoreUtils.hideSoftInput(this);
+                if (!CommonUtils.isPhone(etPhone.getText().toString())) {
+                    CoreUtils.snackbarText(CoreUtils.getString(this, R.string.text_phone));
+                    return;
+                }
+                CommonUtils.getCode(tvGetCode);
+                mPresenter.smsCode(etPhone.getText().toString(), "2", null);
                 break;
             case R.id.tv_next:
-                ARouter.getInstance().build("/app/NewPasswordActivity").navigation();
+                CoreUtils.hideSoftInput(this);
+                mPresenter.smsVerify(etPhone.getText().toString(), etCode.getText().toString(), "2");
                 break;
         }
     }

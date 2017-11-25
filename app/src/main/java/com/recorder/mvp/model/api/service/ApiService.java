@@ -29,4 +29,18 @@ public interface ApiService {
     @FormUrlEncoded
     @POST("user/login")
     Observable<LoginBean> login(@Header("DIVERSION-VERSION") String version, @Field("mobile") String mobile, @Field("password") String password);
+
+    // 1-注册 2-忘记密码 3-修改密码 [必须]
+    @FormUrlEncoded
+    @POST("sms/code")
+    Observable<Object> smsCode(@Header("DIVERSION-VERSION") String version, @Field("mobile") String mobile, @Field("type") String type, @Field("captcha") String captcha);
+
+    // 1-注册 2-忘记密码 3-修改密码 [必须]
+    @FormUrlEncoded
+    @POST("sms/verify")
+    Observable<Object> smsVerify(@Header("DIVERSION-VERSION") String version, @Field("mobile") String mobile, @Field("code") String code, @Field("type") String type);
+
+    @FormUrlEncoded
+    @POST("user/forgetpwd")
+    Observable<Object> userForgetpwd(@Header("DIVERSION-VERSION") String version, @Field("mobile") String mobile, @Field("code") String code, @Field("password") String password);
 }

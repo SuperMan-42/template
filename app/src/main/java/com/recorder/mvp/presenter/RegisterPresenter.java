@@ -6,7 +6,9 @@ import com.core.di.scope.ActivityScope;
 import com.core.http.imageloader.ImageLoader;
 import com.core.integration.AppManager;
 import com.core.mvp.BasePresenter;
+import com.core.utils.CoreUtils;
 import com.core.utils.RxLifecycleUtils;
+import com.recorder.R;
 import com.recorder.mvp.contract.RegisterContract;
 
 import javax.inject.Inject;
@@ -48,6 +50,17 @@ public class RegisterPresenter extends BasePresenter<RegisterContract.Model, Reg
                     @Override
                     public void onNext(Object object) {
                         mRootView.showRegisterSuccess(mImageLoader, object);
+                    }
+                });
+    }
+
+    public void smsCode(String mobile, String type, String captcha) {
+        mModel.smsCode(mobile, type, captcha)
+                .compose(RxLifecycleUtils.transformer(mRootView))
+                .subscribe(new ErrorHandleSubscriber<Object>(mErrorHandler) {
+                    @Override
+                    public void onNext(Object o) {
+                        mRootView.showMessage(CoreUtils.getString(mApplication, R.string.text_smsCode));
                     }
                 });
     }

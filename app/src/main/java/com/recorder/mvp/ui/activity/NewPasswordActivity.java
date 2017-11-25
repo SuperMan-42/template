@@ -3,9 +3,12 @@ package com.recorder.mvp.ui.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.text.TextUtils;
 import android.widget.EditText;
 
+import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.core.base.BaseActivity;
 import com.core.di.component.AppComponent;
 import com.core.utils.CoreUtils;
@@ -28,6 +31,11 @@ public class NewPasswordActivity extends BaseActivity<NewPasswordPresenter> impl
     @BindView(R.id.et_password_next)
     EditText etPasswordNext;
 
+    @Autowired
+    String mobile;
+    @Autowired
+    String code;
+
     @Override
     public void setupActivityComponent(AppComponent appComponent) {
         DaggerNewPasswordComponent //如找不到该类,请编译一下项目
@@ -45,6 +53,7 @@ public class NewPasswordActivity extends BaseActivity<NewPasswordPresenter> impl
 
     @Override
     public void initView(Bundle savedInstanceState) {
+        ARouter.getInstance().inject(this);
         title("找回密码");
     }
 
@@ -73,9 +82,20 @@ public class NewPasswordActivity extends BaseActivity<NewPasswordPresenter> impl
     @Override
     public void killMyself() {
         finish();
+        overridePendingTransition(R.anim.slide_in_right, R.anim.empty);
     }
 
     @OnClick(R.id.tv_do)
     public void onViewClicked() {
+        CoreUtils.hideSoftInput(this);
+        if (TextUtils.isEmpty(etPassword.getText().toString())) {
+            CoreUtils.snackbarText(CoreUtils.getString(this, R.string.text_password_no_null));
+            return;
+        }
+        if (TextUtils.isEmpty(etPasswordNext.getText().toString()) || !etPassword.getText().toString().equals(etPasswordNext.getText().toString())) {
+            CoreUtils.snackbarText(CoreUtils.getString(this, R.string.text_password_no));
+            return;
+        }
+        mPresenter.userForgetpwd(mobile, code, etPassword.getText().toString());
     }
 }

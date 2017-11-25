@@ -2,14 +2,16 @@ package com.recorder.mvp.model;
 
 import android.app.Application;
 
-import com.google.gson.Gson;
 import com.core.di.scope.ActivityScope;
 import com.core.integration.IRepositoryManager;
 import com.core.mvp.BaseModel;
+import com.google.gson.Gson;
+import com.recorder.mvp.contract.ForgetPasswordContract;
+import com.recorder.mvp.model.api.service.ApiService;
 
 import javax.inject.Inject;
 
-import com.recorder.mvp.contract.ForgetPasswordContract;
+import io.reactivex.Observable;
 
 @ActivityScope
 public class ForgetPasswordModel extends BaseModel implements ForgetPasswordContract.Model {
@@ -28,5 +30,15 @@ public class ForgetPasswordModel extends BaseModel implements ForgetPasswordCont
         super.onDestroy();
         this.mGson = null;
         this.mApplication = null;
+    }
+
+    @Override
+    public Observable<Object> smsCode(String mobile, String type, String captcha) {
+        return mRepositoryManager.obtainRetrofitService(ApiService.class).smsCode("1", mobile, type, captcha);
+    }
+
+    @Override
+    public Observable<Object> smsVerify(String mobile, String code, String type) {
+        return mRepositoryManager.obtainRetrofitService(ApiService.class).smsVerify("1", mobile, code, type);
     }
 }

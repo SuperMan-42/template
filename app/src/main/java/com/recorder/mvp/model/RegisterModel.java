@@ -32,9 +32,13 @@ public class RegisterModel extends BaseModel implements RegisterContract.Model {
         this.mApplication = null;
     }
 
-
     @Override
     public Observable<Object> registerUser(String mobile, String password, String code) {
         return mRepositoryManager.obtainRetrofitService(ApiService.class).registerUser("1", mobile, password, code);
+    }
+
+    @Override
+    public Observable<Object> smsCode(String mobile, String type, String captcha) {
+        return mRepositoryManager.obtainRetrofitService(ApiService.class).smsCode("1", mobile, type, captcha);
     }
 }

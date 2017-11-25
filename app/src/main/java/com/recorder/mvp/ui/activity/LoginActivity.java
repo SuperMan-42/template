@@ -10,7 +10,7 @@ import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.core.base.BaseActivity;
 import com.core.di.component.AppComponent;
-import com.core.utils.CommonUtils;
+import com.recorder.utils.CommonUtils;
 import com.core.utils.CoreUtils;
 import com.recorder.R;
 import com.recorder.di.component.DaggerLoginComponent;

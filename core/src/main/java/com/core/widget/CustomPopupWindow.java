@@ -18,6 +18,7 @@ public class CustomPopupWindow extends PopupWindow {
     private Drawable mBackgroundDrawable;
     private int mAnimationStyle;
     private boolean isWrap;
+    private static CustomPopupWindow window;
 
     private CustomPopupWindow(Builder builder) {
         this.mContentView = builder.contentView;
@@ -136,7 +137,14 @@ public class CustomPopupWindow extends PopupWindow {
             if (listener == null)
                 throw new IllegalStateException("CustomPopupWindowListener is required");
 
-            return new CustomPopupWindow(this);
+            window = new CustomPopupWindow(this);
+            return window;
+        }
+    }
+
+    public static void killMySelf() {
+        if (window != null & window.isShowing()) {
+            window.dismiss();
         }
     }
 

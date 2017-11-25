@@ -465,6 +465,17 @@ public class CoreUtils {
         inputMethodManager.hideSoftInputFromWindow(et.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
     }
 
+    public static void hideSoftInput(Activity activity) {
+        if (null == activity) {
+            return;
+        }
+        final View v = activity.getWindow().peekDecorView();
+        if (v != null && v.getWindowToken() != null) {
+            InputMethodManager imm = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+        }
+    }
+
     /**
      * 计算色
      *
