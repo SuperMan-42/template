@@ -8,7 +8,6 @@ import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -44,6 +43,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.OnClick;
 import me.majiajie.pagerbottomtabstrip.NavigationController;
+import me.majiajie.pagerbottomtabstrip.listener.OnTabItemSelectedListener;
 
 import static com.core.utils.Preconditions.checkNotNull;
 
@@ -109,21 +109,16 @@ public class HomeActivity extends BaseActivity<HomePresenter> implements HomeCon
         AdapterViewPager adapterViewPager = new AdapterViewPager(getSupportFragmentManager(), fragments, strings);
         viewPager.setAdapter(adapterViewPager);
         mNavigationController.setupWithViewPager(viewPager);
-        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+        mNavigationController.addTabItemSelectedListener(new OnTabItemSelectedListener() {
             @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-            }
-
-            @Override
-            public void onPageSelected(int position) {
+            public void onSelected(int index, int old) {
                 CoreUtils.obtainRxCache(getApplicationContext()).remove("isClear");
                 title(viewPager.getAdapter().getPageTitle(viewPager.getCurrentItem()));
-                findViewById(R.id.toolbar).setVisibility(position == 4 ? View.GONE : View.VISIBLE);
+                findViewById(R.id.toolbar).setVisibility(index == 4 ? View.GONE : View.VISIBLE);
             }
 
             @Override
-            public void onPageScrollStateChanged(int state) {
+            public void onRepeat(int index) {
 
             }
         });
@@ -299,7 +294,8 @@ public class HomeActivity extends BaseActivity<HomePresenter> implements HomeCon
             llFilter.setVisibility(View.GONE);
             isFilterOpen = !isFilterOpen;
         } else {
-            super.onBackPressed();
+            finish();
+            overridePendingTransition(0, R.anim.zoom_out);
         }
     }
 }
