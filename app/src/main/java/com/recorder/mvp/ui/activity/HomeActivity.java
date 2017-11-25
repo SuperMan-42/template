@@ -117,6 +117,7 @@ public class HomeActivity extends BaseActivity<HomePresenter> implements HomeCon
 
             @Override
             public void onPageSelected(int position) {
+                CoreUtils.obtainRxCache(getApplicationContext()).remove("isClear");
                 title(viewPager.getAdapter().getPageTitle(viewPager.getCurrentItem()));
                 findViewById(R.id.toolbar).setVisibility(position == 4 ? View.GONE : View.VISIBLE);
             }

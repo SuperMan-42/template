@@ -1,6 +1,8 @@
 package com.core.http.exception;
 
+import com.core.base.BaseApplication;
 import com.core.integration.cache.BCache;
+import com.core.utils.CoreUtils;
 
 import java.util.concurrent.TimeUnit;
 
@@ -36,7 +38,7 @@ public class RetryWithToken implements Function<Observable<Throwable>, Observabl
                         switch (((ApiException) throwable).getErrorCode()) {
                             case ApiErrorCode.ERROR_USER_AUTHORIZED:
                                 for (int i = 0; i < 60; i++) {
-                                    if (BCache.getInstance().getString("token") != null) {
+                                    if (BCache.getInstance().getString("token") != null || CoreUtils.obtainRxCache(BaseApplication.getContext()).get("isClear") == null) {
                                         break;
                                     } else {
                                         sleep(1000);
@@ -46,7 +48,7 @@ public class RetryWithToken implements Function<Observable<Throwable>, Observabl
                         }
                     } else if (throwable instanceof CompositeException && ((CompositeException) throwable).getExceptions().toString().contains("ApiException")) {
                         for (int i = 0; i < 60; i++) {
-                            if (BCache.getInstance().getString("token") != null) {
+                            if (BCache.getInstance().getString("token") != null || CoreUtils.obtainRxCache(BaseApplication.getContext()).get("isClear") == null) {
                                 break;
                             } else {
                                 sleep(1000);

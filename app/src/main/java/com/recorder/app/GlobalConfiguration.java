@@ -80,11 +80,14 @@ public class GlobalConfiguration implements ConfigModule {
                             int code = jsonObject.optInt("errno");
                             switch (code) {
                                 case 0:
-                                    if (chain.request().url().toString().endsWith("/user/login"))
+                                    if (chain.request().url().toString().endsWith("/user/login")) {
+                                        CoreUtils.obtainRxCache(context).remove("isClear");
                                         BCache.getInstance().put(Constants.TOKEN, response.header("SESSION-TOKEN"));
+                                    }
                                     break;
                                 case ApiErrorCode.ERROR_USER_AUTHORIZED:
                                     response.body().close();
+                                    CoreUtils.obtainRxCache(context).put("isClear", "false");
                                     ARouter.getInstance().build("/app/LoginActivity").navigation();
                                     throw new ApiException(code, jsonObject.optString("error"));
                                 default:
