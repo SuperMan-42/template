@@ -6,6 +6,7 @@ import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 
+import com.core.widget.NoPreloadViewPager;
 import com.zhy.autolayout.AutoLayoutInfo;
 import com.zhy.autolayout.utils.AutoLayoutHelper;
 
@@ -14,7 +15,7 @@ import com.zhy.autolayout.utils.AutoLayoutHelper;
  * AutoScrollView,使用此View即可自适应
  * Created by jess on 16/4/14.
  */
-public class AutoViewPager extends ViewPager {
+public class AutoViewPager extends NoPreloadViewPager {
     private AutoLayoutHelper mHelper = new AutoLayoutHelper(this);
 
     public AutoViewPager(Context context) {
