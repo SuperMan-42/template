@@ -3,21 +3,45 @@ package com.recorder.mvp.ui.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
+import com.alibaba.android.arouter.facade.annotation.Autowired;
+import com.alibaba.android.arouter.facade.annotation.Route;
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.core.base.BaseActivity;
 import com.core.di.component.AppComponent;
 import com.core.utils.CoreUtils;
-
+import com.recorder.R;
 import com.recorder.di.component.DaggerUserModifyComponent;
 import com.recorder.di.module.UserModifyModule;
 import com.recorder.mvp.contract.UserModifyContract;
 import com.recorder.mvp.presenter.UserModifyPresenter;
 
-import com.recorder.R;
+import butterknife.BindView;
 
 import static com.core.utils.Preconditions.checkNotNull;
 
+@Route(path = "/app/UserModifyActivity")
 public class UserModifyActivity extends BaseActivity<UserModifyPresenter> implements UserModifyContract.View {
+    @Autowired
+    String key;
+    @Autowired
+    boolean isIntro;
+
+    @BindView(R.id.et_info)
+    EditText etInfo;
+    @BindView(R.id.et_intro)
+    EditText etIntro;
+    @BindView(R.id.tv_num)
+    TextView tvNum;
+    @BindView(R.id.ll_intro)
+    LinearLayout llIntro;
 
     @Override
     public void setupActivityComponent(AppComponent appComponent) {
@@ -36,7 +60,57 @@ public class UserModifyActivity extends BaseActivity<UserModifyPresenter> implem
 
     @Override
     public void initView(Bundle savedInstanceState) {
+        ARouter.getInstance().inject(this);
+        title(key);
+        llIntro.setVisibility(isIntro ? View.VISIBLE : View.GONE);
 
+        etInfo.setOnEditorActionListener((textView, actionId, keyEvent) -> {
+            if (actionId == EditorInfo.IME_ACTION_SEND) {
+                switch (key) {
+                    case "用户名":
+                        mPresenter.userModify(etInfo.getText().toString(), null, null, null, null);
+                        break;
+                    case "邮箱":
+                        mPresenter.userModify(null, null, etInfo.getText().toString(), null, null);
+                        break;
+                    case "微信":
+                        mPresenter.userModify(null, null, null, etInfo.getText().toString(), null);
+                        break;
+                    case "邮寄地址":
+                        mPresenter.userModify(null, null, null, null, etInfo.getText().toString());
+                        break;
+                }
+                CoreUtils.hideSoftInput(etInfo);
+                return true;
+            }
+            return false;
+        });
+
+        etIntro.setOnEditorActionListener((textView, actionId, keyEvent) -> {
+            if (actionId == EditorInfo.IME_ACTION_SEND) {
+                mPresenter.userModify(null, etIntro.getText().toString(), null, null, null);
+                CoreUtils.hideSoftInput(etIntro);
+                return true;
+            }
+            return false;
+        });
+
+        etIntro.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                tvNum.setText(editable.length() + "/20");
+            }
+        });
     }
 
     @Override

@@ -58,4 +58,10 @@ public interface ApiService {
     @POST("user/modifypwd")
     Observable<Object> userModifypwd(@Header("DIVERSION-VERSION") String version, @Field("old_password") String old_password,
                                      @Field("password") String password, @Field("code") String code);
+
+    @FormUrlEncoded
+    @POST("user/modify")
+    Observable<Object> userModify(@Header("DIVERSION-VERSION") String version, @Field("user_name") String user_name,
+                                  @Field("intro") String intro, @Field("email") String email, @Field("weixin") String weixin,
+                                  @Field("address") String address);
 }
