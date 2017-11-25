@@ -44,7 +44,7 @@ public class EquityPresenter extends BasePresenter<EquityContract.Model, EquityC
 
     public void getEquity(String type, String label_id, String round_id, String keyword, String page, String page_size) {
         mModel.getEquity(type, label_id, round_id, keyword, page, page_size)
-                .compose(RxLifecycleUtils.transformer(mRootView))
+                .compose(RxLifecycleUtils.transformer(mRootView, 1, 2))
                 .subscribe(new ErrorHandleSubscriber<EquityBean>(mErrorHandler) {
                     @Override
                     public void onNext(EquityBean equityBean) {

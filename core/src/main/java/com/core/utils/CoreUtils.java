@@ -39,6 +39,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.core.base.App;
 import com.core.di.component.AppComponent;
 import com.core.http.imageloader.glide.ImageConfigImpl;
@@ -495,5 +496,9 @@ public class CoreUtils {
         green = (int) (green * a + 0.5);
         blue = (int) (blue * a + 0.5);
         return 0xff << 24 | red << 16 | green << 8 | blue;
+    }
+
+    public static void imgLoaderCircle(Context context, Object o, ImageView image) {
+        Glide.with(context).load(o).into(image);
     }
 }

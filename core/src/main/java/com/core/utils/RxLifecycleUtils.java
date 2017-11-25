@@ -15,7 +15,6 @@
  */
 package com.core.utils;
 
-import com.core.base.BaseApplication;
 import com.core.http.exception.RetryWithToken;
 import com.core.integration.lifecycle.ActivityLifecycleable;
 import com.core.integration.lifecycle.FragmentLifecycleable;
@@ -112,7 +111,14 @@ public class RxLifecycleUtils {
     }
 
     public static <T> ObservableTransformer<T, T> transformer(@NonNull IView view) {
-        return upstream -> upstream.retryWhen(new RetryWithToken(3, 2, BaseApplication.getContext()))
+        return upstream -> upstream.retryWhen(new RetryWithToken(3, 2))
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(bindToLifecycle(view));
+    }
+
+    public static <T> ObservableTransformer<T, T> transformer(@NonNull IView view, int maxRetries, int retryDelaySecond) {
+        return upstream -> upstream.retryWhen(new RetryWithToken(maxRetries, retryDelaySecond))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .compose(bindToLifecycle(view));

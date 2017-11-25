@@ -2,6 +2,7 @@ package com.recorder.mvp.model.api.service;
 
 import com.recorder.mvp.model.entity.EquityBean;
 import com.recorder.mvp.model.entity.LoginBean;
+import com.recorder.mvp.model.entity.UserInfoBean;
 
 import io.reactivex.Observable;
 import retrofit2.http.Field;
@@ -43,4 +44,7 @@ public interface ApiService {
     @FormUrlEncoded
     @POST("user/forgetpwd")
     Observable<Object> userForgetpwd(@Header("DIVERSION-VERSION") String version, @Field("mobile") String mobile, @Field("code") String code, @Field("password") String password);
+
+    @GET("user/info")
+    Observable<UserInfoBean> userInfo(@Header("DIVERSION-VERSION") String version);
 }

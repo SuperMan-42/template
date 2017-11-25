@@ -7,10 +7,12 @@ import android.support.v7.widget.GridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.core.base.BaseFragment;
 import com.core.di.component.AppComponent;
+import com.core.http.imageloader.ImageLoader;
 import com.core.utils.CoreUtils;
 import com.core.widget.recyclerview.BaseQuickAdapter;
 import com.core.widget.recyclerview.BaseViewHolder;
@@ -20,6 +22,7 @@ import com.recorder.di.component.DaggerMyComponent;
 import com.recorder.di.module.MyModule;
 import com.recorder.mvp.contract.MyContract;
 import com.recorder.mvp.model.entity.Bean;
+import com.recorder.mvp.model.entity.UserInfoBean;
 import com.recorder.mvp.presenter.MyPresenter;
 
 import java.util.ArrayList;
@@ -28,15 +31,27 @@ import java.util.List;
 import app.dinus.com.itemdecoration.GridDividerItemDecoration;
 import butterknife.BindView;
 import butterknife.OnClick;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 import static com.core.utils.Preconditions.checkNotNull;
 
 public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.View {
     @BindView(R.id.recyclerview)
     CoreRecyclerView recyclerView;
+    @BindView(R.id.profile_image)
+    CircleImageView profileImage;
+    @BindView(R.id.tv_user_name)
+    TextView tvUserName;
+    @BindView(R.id.tv_my_investment)
+    TextView tvMyInvestment;
+    @BindView(R.id.tv_follow_count)
+    TextView tvFollowCount;
+    @BindView(R.id.tv_post_investment)
+    TextView tvPostInvestment;
+    @BindView(R.id.tv_auth_type)
+    TextView tvAuthType;
 
     public static MyFragment newInstance() {
-
         MyFragment fragment = new MyFragment();
         return fragment;
     }
@@ -58,6 +73,7 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
 
     @Override
     public void initData(Bundle savedInstanceState) {
+        mPresenter.userInfo();
         List<Bean> list = new ArrayList<>();
         list.add(new Bean("http://bpic.588ku.com/element_origin_min_pic/00/00/05/115732f19cc0079.jpg", "我的消息", "/app/SettingActivity"));
         list.add(new Bean("http://bpic.588ku.com/element_origin_min_pic/00/00/05/115732f1ac12d1d.jpg", "投资帮助", "/app/SettingActivity"));
@@ -146,5 +162,14 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
                 ARouter.getInstance().build("/app/BackStageManagerActivity").navigation();
                 break;
         }
+    }
+
+    @Override
+    public void showUserInfo(ImageLoader imageLoader, UserInfoBean userInfoBean) {
+        CoreUtils.imgLoaderCircle(getContext(), "http://bpic.588ku.com/element_origin_min_pic/00/00/05/115732f19cc0079.jpg", profileImage);
+        tvUserName.setText(userInfoBean.getData().getUser_name());
+        tvMyInvestment.setText(userInfoBean.getData().getMy_investment());
+        tvFollowCount.setText(userInfoBean.getData().getMy_follow_count());
+        tvPostInvestment.setText(userInfoBean.getData().getPost_investment());
     }
 }

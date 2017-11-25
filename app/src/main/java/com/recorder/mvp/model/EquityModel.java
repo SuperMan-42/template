@@ -39,9 +39,7 @@ public class EquityModel extends BaseModel implements EquityContract.Model {
 
     @Override
     public Observable<EquityBean> getEquity(String type, String label_id, String round_id, String keyword, String page, String page_size) {
-        return Observable.just(mRepositoryManager
-                .obtainRetrofitService(ApiService.class)
-                .getEquity("1", type, label_id, round_id, keyword, page, page_size))
+        return Observable.just(mRepositoryManager.obtainRetrofitService(ApiService.class).getEquity("1", type, label_id, round_id, keyword, page, page_size))
                 .flatMap(resultObservable -> mRepositoryManager.obtainCacheService(ApiCache.class)
                         .getEquity(resultObservable, new EvictProvider(DeviceUtils.netIsConnected(mApplication)))
                         .map(Reply::getData));

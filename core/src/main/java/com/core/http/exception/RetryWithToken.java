@@ -1,7 +1,5 @@
 package com.core.http.exception;
 
-import android.content.Context;
-
 import com.core.integration.cache.BCache;
 
 import java.util.concurrent.TimeUnit;
@@ -24,12 +22,10 @@ public class RetryWithToken implements Function<Observable<Throwable>, Observabl
     private final int maxRetries;
     private final int retryDelaySecond;
     private int retryCount;
-    private Context mContext;
 
-    public RetryWithToken(int maxRetries, int retryDelaySecond, Context mContext) {
+    public RetryWithToken(int maxRetries, int retryDelaySecond) {
         this.maxRetries = maxRetries;
         this.retryDelaySecond = retryDelaySecond;
-        this.mContext = mContext;
     }
 
     @Override

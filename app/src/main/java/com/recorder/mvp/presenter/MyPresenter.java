@@ -6,11 +6,14 @@ import com.core.di.scope.ActivityScope;
 import com.core.http.imageloader.ImageLoader;
 import com.core.integration.AppManager;
 import com.core.mvp.BasePresenter;
+import com.core.utils.RxLifecycleUtils;
 import com.recorder.mvp.contract.MyContract;
+import com.recorder.mvp.model.entity.UserInfoBean;
 
 import javax.inject.Inject;
 
 import me.jessyan.rxerrorhandler.core.RxErrorHandler;
+import me.jessyan.rxerrorhandler.handler.ErrorHandleSubscriber;
 
 @ActivityScope
 public class MyPresenter extends BasePresenter<MyContract.Model, MyContract.View> {
@@ -37,5 +40,15 @@ public class MyPresenter extends BasePresenter<MyContract.Model, MyContract.View
         this.mAppManager = null;
         this.mImageLoader = null;
         this.mApplication = null;
+    }
+
+    public void userInfo() {
+        mModel.userInfo().compose(RxLifecycleUtils.transformer(mRootView))
+                .subscribe(new ErrorHandleSubscriber<UserInfoBean>(mErrorHandler) {
+                    @Override
+                    public void onNext(UserInfoBean userInfoBean) {
+                        mRootView.showUserInfo(mImageLoader, userInfoBean);
+                    }
+                });
     }
 }

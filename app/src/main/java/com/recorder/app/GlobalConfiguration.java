@@ -90,7 +90,6 @@ public class GlobalConfiguration implements ConfigModule {
                                 default:
                                     response.body().close();
                                     CoreUtils.snackbarText(jsonObject.optString("error"));
-                                    throw new ApiException(code, jsonObject.optString("error"));
                             }
                         }
                         /* 这里如果发现token过期,可以先请求最新的token,然后在拿新的token放入request里去重新请求
