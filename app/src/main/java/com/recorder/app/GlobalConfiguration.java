@@ -68,8 +68,6 @@ public class GlobalConfiguration implements ConfigModule {
                            重新请求token,并重新执行请求 */
                         if (!TextUtils.isEmpty(httpResult) && RequestInterceptor.isJson(response.body().contentType())) {
                             Logger.json(httpResult);
-                            if (chain.request().url().toString().endsWith("/user/login"))
-                                BCache.getInstance().put(Constants.TOKEN, response.header("SESSION-TOKEN"));
 
                             JSONObject jsonObject = null;
                             try {
@@ -82,6 +80,8 @@ public class GlobalConfiguration implements ConfigModule {
                             int code = jsonObject.optInt("errno");
                             switch (code) {
                                 case 0:
+                                    if (chain.request().url().toString().endsWith("/user/login"))
+                                        BCache.getInstance().put(Constants.TOKEN, response.header("SESSION-TOKEN"));
                                     break;
                                 case ApiErrorCode.ERROR_USER_AUTHORIZED:
                                     response.body().close();

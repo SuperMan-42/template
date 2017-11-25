@@ -85,6 +85,9 @@
         <activity
             android:name=".mvp.ui.activity.SettingActivity"
             android:theme="@style/CoreAppTheme.Transparent" />
+        <activity
+            android:name=".mvp.ui.activity.UserModifyActivity"
+            android:theme="@style/CoreAppTheme.Transparent" />
     </application>
 
 </manifest>

@@ -17,6 +17,8 @@ import com.core.utils.CoreUtils;
 import com.core.widget.recyclerview.BaseQuickAdapter;
 import com.core.widget.recyclerview.BaseViewHolder;
 import com.core.widget.recyclerview.CoreRecyclerView;
+import com.google.gson.Gson;
+import com.recorder.Constants;
 import com.recorder.R;
 import com.recorder.di.component.DaggerMyComponent;
 import com.recorder.di.module.MyModule;
@@ -50,6 +52,8 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
     TextView tvPostInvestment;
     @BindView(R.id.tv_auth_type)
     TextView tvAuthType;
+
+    private UserInfoBean.DataEntity dataEntity;
 
     public static MyFragment newInstance() {
         MyFragment fragment = new MyFragment();
@@ -150,7 +154,7 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.profile_image:
-                ARouter.getInstance().build("/app/PersonActivity").navigation();
+                ARouter.getInstance().build("/app/PersonActivity").withString(Constants.USER_INFO, new Gson().toJson(dataEntity)).navigation();
                 break;
             case R.id.ll_investment:
                 ARouter.getInstance().build("/app/MyInvestmentActivity").navigation();
@@ -166,10 +170,11 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
 
     @Override
     public void showUserInfo(ImageLoader imageLoader, UserInfoBean userInfoBean) {
+        dataEntity = userInfoBean.getData();
         CoreUtils.imgLoaderCircle(getContext(), "http://bpic.588ku.com/element_origin_min_pic/00/00/05/115732f19cc0079.jpg", profileImage);
-        tvUserName.setText(userInfoBean.getData().getUser_name());
-        tvMyInvestment.setText(userInfoBean.getData().getMy_investment());
-        tvFollowCount.setText(userInfoBean.getData().getMy_follow_count());
-        tvPostInvestment.setText(userInfoBean.getData().getPost_investment());
+        tvUserName.setText(dataEntity.getUser_name());
+        tvMyInvestment.setText(dataEntity.getMy_investment());
+        tvFollowCount.setText(dataEntity.getMy_follow_count());
+        tvPostInvestment.setText(dataEntity.getPost_investment());
     }
 }

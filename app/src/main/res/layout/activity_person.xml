@@ -35,6 +35,7 @@
                     android:textSize="45px" />
 
                 <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/im_avatar"
                     android:layout_width="135px"
                     android:layout_height="125px"
                     android:layout_centerVertical="true"
@@ -57,7 +58,7 @@
                 android:layout_marginLeft="45px" />
 
             <RelativeLayout
-                android:id="@+id/rl_2"
+                android:id="@+id/rl_user_name"
                 android:layout_width="match_parent"
                 android:layout_height="132px"
                 android:background="@color/white"
@@ -73,6 +74,7 @@
                     android:textSize="45px" />
 
                 <TextView
+                    android:id="@+id/tv_user_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -90,7 +92,7 @@
                 android:layout_marginLeft="45px" />
 
             <RelativeLayout
-                android:id="@+id/rl_3"
+                android:id="@+id/rl_intro"
                 android:layout_width="match_parent"
                 android:layout_height="132px"
                 android:background="@color/white"
@@ -106,6 +108,7 @@
                     android:textSize="45px" />
 
                 <TextView
+                    android:id="@+id/tv_intro"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -139,6 +142,7 @@
                     android:textSize="45px" />
 
                 <TextView
+                    android:id="@+id/tv_mobile"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -156,7 +160,7 @@
                 android:layout_marginLeft="45px" />
 
             <RelativeLayout
-                android:id="@+id/rl_5"
+                android:id="@+id/rl_email"
                 android:layout_width="match_parent"
                 android:layout_height="132px"
                 android:background="@color/white"
@@ -172,6 +176,7 @@
                     android:textSize="45px" />
 
                 <TextView
+                    android:id="@+id/tv_email"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -189,7 +194,7 @@
                 android:layout_marginLeft="45px" />
 
             <RelativeLayout
-                android:id="@+id/rl_6"
+                android:id="@+id/rl_weixin"
                 android:layout_width="match_parent"
                 android:layout_height="132px"
                 android:background="@color/white"
@@ -205,6 +210,7 @@
                     android:textSize="45px" />
 
                 <TextView
+                    android:id="@+id/tv_weixin"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -222,7 +228,7 @@
                 android:layout_marginLeft="45px" />
 
             <RelativeLayout
-                android:id="@+id/rl_7"
+                android:id="@+id/rl_address"
                 android:layout_width="match_parent"
                 android:layout_height="132px"
                 android:background="@color/white"
@@ -238,6 +244,7 @@
                     android:textSize="45px" />
 
                 <TextView
+                    android:id="@+id/tv_address"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -255,7 +262,7 @@
                 android:layout_marginLeft="45px" />
 
             <RelativeLayout
-                android:id="@+id/rl_8"
+                android:id="@+id/rl_password"
                 android:layout_width="match_parent"
                 android:layout_height="132px"
                 android:background="@color/white"

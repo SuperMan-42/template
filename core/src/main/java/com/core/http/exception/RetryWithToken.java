@@ -35,7 +35,7 @@ public class RetryWithToken implements Function<Observable<Throwable>, Observabl
                     if (throwable instanceof ApiException) {
                         switch (((ApiException) throwable).getErrorCode()) {
                             case ApiErrorCode.ERROR_USER_AUTHORIZED:
-                                while (true) {
+                                for (int i = 0; i < 60; i++) {
                                     if (BCache.getInstance().getString("token") != null) {
                                         break;
                                     } else {
@@ -45,7 +45,7 @@ public class RetryWithToken implements Function<Observable<Throwable>, Observabl
                                 return Observable.timer(100, TimeUnit.MILLISECONDS);
                         }
                     } else if (throwable instanceof CompositeException && ((CompositeException) throwable).getExceptions().toString().contains("ApiException")) {
-                        while (true) {
+                        for (int i = 0; i < 60; i++) {
                             if (BCache.getInstance().getString("token") != null) {
                                 break;
                             } else {
