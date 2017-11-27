@@ -108,6 +108,7 @@ public class HomeActivity extends BaseActivity<HomePresenter> implements HomeCon
                 CoreUtils.getString(this, R.string.Private), CoreUtils.getString(this, R.string.Dynamic), CoreUtils.getString(this, R.string.My)};
         AdapterViewPager adapterViewPager = new AdapterViewPager(getSupportFragmentManager(), fragments, strings);
         viewPager.setAdapter(adapterViewPager);
+        viewPager.setOffscreenPageLimit(0);
         mNavigationController.setupWithViewPager(viewPager);
         mNavigationController.addTabItemSelectedListener(new OnTabItemSelectedListener() {
             @Override

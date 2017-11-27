@@ -6,11 +6,11 @@ import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.TextView;
 
-import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.core.base.BaseActivity;
 import com.core.di.component.AppComponent;
+import com.core.integration.cache.BCache;
 import com.core.utils.CoreUtils;
 import com.google.gson.Gson;
 import com.recorder.Constants;
@@ -31,8 +31,7 @@ import static com.core.utils.Preconditions.checkNotNull;
 public class PersonActivity extends BaseActivity<PersonPresenter> implements PersonContract.View {
 
     UserInfoBean.DataEntity userInfoBean;
-    @Autowired(name = Constants.USER_INFO)
-    String userinfo;
+
     @BindView(R.id.im_avatar)
     CircleImageView imAvatar;
     @BindView(R.id.tv_user_name)
@@ -66,8 +65,12 @@ public class PersonActivity extends BaseActivity<PersonPresenter> implements Per
     @Override
     public void initView(Bundle savedInstanceState) {
         title("个人资料");
-        ARouter.getInstance().inject(this);
-        userInfoBean = new Gson().fromJson(userinfo, UserInfoBean.DataEntity.class);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        userInfoBean = new Gson().fromJson(BCache.getInstance().getString(Constants.USER_INFO), UserInfoBean.class).getData();
         CoreUtils.imgLoaderCircle(this, "http://bpic.588ku.com/element_origin_min_pic/00/00/05/115732f19cc0079.jpg", imAvatar);
         tvUserName.setText(userInfoBean.getUser_name());
         tvIntro.setText(userInfoBean.getIntro());

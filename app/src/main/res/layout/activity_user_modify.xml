@@ -16,7 +16,6 @@
         android:layout_marginTop="72px"
         android:background="@color/white"
         android:imeOptions="actionSend"
-        android:inputType="text"
         android:paddingBottom="36px"
         android:paddingLeft="45px"
         android:paddingRight="45px"

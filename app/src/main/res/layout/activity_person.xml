@@ -81,6 +81,7 @@
                     android:layout_centerVertical="true"
                     android:drawablePadding="39px"
                     android:drawableRight="@drawable/im_login_phone"
+                    android:gravity="center"
                     android:textColor="#999999"
                     android:textSize="42px"
                     tools:text="eddie0730" />
@@ -115,6 +116,7 @@
                     android:layout_centerVertical="true"
                     android:drawablePadding="39px"
                     android:drawableRight="@drawable/im_login_phone"
+                    android:gravity="center"
                     android:textColor="#999999"
                     android:textSize="42px"
                     tools:text="eddie0730" />
@@ -149,6 +151,7 @@
                     android:layout_centerVertical="true"
                     android:drawablePadding="39px"
                     android:drawableRight="@drawable/im_login_phone"
+                    android:gravity="center"
                     android:textColor="#999999"
                     android:textSize="42px"
                     tools:text="eddie0730" />
@@ -183,6 +186,7 @@
                     android:layout_centerVertical="true"
                     android:drawablePadding="39px"
                     android:drawableRight="@drawable/im_login_phone"
+                    android:gravity="center"
                     android:textColor="#999999"
                     android:textSize="42px"
                     tools:text="eddie0730" />
@@ -217,6 +221,7 @@
                     android:layout_centerVertical="true"
                     android:drawablePadding="39px"
                     android:drawableRight="@drawable/im_login_phone"
+                    android:gravity="center"
                     android:textColor="#999999"
                     android:textSize="42px"
                     tools:text="eddie0730" />
@@ -251,6 +256,7 @@
                     android:layout_centerVertical="true"
                     android:drawablePadding="39px"
                     android:drawableRight="@drawable/im_login_phone"
+                    android:gravity="center"
                     android:textColor="#999999"
                     android:textSize="42px"
                     tools:text="eddie0730" />
@@ -284,6 +290,7 @@
                     android:layout_centerVertical="true"
                     android:drawablePadding="39px"
                     android:drawableRight="@drawable/im_login_phone"
+                    android:gravity="center"
                     android:textColor="#999999"
                     android:textSize="42px"
                     tools:text="eddie0730" />

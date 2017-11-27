@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.core.base.BaseFragment;
 import com.core.di.component.AppComponent;
@@ -28,6 +29,7 @@ import butterknife.BindView;
 
 import static com.core.utils.Preconditions.checkNotNull;
 
+@Route(path = "/app/DynamicFragment")
 public class DynamicFragment extends BaseFragment<DynamicPresenter> implements DynamicContract.View {
     @BindView(R.id.recyclerview)
     CoreRecyclerView recyclerView;
@@ -122,4 +124,5 @@ public class DynamicFragment extends BaseFragment<DynamicPresenter> implements D
     public void killMyself() {
 
     }
+
 }

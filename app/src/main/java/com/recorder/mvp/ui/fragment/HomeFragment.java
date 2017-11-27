@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.core.base.BaseFragment;
 import com.core.di.component.AppComponent;
@@ -31,6 +32,7 @@ import cn.bingoogolapple.bgabanner.BGABanner;
 
 import static com.core.utils.Preconditions.checkNotNull;
 
+@Route(path = "/app/HomeFragment")
 public class HomeFragment extends BaseFragment<HomePresenter> implements HomeContract.View {
 
     @BindView(R.id.recyclerview)
@@ -135,4 +137,5 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
     public void showFilter(ImageLoader imageLoader, ReferFilter referFilter) {
 
     }
+
 }

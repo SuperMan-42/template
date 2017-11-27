@@ -1243,44 +1243,48 @@ public class NoPreloadViewPager extends ViewPager {
 
     @Override
     public void draw(Canvas canvas) {
-        super.draw(canvas);
-        boolean needsInvalidate = false;
+        try {
+            super.draw(canvas);
+            boolean needsInvalidate = false;
 
-        final int overScrollMode = ViewCompat.getOverScrollMode(this);
-        if (overScrollMode == ViewCompat.OVER_SCROLL_ALWAYS ||
-                (overScrollMode == ViewCompat.OVER_SCROLL_IF_CONTENT_SCROLLS &&
-                        mAdapter != null && mAdapter.getCount() > 1)) {
-            if (!mLeftEdge.isFinished()) {
-                final int restoreCount = canvas.save();
-                final int height = getHeight() - getPaddingTop() - getPaddingBottom();
+            final int overScrollMode = ViewCompat.getOverScrollMode(this);
+            if (overScrollMode == ViewCompat.OVER_SCROLL_ALWAYS ||
+                    (overScrollMode == ViewCompat.OVER_SCROLL_IF_CONTENT_SCROLLS &&
+                            mAdapter != null && mAdapter.getCount() > 1)) {
+                if (!mLeftEdge.isFinished()) {
+                    final int restoreCount = canvas.save();
+                    final int height = getHeight() - getPaddingTop() - getPaddingBottom();
 
-                canvas.rotate(270);
-                canvas.translate(-height + getPaddingTop(), 0);
-                mLeftEdge.setSize(height, getWidth());
-                needsInvalidate |= mLeftEdge.draw(canvas);
-                canvas.restoreToCount(restoreCount);
+                    canvas.rotate(270);
+                    canvas.translate(-height + getPaddingTop(), 0);
+                    mLeftEdge.setSize(height, getWidth());
+                    needsInvalidate |= mLeftEdge.draw(canvas);
+                    canvas.restoreToCount(restoreCount);
+                }
+                if (!mRightEdge.isFinished()) {
+                    final int restoreCount = canvas.save();
+                    final int width = getWidth();
+                    final int height = getHeight() - getPaddingTop() - getPaddingBottom();
+                    final int itemCount = mAdapter != null ? mAdapter.getCount() : 1;
+
+                    canvas.rotate(90);
+                    canvas.translate(-getPaddingTop(),
+                            -itemCount * (width + mPageMargin) + mPageMargin);
+                    mRightEdge.setSize(height, width);
+                    needsInvalidate |= mRightEdge.draw(canvas);
+                    canvas.restoreToCount(restoreCount);
+                }
+            } else {
+                mLeftEdge.finish();
+                mRightEdge.finish();
             }
-            if (!mRightEdge.isFinished()) {
-                final int restoreCount = canvas.save();
-                final int width = getWidth();
-                final int height = getHeight() - getPaddingTop() - getPaddingBottom();
-                final int itemCount = mAdapter != null ? mAdapter.getCount() : 1;
 
-                canvas.rotate(90);
-                canvas.translate(-getPaddingTop(),
-                        -itemCount * (width + mPageMargin) + mPageMargin);
-                mRightEdge.setSize(height, width);
-                needsInvalidate |= mRightEdge.draw(canvas);
-                canvas.restoreToCount(restoreCount);
+            if (needsInvalidate) {
+                // Keep animating
+                invalidate();
             }
-        } else {
-            mLeftEdge.finish();
-            mRightEdge.finish();
-        }
+        } catch (Exception e) {
 
-        if (needsInvalidate) {
-            // Keep animating
-            invalidate();
         }
     }
 

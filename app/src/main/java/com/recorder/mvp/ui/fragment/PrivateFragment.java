@@ -7,19 +7,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.alibaba.android.arouter.facade.annotation.Route;
 import com.core.base.BaseFragment;
 import com.core.di.component.AppComponent;
 import com.core.utils.CoreUtils;
-
+import com.recorder.R;
 import com.recorder.di.component.DaggerPrivateComponent;
 import com.recorder.di.module.PrivateModule;
 import com.recorder.mvp.contract.PrivateContract;
 import com.recorder.mvp.presenter.PrivatePresenter;
 
-import com.recorder.R;
-
 import static com.core.utils.Preconditions.checkNotNull;
 
+@Route(path = "/app/PrivateFragment")
 public class PrivateFragment extends BaseFragment<PrivatePresenter> implements PrivateContract.View {
 
     public static PrivateFragment newInstance() {
@@ -90,4 +90,5 @@ public class PrivateFragment extends BaseFragment<PrivatePresenter> implements P
     public void killMyself() {
 
     }
+
 }

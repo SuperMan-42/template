@@ -61,7 +61,7 @@ public interface ApiService {
 
     @FormUrlEncoded
     @POST("user/modify")
-    Observable<Object> userModify(@Header("DIVERSION-VERSION") String version, @Field("user_name") String user_name,
-                                  @Field("intro") String intro, @Field("email") String email, @Field("weixin") String weixin,
-                                  @Field("address") String address);
+    Observable<Object> userModify(@Header("DIVERSION-VERSION") String version, @Field("field") String field,
+                                  @Field("user_name") String user_name, @Field("intro") String intro, @Field("email") String email,
+                                  @Field("weixin") String weixin, @Field("address") String address);
 }

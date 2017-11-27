@@ -9,10 +9,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.core.base.BaseFragment;
 import com.core.di.component.AppComponent;
 import com.core.http.imageloader.ImageLoader;
+import com.core.integration.cache.BCache;
 import com.core.utils.CoreUtils;
 import com.core.widget.recyclerview.BaseQuickAdapter;
 import com.core.widget.recyclerview.BaseViewHolder;
@@ -37,6 +39,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 import static com.core.utils.Preconditions.checkNotNull;
 
+@Route(path = "/app/MyFragment")
 public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.View {
     @BindView(R.id.recyclerview)
     CoreRecyclerView recyclerView;
@@ -52,8 +55,6 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
     TextView tvPostInvestment;
     @BindView(R.id.tv_auth_type)
     TextView tvAuthType;
-
-    private UserInfoBean.DataEntity dataEntity;
 
     public static MyFragment newInstance() {
         MyFragment fragment = new MyFragment();
@@ -154,7 +155,7 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.profile_image:
-                ARouter.getInstance().build("/app/PersonActivity").withString(Constants.USER_INFO, new Gson().toJson(dataEntity)).navigation();
+                ARouter.getInstance().build("/app/PersonActivity").navigation();
                 break;
             case R.id.ll_investment:
                 ARouter.getInstance().build("/app/MyInvestmentActivity").navigation();
@@ -170,11 +171,12 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
 
     @Override
     public void showUserInfo(ImageLoader imageLoader, UserInfoBean userInfoBean) {
-        dataEntity = userInfoBean.getData();
+        BCache.getInstance().put(Constants.USER_INFO, new Gson().toJson(userInfoBean));
         CoreUtils.imgLoaderCircle(getContext(), "http://bpic.588ku.com/element_origin_min_pic/00/00/05/115732f19cc0079.jpg", profileImage);
-        tvUserName.setText(dataEntity.getUser_name());
-        tvMyInvestment.setText(dataEntity.getMy_investment());
-        tvFollowCount.setText(dataEntity.getMy_follow_count());
-        tvPostInvestment.setText(dataEntity.getPost_investment());
+        tvUserName.setText(userInfoBean.getData().getUser_name());
+        tvMyInvestment.setText(userInfoBean.getData().getMy_investment());
+        tvFollowCount.setText(userInfoBean.getData().getMy_follow_count());
+        tvPostInvestment.setText(userInfoBean.getData().getPost_investment());
     }
+
 }

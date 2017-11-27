@@ -459,6 +459,14 @@ public class CoreUtils {
     }
 
     /**
+     * 显示软键盘
+     */
+    public static void openSoftInputForced(EditText et) {
+        InputMethodManager inputMethodManager = (InputMethodManager) et.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+        inputMethodManager.showSoftInput(et, InputMethodManager.SHOW_FORCED);
+    }
+
+    /**
      * 隐藏软键盘
      */
     public static void hideSoftInput(EditText et) {

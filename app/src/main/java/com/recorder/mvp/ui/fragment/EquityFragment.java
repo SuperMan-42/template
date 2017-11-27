@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.core.base.BaseFragment;
 import com.core.di.component.AppComponent;
@@ -25,6 +26,7 @@ import butterknife.BindView;
 
 import static com.core.utils.Preconditions.checkNotNull;
 
+@Route(path = "/app/EquityFragment")
 public class EquityFragment extends BaseFragment<EquityPresenter> implements EquityContract.View {
     @BindView(R.id.recyclerview)
     CoreRecyclerView recyclerView;
@@ -122,4 +124,5 @@ public class EquityFragment extends BaseFragment<EquityPresenter> implements Equ
             }
         }, false);
     }
+
 }

@@ -39,6 +39,7 @@ import com.squareup.leakcanary.RefWatcher;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.net.URLDecoder;
 import java.util.Arrays;
 import java.util.List;
 
@@ -117,23 +118,25 @@ public class GlobalConfiguration implements ConfigModule {
                                 RequestBody requestBody = request.body();
                                 Buffer buffer = new Buffer();
                                 requestBody.writeTo(buffer);
-                                content = buffer.readUtf8();
+                                content = URLDecoder.decode(buffer.readUtf8(), "utf-8");
                             } else {
                                 content = chain.request().url().query();
                             }
                             String time = String.valueOf(System.currentTimeMillis() / 1000);
                             String token = BCache.getInstance().getString(Constants.TOKEN);
                             if (TextUtils.isEmpty(content)) {
-                                content = "time=" + time + (TextUtils.isEmpty(token) ? "" : "|" + token);
+                                content = "time=" + time;
                             } else {
-                                content = (content + "&time=" + time + (TextUtils.isEmpty(token) ? "" : "|" + token));
+                                content = (content + "&time=" + time);
                             }
+                            content = content.toLowerCase();
                             String[] strings = content.split("&");
                             Arrays.sort(strings);
                             StringBuilder stringBuilder = new StringBuilder();
                             for (String string : strings) {
                                 stringBuilder.append(string).append("|");
                             }
+                            stringBuilder.append(TextUtils.isEmpty(token) ? "" : token + "|");
                             JSONObject jsonObject = new JSONObject();
                             LoginBean loginBean = new Gson().fromJson(BCache.getInstance().getString(Constants.LOGIN_INFO), LoginBean.class);
                             jsonObject.put("sign", new Jni().getSign(context, stringBuilder.toString()))
