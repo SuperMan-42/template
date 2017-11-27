@@ -2,6 +2,7 @@ package com.recorder.mvp.model.api.service;
 
 import com.recorder.mvp.model.entity.DealFilter;
 import com.recorder.mvp.model.entity.EquityBean;
+import com.recorder.mvp.model.entity.HomeRecommendBean;
 import com.recorder.mvp.model.entity.ImageUploadBean;
 import com.recorder.mvp.model.entity.LoginBean;
 import com.recorder.mvp.model.entity.NewsListBean;
@@ -34,9 +35,9 @@ public interface ApiService {
     //type  1-众筹 2-私募 不必须 默认为1-众筹
     @GET("deal/list")
     Observable<EquityBean> dealList(@Header("DIVERSION-VERSION") String version, @Query("type") String type,
-                                     @Query("label_id") String label_id, @Query("round_id") String round_id,
-                                     @Query("keyword") String keyword, @Query("page") String page,
-                                     @Query("page_size") String page_size);
+                                    @Query("label_id") String label_id, @Query("round_id") String round_id,
+                                    @Query("keyword") String keyword, @Query("page") String page,
+                                    @Query("page_size") String page_size);
 
     @FormUrlEncoded
     @POST("user/login")
@@ -84,4 +85,7 @@ public interface ApiService {
 
     @GET("deal/filter")
     Observable<DealFilter> dealFilter(@Header("DIVERSION-VERSION") String version);
+
+    @GET("home/recommend")
+    Observable<HomeRecommendBean> homeRecommend(@Header("DIVERSION-VERSION") String version);
 }

@@ -29,6 +29,7 @@ import com.recorder.di.component.DaggerHomeComponent;
 import com.recorder.di.module.HomeModule;
 import com.recorder.mvp.contract.HomeContract;
 import com.recorder.mvp.model.entity.DealFilter;
+import com.recorder.mvp.model.entity.HomeRecommendBean;
 import com.recorder.mvp.presenter.HomePresenter;
 import com.recorder.mvp.ui.fragment.DynamicFragment;
 import com.recorder.mvp.ui.fragment.EquityFragment;
@@ -229,6 +230,11 @@ public class HomeActivity extends BaseActivity<HomePresenter> implements HomeCon
         recyclerView.init(manager, adapter, false);
         recyclerView.getRecyclerView().addItemDecoration(new SimpleDividerDecoration(this));
         adapter.expandAll();
+    }
+
+    @Override
+    public void showHomeRecomment(HomeRecommendBean.DataEntity dataEntity) {
+
     }
 
     private static class HeaderItem extends AbstractExpandableItem<MultiItemEntity> implements MultiItemEntity {

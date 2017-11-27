@@ -9,6 +9,7 @@ import com.core.mvp.BasePresenter;
 import com.core.utils.RxLifecycleUtils;
 import com.recorder.mvp.contract.HomeContract;
 import com.recorder.mvp.model.entity.DealFilter;
+import com.recorder.mvp.model.entity.HomeRecommendBean;
 
 import javax.inject.Inject;
 
@@ -49,6 +50,17 @@ public class HomePresenter extends BasePresenter<HomeContract.Model, HomeContrac
                     @Override
                     public void onNext(DealFilter referFilter) {
                         mRootView.showFilter(mImageLoader, referFilter.getData());
+                    }
+                });
+    }
+
+    public void homeRecommend() {
+        mModel.homeRecommend()
+                .compose(RxLifecycleUtils.transformer(mRootView))
+                .subscribe(new ErrorHandleSubscriber<HomeRecommendBean>(mErrorHandler) {
+                    @Override
+                    public void onNext(HomeRecommendBean homeRecommendBean) {
+                        mRootView.showHomeRecomment(homeRecommendBean.getData());
                     }
                 });
     }

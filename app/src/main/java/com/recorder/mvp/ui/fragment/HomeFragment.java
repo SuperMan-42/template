@@ -21,8 +21,11 @@ import com.recorder.R;
 import com.recorder.di.component.DaggerHomeComponent;
 import com.recorder.di.module.HomeModule;
 import com.recorder.mvp.contract.HomeContract;
+import com.recorder.mvp.model.entity.Bean;
 import com.recorder.mvp.model.entity.DealFilter;
+import com.recorder.mvp.model.entity.HomeRecommendBean;
 import com.recorder.mvp.presenter.HomePresenter;
+import com.recorder.widget.AutoProgressBar;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,33 +63,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
 
     @Override
     public void initData(Bundle savedInstanceState) {
-        View view = CoreUtils.inflate(getContext(), R.layout.item_home_header);
-        BGABanner banner = view.findViewById(R.id.banner);
-        List<String> list = new ArrayList<>();
-        list.add("http://ww4.sinaimg.cn/large/006uZZy8jw1faic259ohaj30ci08c74r.jpg");
-        list.add("http://ww4.sinaimg.cn/large/006uZZy8jw1faic2b16zuj30ci08cwf4.jpg");
-        list.add("http://ww4.sinaimg.cn/large/006uZZy8jw1faic2e7vsaj30ci08cglz.jpg");
-        list.add("http://bpic.588ku.com/element_origin_min_pic/00/00/05/115732f19cc0079.jpg");
-        list.add("http://bpic.588ku.com/element_origin_min_pic/00/00/05/115732f1ac12d1d.jpg");
-        list.add("http://bpic.588ku.com/element_origin_min_pic/00/00/05/115732f1bad97d1.jpg");
-        list.add("http://bpic.588ku.com/element_origin_min_pic/00/00/05/115732f1c83c228.jpg");
-        list.add("http://bpic.588ku.com/element_origin_min_pic/00/00/05/115732f1d53e3dd.jpg");
-        list.add("http://bpic.588ku.com/element_origin_min_pic/00/00/05/115732f1e37fea9.jpg");
-        list.add("http://bpic.588ku.com/element_origin_min_pic/00/00/05/115732f1ef4d709.jpg");
-        list.add("http://bpic.588ku.com/element_origin_min_pic/00/00/05/115732f20b3ea10.jpg");
-        list.add("http://bpic.588ku.com/element_origin_min_pic/00/00/05/115732f21927f8d.jpg");
-        list.add("http://ww4.sinaimg.cn/large/006uZZy8jw1faic1xjab4j30ci08cjrv.jpg");
-        list.add("http://ww4.sinaimg.cn/large/006uZZy8jw1faic21363tj30ci08ct96.jpg");
-        banner.setAdapter((banner1, itemView, model, position) -> CoreUtils.imgLoader(getContext(), (String) model, (ImageView) itemView));
-        banner.setData(list, null);
-        recyclerView.init(new BaseQuickAdapter<String, BaseViewHolder>(R.layout.item_home, list) {
-            @Override
-            protected void convert(BaseViewHolder holder, String item) {
-                CoreUtils.imgLoader(getContext(), item, holder.getView(R.id.im_pic));
-                holder.itemView.setOnClickListener(view1 -> ARouter.getInstance().build("/app/LoginActivity").navigation());
-            }
-        }, false);
-        recyclerView.addHeaderView(view);
+        mPresenter.homeRecommend();
     }
 
     /**
@@ -138,4 +115,36 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
 
     }
 
+    @Override
+    public void showHomeRecomment(HomeRecommendBean.DataEntity dataEntity) {
+        View view = CoreUtils.inflate(getContext(), R.layout.item_home_header);
+        BGABanner banner = view.findViewById(R.id.banner);
+        List<Bean> models = new ArrayList<>();
+        List<String> titles = new ArrayList<>();
+        models.add(new Bean("", "http://ww4.sinaimg.cn/large/006uZZy8jw1faic259ohaj30ci08c74r.jpg", dataEntity.getDeal_recommend().getUrl()));
+        titles.add(dataEntity.getDeal_recommend().getText());
+        for (HomeRecommendBean.DataEntity.NewsRecommendEntity entity : dataEntity.getNews_recommend()) {
+            models.add(new Bean(entity.getNewsID(), entity.getCover(), entity.getUrl()));
+            titles.add(entity.getTitle());
+        }
+        banner.setAdapter((banner1, itemView, model, position) -> CoreUtils.imgLoader(getContext(), ((Bean) model).getValue(), (ImageView) itemView));
+        banner.setData(models, titles);
+        List<HomeRecommendBean.DataEntity.Entity> list = new ArrayList<>();
+        list.addAll(dataEntity.getZc());
+        list.addAll(dataEntity.getSm());
+        recyclerView.init(new BaseQuickAdapter<HomeRecommendBean.DataEntity.Entity, BaseViewHolder>(R.layout.item_home, list) {
+            @Override
+            protected void convert(BaseViewHolder holder, HomeRecommendBean.DataEntity.Entity item) {
+                CoreUtils.imgLoader(getContext(), "http://ww4.sinaimg.cn/large/006uZZy8jw1faic259ohaj30ci08c74r.jpg", holder.getView(R.id.im_pic));
+                holder.setText(R.id.tv_title, item.getDeal_name())
+                        .setText(R.id.tv_investment, "起投金额: " + item.getLimit_price())
+                        .setText(R.id.tv_financing, "融资总额: " + item.getTarget_fund())
+                        .setText(R.id.tv_tag, item instanceof HomeRecommendBean.DataEntity.ZcEntity ? "众筹" : "私募");
+                AutoProgressBar progressBar = holder.getView(R.id.numberProgressBar);
+                progressBar.setProgress(item.getProgress());
+                holder.itemView.setOnClickListener(view1 -> ARouter.getInstance().build("/app/LoginActivity").navigation());
+            }
+        }, false);
+        recyclerView.addHeaderView(view);
+    }
 }

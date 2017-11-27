@@ -10,6 +10,7 @@ import com.recorder.mvp.contract.HomeContract;
 import com.recorder.mvp.model.api.cache.ApiCache;
 import com.recorder.mvp.model.api.service.ApiService;
 import com.recorder.mvp.model.entity.DealFilter;
+import com.recorder.mvp.model.entity.HomeRecommendBean;
 
 import javax.inject.Inject;
 
@@ -41,6 +42,14 @@ public class HomeModel extends BaseModel implements HomeContract.Model {
         return Observable.just(mRepositoryManager.obtainRetrofitService(ApiService.class).dealFilter("1"))
                 .flatMap(resultObservable -> mRepositoryManager.obtainCacheService(ApiCache.class)
                         .dealFilter(resultObservable, new EvictProvider(false))
+                        .map(Reply::getData));
+    }
+
+    @Override
+    public Observable<HomeRecommendBean> homeRecommend() {
+        return Observable.just(mRepositoryManager.obtainRetrofitService(ApiService.class).homeRecommend("1"))
+                .flatMap(resultObservable -> mRepositoryManager.obtainCacheService(ApiCache.class)
+                        .homeRecommend(resultObservable, new EvictProvider(false))
                         .map(Reply::getData));
     }
 }

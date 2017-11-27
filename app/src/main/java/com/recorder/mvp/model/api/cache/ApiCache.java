@@ -2,6 +2,7 @@ package com.recorder.mvp.model.api.cache;
 
 import com.recorder.mvp.model.entity.DealFilter;
 import com.recorder.mvp.model.entity.EquityBean;
+import com.recorder.mvp.model.entity.HomeRecommendBean;
 import com.recorder.mvp.model.entity.NewsListBean;
 import com.recorder.mvp.model.entity.UserInfoBean;
 
@@ -18,12 +19,14 @@ import io.rx_cache2.Reply;
 
 public interface ApiCache {
 
-    Observable<Reply<EquityBean>> dealList(Observable<EquityBean> equityBeanObservable, EvictProvider evictProvider);
+    Observable<Reply<EquityBean>> dealList(Observable<EquityBean> resultObservable, EvictProvider evictProvider);
 
-    Observable<Reply<UserInfoBean>> userInfo(Observable<UserInfoBean> userInfoBeanObservable, EvictProvider evictProvider);
+    Observable<Reply<UserInfoBean>> userInfo(Observable<UserInfoBean> resultObservable, EvictProvider evictProvider);
 
-    Observable<Reply<NewsListBean>> newsList(Observable<NewsListBean> newsListBeanObservable, EvictProvider evictProvider);
+    Observable<Reply<NewsListBean>> newsList(Observable<NewsListBean> resultObservable, EvictProvider evictProvider);
 
     @LifeCache(duration = 2, timeUnit = TimeUnit.HOURS)
-    Observable<Reply<DealFilter>> dealFilter(Observable<DealFilter> newsListBeanObservable, EvictProvider evictProvider);
+    Observable<Reply<DealFilter>> dealFilter(Observable<DealFilter> resultObservable, EvictProvider evictProvider);
+
+    Observable<Reply<HomeRecommendBean>> homeRecommend(Observable<HomeRecommendBean> resultObservable, EvictProvider evictProvider);
 }
