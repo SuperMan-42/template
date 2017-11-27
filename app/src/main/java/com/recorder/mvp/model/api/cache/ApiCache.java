@@ -18,7 +18,7 @@ import io.rx_cache2.Reply;
 
 public interface ApiCache {
 
-    Observable<Reply<EquityBean>> getEquity(Observable<EquityBean> equityBeanObservable, EvictProvider evictProvider);
+    Observable<Reply<EquityBean>> dealList(Observable<EquityBean> equityBeanObservable, EvictProvider evictProvider);
 
     Observable<Reply<UserInfoBean>> userInfo(Observable<UserInfoBean> userInfoBeanObservable, EvictProvider evictProvider);
 

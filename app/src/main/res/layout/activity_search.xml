@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F0F2F5"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="132px"
+        android:background="#F9F9F9"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="21px"
+            android:layout_marginLeft="36px"
+            android:layout_marginRight="36px"
+            android:layout_marginTop="21px"
+            android:layout_weight="1"
+            android:background="@drawable/bga_search"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="36px"
+                android:src="@drawable/im_login_phone" />
+
+            <AutoCompleteTextView
+                android:id="@+id/etInput"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_marginLeft="24px"
+                android:background="@null"
+                android:completionThreshold="1"
+                android:focusable="true"
+                android:hint="搜索项目"
+                android:imeOptions="actionSearch"
+                android:inputType="text|textAutoComplete"
+                android:singleLine="true"
+                android:textColorHint="#999999"
+                android:textCursorDrawable="@null"
+                android:textSize="45px" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/search_button"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginRight="36px"
+            android:gravity="center"
+            android:text="取消"
+            android:textColor="#333333"
+            android:textSize="45px" />
+    </LinearLayout>
+
+    <View style="@style/divider" />
+
+    <com.core.widget.recyclerview.CoreRecyclerView
+        android:id="@+id/recyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white" />
+</LinearLayout>

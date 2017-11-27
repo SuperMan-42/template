@@ -5,26 +5,22 @@ import android.app.Application;
 import com.core.di.scope.ActivityScope;
 import com.core.integration.IRepositoryManager;
 import com.core.mvp.BaseModel;
-import com.core.utils.DeviceUtils;
 import com.google.gson.Gson;
-import com.recorder.mvp.contract.PrivateContract;
-import com.recorder.mvp.model.api.cache.ApiCache;
+import com.recorder.mvp.contract.SearchContract;
 import com.recorder.mvp.model.api.service.ApiService;
 import com.recorder.mvp.model.entity.EquityBean;
 
 import javax.inject.Inject;
 
 import io.reactivex.Observable;
-import io.rx_cache2.EvictProvider;
-import io.rx_cache2.Reply;
 
 @ActivityScope
-public class PrivateModel extends BaseModel implements PrivateContract.Model {
+public class SearchModel extends BaseModel implements SearchContract.Model {
     private Gson mGson;
     private Application mApplication;
 
     @Inject
-    public PrivateModel(IRepositoryManager repositoryManager, Gson gson, Application application) {
+    public SearchModel(IRepositoryManager repositoryManager, Gson gson, Application application) {
         super(repositoryManager);
         this.mGson = gson;
         this.mApplication = application;
@@ -39,9 +35,6 @@ public class PrivateModel extends BaseModel implements PrivateContract.Model {
 
     @Override
     public Observable<EquityBean> dealList(String type, String label_id, String round_id, String keyword, String page, String page_size) {
-        return Observable.just(mRepositoryManager.obtainRetrofitService(ApiService.class).dealList("1", type, label_id, round_id, keyword, page, page_size))
-                .flatMap(resultObservable -> mRepositoryManager.obtainCacheService(ApiCache.class)
-                        .dealList(resultObservable, new EvictProvider(DeviceUtils.netIsConnected(mApplication)))
-                        .map(Reply::getData));
+        return mRepositoryManager.obtainRetrofitService(ApiService.class).dealList("1", type, label_id, round_id, keyword, page, page_size);
     }
 }

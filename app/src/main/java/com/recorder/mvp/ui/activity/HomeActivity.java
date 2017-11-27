@@ -13,6 +13,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.core.base.AdapterViewPager;
 import com.core.base.BaseActivity;
 import com.core.di.component.AppComponent;
@@ -55,6 +56,8 @@ public class HomeActivity extends BaseActivity<HomePresenter> implements HomeCon
     AutoViewPager viewPager;
     @BindView(R.id.toolbar_left)
     View back;
+    @BindView(R.id.toolbar_right)
+    View search;
     @BindView(R.id.recyclerview)
     CoreRecyclerView recyclerView;
     @BindView(R.id.ll_filter)
@@ -87,6 +90,7 @@ public class HomeActivity extends BaseActivity<HomePresenter> implements HomeCon
 
     private void initHome() {
         title("昊翔");
+        search.setVisibility(View.VISIBLE);
         mNavigationController = navigation.material()
                 .addItem(R.mipmap.ic_nav_theme, CoreUtils.getString(this, R.string.Home))
                 .addItem(R.mipmap.ic_nav_theme, CoreUtils.getString(this, R.string.Equity))
@@ -156,6 +160,7 @@ public class HomeActivity extends BaseActivity<HomePresenter> implements HomeCon
                 llFilter.setVisibility(isFilterOpen ? View.VISIBLE : View.GONE);
                 break;
             case R.id.toolbar_right:
+                ARouter.getInstance().build("/app/SearchActivity").navigation();
                 break;
             case R.id.tv_filter_reset:
                 break;

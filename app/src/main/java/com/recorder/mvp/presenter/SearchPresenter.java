@@ -7,7 +7,7 @@ import com.core.http.imageloader.ImageLoader;
 import com.core.integration.AppManager;
 import com.core.mvp.BasePresenter;
 import com.core.utils.RxLifecycleUtils;
-import com.recorder.mvp.contract.EquityContract;
+import com.recorder.mvp.contract.SearchContract;
 import com.recorder.mvp.model.entity.EquityBean;
 
 import javax.inject.Inject;
@@ -16,14 +16,14 @@ import me.jessyan.rxerrorhandler.core.RxErrorHandler;
 import me.jessyan.rxerrorhandler.handler.ErrorHandleSubscriber;
 
 @ActivityScope
-public class EquityPresenter extends BasePresenter<EquityContract.Model, EquityContract.View> {
+public class SearchPresenter extends BasePresenter<SearchContract.Model, SearchContract.View> {
     private RxErrorHandler mErrorHandler;
     private Application mApplication;
     private ImageLoader mImageLoader;
     private AppManager mAppManager;
 
     @Inject
-    public EquityPresenter(EquityContract.Model model, EquityContract.View rootView
+    public SearchPresenter(SearchContract.Model model, SearchContract.View rootView
             , RxErrorHandler handler, Application application
             , ImageLoader imageLoader, AppManager appManager) {
         super(model, rootView);
@@ -48,7 +48,7 @@ public class EquityPresenter extends BasePresenter<EquityContract.Model, EquityC
                 .subscribe(new ErrorHandleSubscriber<EquityBean>(mErrorHandler) {
                     @Override
                     public void onNext(EquityBean equityBean) {
-                        mRootView.showEquity(equityBean);
+                        mRootView.showDealList(equityBean.getData());
                     }
                 });
     }

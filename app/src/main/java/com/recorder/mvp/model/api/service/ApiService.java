@@ -33,7 +33,7 @@ public interface ApiService {
 
     //type  1-众筹 2-私募 不必须 默认为1-众筹
     @GET("deal/list")
-    Observable<EquityBean> getEquity(@Header("DIVERSION-VERSION") String version, @Query("type") String type,
+    Observable<EquityBean> dealList(@Header("DIVERSION-VERSION") String version, @Query("type") String type,
                                      @Query("label_id") String label_id, @Query("round_id") String round_id,
                                      @Query("keyword") String keyword, @Query("page") String page,
                                      @Query("page_size") String page_size);

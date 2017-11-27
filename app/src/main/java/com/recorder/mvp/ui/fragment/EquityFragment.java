@@ -53,7 +53,7 @@ public class EquityFragment extends BaseFragment<EquityPresenter> implements Equ
 
     @Override
     public void initData(Bundle savedInstanceState) {
-        mPresenter.getEquity(null, null, null, null, null, null);
+        mPresenter.dealList("1", null, null, null, null, null);
     }
 
     /**
