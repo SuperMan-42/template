@@ -3,6 +3,7 @@ package com.recorder.mvp.model.api.service;
 import com.recorder.mvp.model.entity.EquityBean;
 import com.recorder.mvp.model.entity.ImageUploadBean;
 import com.recorder.mvp.model.entity.LoginBean;
+import com.recorder.mvp.model.entity.NewsListBean;
 import com.recorder.mvp.model.entity.UserInfoBean;
 
 import java.util.List;
@@ -76,4 +77,7 @@ public interface ApiService {
     @POST("image/upload")
     Observable<ImageUploadBean> imageUpload(@Header("DIVERSION-VERSION") String version, @Part("type") RequestBody type,
                                             @Part List<MultipartBody.Part> images);
+
+    @GET("news/list")
+    Observable<NewsListBean> newsList(@Header("DIVERSION-VERSION") String version, @Query("page") String page, @Query("page_size") String page_size);
 }

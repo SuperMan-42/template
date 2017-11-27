@@ -91,6 +91,7 @@ dependencies {
     implementation rootProject.ext.dependencies["arouter"]
     implementation rootProject.ext.dependencies["cardview-v7"]
     annotationProcessor rootProject.ext.dependencies["arouter-compiler"]
+    implementation rootProject.ext.dependencies["agentweb"]
     implementation 'me.majiajie:pager-bottom-tab-strip:2.2.2'
     implementation 'com.github.LuckSiege.PictureSelector:picture_library:v2.1.7'
     implementation 'cn.bingoogolapple:bga-banner:2.1.8@aar'

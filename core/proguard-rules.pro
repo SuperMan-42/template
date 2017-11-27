@@ -237,4 +237,10 @@
 # banner 的混淆代码
 -keep class com.youth.banner.** {
     *;
- }
+}
+#agentweb
+-keep class com.just.library.** {
+    *;
+}
+-dontwarn com.just.library.**
+-keepclassmembers class com.just.library.agentweb.AndroidInterface{ *; }

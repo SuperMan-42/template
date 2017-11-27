@@ -89,6 +89,9 @@
             android:name=".mvp.ui.activity.UserModifyActivity"
             android:theme="@style/CoreAppTheme.Transparent"
             android:windowSoftInputMode="stateVisible" />
+        <activity
+            android:name=".mvp.ui.activity.WebActivity"
+            android:theme="@style/CoreAppTheme.Transparent" />
     </application>
 
 </manifest>
