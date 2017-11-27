@@ -3,6 +3,7 @@ package com.recorder.mvp.ui.fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +22,8 @@ import com.recorder.di.module.EquityModule;
 import com.recorder.mvp.contract.EquityContract;
 import com.recorder.mvp.model.entity.EquityBean;
 import com.recorder.mvp.presenter.EquityPresenter;
+
+import org.simple.eventbus.Subscriber;
 
 import butterknife.BindView;
 
@@ -71,6 +74,12 @@ public class EquityFragment extends BaseFragment<EquityPresenter> implements Equ
     @Override
     public void setData(Object data) {
 
+    }
+
+    @Subscriber(tag = "equityfragment")
+    private void equityfragment(Bundle bundle) {
+        mPresenter.dealList("1", TextUtils.isEmpty(bundle.getString("lables")) ? null : bundle.getString("lables"),
+                TextUtils.isEmpty(bundle.getString("round")) ? null : bundle.getString("round"), null, null, null);
     }
 
     @Override

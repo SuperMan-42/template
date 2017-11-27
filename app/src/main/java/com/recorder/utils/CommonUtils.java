@@ -14,6 +14,7 @@ import com.jaeger.library.StatusBarUtil;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -179,5 +180,17 @@ public class CommonUtils {
             e.printStackTrace();
         }
         return result;
+    }
+
+    public static String toStringFromList(List<String> selectorList) {
+        if (selectorList.size() != 0) {
+            StringBuilder builder = new StringBuilder();
+            for (String string : selectorList) {
+                builder.append(string).append(",");
+            }
+            return builder.deleteCharAt(builder.length() - 1).toString();
+        } else {
+            return "";
+        }
     }
 }

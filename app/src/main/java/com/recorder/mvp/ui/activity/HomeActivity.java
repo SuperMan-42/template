@@ -35,8 +35,11 @@ import com.recorder.mvp.ui.fragment.EquityFragment;
 import com.recorder.mvp.ui.fragment.HomeFragment;
 import com.recorder.mvp.ui.fragment.MyFragment;
 import com.recorder.mvp.ui.fragment.PrivateFragment;
+import com.recorder.utils.CommonUtils;
 import com.recorder.widget.AutoPageNavigationView;
 import com.recorder.widget.AutoViewPager;
+
+import org.simple.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,6 +66,8 @@ public class HomeActivity extends BaseActivity<HomePresenter> implements HomeCon
     @BindView(R.id.ll_filter)
     View llFilter;
 
+    private List<String> lablesList = new ArrayList<>();
+    private List<String> roundList = new ArrayList<>();
     private static boolean isFilterOpen = false;
     NavigationController mNavigationController;
     private ArrayList<MultiItemEntity> res = new ArrayList<>();
@@ -90,7 +95,7 @@ public class HomeActivity extends BaseActivity<HomePresenter> implements HomeCon
 
     private void initHome() {
         title("昊翔");
-        search.setVisibility(View.VISIBLE);
+        back.setVisibility(View.INVISIBLE);
         mNavigationController = navigation.material()
                 .addItem(R.mipmap.ic_nav_theme, CoreUtils.getString(this, R.string.Home))
                 .addItem(R.mipmap.ic_nav_theme, CoreUtils.getString(this, R.string.Equity))
@@ -113,6 +118,8 @@ public class HomeActivity extends BaseActivity<HomePresenter> implements HomeCon
         mNavigationController.addTabItemSelectedListener(new OnTabItemSelectedListener() {
             @Override
             public void onSelected(int index, int old) {
+                search.setVisibility(index == 1 || index == 2 ? View.VISIBLE : View.INVISIBLE);
+                back.setVisibility(index == 1 || index == 2 ? View.VISIBLE : View.INVISIBLE);
                 CoreUtils.obtainRxCache(getApplicationContext()).remove("isClear");
                 title(viewPager.getAdapter().getPageTitle(viewPager.getCurrentItem()));
                 findViewById(R.id.toolbar).setVisibility(index == 4 ? View.GONE : View.VISIBLE);
@@ -163,8 +170,38 @@ public class HomeActivity extends BaseActivity<HomePresenter> implements HomeCon
                 ARouter.getInstance().build("/app/SearchActivity").navigation();
                 break;
             case R.id.tv_filter_reset:
+                for (Object entity : recyclerView.getAdapter().getData()) {
+                    if (entity instanceof ContentItem) {
+                        ((ContentItem) entity).isSelector = false;
+                    }
+                    recyclerView.getAdapter().notifyDataSetChanged();
+                }
                 break;
             case R.id.tv_filter_do:
+                lablesList.clear();
+                roundList.clear();
+                for (Object entity : recyclerView.getAdapter().getData()) {
+                    if (entity instanceof ContentItem && ((ContentItem) entity).isSelector) {
+                        if (((ContentItem) entity).isLable) {
+                            lablesList.add(((ContentItem) entity).id);
+                        } else {
+                            roundList.add(((ContentItem) entity).id);
+                        }
+                    }
+                }
+                isFilterOpen = !isFilterOpen;
+                llFilter.setVisibility(isFilterOpen ? View.VISIBLE : View.GONE);
+                Bundle bundle = new Bundle();
+                bundle.putString("lables", CommonUtils.toStringFromList(lablesList));
+                bundle.putString("round", CommonUtils.toStringFromList(roundList));
+                switch (mNavigationController.getSelected()) {
+                    case 1:
+                        EventBus.getDefault().post(bundle, "equityfragment");
+                        break;
+                    case 2:
+                        EventBus.getDefault().post(bundle, "privatefragment");
+                        break;
+                }
                 break;
         }
     }
@@ -173,12 +210,12 @@ public class HomeActivity extends BaseActivity<HomePresenter> implements HomeCon
     public void showFilter(ImageLoader imageLoader, DealFilter.DataEntity data) {
         HeaderItem headerItem = new HeaderItem("行业", null);
         for (int i = 0; i < data.getLabels().size(); i++) {
-            headerItem.addSubItem(new ContentItem(data.getLabels().get(i).getName(), (i + 1) % 4 == 0));
+            headerItem.addSubItem(new ContentItem(data.getLabels().get(i).getName(), data.getLabels().get(i).getId(), (i + 1) % 4 == 0, false, true));
         }
         res.add(headerItem);
         HeaderItem headerItem1 = new HeaderItem("轮次", null);
         for (int i = 0; i < data.getRounds().size(); i++) {
-            headerItem1.addSubItem(new ContentItem(data.getRounds().get(i).getName(), (i + 1) % 4 == 0));
+            headerItem1.addSubItem(new ContentItem(data.getRounds().get(i).getName(), data.getRounds().get(i).getId(), (i + 1) % 4 == 0, false, false));
         }
         res.add(headerItem1);
         ExpandableItemAdapter adapter = new ExpandableItemAdapter(res);
@@ -216,11 +253,17 @@ public class HomeActivity extends BaseActivity<HomePresenter> implements HomeCon
 
     private static class ContentItem implements MultiItemEntity {
         public String title;
+        public String id;
         public boolean is = true;
+        public boolean isSelector = false;
+        public boolean isLable;
 
-        public ContentItem(String title, boolean is) {
+        public ContentItem(String title, String id, boolean is, boolean isSelector, boolean isLable) {
             this.title = title;
-            this.is = is;
+            this.id = id;
+            this.is = is;//是否是边缘
+            this.isSelector = isSelector;//是否选中
+            this.isLable = isLable;//是否是lable
         }
 
         @Override
@@ -254,6 +297,11 @@ public class HomeActivity extends BaseActivity<HomePresenter> implements HomeCon
                     final ContentItem lv1 = (ContentItem) item;
                     holder.setText(R.id.tv_filter_content, lv1.title)
                             .setVisible(R.id.view_space, lv1.is);
+                    holder.getView(R.id.tv_filter_content).setSelected(lv1.isSelector);
+                    holder.itemView.setOnClickListener(view -> {
+                        lv1.isSelector = !lv1.isSelector;
+                        holder.getView(R.id.tv_filter_content).setSelected(lv1.isSelector);
+                    });
                     break;
             }
         }
