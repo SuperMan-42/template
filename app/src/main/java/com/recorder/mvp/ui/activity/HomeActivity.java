@@ -27,7 +27,7 @@ import com.recorder.R;
 import com.recorder.di.component.DaggerHomeComponent;
 import com.recorder.di.module.HomeModule;
 import com.recorder.mvp.contract.HomeContract;
-import com.recorder.mvp.model.entity.ReferFilter;
+import com.recorder.mvp.model.entity.DealFilter;
 import com.recorder.mvp.presenter.HomePresenter;
 import com.recorder.mvp.ui.fragment.DynamicFragment;
 import com.recorder.mvp.ui.fragment.EquityFragment;
@@ -82,11 +82,7 @@ public class HomeActivity extends BaseActivity<HomePresenter> implements HomeCon
     @Override
     public void initView(Bundle savedInstanceState) {
         initHome();
-        initFilter();
-    }
-
-    private void initFilter() {
-//        mPresenter.getFilter();
+        mPresenter.dealFilter();
     }
 
     private void initHome() {
@@ -169,16 +165,15 @@ public class HomeActivity extends BaseActivity<HomePresenter> implements HomeCon
     }
 
     @Override
-    public void showFilter(ImageLoader imageLoader, ReferFilter referFilter) {
+    public void showFilter(ImageLoader imageLoader, DealFilter.DataEntity data) {
         HeaderItem headerItem = new HeaderItem("行业", null);
-        ReferFilter.DataEntity data = referFilter.getData();
-        for (int i = 0; i < data.getTrade().size(); i++) {
-            headerItem.addSubItem(new ContentItem(data.getTrade().get(i), (i + 1) % 4 == 0));
+        for (int i = 0; i < data.getLabels().size(); i++) {
+            headerItem.addSubItem(new ContentItem(data.getLabels().get(i).getName(), (i + 1) % 4 == 0));
         }
         res.add(headerItem);
         HeaderItem headerItem1 = new HeaderItem("轮次", null);
         for (int i = 0; i < data.getRounds().size(); i++) {
-            headerItem1.addSubItem(new ContentItem(data.getRounds().get(i), (i + 1) % 4 == 0));
+            headerItem1.addSubItem(new ContentItem(data.getRounds().get(i).getName(), (i + 1) % 4 == 0));
         }
         res.add(headerItem1);
         ExpandableItemAdapter adapter = new ExpandableItemAdapter(res);
@@ -260,7 +255,6 @@ public class HomeActivity extends BaseActivity<HomePresenter> implements HomeCon
     }
 
     private class SimpleDividerDecoration extends RecyclerView.ItemDecoration {
-
         private Paint dividerPaint;
 
         public SimpleDividerDecoration(Context context) {

@@ -21,7 +21,7 @@ import com.recorder.R;
 import com.recorder.di.component.DaggerHomeComponent;
 import com.recorder.di.module.HomeModule;
 import com.recorder.mvp.contract.HomeContract;
-import com.recorder.mvp.model.entity.ReferFilter;
+import com.recorder.mvp.model.entity.DealFilter;
 import com.recorder.mvp.presenter.HomePresenter;
 
 import java.util.ArrayList;
@@ -134,7 +134,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
     }
 
     @Override
-    public void showFilter(ImageLoader imageLoader, ReferFilter referFilter) {
+    public void showFilter(ImageLoader imageLoader, DealFilter.DataEntity dataEntity) {
 
     }
 

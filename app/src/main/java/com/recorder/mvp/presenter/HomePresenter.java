@@ -8,7 +8,7 @@ import com.core.integration.AppManager;
 import com.core.mvp.BasePresenter;
 import com.core.utils.RxLifecycleUtils;
 import com.recorder.mvp.contract.HomeContract;
-import com.recorder.mvp.model.entity.ReferFilter;
+import com.recorder.mvp.model.entity.DealFilter;
 
 import javax.inject.Inject;
 
@@ -42,13 +42,13 @@ public class HomePresenter extends BasePresenter<HomeContract.Model, HomeContrac
         this.mApplication = null;
     }
 
-    public void getFilter() {
-        mModel.getFilter()
+    public void dealFilter() {
+        mModel.dealFilter()
                 .compose(RxLifecycleUtils.transformer(mRootView))
-                .subscribe(new ErrorHandleSubscriber<ReferFilter>(mErrorHandler) {
+                .subscribe(new ErrorHandleSubscriber<DealFilter>(mErrorHandler) {
                     @Override
-                    public void onNext(ReferFilter referFilter) {
-                        mRootView.showFilter(mImageLoader, referFilter);
+                    public void onNext(DealFilter referFilter) {
+                        mRootView.showFilter(mImageLoader, referFilter.getData());
                     }
                 });
     }

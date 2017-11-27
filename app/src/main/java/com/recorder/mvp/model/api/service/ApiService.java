@@ -1,5 +1,6 @@
 package com.recorder.mvp.model.api.service;
 
+import com.recorder.mvp.model.entity.DealFilter;
 import com.recorder.mvp.model.entity.EquityBean;
 import com.recorder.mvp.model.entity.ImageUploadBean;
 import com.recorder.mvp.model.entity.LoginBean;
@@ -80,4 +81,7 @@ public interface ApiService {
 
     @GET("news/list")
     Observable<NewsListBean> newsList(@Header("DIVERSION-VERSION") String version, @Query("page") String page, @Query("page_size") String page_size);
+
+    @GET("deal/filter")
+    Observable<DealFilter> dealFilter(@Header("DIVERSION-VERSION") String version);
 }
