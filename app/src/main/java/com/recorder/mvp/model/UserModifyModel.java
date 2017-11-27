@@ -33,7 +33,7 @@ public class UserModifyModel extends BaseModel implements UserModifyContract.Mod
     }
 
     @Override
-    public Observable<Object> userModify(String field, String user_name, String intro, String email, String weixin, String address) {
-        return mRepositoryManager.obtainRetrofitService(ApiService.class).userModify("1", field, user_name, intro, email, weixin, address);
+    public Observable<Object> userModify(String field, String user_name, String intro, String email, String weixin, String address, String avatar) {
+        return mRepositoryManager.obtainRetrofitService(ApiService.class).userModify("1", field, user_name, intro, email, weixin, address, avatar);
     }
 }

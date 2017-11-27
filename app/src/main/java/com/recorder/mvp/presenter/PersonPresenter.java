@@ -5,12 +5,25 @@ import android.app.Application;
 import com.core.di.scope.ActivityScope;
 import com.core.http.imageloader.ImageLoader;
 import com.core.integration.AppManager;
+import com.core.integration.cache.BCache;
 import com.core.mvp.BasePresenter;
+import com.core.utils.CoreUtils;
+import com.core.utils.RxLifecycleUtils;
+import com.google.gson.Gson;
+import com.recorder.Constants;
+import com.recorder.R;
 import com.recorder.mvp.contract.PersonContract;
+import com.recorder.mvp.model.entity.UserInfoBean;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
+import io.reactivex.schedulers.Schedulers;
 import me.jessyan.rxerrorhandler.core.RxErrorHandler;
+import me.jessyan.rxerrorhandler.handler.ErrorHandleSubscriber;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 
 @ActivityScope
 public class PersonPresenter extends BasePresenter<PersonContract.Model, PersonContract.View> {
@@ -37,5 +50,25 @@ public class PersonPresenter extends BasePresenter<PersonContract.Model, PersonC
         this.mAppManager = null;
         this.mImageLoader = null;
         this.mApplication = null;
+    }
+
+    public void imageUpload(RequestBody type, List<MultipartBody.Part> images) {
+        mModel.imageUpload(type, images)
+                .compose(RxLifecycleUtils.transformer(mRootView))
+                .observeOn(Schedulers.io())
+                .flatMap(imageUploadBean -> {
+                    Gson gson = new Gson();
+                    UserInfoBean userInfoBean = gson.fromJson(BCache.getInstance().getString(Constants.USER_INFO), UserInfoBean.class);
+                    userInfoBean.getData().setAvatar(imageUploadBean.getData().getImages().get(0));
+                    BCache.getInstance().put(Constants.USER_INFO, gson.toJson(userInfoBean));
+                    return mModel.userModify("avatar", null, null, null, null, null, imageUploadBean.getData().getImages().get(0));
+                })
+                .compose(RxLifecycleUtils.transformer(mRootView))
+                .subscribe(new ErrorHandleSubscriber<Object>(mErrorHandler) {
+                    @Override
+                    public void onNext(Object object) {
+                        mRootView.showMessage(CoreUtils.getString(mApplication, R.string.text_avatar));
+                    }
+                });
     }
 }

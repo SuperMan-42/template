@@ -47,8 +47,8 @@ public class UserModifyPresenter extends BasePresenter<UserModifyContract.Model,
         this.mApplication = null;
     }
 
-    public void userModify(String field, String user_name, String intro, String email, String weixin, String address) {
-        mModel.userModify(field, user_name, intro, email, weixin, address)
+    public void userModify(String field, String user_name, String intro, String email, String weixin, String address, String avatar) {
+        mModel.userModify(field, user_name, intro, email, weixin, address, avatar)
                 .compose(RxLifecycleUtils.transformer(mRootView))
                 .subscribe(new ErrorHandleSubscriber<Object>(mErrorHandler) {
                     @Override

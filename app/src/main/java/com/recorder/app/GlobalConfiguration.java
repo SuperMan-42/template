@@ -45,6 +45,7 @@ import java.util.List;
 
 import cn.bingoogolapple.swipebacklayout.BGASwipeBackHelper;
 import okhttp3.Interceptor;
+import okhttp3.MultipartBody;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
@@ -115,10 +116,17 @@ public class GlobalConfiguration implements ConfigModule {
                         try {
                             String content;
                             if (request.method().equals("POST")) {
-                                RequestBody requestBody = request.body();
+                                RequestBody requestBody;
                                 Buffer buffer = new Buffer();
-                                requestBody.writeTo(buffer);
-                                content = URLDecoder.decode(buffer.readUtf8(), "utf-8");
+                                if (request.body() instanceof MultipartBody) {
+                                    requestBody = ((MultipartBody) request.body()).parts().get(0).body();
+                                    requestBody.writeTo(buffer);
+                                    content = "type=" + URLDecoder.decode(buffer.readUtf8(), "utf-8");
+                                } else {
+                                    requestBody = request.body();
+                                    requestBody.writeTo(buffer);
+                                    content = URLDecoder.decode(buffer.readUtf8(), "utf-8");
+                                }
                             } else {
                                 content = chain.request().url().query();
                             }

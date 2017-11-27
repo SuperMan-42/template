@@ -80,16 +80,16 @@ public class UserModifyActivity extends BaseActivity<UserModifyPresenter> implem
             if (actionId == EditorInfo.IME_ACTION_SEND) {
                 switch (key) {
                     case "用户名":
-                        mPresenter.userModify("user_name", etInfo.getText().toString(), null, null, null, null);
+                        mPresenter.userModify("user_name", etInfo.getText().toString(), null, null, null, null, null);
                         break;
                     case "邮箱":
-                        mPresenter.userModify("email", null, null, etInfo.getText().toString(), null, null);
+                        mPresenter.userModify("email", null, null, etInfo.getText().toString(), null, null, null);
                         break;
                     case "微信":
-                        mPresenter.userModify("weixin", null, null, null, etInfo.getText().toString(), null);
+                        mPresenter.userModify("weixin", null, null, null, etInfo.getText().toString(), null, null);
                         break;
                     case "邮寄地址":
-                        mPresenter.userModify("address", null, null, null, null, etInfo.getText().toString());
+                        mPresenter.userModify("address", null, null, null, null, etInfo.getText().toString(), null);
                         break;
                 }
                 CoreUtils.hideSoftInput(etInfo);
@@ -100,7 +100,7 @@ public class UserModifyActivity extends BaseActivity<UserModifyPresenter> implem
 
         etIntro.setOnEditorActionListener((textView, actionId, keyEvent) -> {
             if (actionId == EditorInfo.IME_ACTION_SEND) {
-                mPresenter.userModify("intro", null, etIntro.getText().toString(), null, null, null);
+                mPresenter.userModify("intro", null, etIntro.getText().toString(), null, null, null, null);
                 CoreUtils.hideSoftInput(etIntro);
                 return true;
             }

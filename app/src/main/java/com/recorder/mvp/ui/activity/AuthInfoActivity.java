@@ -159,8 +159,6 @@ public class AuthInfoActivity extends BaseActivity<AuthInfoPresenter> implements
                 case IM_OTHER:
                     // 图片选择结果回调
                     List<LocalMedia> otherList = PictureSelector.obtainMultipleResult(data);
-
-
                     CoreUtils.imgLoader(this, otherList.get(0).getPath(), imOther);
                     break;
             }

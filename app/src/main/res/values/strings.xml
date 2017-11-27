@@ -20,4 +20,5 @@
     <string name="text_password_no">输入密码不一致请重新输入</string>
     <string name="text_forgetpwd">密码修改成功</string>
     <string name="text_user_modify">信息修改成功</string>
+    <string name="text_avatar">头像修改成功</string>
 </resources>

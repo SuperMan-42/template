@@ -14,6 +14,6 @@ public interface UserModifyContract {
     //Model层定义接口,外部只需关心Model返回的数据,无需关心内部细节,即是否使用缓存
     interface Model extends IModel {
 
-        Observable<Object> userModify(String field, String user_name, String intro, String email, String weixin, String address);
+        Observable<Object> userModify(String field, String user_name, String intro, String email, String weixin, String address, String avatar);
     }
 }

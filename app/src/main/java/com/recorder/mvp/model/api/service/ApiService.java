@@ -1,15 +1,22 @@
 package com.recorder.mvp.model.api.service;
 
 import com.recorder.mvp.model.entity.EquityBean;
+import com.recorder.mvp.model.entity.ImageUploadBean;
 import com.recorder.mvp.model.entity.LoginBean;
 import com.recorder.mvp.model.entity.UserInfoBean;
 
+import java.util.List;
+
 import io.reactivex.Observable;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
 import retrofit2.http.Query;
 
 /**
@@ -63,5 +70,10 @@ public interface ApiService {
     @POST("user/modify")
     Observable<Object> userModify(@Header("DIVERSION-VERSION") String version, @Field("field") String field,
                                   @Field("user_name") String user_name, @Field("intro") String intro, @Field("email") String email,
-                                  @Field("weixin") String weixin, @Field("address") String address);
+                                  @Field("weixin") String weixin, @Field("address") String address, @Field("avatar") String avatar);
+
+    @Multipart
+    @POST("image/upload")
+    Observable<ImageUploadBean> imageUpload(@Header("DIVERSION-VERSION") String version, @Part("type") RequestBody type,
+                                            @Part List<MultipartBody.Part> images);
 }

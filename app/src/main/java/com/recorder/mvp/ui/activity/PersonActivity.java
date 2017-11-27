@@ -13,6 +13,9 @@ import com.core.di.component.AppComponent;
 import com.core.integration.cache.BCache;
 import com.core.utils.CoreUtils;
 import com.google.gson.Gson;
+import com.luck.picture.lib.PictureSelector;
+import com.luck.picture.lib.config.PictureConfig;
+import com.luck.picture.lib.config.PictureMimeType;
 import com.recorder.Constants;
 import com.recorder.R;
 import com.recorder.di.component.DaggerPersonComponent;
@@ -21,15 +24,21 @@ import com.recorder.mvp.contract.PersonContract;
 import com.recorder.mvp.model.entity.UserInfoBean;
 import com.recorder.mvp.presenter.PersonPresenter;
 
+import java.io.File;
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.OnClick;
 import de.hdodenhof.circleimageview.CircleImageView;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 
 import static com.core.utils.Preconditions.checkNotNull;
 
 @Route(path = "/app/PersonActivity")
 public class PersonActivity extends BaseActivity<PersonPresenter> implements PersonContract.View {
-
+    private static final int IM_AVATAR = 0;
     UserInfoBean.DataEntity userInfoBean;
 
     @BindView(R.id.im_avatar)
@@ -65,13 +74,14 @@ public class PersonActivity extends BaseActivity<PersonPresenter> implements Per
     @Override
     public void initView(Bundle savedInstanceState) {
         title("个人资料");
+        CoreUtils.imgLoaderCircle(this, "http://bpic.588ku.com/element_origin_min_pic/00/00/05/115732f19cc0079.jpg", imAvatar);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         userInfoBean = new Gson().fromJson(BCache.getInstance().getString(Constants.USER_INFO), UserInfoBean.class).getData();
-        CoreUtils.imgLoaderCircle(this, "http://bpic.588ku.com/element_origin_min_pic/00/00/05/115732f19cc0079.jpg", imAvatar);
+//        CoreUtils.imgLoaderCircle(this, "http://bpic.588ku.com/element_origin_min_pic/00/00/05/115732f19cc0079.jpg", imAvatar);
         tvUserName.setText(userInfoBean.getUser_name());
         tvIntro.setText(userInfoBean.getIntro());
         tvMobile.setText(userInfoBean.getMobile());
@@ -107,9 +117,20 @@ public class PersonActivity extends BaseActivity<PersonPresenter> implements Per
         finish();
     }
 
-    @OnClick({R.id.rl_user_name, R.id.rl_intro, R.id.rl_email, R.id.rl_weixin, R.id.rl_address, R.id.rl_password})
+    @OnClick({R.id.rl_avatar, R.id.rl_user_name, R.id.rl_intro, R.id.rl_email, R.id.rl_weixin, R.id.rl_address, R.id.rl_password})
     public void onViewClicked(View view) {
         switch (view.getId()) {
+            case R.id.rl_avatar:
+                PictureSelector.create(this)
+                        .openGallery(PictureMimeType.ofImage())
+                        .selectionMode(PictureConfig.SINGLE)
+                        .theme(R.style.picture_hx_style)
+                        .enableCrop(true)
+                        .circleDimmedLayer(true)
+                        .compress(true)
+                        .showCropGrid(false)
+                        .forResult(IM_AVATAR);
+                break;
             case R.id.rl_user_name:
                 ARouter.getInstance().build("/app/UserModifyActivity").withString("key", "用户名").withBoolean("isIntro", false).navigation();
                 break;
@@ -128,6 +149,26 @@ public class PersonActivity extends BaseActivity<PersonPresenter> implements Per
             case R.id.rl_password:
                 ARouter.getInstance().build("/app/ModifyPasswordActivity").navigation();
                 break;
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+            switch (requestCode) {
+                case IM_AVATAR:
+                    // 图片选择结果回调
+                    File file = new File(PictureSelector.obtainMultipleResult(data).get(0).getCompressPath());
+                    CoreUtils.imgLoaderCircle(this, file, imAvatar);
+                    MultipartBody.Builder builder = new MultipartBody.Builder().setType(MultipartBody.FORM);//表单类型
+                    RequestBody imageBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+                    builder.addFormDataPart("images", file.getName(), imageBody);//imgfile 后台接收图片流的参数名
+                    List<MultipartBody.Part> parts = builder.build().parts();
+                    RequestBody typeBody = RequestBody.create(MediaType.parse("text/plain"), "2");
+                    mPresenter.imageUpload(typeBody, parts);
+                    break;
+            }
         }
     }
 }
