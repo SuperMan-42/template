@@ -32,6 +32,13 @@ import com.zhy.autolayout.utils.AutoLayoutHelper;
  * ================================================
  */
 public class AutoScrollView extends ScrollView {
+    public interface TranslucentListener {
+        void onTranslucent(float alpha, int t);
+    }
+
+    private TranslucentListener translucentListener;
+    private int mScrollY;
+
     private AutoLayoutHelper mHelper = new AutoLayoutHelper(this);
 
     public AutoScrollView(Context context) {
@@ -56,6 +63,32 @@ public class AutoScrollView extends ScrollView {
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
         super.onLayout(changed, l, t, r, b);
+    }
+
+    @Override
+    protected void onScrollChanged(int l, int t, int oldl, int oldt) {
+        mScrollY = t;
+        super.onScrollChanged(l, t, oldl, oldt);
+        if (translucentListener != null) {
+            // alpha = 滑出去的高度/(screenHeight/3);
+            float heightPixels = getContext().getResources().getDisplayMetrics().heightPixels;
+            float scrollY = getScrollY();//该值 大于0
+            float alpha = scrollY / (heightPixels / 3);// 0~1  透明度是1~0
+            //这里选择的screenHeight的1/3 是alpha改变的速率 （根据你的需要你可以自己定义）
+            if (alpha >= 0 && alpha <= 1) {
+                translucentListener.onTranslucent(alpha, t);
+            } else {
+                translucentListener.onTranslucent(1, t);
+            }
+        }
+    }
+
+    public boolean isTop() {
+        return mScrollY <= 0;
+    }
+
+    public void setTranslucentListener(TranslucentListener listener) {
+        this.translucentListener = listener;
     }
 
     @Override

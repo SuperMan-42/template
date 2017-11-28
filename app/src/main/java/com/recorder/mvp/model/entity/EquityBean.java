@@ -11,7 +11,7 @@ public class EquityBean {
     /**
      * errno : 0
      * error : 成功
-     * data : {"list":[{"dealID":"6f10e0b2e9070c5484380ca9","deal_name":"网络电影《人间大炮3》","brief":"当红主播与本山弟子打造东北风格爆笑喜剧电影","cover":"","round":"","labels":["文娱传媒"],"is_group":"0","online_str":"","view_footer":{"view":0,"focus":0,"consult":0}}],"page":1,"page_size":20,"total_count":1,"total_page":1}
+     * data : {"list":[{"dealID":"6f10e0b2e9070c5484380ca9","deal_name":"网络电影《人间大炮3》","brief":"当红主播与本山弟子打造东北风格爆笑喜剧电影","cover":"http://ustatic-test.dreamflyc.com/group1/M00/02/37/ChIGqldLyNuATr6zAADXlrJMiTY036.jpg","round":"不明确/尚未获投/种子轮/天使轮/Pre-A轮","labels":"金融/教育培训/电子商务/社交/硬件设备","is_group":"0","online_str":"","view_footer":{"view":"2","focus":"1","consult":"3"}},{"dealID":"a37adb060e54843880d00da9","deal_name":"网络电影《人间大炮3》2","brief":"当红主播与本山弟子打造东北风格爆笑喜剧电影","cover":"http://ustatic-test.dreamflyc.com/group1/M00/02/37/ChIGqldLyNuATr6zAADXlrJMiTY036.jpg","round":"Pre-A轮/A轮/A+轮/Pre-B轮/B+轮/C轮","labels":"金融/文娱传媒/消费生活/医疗健康/企业服务/旅游酒店/房产家居","is_group":"0","online_str":"","view_footer":{"view":"0","focus":"0","consult":"0"}}],"page":1,"page_size":20,"total_count":2,"total_page":1}
      */
 
     private int errno;
@@ -44,10 +44,10 @@ public class EquityBean {
 
     public static class DataEntity {
         /**
-         * list : [{"dealID":"6f10e0b2e9070c5484380ca9","deal_name":"网络电影《人间大炮3》","brief":"当红主播与本山弟子打造东北风格爆笑喜剧电影","cover":"","round":"","labels":["文娱传媒"],"is_group":"0","online_str":"","view_footer":{"view":0,"focus":0,"consult":0}}]
+         * list : [{"dealID":"6f10e0b2e9070c5484380ca9","deal_name":"网络电影《人间大炮3》","brief":"当红主播与本山弟子打造东北风格爆笑喜剧电影","cover":"http://ustatic-test.dreamflyc.com/group1/M00/02/37/ChIGqldLyNuATr6zAADXlrJMiTY036.jpg","round":"不明确/尚未获投/种子轮/天使轮/Pre-A轮","labels":"金融/教育培训/电子商务/社交/硬件设备","is_group":"0","online_str":"","view_footer":{"view":"2","focus":"1","consult":"3"}},{"dealID":"a37adb060e54843880d00da9","deal_name":"网络电影《人间大炮3》2","brief":"当红主播与本山弟子打造东北风格爆笑喜剧电影","cover":"http://ustatic-test.dreamflyc.com/group1/M00/02/37/ChIGqldLyNuATr6zAADXlrJMiTY036.jpg","round":"Pre-A轮/A轮/A+轮/Pre-B轮/B+轮/C轮","labels":"金融/文娱传媒/消费生活/医疗健康/企业服务/旅游酒店/房产家居","is_group":"0","online_str":"","view_footer":{"view":"0","focus":"0","consult":"0"}}]
          * page : 1
          * page_size : 20
-         * total_count : 1
+         * total_count : 2
          * total_page : 1
          */
 
@@ -102,12 +102,12 @@ public class EquityBean {
              * dealID : 6f10e0b2e9070c5484380ca9
              * deal_name : 网络电影《人间大炮3》
              * brief : 当红主播与本山弟子打造东北风格爆笑喜剧电影
-             * cover :
-             * round :
-             * labels : ["文娱传媒"]
+             * cover : http://ustatic-test.dreamflyc.com/group1/M00/02/37/ChIGqldLyNuATr6zAADXlrJMiTY036.jpg
+             * round : 不明确/尚未获投/种子轮/天使轮/Pre-A轮
+             * labels : 金融/教育培训/电子商务/社交/硬件设备
              * is_group : 0
              * online_str :
-             * view_footer : {"view":0,"focus":0,"consult":0}
+             * view_footer : {"view":"2","focus":"1","consult":"3"}
              */
 
             private String dealID;
@@ -115,10 +115,10 @@ public class EquityBean {
             private String brief;
             private String cover;
             private String round;
+            private String labels;
             private String is_group;
             private String online_str;
             private ViewFooterEntity view_footer;
-            private List<String> labels;
 
             public void setDealID(String dealID) {
                 this.dealID = dealID;
@@ -140,6 +140,10 @@ public class EquityBean {
                 this.round = round;
             }
 
+            public void setLabels(String labels) {
+                this.labels = labels;
+            }
+
             public void setIs_group(String is_group) {
                 this.is_group = is_group;
             }
@@ -150,10 +154,6 @@ public class EquityBean {
 
             public void setView_footer(ViewFooterEntity view_footer) {
                 this.view_footer = view_footer;
-            }
-
-            public void setLabels(List<String> labels) {
-                this.labels = labels;
             }
 
             public String getDealID() {
@@ -176,6 +176,10 @@ public class EquityBean {
                 return round;
             }
 
+            public String getLabels() {
+                return labels;
+            }
+
             public String getIs_group() {
                 return is_group;
             }
@@ -188,42 +192,38 @@ public class EquityBean {
                 return view_footer;
             }
 
-            public List<String> getLabels() {
-                return labels;
-            }
-
             public static class ViewFooterEntity {
                 /**
-                 * view : 0
-                 * focus : 0
-                 * consult : 0
+                 * view : 2
+                 * focus : 1
+                 * consult : 3
                  */
 
-                private int view;
-                private int focus;
-                private int consult;
+                private String view;
+                private String focus;
+                private String consult;
 
-                public void setView(int view) {
+                public void setView(String view) {
                     this.view = view;
                 }
 
-                public void setFocus(int focus) {
+                public void setFocus(String focus) {
                     this.focus = focus;
                 }
 
-                public void setConsult(int consult) {
+                public void setConsult(String consult) {
                     this.consult = consult;
                 }
 
-                public int getView() {
+                public String getView() {
                     return view;
                 }
 
-                public int getFocus() {
+                public String getFocus() {
                     return focus;
                 }
 
-                public int getConsult() {
+                public String getConsult() {
                     return consult;
                 }
             }

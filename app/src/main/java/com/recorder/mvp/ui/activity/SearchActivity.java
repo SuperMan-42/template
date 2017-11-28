@@ -23,7 +23,6 @@ import com.recorder.di.module.SearchModule;
 import com.recorder.mvp.contract.SearchContract;
 import com.recorder.mvp.model.entity.EquityBean;
 import com.recorder.mvp.presenter.SearchPresenter;
-import com.recorder.utils.CommonUtils;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -109,7 +108,7 @@ public class SearchActivity extends BaseActivity<SearchPresenter> implements Sea
                 CoreUtils.imgLoader(getApplication(), "http://ww4.sinaimg.cn/large/006uZZy8jw1faic1xjab4j30ci08cjrv.jpg", holder.getView(R.id.im_cover));
                 holder.setText(R.id.tv_deal_name, item.getDeal_name())
                         .setText(R.id.tv_brief, item.getBrief())
-                        .setText(R.id.tv_labels, CommonUtils.toStringFromList(item.getLabels(), "/"))
+                        .setText(R.id.tv_labels, item.getLabels())
                         .setText(R.id.tv_round, item.getRound())
                         .setText(R.id.tv_online_str, item.getOnline_str())
                         .setVisible(R.id.tv_is_group, item.getIs_group().equals("1"));
@@ -123,7 +122,7 @@ public class SearchActivity extends BaseActivity<SearchPresenter> implements Sea
                     holder.setVisible(R.id.ll_view_footer, false);
                 }
                 holder.itemView.setOnClickListener(view1 -> ARouter.getInstance().build("/app/EquityDetailsActivity")
-                        .withBoolean(Constants.IS_EQUITY, isEquity).withBoolean(Constants.IS_GROUP, item.getIs_group().equals("1")).navigation());
+                        .withBoolean(Constants.IS_EQUITY, isEquity).withString(Constants.DEAL_ID, item.getDealID()).withBoolean(Constants.IS_GROUP, item.getIs_group().equals("1")).navigation());
             }
         }, false);
     }

@@ -1,5 +1,6 @@
 package com.recorder.mvp.model.api.cache;
 
+import com.recorder.mvp.model.entity.DealDetailBean;
 import com.recorder.mvp.model.entity.DealFilter;
 import com.recorder.mvp.model.entity.EquityBean;
 import com.recorder.mvp.model.entity.HomeRecommendBean;
@@ -29,4 +30,6 @@ public interface ApiCache {
     Observable<Reply<DealFilter>> dealFilter(Observable<DealFilter> resultObservable, EvictProvider evictProvider);
 
     Observable<Reply<HomeRecommendBean>> homeRecommend(Observable<HomeRecommendBean> resultObservable, EvictProvider evictProvider);
+
+    Observable<Reply<DealDetailBean>> dealDetail(Observable<DealDetailBean> resultObservable, EvictProvider evictProvider);
 }

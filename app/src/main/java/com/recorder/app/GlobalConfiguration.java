@@ -137,12 +137,12 @@ public class GlobalConfiguration implements ConfigModule {
                             } else {
                                 content = (content + "&time=" + time);
                             }
-                            content = content.toLowerCase();
                             String[] strings = content.split("&");
                             Arrays.sort(strings);
                             StringBuilder stringBuilder = new StringBuilder();
                             for (String string : strings) {
-                                stringBuilder.append(string).append("|");
+                                String[] split = string.split("=");
+                                stringBuilder.append(split[0]).append("=").append(split[1].toLowerCase()).append("|");
                             }
                             stringBuilder.append(TextUtils.isEmpty(token) ? "" : token + "|");
                             JSONObject jsonObject = new JSONObject();

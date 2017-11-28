@@ -7,6 +7,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
@@ -23,7 +24,6 @@ import com.recorder.di.module.EquityModule;
 import com.recorder.mvp.contract.EquityContract;
 import com.recorder.mvp.model.entity.EquityBean;
 import com.recorder.mvp.presenter.EquityPresenter;
-import com.recorder.utils.CommonUtils;
 
 import org.simple.eventbus.Subscriber;
 
@@ -35,6 +35,8 @@ import static com.core.utils.Preconditions.checkNotNull;
 public class EquityFragment extends BaseFragment<EquityPresenter> implements EquityContract.View {
     @BindView(R.id.recyclerview)
     CoreRecyclerView recyclerView;
+    @BindView(R.id.tv_tag)
+    TextView tvTag;
 
     public static EquityFragment newInstance() {
         EquityFragment fragment = new EquityFragment();
@@ -80,6 +82,14 @@ public class EquityFragment extends BaseFragment<EquityPresenter> implements Equ
 
     @Subscriber(tag = "equityfragment")
     private void equityfragment(Bundle bundle) {
+        if (!TextUtils.isEmpty(bundle.getString("lablesName")) && TextUtils.isEmpty(bundle.getString("roundName"))) {
+            tvTag.setText("已选: " + bundle.getString("lablesName"));
+        } else if (TextUtils.isEmpty(bundle.getString("lablesName")) && !TextUtils.isEmpty(bundle.getString("roundName"))) {
+            tvTag.setText("已选: " + bundle.getString("roundName"));
+        } else {
+            tvTag.setText("已选: " + bundle.getString("lablesName") + "," + bundle.getString("roundName"));
+        }
+        tvTag.setVisibility(TextUtils.isEmpty(bundle.getString("lablesName")) && TextUtils.isEmpty(bundle.getString("roundName")) ? View.GONE : View.VISIBLE);
         mPresenter.dealList("1", TextUtils.isEmpty(bundle.getString("lables")) ? null : bundle.getString("lables"),
                 TextUtils.isEmpty(bundle.getString("round")) ? null : bundle.getString("round"), null, null, null);
     }
@@ -119,7 +129,7 @@ public class EquityFragment extends BaseFragment<EquityPresenter> implements Equ
                 CoreUtils.imgLoader(getContext(), "http://ww4.sinaimg.cn/large/006uZZy8jw1faic1xjab4j30ci08cjrv.jpg", holder.getView(R.id.im_cover));
                 holder.setText(R.id.tv_deal_name, item.getDeal_name())
                         .setText(R.id.tv_brief, item.getBrief())
-                        .setText(R.id.tv_labels, CommonUtils.toStringFromList(item.getLabels(), "/"))
+                        .setText(R.id.tv_labels, item.getLabels())
                         .setText(R.id.tv_round, item.getRound())
                         .setText(R.id.tv_online_str, item.getOnline_str())
                         .setVisible(R.id.tv_is_group, item.getIs_group().equals("1"));
@@ -133,7 +143,7 @@ public class EquityFragment extends BaseFragment<EquityPresenter> implements Equ
                     holder.setVisible(R.id.ll_view_footer, false);
                 }
                 holder.itemView.setOnClickListener(view1 -> ARouter.getInstance().build("/app/EquityDetailsActivity")
-                        .withBoolean(Constants.IS_EQUITY, true).withBoolean(Constants.IS_GROUP, item.getIs_group().equals("1")).navigation());
+                        .withBoolean(Constants.IS_EQUITY, true).withString(Constants.DEAL_ID, item.getDealID()).withBoolean(Constants.IS_GROUP, item.getIs_group().equals("1")).navigation());
             }
         }, false);
     }

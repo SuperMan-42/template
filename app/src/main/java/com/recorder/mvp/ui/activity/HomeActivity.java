@@ -69,7 +69,9 @@ public class HomeActivity extends BaseActivity<HomePresenter> implements HomeCon
     View llFilter;
 
     private List<String> lablesList = new ArrayList<>();
+    private List<String> lablesNameList = new ArrayList<>();
     private List<String> roundList = new ArrayList<>();
+    private List<String> roundNameList = new ArrayList<>();
     private static boolean isFilterOpen = false;
     NavigationController mNavigationController;
     private ArrayList<MultiItemEntity> res = new ArrayList<>();
@@ -188,13 +190,17 @@ public class HomeActivity extends BaseActivity<HomePresenter> implements HomeCon
                 break;
             case R.id.tv_filter_do:
                 lablesList.clear();
+                lablesNameList.clear();
                 roundList.clear();
+                roundNameList.clear();
                 for (Object entity : recyclerView.getAdapter().getData()) {
                     if (entity instanceof ContentItem && ((ContentItem) entity).isSelector) {
                         if (((ContentItem) entity).isLable) {
                             lablesList.add(((ContentItem) entity).id);
+                            lablesNameList.add(((ContentItem) entity).title);
                         } else {
                             roundList.add(((ContentItem) entity).id);
+                            roundNameList.add(((ContentItem) entity).title);
                         }
                     }
                 }
@@ -202,7 +208,9 @@ public class HomeActivity extends BaseActivity<HomePresenter> implements HomeCon
                 llFilter.setVisibility(isFilterOpen ? View.VISIBLE : View.GONE);
                 Bundle bundle = new Bundle();
                 bundle.putString("lables", CommonUtils.toStringFromList(lablesList, ","));
+                bundle.putString("lablesName", CommonUtils.toStringFromList(lablesNameList, ","));
                 bundle.putString("round", CommonUtils.toStringFromList(roundList, ","));
+                bundle.putString("roundName", CommonUtils.toStringFromList(roundNameList, ","));
                 switch (mNavigationController.getSelected()) {
                     case 1:
                         EventBus.getDefault().post(bundle, "equityfragment");

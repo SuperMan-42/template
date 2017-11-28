@@ -1,5 +1,6 @@
 package com.recorder.mvp.model.api.service;
 
+import com.recorder.mvp.model.entity.DealDetailBean;
 import com.recorder.mvp.model.entity.DealFilter;
 import com.recorder.mvp.model.entity.EquityBean;
 import com.recorder.mvp.model.entity.HomeRecommendBean;
@@ -88,4 +89,19 @@ public interface ApiService {
 
     @GET("home/recommend")
     Observable<HomeRecommendBean> homeRecommend(@Header("DIVERSION-VERSION") String version);
+
+    @GET("deal/detail")
+    Observable<DealDetailBean> dealDetail(@Header("DIVERSION-VERSION") String version, @Query("dealID") String dealID);
+
+    @FormUrlEncoded
+    @POST("deal/consult")
+    Observable<Object> dealConsult(@Header("DIVERSION-VERSION") String version, @Field("dealID") String dealID);
+
+    @FormUrlEncoded
+    @POST("deal/unfollow")
+    Observable<Object> dealUnfollow(@Header("DIVERSION-VERSION") String version, @Field("dealID") String dealID);
+
+    @FormUrlEncoded
+    @POST("deal/follow")
+    Observable<Object> dealFollow(@Header("DIVERSION-VERSION") String version, @Field("dealID") String dealID);
 }
