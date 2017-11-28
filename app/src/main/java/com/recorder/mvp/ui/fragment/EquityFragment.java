@@ -16,12 +16,14 @@ import com.core.utils.CoreUtils;
 import com.core.widget.recyclerview.BaseQuickAdapter;
 import com.core.widget.recyclerview.BaseViewHolder;
 import com.core.widget.recyclerview.CoreRecyclerView;
+import com.recorder.Constants;
 import com.recorder.R;
 import com.recorder.di.component.DaggerEquityComponent;
 import com.recorder.di.module.EquityModule;
 import com.recorder.mvp.contract.EquityContract;
 import com.recorder.mvp.model.entity.EquityBean;
 import com.recorder.mvp.presenter.EquityPresenter;
+import com.recorder.utils.CommonUtils;
 
 import org.simple.eventbus.Subscriber;
 
@@ -117,9 +119,10 @@ public class EquityFragment extends BaseFragment<EquityPresenter> implements Equ
                 CoreUtils.imgLoader(getContext(), "http://ww4.sinaimg.cn/large/006uZZy8jw1faic1xjab4j30ci08cjrv.jpg", holder.getView(R.id.im_cover));
                 holder.setText(R.id.tv_deal_name, item.getDeal_name())
                         .setText(R.id.tv_brief, item.getBrief())
-                        .setText(R.id.tv_labels, item.getLabels().get(0))
+                        .setText(R.id.tv_labels, CommonUtils.toStringFromList(item.getLabels(), "/"))
                         .setText(R.id.tv_round, item.getRound())
-                        .setText(R.id.tv_online_str, item.getOnline_str());
+                        .setText(R.id.tv_online_str, item.getOnline_str())
+                        .setVisible(R.id.tv_is_group, item.getIs_group().equals("1"));
                 EquityBean.DataEntity.ListEntity.ViewFooterEntity viewFooterEntity = item.getView_footer();
                 if (viewFooterEntity != null) {
                     holder.setText(R.id.tv_view, String.valueOf(viewFooterEntity.getView()))
@@ -129,9 +132,9 @@ public class EquityFragment extends BaseFragment<EquityPresenter> implements Equ
                 } else {
                     holder.setVisible(R.id.ll_view_footer, false);
                 }
-                holder.itemView.setOnClickListener(view1 -> ARouter.getInstance().build("/app/EquityDetailsActivity").navigation());
+                holder.itemView.setOnClickListener(view1 -> ARouter.getInstance().build("/app/EquityDetailsActivity")
+                        .withBoolean(Constants.IS_EQUITY, true).withBoolean(Constants.IS_GROUP, item.getIs_group().equals("1")).navigation());
             }
         }, false);
     }
-
 }

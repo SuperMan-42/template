@@ -24,6 +24,7 @@ import com.core.widget.recyclerview.BaseViewHolder;
 import com.core.widget.recyclerview.CoreRecyclerView;
 import com.core.widget.recyclerview.entity.AbstractExpandableItem;
 import com.core.widget.recyclerview.entity.MultiItemEntity;
+import com.recorder.Constants;
 import com.recorder.R;
 import com.recorder.di.component.DaggerHomeComponent;
 import com.recorder.di.module.HomeModule;
@@ -168,7 +169,14 @@ public class HomeActivity extends BaseActivity<HomePresenter> implements HomeCon
                 llFilter.setVisibility(isFilterOpen ? View.VISIBLE : View.GONE);
                 break;
             case R.id.toolbar_right:
-                ARouter.getInstance().build("/app/SearchActivity").navigation();
+                switch (mNavigationController.getSelected()) {
+                    case 1:
+                        ARouter.getInstance().build("/app/SearchActivity").withBoolean(Constants.IS_EQUITY, true).navigation();
+                        break;
+                    case 2:
+                        ARouter.getInstance().build("/app/SearchActivity").withBoolean(Constants.IS_EQUITY, false).navigation();
+                        break;
+                }
                 break;
             case R.id.tv_filter_reset:
                 for (Object entity : recyclerView.getAdapter().getData()) {
@@ -193,8 +201,8 @@ public class HomeActivity extends BaseActivity<HomePresenter> implements HomeCon
                 isFilterOpen = !isFilterOpen;
                 llFilter.setVisibility(isFilterOpen ? View.VISIBLE : View.GONE);
                 Bundle bundle = new Bundle();
-                bundle.putString("lables", CommonUtils.toStringFromList(lablesList));
-                bundle.putString("round", CommonUtils.toStringFromList(roundList));
+                bundle.putString("lables", CommonUtils.toStringFromList(lablesList, ","));
+                bundle.putString("round", CommonUtils.toStringFromList(roundList, ","));
                 switch (mNavigationController.getSelected()) {
                     case 1:
                         EventBus.getDefault().post(bundle, "equityfragment");

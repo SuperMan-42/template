@@ -137,8 +137,8 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
             protected void convert(BaseViewHolder holder, HomeRecommendBean.DataEntity.Entity item) {
                 CoreUtils.imgLoader(getContext(), "http://ww4.sinaimg.cn/large/006uZZy8jw1faic259ohaj30ci08c74r.jpg", holder.getView(R.id.im_pic));
                 holder.setText(R.id.tv_title, item.getDeal_name())
-                        .setText(R.id.tv_investment, "起投金额: " + item.getLimit_price())
-                        .setText(R.id.tv_financing, "融资总额: " + item.getTarget_fund())
+                        .setText(R.id.tv_investment, "起投金额: " + item.getLimit_price() + "万")
+                        .setText(R.id.tv_financing, "融资总额: " + item.getTarget_fund() + "万")
                         .setText(R.id.tv_tag, item instanceof HomeRecommendBean.DataEntity.ZcEntity ? "众筹" : "私募");
                 AutoProgressBar progressBar = holder.getView(R.id.numberProgressBar);
                 progressBar.setProgress(item.getProgress());

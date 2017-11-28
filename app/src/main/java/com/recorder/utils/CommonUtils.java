@@ -182,11 +182,11 @@ public class CommonUtils {
         return result;
     }
 
-    public static String toStringFromList(List<String> selectorList) {
+    public static String toStringFromList(List<String> selectorList, String tag) {
         if (selectorList.size() != 0) {
             StringBuilder builder = new StringBuilder();
             for (String string : selectorList) {
-                builder.append(string).append(",");
+                builder.append(string).append(tag);
             }
             return builder.deleteCharAt(builder.length() - 1).toString();
         } else {

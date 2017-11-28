@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.view.inputmethod.EditorInfo;
 import android.widget.AutoCompleteTextView;
 
+import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.core.base.BaseActivity;
@@ -15,12 +16,14 @@ import com.core.utils.CoreUtils;
 import com.core.widget.recyclerview.BaseQuickAdapter;
 import com.core.widget.recyclerview.BaseViewHolder;
 import com.core.widget.recyclerview.CoreRecyclerView;
+import com.recorder.Constants;
 import com.recorder.R;
 import com.recorder.di.component.DaggerSearchComponent;
 import com.recorder.di.module.SearchModule;
 import com.recorder.mvp.contract.SearchContract;
 import com.recorder.mvp.model.entity.EquityBean;
 import com.recorder.mvp.presenter.SearchPresenter;
+import com.recorder.utils.CommonUtils;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -29,7 +32,8 @@ import static com.core.utils.Preconditions.checkNotNull;
 
 @Route(path = "/app/SearchActivity")
 public class SearchActivity extends BaseActivity<SearchPresenter> implements SearchContract.View {
-
+    @Autowired(name = Constants.IS_EQUITY)
+    boolean isEquity;
     @BindView(R.id.recyclerview)
     CoreRecyclerView recyclerView;
     @BindView(R.id.etInput)
@@ -52,11 +56,12 @@ public class SearchActivity extends BaseActivity<SearchPresenter> implements Sea
 
     @Override
     public void initView(Bundle savedInstanceState) {
+        ARouter.getInstance().inject(this);
         setStatusBarColor(Color.parseColor("#F9F9F9"), 0);
 //        CommonUtils.setStatusBarLightMode(this, Color.parseColor("#F9F9F9"));
         etInput.setOnEditorActionListener((textView, actionId, keyEvent) -> {
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                mPresenter.dealList(null, null, null, etInput.getText().toString(), null, null);
+                mPresenter.dealList(isEquity ? "1" : "2", null, null, etInput.getText().toString(), null, null);
                 CoreUtils.hideSoftInput(etInput);
                 return true;
             }
@@ -104,9 +109,10 @@ public class SearchActivity extends BaseActivity<SearchPresenter> implements Sea
                 CoreUtils.imgLoader(getApplication(), "http://ww4.sinaimg.cn/large/006uZZy8jw1faic1xjab4j30ci08cjrv.jpg", holder.getView(R.id.im_cover));
                 holder.setText(R.id.tv_deal_name, item.getDeal_name())
                         .setText(R.id.tv_brief, item.getBrief())
-                        .setText(R.id.tv_labels, item.getLabels().get(0))
+                        .setText(R.id.tv_labels, CommonUtils.toStringFromList(item.getLabels(), "/"))
                         .setText(R.id.tv_round, item.getRound())
-                        .setText(R.id.tv_online_str, item.getOnline_str());
+                        .setText(R.id.tv_online_str, item.getOnline_str())
+                        .setVisible(R.id.tv_is_group, item.getIs_group().equals("1"));
                 EquityBean.DataEntity.ListEntity.ViewFooterEntity viewFooterEntity = item.getView_footer();
                 if (viewFooterEntity != null) {
                     holder.setText(R.id.tv_view, String.valueOf(viewFooterEntity.getView()))
@@ -116,7 +122,8 @@ public class SearchActivity extends BaseActivity<SearchPresenter> implements Sea
                 } else {
                     holder.setVisible(R.id.ll_view_footer, false);
                 }
-                holder.itemView.setOnClickListener(view1 -> ARouter.getInstance().build("/app/EquityDetailsActivity").navigation());
+                holder.itemView.setOnClickListener(view1 -> ARouter.getInstance().build("/app/EquityDetailsActivity")
+                        .withBoolean(Constants.IS_EQUITY, isEquity).withBoolean(Constants.IS_GROUP, item.getIs_group().equals("1")).navigation());
             }
         }, false);
     }

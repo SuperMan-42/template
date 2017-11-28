@@ -6,12 +6,14 @@ import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.core.base.BaseActivity;
 import com.core.di.component.AppComponent;
 import com.core.utils.CoreUtils;
 import com.jaeger.library.StatusBarUtil;
+import com.recorder.Constants;
 import com.recorder.R;
 import com.recorder.di.component.DaggerEquityDetailsComponent;
 import com.recorder.di.module.EquityDetailsModule;
@@ -25,6 +27,11 @@ import static com.core.utils.Preconditions.checkNotNull;
 
 @Route(path = "/app/EquityDetailsActivity")
 public class EquityDetailsActivity extends BaseActivity<EquityDetailsPresenter> implements EquityDetailsContract.View {
+    @Autowired(name = Constants.IS_EQUITY)
+    boolean isEquity;
+    @Autowired(name = Constants.IS_GROUP)
+    boolean isGroup;
+
     @BindView(R.id.im_bg)
     ImageView imBg;
 
@@ -51,7 +58,7 @@ public class EquityDetailsActivity extends BaseActivity<EquityDetailsPresenter> 
 
     @Override
     public void initView(Bundle savedInstanceState) {
-
+        ARouter.getInstance().inject(this);
     }
 
     @Override
