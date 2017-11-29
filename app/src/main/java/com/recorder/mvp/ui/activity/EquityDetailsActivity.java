@@ -5,8 +5,11 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
+import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.text.TextUtils;
@@ -20,6 +23,7 @@ import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.bumptech.glide.Glide;
+import com.core.base.AdapterViewPager;
 import com.core.base.BaseActivity;
 import com.core.di.component.AppComponent;
 import com.core.utils.Constants;
@@ -36,7 +40,13 @@ import com.recorder.di.module.EquityDetailsModule;
 import com.recorder.mvp.contract.EquityDetailsContract;
 import com.recorder.mvp.model.entity.DealDetailBean;
 import com.recorder.mvp.presenter.EquityDetailsPresenter;
+import com.recorder.mvp.ui.fragment.DetailDynamicFragment;
+import com.recorder.utils.DateUtil;
+import com.recorder.widget.AutoHeightViewPager;
 import com.recorder.widget.AutoProgressBar;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import app.dinus.com.itemdecoration.LinearDividerItemDecoration;
 import butterknife.BindView;
@@ -144,6 +154,18 @@ public class EquityDetailsActivity extends BaseActivity<EquityDetailsPresenter> 
     LinearLayout llConsultation;
     @BindView(R.id.ll_buy)
     LinearLayout llBuy;
+    @BindView(R.id.dynamic_vp)
+    AutoHeightViewPager dynamicVp;
+    @BindView(R.id.next_time_iv)
+    ImageView nextTimeIv;
+    @BindView(R.id.last_time_iv)
+    ImageView lastTimeIv;
+    @BindView(R.id.next_time_tv)
+    TextView nextTimeTv;
+    @BindView(R.id.last_time_tv)
+    TextView lastTimeTv;
+    @BindView(R.id.visible)
+    LinearLayout visible;
     private float alpha;
 
     @Override
@@ -238,6 +260,11 @@ public class EquityDetailsActivity extends BaseActivity<EquityDetailsPresenter> 
                 }
                 break;
             case R.id.ll_bp_file:
+                if (TextUtils.isEmpty(dataEntity.getBp_file())) {
+                    CoreUtils.snackbarText(CoreUtils.getString(this, R.string.text_bp_no));
+                } else {
+                    ARouter.getInstance().build("/app/PdfActivity").withString(Constants.PDF_HTTP, dataEntity.getBp_file()).withString(Constants.PDF_NAME, "bp").navigation();
+                }
                 break;
             case R.id.ll_consultation:
                 mPresenter.dealConsult(dataEntity.getDealID());
@@ -308,11 +335,12 @@ public class EquityDetailsActivity extends BaseActivity<EquityDetailsPresenter> 
             }
         }, false);
         rvTeam.getRecyclerView().addItemDecoration(dividerItemDecoration);
-        //项目动态(可隐藏)//TODO
+        //项目动态(可隐藏)
         if (dataEntity.getGrowth() == null || dataEntity.getGrowth().size() == 0) {
             llIsShowGrowth.setVisibility(View.GONE);
         } else {
             llIsShowGrowth.setVisibility(View.VISIBLE);
+            dynamic(dataEntity.getGrowth());
         }
         //行业概况(非组合)
         if (isGroup) {
@@ -384,6 +412,70 @@ public class EquityDetailsActivity extends BaseActivity<EquityDetailsPresenter> 
         } else {
             llIsShowVideo.setVisibility(View.VISIBLE);
         }
+    }
+
+    private void dynamic(List<DealDetailBean.DataEntity.GrowthEntity> mGrowths) {
+        List<Fragment> fragments = new ArrayList<>();
+        for (DealDetailBean.DataEntity.GrowthEntity entity : mGrowths) {
+            fragments.add(DetailDynamicFragment.newInstance(entity));
+        }
+        AdapterViewPager adapterViewPager = new AdapterViewPager(getSupportFragmentManager(), fragments);
+        dynamicVp.setAdapter(adapterViewPager);
+
+        dynamicVp.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageSelected(int position) {
+                if (position > mGrowths.size() - 1) {
+                    return;
+                }
+                //切换时间，如果当前是最后一项，则最后的时间隐藏;
+                if (position == 0) {
+                    nextTimeTv.setVisibility(View.INVISIBLE);
+                    nextTimeIv.setVisibility(View.INVISIBLE);
+                } else {
+                    nextTimeTv.setVisibility(View.VISIBLE);
+                    nextTimeIv.setVisibility(View.VISIBLE);
+                    if (position - 1 >= 0 && position - 1 <= mGrowths.size() - 1) {
+                        DealDetailBean.DataEntity.GrowthEntity nextGrowth = mGrowths.get(position - 1);
+                        nextTimeTv.setText(DateUtil.StringToString("" + nextGrowth.getOcc_time(), DateUtil.DateStyle.MM_DD_CN));
+                    }
+                }
+                if (position + 1 <= mGrowths.size() - 1) {
+                    //如果不是最后一项
+                    DealDetailBean.DataEntity.GrowthEntity lastGrowth = mGrowths.get(position + 1);
+                    lastTimeTv.setText(DateUtil.StringToString("" + lastGrowth.getOcc_time(), DateUtil.DateStyle.MM_DD_CN));
+                    lastTimeIv.setVisibility(View.VISIBLE);
+                    lastTimeTv.setVisibility(View.VISIBLE);
+                } else {
+                    //如果当前是最后一项，则最后的时间隐藏
+                    lastTimeIv.setVisibility(View.INVISIBLE);
+                    lastTimeTv.setVisibility(View.INVISIBLE);
+                }
+            }
+
+            @Override
+            public void onPageScrolled(int arg0, float arg1, int arg2) {
+                if (arg1 == 0 && arg2 == 0) {
+                    if (arg0 == 0 || arg0 == mGrowths.size() - 1) {
+                        visible.setVisibility(View.VISIBLE);
+                    }
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+                switch (state) {
+                    case ViewPager.SCROLL_STATE_IDLE:
+                        break;
+                    case ViewPager.SCROLL_STATE_DRAGGING:
+                        visible.setVisibility(View.INVISIBLE);
+                        break;
+                    default:
+                        new Handler().postDelayed(() -> visible.setVisibility(View.VISIBLE), 400);
+                        break;
+                }
+            }
+        });
     }
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)

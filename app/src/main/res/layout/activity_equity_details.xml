@@ -322,7 +322,72 @@
 
                     <View style="@style/divider" />
 
-                    <!--项目动态-->
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white">
+
+                        <com.recorder.widget.AutoHeightViewPager
+                            android:id="@+id/dynamic_vp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+
+                        <LinearLayout
+                            android:id="@+id/visible"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="bottom"
+                            android:orientation="vertical">
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                                <ImageView
+                                    android:id="@+id/next_time_iv"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentLeft="true"
+                                    android:layout_centerVertical="true"
+                                    android:layout_marginLeft="-30px"
+                                    android:src="@drawable/time_point"
+                                    android:visibility="invisible" />
+
+                                <ImageView
+                                    android:id="@+id/last_time_iv"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentRight="true"
+                                    android:layout_centerVertical="true"
+                                    android:layout_marginRight="-30px"
+                                    android:src="@drawable/time_point" />
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="66px"
+                                android:layout_marginTop="9px">
+
+                                <TextView
+                                    android:id="@+id/next_time_tv"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentLeft="true"
+                                    android:layout_marginLeft="-60px"
+                                    android:textColor="#2C313A"
+                                    android:visibility="invisible" />
+
+                                <TextView
+                                    android:id="@+id/last_time_tv"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentRight="true"
+                                    android:layout_marginRight="-60px"
+                                    android:textColor="#2C313A" />
+                            </RelativeLayout>
+                        </LinearLayout>
+                    </FrameLayout>
                 </LinearLayout>
 
                 <LinearLayout
