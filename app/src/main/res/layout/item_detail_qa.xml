@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:paddingBottom="45px"
+    android:paddingTop="45px">
+
+    <TextView
+        android:id="@+id/tv_question"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#333333"
+        android:textSize="39px"
+        android:textStyle="bold"
+        tools:text="1、投资之后是怎么收益的？会有风险吗？你们是怎样防控风险的？" />
+
+    <TextView
+        android:id="@+id/tv_answer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="9px"
+        android:textColor="#333333"
+        android:textSize="39px"
+        tools:text="股权融资收益主要是取决于公司未来的发展状况，成为公司的股东后，拥有参与分红、股权撤资、转让等权益..." />
+</LinearLayout>

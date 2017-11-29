@@ -1,38 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.core.widget.autolayout.AutoConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
     <com.core.widget.autolayout.AutoScrollView
         android:id="@+id/scrollview"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="match_parent"
+        android:layout_above="@id/ll_bottom"
         android:background="#EFF2F5"
         android:fadingEdge="none"
         android:overScrollMode="never"
-        android:scrollbars="none"
-        app:layout_constraintBottom_toTopOf="@id/ll_bottom"
-        app:layout_constraintTop_toTopOf="parent">
+        android:scrollbars="none">
 
         <com.core.widget.autolayout.AutoConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
             <ImageView
                 android:id="@+id/im_bg"
                 android:layout_width="match_parent"
-                android:layout_height="900px"
-                android:src="@color/colorAccent"
+                android:layout_height="825px"
+                android:scaleType="fitXY"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
                 android:id="@+id/im_cover"
                 android:layout_width="330px"
                 android:layout_height="270px"
-                android:layout_marginTop="276px"
+                android:layout_marginTop="201px"
                 android:src="@drawable/bga_round"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
@@ -43,12 +41,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="39px"
-                android:text="早山设计品牌形象"
                 android:textColor="@color/white"
                 android:textSize="54px"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/im_cover" />
+                app:layout_constraintTop_toBottomOf="@+id/im_cover"
+                tools:text="早山设计品牌形象" />
 
             <TextView
                 android:id="@+id/tv_brief"
@@ -58,12 +56,12 @@
                 android:layout_marginRight="90px"
                 android:layout_marginTop="33px"
                 android:gravity="center"
-                android:text="目前已为全国各大知名公司提供过基础形象服务,运营服务..."
                 android:textColor="@color/white"
                 android:textSize="39px"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_deal_name" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_deal_name"
+                tools:text="目前已为全国各大知名公司提供过基础形象服务,运营服务..." />
 
             <TextView
                 android:id="@+id/tv_labels"
@@ -75,10 +73,10 @@
                 android:paddingBottom="21px"
                 android:paddingLeft="36px"
                 android:paddingTop="21px"
-                android:text="创意/设计"
                 android:textColor="#333333"
                 android:textSize="42px"
-                app:layout_constraintTop_toBottomOf="@id/im_bg" />
+                app:layout_constraintTop_toBottomOf="@id/im_bg"
+                tools:text="创意/设计" />
 
             <View
                 android:id="@+id/divider_1"
@@ -104,9 +102,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="right"
-                    android:text="60%"
                     android:textColor="#4D57B6"
-                    android:textSize="39px" />
+                    android:textSize="39px"
+                    tools:text="60%" />
 
                 <com.recorder.widget.AutoProgressBar
                     android:id="@+id/progress"
@@ -133,7 +131,6 @@
                 app:layout_constraintTop_toBottomOf="@id/fl_progress">
 
                 <LinearLayout
-                    android:id="@+id/ll_isShow"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -144,15 +141,81 @@
                         android:id="@+id/tv_round"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="A轮"
+                        android:gravity="center"
+                        android:maxWidth="240px"
                         android:textColor="#333333"
-                        android:textSize="45px" />
+                        android:textSize="45px"
+                        tools:text="A轮" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="6px"
                         android:text="融资轮次"
+                        android:textColor="#9D9D9D"
+                        android:textSize="39px" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="3px"
+                    android:layout_height="90px"
+                    android:background="#E8E8E8" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_target_fund"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:maxWidth="240px"
+                        android:textColor="#333333"
+                        android:textSize="45px"
+                        tools:text="1000万" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6px"
+                        android:text="目标金额"
+                        android:textColor="#9D9D9D"
+                        android:textSize="39px" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="3px"
+                    android:layout_height="90px"
+                    android:background="#E8E8E8" />
+
+                <LinearLayout
+                    android:id="@+id/ll_isShow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_limit_price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:maxWidth="240px"
+                        android:textColor="#333333"
+                        android:textSize="45px"
+                        tools:text="20万" />
+
+                    <TextView
+                        android:id="@+id/tag_limit_price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6px"
+                        android:text="起投金额"
                         android:textColor="#9D9D9D"
                         android:textSize="39px" />
                 </LinearLayout>
@@ -171,71 +234,14 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/tv_target_fund"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="1000万"
-                        android:textColor="#333333"
-                        android:textSize="45px" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="6px"
-                        android:text="目标金额"
-                        android:textColor="#9D9D9D"
-                        android:textSize="39px" />
-                </LinearLayout>
-
-                <View
-                    android:layout_width="3px"
-                    android:layout_height="90px"
-                    android:background="#E8E8E8" />
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/tv_limit_price"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="20万"
-                        android:textColor="#333333"
-                        android:textSize="45px" />
-
-                    <TextView
-                        android:id="@+id/tag_limit_price"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="6px"
-                        android:text="起投金额"
-                        android:textColor="#9D9D9D"
-                        android:textSize="39px" />
-                </LinearLayout>
-
-                <View
-                    android:layout_width="3px"
-                    android:layout_height="90px"
-                    android:background="#E8E8E8" />
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <TextView
                         android:id="@+id/tv_shakes"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="20%"
+                        android:gravity="center"
+                        android:maxWidth="240px"
                         android:textColor="#333333"
-                        android:textSize="45px" />
+                        android:textSize="45px"
+                        tools:text="20%" />
 
                     <TextView
                         android:id="@+id/tag_shakes"
@@ -261,8 +267,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="105px"
                     android:background="@color/white"
-                    android:drawableLeft="@mipmap/title_label_icon"
-                    android:drawablePadding="10px"
+                    android:drawableLeft="@drawable/title_lable_left"
+                    android:drawablePadding="20px"
                     android:gravity="center_vertical"
                     android:paddingLeft="36px"
                     android:text="项目亮点" />
@@ -278,9 +284,9 @@
                     android:paddingLeft="45px"
                     android:paddingRight="45px"
                     android:paddingTop="22px"
-                    android:text="规模大 ：专注汽车养护服务，深耕北京、上海、广州、深圳、苏州、佛山、杭州7座城市。 服务好 ：最早向客户提供车辆检测报告，最先实现技师、订单自动化管理，最快建立保养车型档案库 质量优 ：截止2015年8月累计服务25万客户，满意度超过98% 资源全 ：最先获得B轮2000万美金融资（业内最早），努力深化拓展产品服务培训。"
                     android:textColor="#333333"
-                    android:textSize="42px" />
+                    android:textSize="42px"
+                    tools:text="规模大 ：专注汽车养护服务，深耕北京、上海、广州、深圳、苏州、佛山、杭州7座城市。 服务好 ：最早向客户提供车辆检测报告，最先实现技师、订单自动化管理，最快建立保养车型档案库 质量优 ：截止2015年8月累计服务25万客户，满意度超过98% 资源全 ：最先获得B轮2000万美金融资（业内最早），努力深化拓展产品服务培训。" />
 
                 <TextView
                     android:id="@+id/tv_2"
@@ -288,8 +294,8 @@
                     android:layout_height="105px"
                     android:layout_marginTop="30px"
                     android:background="@color/white"
-                    android:drawableLeft="@mipmap/title_label_icon"
-                    android:drawablePadding="10px"
+                    android:drawableLeft="@drawable/title_lable_left"
+                    android:drawablePadding="20px"
                     android:gravity="center_vertical"
                     android:paddingLeft="36px"
                     android:text="团队成员" />
@@ -299,10 +305,10 @@
                 <com.core.widget.recyclerview.CoreRecyclerView
                     android:id="@+id/rv_team"
                     android:layout_width="match_parent"
-                    android:layout_height="100px"
+                    android:layout_height="wrap_content"
                     android:background="@color/white"
-                    android:paddingLeft="45px"
-                    android:paddingRight="45px" />
+                    android:paddingLeft="36px"
+                    android:paddingRight="36px" />
 
                 <LinearLayout
                     android:id="@+id/ll_isShow_growth"
@@ -316,8 +322,8 @@
                         android:layout_height="105px"
                         android:layout_marginTop="30px"
                         android:background="@color/white"
-                        android:drawableLeft="@mipmap/title_label_icon"
-                        android:drawablePadding="10px"
+                        android:drawableLeft="@drawable/title_lable_left"
+                        android:drawablePadding="20px"
                         android:gravity="center_vertical"
                         android:paddingLeft="36px"
                         android:text="项目动态" />
@@ -339,8 +345,8 @@
                         android:layout_height="105px"
                         android:layout_marginTop="30px"
                         android:background="@color/white"
-                        android:drawableLeft="@mipmap/title_label_icon"
-                        android:drawablePadding="10px"
+                        android:drawableLeft="@drawable/title_lable_left"
+                        android:drawablePadding="20px"
                         android:gravity="center_vertical"
                         android:paddingLeft="36px"
                         android:text="行业概况" />
@@ -356,9 +362,9 @@
                         android:paddingLeft="45px"
                         android:paddingRight="45px"
                         android:paddingTop="22px"
-                        android:text="规模大 ：专注汽车养护服务，深耕北京、上海、广州、深圳、苏州、佛山、杭州7座城市。 服务好 ：最早向客户提供车辆检测报告，最先实现技师、订单自动化管理，最快建立保养车型档案库 质量优 ：截止2015年8月累计服务25万客户，满意度超过98% 资源全 ：最先获得B轮2000万美金融资（业内最早），努力深化拓展产品服务培训。"
                         android:textColor="#333333"
-                        android:textSize="42px" />
+                        android:textSize="42px"
+                        tools:text="规模大 ：专注汽车养护服务，深耕北京、上海、广州、深圳、苏州、佛山、杭州7座城市。 服务好 ：最早向客户提供车辆检测报告，最先实现技师、订单自动化管理，最快建立保养车型档案库 质量优 ：截止2015年8月累计服务25万客户，满意度超过98% 资源全 ：最先获得B轮2000万美金融资（业内最早），努力深化拓展产品服务培训。" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -373,21 +379,26 @@
                         android:layout_height="105px"
                         android:layout_marginTop="30px"
                         android:background="@color/white"
-                        android:drawableLeft="@mipmap/title_label_icon"
-                        android:drawablePadding="10px"
+                        android:drawableLeft="@drawable/title_lable_left"
+                        android:drawablePadding="20px"
                         android:gravity="center_vertical"
                         android:paddingLeft="36px"
                         android:text="融资历史" />
 
                     <View style="@style/divider" />
 
-                    <com.core.widget.recyclerview.CoreRecyclerView
-                        android:id="@+id/rv_finance_history"
+                    <TextView
+                        android:id="@+id/tv_finance_history"
                         android:layout_width="match_parent"
-                        android:layout_height="100px"
+                        android:layout_height="wrap_content"
                         android:background="@color/white"
+                        android:paddingBottom="54px"
                         android:paddingLeft="45px"
-                        android:paddingRight="45px" />
+                        android:paddingRight="45px"
+                        android:paddingTop="22px"
+                        android:textColor="#333333"
+                        android:textSize="42px"
+                        tools:text="需求制定-项目开发－测试－上线－IPO" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -402,8 +413,8 @@
                         android:layout_height="105px"
                         android:layout_marginTop="30px"
                         android:background="@color/white"
-                        android:drawableLeft="@mipmap/title_label_icon"
-                        android:drawablePadding="10px"
+                        android:drawableLeft="@drawable/title_lable_left"
+                        android:drawablePadding="20px"
                         android:gravity="center_vertical"
                         android:paddingLeft="36px"
                         android:text="项目风险提示" />
@@ -419,9 +430,9 @@
                         android:paddingLeft="45px"
                         android:paddingRight="45px"
                         android:paddingTop="22px"
-                        android:text="股权投资是高风险的投资行为，在您参与此项业务前，应全面了解相关法律法规，并根据自身的投资目的、投资期限、投资经验、资产状况等判断是否 具备相应的投资风险承受能力；"
                         android:textColor="#FF6600"
-                        android:textSize="42px" />
+                        android:textSize="42px"
+                        tools:text="股权投资是高风险的投资行为，在您参与此项业务前，应全面了解相关法律法规，并根据自身的投资目的、投资期限、投资经验、资产状况等判断是否 具备相应的投资风险承受能力；" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -436,21 +447,26 @@
                         android:layout_height="105px"
                         android:layout_marginTop="30px"
                         android:background="@color/white"
-                        android:drawableLeft="@mipmap/title_label_icon"
-                        android:drawablePadding="10px"
+                        android:drawableLeft="@drawable/title_lable_left"
+                        android:drawablePadding="20px"
                         android:gravity="center_vertical"
                         android:paddingLeft="36px"
                         android:text="专家及管理团队意见" />
 
                     <View style="@style/divider" />
 
-                    <com.core.widget.recyclerview.CoreRecyclerView
+                    <TextView
                         android:id="@+id/tv_opinion"
                         android:layout_width="match_parent"
-                        android:layout_height="100px"
+                        android:layout_height="wrap_content"
                         android:background="@color/white"
+                        android:paddingBottom="54px"
                         android:paddingLeft="45px"
-                        android:paddingRight="45px" />
+                        android:paddingRight="45px"
+                        android:paddingTop="22px"
+                        android:textColor="#333333"
+                        android:textSize="42px"
+                        tools:text="需求制定-项目开发－测试－上线－IPO" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -465,21 +481,26 @@
                         android:layout_height="105px"
                         android:layout_marginTop="30px"
                         android:background="@color/white"
-                        android:drawableLeft="@mipmap/title_label_icon"
-                        android:drawablePadding="10px"
+                        android:drawableLeft="@drawable/title_lable_left"
+                        android:drawablePadding="20px"
                         android:gravity="center_vertical"
                         android:paddingLeft="36px"
                         android:text="投资方案" />
 
                     <View style="@style/divider" />
 
-                    <com.core.widget.recyclerview.CoreRecyclerView
-                        android:id="@+id/rv_plan"
+                    <TextView
+                        android:id="@+id/tv_plan"
                         android:layout_width="match_parent"
-                        android:layout_height="100px"
+                        android:layout_height="wrap_content"
                         android:background="@color/white"
+                        android:paddingBottom="54px"
                         android:paddingLeft="45px"
-                        android:paddingRight="45px" />
+                        android:paddingRight="45px"
+                        android:paddingTop="22px"
+                        android:textColor="#333333"
+                        android:textSize="42px"
+                        tools:text="需求制定-项目开发－测试－上线－IPO" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -494,8 +515,8 @@
                         android:layout_height="105px"
                         android:layout_marginTop="30px"
                         android:background="@color/white"
-                        android:drawableLeft="@mipmap/title_label_icon"
-                        android:drawablePadding="10px"
+                        android:drawableLeft="@drawable/title_lable_left"
+                        android:drawablePadding="20px"
                         android:gravity="center_vertical"
                         android:paddingLeft="36px"
                         android:text="退出渠道" />
@@ -511,9 +532,9 @@
                         android:paddingLeft="45px"
                         android:paddingRight="45px"
                         android:paddingTop="22px"
-                        android:text="需求制定-项目开发－测试－上线－IPO"
                         android:textColor="#333333"
-                        android:textSize="42px" />
+                        android:textSize="42px"
+                        tools:text="需求制定-项目开发－测试－上线－IPO" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -528,8 +549,8 @@
                         android:layout_height="105px"
                         android:layout_marginTop="30px"
                         android:background="@color/white"
-                        android:drawableLeft="@mipmap/title_label_icon"
-                        android:drawablePadding="10px"
+                        android:drawableLeft="@drawable/title_lable_left"
+                        android:drawablePadding="20px"
                         android:gravity="center_vertical"
                         android:paddingLeft="36px"
                         android:text="Q&amp;A" />
@@ -539,10 +560,10 @@
                     <com.core.widget.recyclerview.CoreRecyclerView
                         android:id="@+id/rv_qa"
                         android:layout_width="match_parent"
-                        android:layout_height="100px"
+                        android:layout_height="wrap_content"
                         android:background="@color/white"
-                        android:paddingLeft="45px"
-                        android:paddingRight="45px" />
+                        android:paddingLeft="36px"
+                        android:paddingRight="36px" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -557,8 +578,8 @@
                         android:layout_height="105px"
                         android:layout_marginTop="30px"
                         android:background="@color/white"
-                        android:drawableLeft="@mipmap/title_label_icon"
-                        android:drawablePadding="10px"
+                        android:drawableLeft="@drawable/title_lable_left"
+                        android:drawablePadding="20px"
                         android:gravity="center_vertical"
                         android:paddingLeft="36px"
                         android:text="投资文件" />
@@ -568,10 +589,22 @@
                     <com.core.widget.recyclerview.CoreRecyclerView
                         android:id="@+id/rv_public_files"
                         android:layout_width="match_parent"
-                        android:layout_height="100px"
+                        android:layout_height="wrap_content"
                         android:background="@color/white"
-                        android:paddingLeft="45px"
-                        android:paddingRight="45px" />
+                        android:paddingLeft="36px"
+                        android:paddingRight="36px" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_isShow_video"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="606px"
+                        android:layout_margin="45px" />
                 </LinearLayout>
 
             </LinearLayout>
@@ -583,6 +616,7 @@
         android:id="@+id/ll_bottom"
         android:layout_width="match_parent"
         android:layout_height="147px"
+        android:layout_alignParentBottom="true"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent">
 
@@ -642,4 +676,4 @@
     </LinearLayout>
 
     <include layout="@layout/view_toolbar_alpha" />
-</com.core.widget.autolayout.AutoConstraintLayout>
+</RelativeLayout>

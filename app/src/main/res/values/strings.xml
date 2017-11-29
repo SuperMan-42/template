@@ -24,4 +24,5 @@
     <string name="text_deal_consult">统计电话联系数成功</string>
     <string name="text_deal_unfollow">项目取消关注成功</string>
     <string name="text_deal_follow">项目关注成功</string>
+    <string name="text_download">文件下载成功</string>
 </resources>

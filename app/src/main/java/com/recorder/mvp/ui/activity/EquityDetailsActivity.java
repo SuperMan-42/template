@@ -7,6 +7,9 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -16,14 +19,17 @@ import android.widget.TextView;
 import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.bumptech.glide.Glide;
 import com.core.base.BaseActivity;
 import com.core.di.component.AppComponent;
+import com.core.utils.Constants;
 import com.core.utils.CoreUtils;
 import com.core.widget.autolayout.AutoScrollView;
 import com.core.widget.autolayout.AutoToolbar;
+import com.core.widget.recyclerview.BaseQuickAdapter;
+import com.core.widget.recyclerview.BaseViewHolder;
 import com.core.widget.recyclerview.CoreRecyclerView;
 import com.jaeger.library.StatusBarUtil;
-import com.recorder.Constants;
 import com.recorder.R;
 import com.recorder.di.component.DaggerEquityDetailsComponent;
 import com.recorder.di.module.EquityDetailsModule;
@@ -32,9 +38,12 @@ import com.recorder.mvp.model.entity.DealDetailBean;
 import com.recorder.mvp.presenter.EquityDetailsPresenter;
 import com.recorder.widget.AutoProgressBar;
 
+import app.dinus.com.itemdecoration.LinearDividerItemDecoration;
 import butterknife.BindView;
 import butterknife.OnClick;
+import jp.wasabeef.glide.transformations.BlurTransformation;
 
+import static com.bumptech.glide.request.RequestOptions.bitmapTransform;
 import static com.core.utils.Preconditions.checkNotNull;
 
 @Route(path = "/app/EquityDetailsActivity")
@@ -101,8 +110,8 @@ public class EquityDetailsActivity extends BaseActivity<EquityDetailsPresenter> 
     TextView tvOverview;
     @BindView(R.id.ll_isShow_overview)
     LinearLayout llIsShowOverview;
-    @BindView(R.id.rv_finance_history)
-    CoreRecyclerView rvFinanceHistory;
+    @BindView(R.id.tv_finance_history)
+    TextView tvFinanceHistory;
     @BindView(R.id.ll_isShow_finance_history)
     LinearLayout llIsShowFinanceHistory;
     @BindView(R.id.tv_risk)
@@ -110,11 +119,11 @@ public class EquityDetailsActivity extends BaseActivity<EquityDetailsPresenter> 
     @BindView(R.id.ll_isShow_risk)
     LinearLayout llIsShowRisk;
     @BindView(R.id.tv_opinion)
-    CoreRecyclerView tvOpinion;
+    TextView tvOpinion;
     @BindView(R.id.ll_isShow_opinion)
     LinearLayout llIsShowOpinion;
-    @BindView(R.id.rv_plan)
-    CoreRecyclerView rvPlan;
+    @BindView(R.id.tv_plan)
+    TextView tvPlan;
     @BindView(R.id.ll_isShow_plan)
     LinearLayout llIsShowPlan;
     @BindView(R.id.tv_withdrawal)
@@ -129,6 +138,8 @@ public class EquityDetailsActivity extends BaseActivity<EquityDetailsPresenter> 
     CoreRecyclerView rvPublicFiles;
     @BindView(R.id.ll_isShow_public_files)
     LinearLayout llIsShowPublicFiles;
+    @BindView(R.id.ll_isShow_video)
+    LinearLayout llIsShowVideo;
     @BindView(R.id.ll_consultation)
     LinearLayout llConsultation;
     @BindView(R.id.ll_buy)
@@ -237,11 +248,146 @@ public class EquityDetailsActivity extends BaseActivity<EquityDetailsPresenter> 
         }
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override
     public void showDealDetail(DealDetailBean.DataEntity dataEntity) {
         this.dataEntity = dataEntity;
-        tvDealName.setText(dataEntity.getDeal_name());
+        //顶部变色bar
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+            translucentBar();
+        }
+        llBuy.setVisibility(isEquity ? View.VISIBLE : View.GONE);//私募和众筹的底部按钮不同
+        tvDealName.setText(dataEntity.getDeal_name());//头部标题
+        CoreUtils.imgLoader(this, dataEntity.getCover(), imCover);//头部头像
+        Glide.with(this).load(dataEntity.getCover()).apply(bitmapTransform(new BlurTransformation())).into(imBg);//头部高斯模糊背景
+        tvBrief.setText(dataEntity.getBrief());//头部简介
+        tvLabels.setText(dataEntity.getLabels());//标签
+        //进度条相关
+        tvProgress.setText(dataEntity.getProgress() + "%");
+        if (dataEntity.getProgress() == 0) {
+            progress.reset();
+        } else {
+            progress.setProgress(dataEntity.getProgress());
+        }
+        tvRound.setText(dataEntity.getRound());//轮次
+        tvTargetFund.setText(dataEntity.getTarget_fund() + "万");
+        if (dataEntity.getIs_group().equals("1")) {//1-是 0-不是 众筹组合
+            llIsShow.setVisibility(View.GONE);
+            viewIsShow.setVisibility(View.GONE);
+            tagShakes.setText("项目数");
+            tvShakes.setText(dataEntity.getNumber());
+        } else {
+            if (isEquity) {//众筹非组合
+                tvLimitPrice.setText(dataEntity.getLimit_price() + "万");
+                tvShakes.setText(dataEntity.getShakes() + "%");
+            } else {//私募
+                llIsShow.setVisibility(View.GONE);
+                viewIsShow.setVisibility(View.GONE);
+                tvShakes.setText(dataEntity.getShakes() + "%");
+            }
+        }
+        //以下应该只分组合非组合的情况 无众筹私募的区分
+        tv1.setText(isGroup ? "项目亮点" : "项目介绍");
+        tvIntro.setText(dataEntity.getIntro());
+        LinearLayoutManager teamManager = new LinearLayoutManager(this) {
+            @Override
+            public boolean canScrollVertically() {
+                return false;
+            }
+        };
+        teamManager.setAutoMeasureEnabled(true);
+        LinearDividerItemDecoration dividerItemDecoration = new LinearDividerItemDecoration(this, LinearDividerItemDecoration.LINEAR_DIVIDER_VERTICAL);
+        dividerItemDecoration.setDivider(CoreUtils.getDrawablebyResource(this, R.drawable.bga_divider));
+        //团队成员
+        rvTeam.init(teamManager, new BaseQuickAdapter<DealDetailBean.DataEntity.TeamEntity, BaseViewHolder>(R.layout.item_detail_team, dataEntity.getTeam()) {
+            @Override
+            protected void convert(BaseViewHolder holder, DealDetailBean.DataEntity.TeamEntity item) {
+                CoreUtils.imgLoader(getApplication(), "http://ww4.sinaimg.cn/large/006uZZy8jw1faic1xjab4j30ci08cjrv.jpg", holder.getView(R.id.im_avator));
+                holder.setText(R.id.tv_name, item.getName())
+                        .setText(R.id.tv_position, item.getPosition())
+                        .setText(R.id.tv_intro, item.getIntro());
+            }
+        }, false);
+        rvTeam.getRecyclerView().addItemDecoration(dividerItemDecoration);
+        //项目动态(可隐藏)//TODO
+        if (dataEntity.getGrowth() == null || dataEntity.getGrowth().size() == 0) {
+            llIsShowGrowth.setVisibility(View.GONE);
+        } else {
+            llIsShowGrowth.setVisibility(View.VISIBLE);
+        }
+        //行业概况(非组合)
+        if (isGroup) {
+            llIsShowOverview.setVisibility(View.GONE);
+        } else {
+            llIsShowOverview.setVisibility(View.VISIBLE);
+            tvOverview.setText(dataEntity.getOverview());
+        }
+        //融资历史(非组合)
+        if (isGroup) {
+            llIsShowFinanceHistory.setVisibility(View.GONE);
+        } else {
+            llIsShowFinanceHistory.setVisibility(View.VISIBLE);
+            tvFinanceHistory.setText(dataEntity.getFinance_history());
+        }
+        //项目风险(可隐藏)
+        if (TextUtils.isEmpty(dataEntity.getRisk())) {
+            llIsShowRisk.setVisibility(View.GONE);
+        } else {
+            llIsShowRisk.setVisibility(View.VISIBLE);
+            tvRisk.setText(dataEntity.getRisk());
+        }
+        //专家及管理团队意见
+        tvOpinion.setText(dataEntity.getOpinion());
+        //投资方案
+        tvPlan.setText(dataEntity.getPlan());
+        //退出渠道
+        tvWithdrawal.setText(dataEntity.getWithdrawal());
+        //QA
+        LinearLayoutManager qaManager = new LinearLayoutManager(this) {
+            @Override
+            public boolean canScrollVertically() {
+                return false;
+            }
+        };
+        qaManager.setAutoMeasureEnabled(true);
+        rvQa.init(qaManager, new BaseQuickAdapter<DealDetailBean.DataEntity.QaEntity, BaseViewHolder>(R.layout.item_detail_qa, dataEntity.getQa()) {
+            @Override
+            protected void convert(BaseViewHolder holder, DealDetailBean.DataEntity.QaEntity item) {
+                holder.setText(R.id.tv_question, (holder.getAdapterPosition() + 1) + "、" + item.getQuestion())
+                        .setText(R.id.tv_answer, item.getAnswer());
+            }
+        }, false);
+        rvQa.getRecyclerView().addItemDecoration(dividerItemDecoration);
+        //投资文件(非组合)
+        if (isGroup) {
+            llIsShowPublicFiles.setVisibility(View.GONE);
+        } else {
+            llIsShowPublicFiles.setVisibility(View.VISIBLE);
+            LinearLayoutManager gridMganager = new GridLayoutManager(this, 3) {
+                @Override
+                public boolean canScrollVertically() {
+                    return false;
+                }
+            };
+            gridMganager.setAutoMeasureEnabled(true);
+            rvPublicFiles.init(gridMganager, new BaseQuickAdapter<DealDetailBean.DataEntity.PublicFilesEntity, BaseViewHolder>(R.layout.item_detail_publicfiles, dataEntity.getPublic_files()) {
+                @Override
+                protected void convert(BaseViewHolder holder, DealDetailBean.DataEntity.PublicFilesEntity item) {
+                    holder.setText(R.id.tv_file_name, item.getFile_name());
+                    holder.itemView.setOnClickListener(view -> ARouter.getInstance().build("/app/PdfActivity")
+                            .withString(Constants.PDF_HTTP, item.getFile()).withString(Constants.PDF_NAME, item.getFile_name()).navigation());
+                }
+            }, false);
+        }
+        //视频(可隐藏)//TODO
+        if (dataEntity.getVideo() == null || TextUtils.isEmpty(dataEntity.getVideo().getVideo_id())) {
+            llIsShowVideo.setVisibility(View.GONE);
+        } else {
+            llIsShowVideo.setVisibility(View.VISIBLE);
+        }
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
+    public void translucentBar() {
         scrollview.setTranslucentListener((alpha, t) -> {
             this.alpha = alpha;
             toolbar.getBackground().setAlpha((int) (alpha * 255));

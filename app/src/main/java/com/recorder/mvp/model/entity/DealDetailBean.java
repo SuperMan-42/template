@@ -49,7 +49,7 @@ public class DealDetailBean {
         private String brief;
         private String labels;
         private String round;
-        private String progress;
+        private float progress;
         private String finish_day;
         private String limit_price;
         private String target_fund;
@@ -100,7 +100,7 @@ public class DealDetailBean {
             this.round = round;
         }
 
-        public void setProgress(String progress) {
+        public void setProgress(float progress) {
             this.progress = progress;
         }
 
@@ -208,7 +208,7 @@ public class DealDetailBean {
             return round;
         }
 
-        public String getProgress() {
+        public float getProgress() {
             return progress;
         }
 

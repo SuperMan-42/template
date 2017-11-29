@@ -13,6 +13,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.util.SimpleArrayMap;
 
 import com.core.base.BaseApplication;
+import com.core.utils.Constants;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -53,7 +54,6 @@ public final class BCache {
 
     private static final SimpleArrayMap<String, BCache> CACHE_MAP = new SimpleArrayMap<>();
     private CacheManager mCacheManager;
-    private static String path = "/mnt/sdcard/hx";
 
     /**
      * 获取缓存实例
@@ -63,7 +63,7 @@ public final class BCache {
      * @return {@link BCache}
      */
     public static BCache getInstance() {
-        return getInstance(path, DEFAULT_MAX_SIZE, DEFAULT_MAX_COUNT);
+        return getInstance(Constants.SDCARD_PATH, DEFAULT_MAX_SIZE, DEFAULT_MAX_COUNT);
     }
 
     /**

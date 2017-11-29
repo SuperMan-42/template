@@ -202,7 +202,8 @@ public class DataHelper {
      */
     public static String getCacheFilePath(Context context) {
         String packageName = context.getPackageName();
-        return "/mnt/sdcard/" + packageName;
+//        return "/mnt/sdcard/" + packageName;//TODO
+        return Constants.SDCARD_PATH;//TODO
     }
 
     /**

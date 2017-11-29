@@ -4,4 +4,5 @@
     <dimen name="dimen_8dp">8dp</dimen>
     <dimen name="dimen_12dp">12dp</dimen>
     <dimen name="dimen_24dp">24dp</dimen>
+    <dimen name="status_bar">73px</dimen>
 </resources>

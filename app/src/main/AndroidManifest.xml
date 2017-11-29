@@ -95,6 +95,9 @@
         <activity
             android:name=".mvp.ui.activity.SearchActivity"
             android:theme="@style/CoreAppTheme.Transparent" />
+        <activity
+            android:name=".mvp.ui.activity.PdfActivity"
+            android:theme="@style/CoreAppTheme.Transparent" />
     </application>
 
 </manifest>

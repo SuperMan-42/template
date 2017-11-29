@@ -7,9 +7,9 @@ import com.core.http.imageloader.ImageLoader;
 import com.core.integration.AppManager;
 import com.core.integration.cache.BCache;
 import com.core.mvp.BasePresenter;
+import com.core.utils.Constants;
 import com.core.utils.RxLifecycleUtils;
 import com.google.gson.Gson;
-import com.recorder.Constants;
 import com.recorder.mvp.contract.LoginContract;
 import com.recorder.mvp.model.entity.LoginBean;
 

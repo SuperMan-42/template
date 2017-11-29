@@ -1,6 +1,7 @@
 package com.recorder.utils;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Build;
 import android.support.v4.view.ViewCompat;
 import android.text.TextUtils;
@@ -11,6 +12,9 @@ import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.jaeger.library.StatusBarUtil;
+import com.liulishuo.filedownloader.BaseDownloadTask;
+import com.liulishuo.filedownloader.FileDownloadSampleListener;
+import com.liulishuo.filedownloader.FileDownloader;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -20,6 +24,10 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.ObservableSource;
+import io.reactivex.ObservableTransformer;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -192,5 +200,85 @@ public class CommonUtils {
         } else {
             return "";
         }
+    }
+
+    /**
+     * Service download version of the Transformer.
+     *
+     * @param url      url
+     * @param savePath savePath
+     * @param isDir    isDir
+     * @return Transformer
+     */
+    public static <Upstream> ObservableTransformer<Upstream, BaseDownloadTask> transformService(
+            Context context, String url, String savePath, boolean isDir, boolean hasNext) {
+        return new ObservableTransformer<Upstream, BaseDownloadTask>() {
+            @Override
+            public ObservableSource<BaseDownloadTask> apply(io.reactivex.Observable<Upstream> upstream) {
+                return upstream.create(new ObservableOnSubscribe<BaseDownloadTask>() {
+                    @Override
+                    public void subscribe(ObservableEmitter<BaseDownloadTask> observableEmitter) throws Exception {
+                        if (!TextUtils.isEmpty(url)) {
+                            FileDownloader.setup(context);
+                            FileDownloader.getImpl().create(url).setPath(savePath, isDir)
+                                    .setCallbackProgressTimes(300)
+                                    .setMinIntervalUpdateSpeed(400)
+                                    .setListener(new FileDownloadSampleListener() {
+
+                                        @Override
+                                        protected void pending(BaseDownloadTask task, int soFarBytes, int totalBytes) {
+                                            super.pending(task, soFarBytes, totalBytes);
+                                        }
+
+                                        @Override
+                                        protected void progress(BaseDownloadTask task, int soFarBytes, int totalBytes) {
+                                            super.progress(task, soFarBytes, totalBytes);
+                                            if (hasNext)
+                                                observableEmitter.onNext(task);
+                                        }
+
+                                        @Override
+                                        protected void error(BaseDownloadTask task, Throwable e) {
+                                            super.error(task, e);
+                                            observableEmitter.onError(e);
+                                        }
+
+                                        @Override
+                                        protected void connected(BaseDownloadTask task, String etag, boolean isContinue,
+                                                                 int soFarBytes, int totalBytes) {
+                                            super.connected(task, etag, isContinue, soFarBytes, totalBytes);
+                                        }
+
+                                        @Override
+                                        protected void paused(BaseDownloadTask task, int soFarBytes, int totalBytes) {
+                                            super.paused(task, soFarBytes, totalBytes);
+                                        }
+
+                                        @Override
+                                        protected void completed(BaseDownloadTask task) {
+                                            super.completed(task);
+                                            if (hasNext) {
+                                                observableEmitter.onComplete();
+                                            } else {
+                                                observableEmitter.onNext(task);
+                                            }
+                                        }
+
+                                        @Override
+                                        protected void warn(BaseDownloadTask task) {
+                                            super.warn(task);
+                                        }
+                                    }).start();
+                        } else {
+                            if (hasNext) {
+                                observableEmitter.onError(new Throwable("url为空"));
+                            } else {
+                                observableEmitter.onComplete();
+                            }
+                        }
+                    }
+                });
+            }
+        };
     }
 }
