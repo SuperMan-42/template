@@ -15,7 +15,7 @@
         android:overScrollMode="never"
         android:scrollbars="none">
 
-        <com.core.widget.autolayout.AutoConstraintLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -23,50 +23,46 @@
                 android:id="@+id/im_bg"
                 android:layout_width="match_parent"
                 android:layout_height="825px"
-                android:scaleType="fitXY"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:scaleType="fitXY" />
 
             <ImageView
                 android:id="@+id/im_cover"
                 android:layout_width="330px"
                 android:layout_height="270px"
+                android:layout_centerHorizontal="true"
                 android:layout_marginTop="201px"
-                android:src="@drawable/bga_round"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:src="@drawable/bga_round" />
 
             <TextView
                 android:id="@+id/tv_deal_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_below="@+id/im_cover"
+                android:layout_centerHorizontal="true"
                 android:layout_marginTop="39px"
                 android:textColor="@color/white"
                 android:textSize="54px"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/im_cover"
                 tools:text="早山设计品牌形象" />
 
             <TextView
                 android:id="@+id/tv_brief"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_deal_name"
+                android:layout_centerHorizontal="true"
                 android:layout_marginLeft="90px"
                 android:layout_marginRight="90px"
                 android:layout_marginTop="33px"
                 android:gravity="center"
                 android:textColor="@color/white"
                 android:textSize="39px"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_deal_name"
                 tools:text="目前已为全国各大知名公司提供过基础形象服务,运营服务..." />
 
             <TextView
                 android:id="@+id/tv_labels"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_below="@id/im_bg"
                 android:background="@color/white"
                 android:drawableLeft="@drawable/im_login_phone"
                 android:drawablePadding="15px"
@@ -75,27 +71,24 @@
                 android:paddingTop="21px"
                 android:textColor="#333333"
                 android:textSize="42px"
-                app:layout_constraintTop_toBottomOf="@id/im_bg"
                 tools:text="创意/设计" />
 
             <View
                 android:id="@+id/divider_1"
                 style="@style/divider"
-                app:layout_constraintTop_toBottomOf="@id/tv_labels" />
+                android:layout_below="@id/tv_labels" />
 
             <LinearLayout
                 android:id="@+id/fl_progress"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="40px"
-                android:layout_marginTop="25px"
+                android:layout_below="@id/divider_1"
                 android:background="@color/white"
                 android:orientation="vertical"
                 android:paddingBottom="18px"
                 android:paddingLeft="45px"
                 android:paddingRight="45px"
-                android:paddingTop="18px"
-                app:layout_constraintTop_toBottomOf="@id/divider_1">
+                android:paddingTop="43px">
 
                 <TextView
                     android:id="@+id/tv_progress"
@@ -122,13 +115,13 @@
             <LinearLayout
                 android:id="@+id/ll_1"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/fl_progress"
                 android:background="@color/white"
                 android:gravity="center"
                 android:orientation="horizontal"
                 android:paddingBottom="48px"
-                android:paddingTop="48px"
-                app:layout_constraintTop_toBottomOf="@id/fl_progress">
+                android:paddingTop="48px">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -257,10 +250,9 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_below="@id/ll_1"
                 android:layout_marginTop="30px"
-                android:orientation="vertical"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/ll_1">
+                android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/tv_1"
@@ -608,7 +600,7 @@
                 </LinearLayout>
 
             </LinearLayout>
-        </com.core.widget.autolayout.AutoConstraintLayout>
+        </RelativeLayout>
 
     </com.core.widget.autolayout.AutoScrollView>
 
