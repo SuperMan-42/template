@@ -101,11 +101,11 @@ public class HomeActivity extends BaseActivity<HomePresenter> implements HomeCon
         title("昊翔");
         back.setVisibility(View.INVISIBLE);
         mNavigationController = navigation.material()
-                .addItem(R.mipmap.ic_nav_theme, CoreUtils.getString(this, R.string.Home))
-                .addItem(R.mipmap.ic_nav_theme, CoreUtils.getString(this, R.string.Equity))
-                .addItem(R.mipmap.ic_nav_theme, CoreUtils.getString(this, R.string.Private))
-                .addItem(R.mipmap.ic_nav_theme, CoreUtils.getString(this, R.string.Dynamic))
-                .addItem(R.mipmap.ic_nav_theme, CoreUtils.getString(this, R.string.My))
+                .addItem(R.drawable.bottom_home, R.drawable.bottom_home_selector, CoreUtils.getString(this, R.string.Home))
+                .addItem(R.drawable.bottom_equity, R.drawable.bottom_equity_selector, CoreUtils.getString(this, R.string.Equity))
+                .addItem(R.drawable.bottom_private, R.drawable.bottom_private_selector, CoreUtils.getString(this, R.string.Private))
+                .addItem(R.drawable.bottom_dynamic, R.drawable.bottom_dynamic_selector, CoreUtils.getString(this, R.string.Dynamic))
+                .addItem(R.drawable.bottom_my, R.drawable.bottom_my_selector, CoreUtils.getString(this, R.string.My))
                 .build();
         List<Fragment> fragments = new ArrayList<>();
         fragments.add(HomeFragment.newInstance());

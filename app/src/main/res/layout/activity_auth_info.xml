@@ -115,7 +115,7 @@
                     android:id="@+id/im_agree"
                     android:layout_width="66px"
                     android:layout_height="66px"
-                    android:src="@mipmap/ic_nav_theme" />
+                    android:src="@drawable/bottom_home" />
 
                 <TextView
                     android:layout_width="0dp"
