@@ -652,22 +652,34 @@
                         android:paddingRight="36px" />
                 </LinearLayout>
 
-                <LinearLayout
+                <FrameLayout
                     android:id="@+id/ll_isShow_video"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="30px"
                     android:background="@color/white">
 
-                    <TextView
+                    <ImageView
                         android:layout_width="match_parent"
                         android:layout_height="606px"
-                        android:layout_margin="45px" />
-                </LinearLayout>
+                        android:layout_margin="45px"
+                        android:src="@drawable/detail_video_bg" />
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:src="@drawable/detail_video_start" />
+                </FrameLayout>
 
             </LinearLayout>
         </RelativeLayout>
 
     </com.core.widget.autolayout.AutoScrollView>
+
+    <View
+        style="@style/divider"
+        android:layout_above="@id/ll_bottom" />
 
     <LinearLayout
         android:id="@+id/ll_bottom"
@@ -679,9 +691,8 @@
 
         <LinearLayout
             android:id="@+id/ll_bp_file"
-            android:layout_width="0dp"
+            android:layout_width="300px"
             android:layout_height="match_parent"
-            android:layout_weight="3"
             android:background="@color/white"
             android:gravity="center">
 
@@ -695,33 +706,44 @@
                 android:textSize="33px" />
         </LinearLayout>
 
-        <LinearLayout
+        <FrameLayout
             android:id="@+id/ll_consultation"
             android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:layout_gravity="center"
             android:layout_weight="4"
-            android:background="#FFAC41"
-            android:gravity="center">
+            android:background="#FFA100">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="45px"
+                android:layout_marginRight="45px"
+                android:background="@drawable/bga_button_consultation"
+                android:textColor="@color/white"
+                android:textSize="45px" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:drawableLeft="@drawable/im_login_phone"
-                android:drawablePadding="12px"
                 android:text="立即咨询"
                 android:textColor="@color/white"
                 android:textSize="45px" />
-        </LinearLayout>
+        </FrameLayout>
 
         <LinearLayout
             android:id="@+id/ll_buy"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="4"
-            android:background="#4880FF"
+            android:background="@drawable/bga_button_buy"
             android:gravity="center">
 
             <TextView
+                android:id="@+id/tv_buy_content"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:drawableLeft="@drawable/im_login_phone"

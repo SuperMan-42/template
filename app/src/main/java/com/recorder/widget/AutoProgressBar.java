@@ -70,7 +70,7 @@ public class AutoProgressBar extends ViewGroup implements Runnable {
     /**
      * 当前进度
      */
-    private float progress = 50f;
+    private float progress = 0f;
 
     private boolean isFinish;
 

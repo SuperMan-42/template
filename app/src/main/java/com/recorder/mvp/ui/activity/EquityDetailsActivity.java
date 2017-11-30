@@ -14,6 +14,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -149,11 +150,13 @@ public class EquityDetailsActivity extends BaseActivity<EquityDetailsPresenter> 
     @BindView(R.id.ll_isShow_public_files)
     LinearLayout llIsShowPublicFiles;
     @BindView(R.id.ll_isShow_video)
-    LinearLayout llIsShowVideo;
+    FrameLayout llIsShowVideo;
     @BindView(R.id.ll_consultation)
-    LinearLayout llConsultation;
+    FrameLayout llConsultation;
     @BindView(R.id.ll_buy)
     LinearLayout llBuy;
+    @BindView(R.id.tv_buy_content)
+    TextView tvBuyContent;
     @BindView(R.id.dynamic_vp)
     AutoHeightViewPager dynamicVp;
     @BindView(R.id.next_time_iv)
@@ -278,11 +281,20 @@ public class EquityDetailsActivity extends BaseActivity<EquityDetailsPresenter> 
     @Override
     public void showDealDetail(DealDetailBean.DataEntity dataEntity) {
         this.dataEntity = dataEntity;
+        //处理底部bottom的各种情况
+        if (dataEntity.getButton() == null || TextUtils.isEmpty(dataEntity.getButton().getButton_name())) {
+            llBuy.setVisibility(View.GONE);
+            llConsultation.setBackgroundColor(Color.WHITE);
+        } else {
+            llBuy.setVisibility(View.VISIBLE);
+            llBuy.setEnabled(dataEntity.getButton().getClick().equals("1"));//1-可点击
+            tvBuyContent.setText(dataEntity.getButton().getButton_name());
+        }
+
         //顶部变色bar
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
             translucentBar();
         }
-        llBuy.setVisibility(isEquity ? View.VISIBLE : View.GONE);//私募和众筹的底部按钮不同
         tvDealName.setText(dataEntity.getDeal_name());//头部标题
         CoreUtils.imgLoader(this, dataEntity.getCover(), imCover);//头部头像
         Glide.with(this).load(dataEntity.getCover()).apply(bitmapTransform(new BlurTransformation())).into(imBg);//头部高斯模糊背景
@@ -406,11 +418,13 @@ public class EquityDetailsActivity extends BaseActivity<EquityDetailsPresenter> 
                 }
             }, false);
         }
-        //视频(可隐藏)//TODO
+        //视频(可隐藏)
         if (dataEntity.getVideo() == null || TextUtils.isEmpty(dataEntity.getVideo().getVideo_id())) {
             llIsShowVideo.setVisibility(View.GONE);
         } else {
             llIsShowVideo.setVisibility(View.VISIBLE);
+            llIsShowVideo.setOnClickListener(view -> ARouter.getInstance().build("/app/VideoActivity").withString("vid", dataEntity.getVideo().getVideo_id())
+                    .withString("auth", dataEntity.getVideo().getPlay_auth()).navigation());
         }
     }
 

@@ -49,6 +49,10 @@ android {
         }
     }
 
+    repositories {
+        flatDir { dirs 'libs' }
+    }
+
     externalNativeBuild {
         cmake {
             path 'CMakeLists.txt'
@@ -100,4 +104,9 @@ dependencies {
     implementation 'jp.wasabeef:glide-transformations:3.0.1'
     implementation 'com.github.barteksc:android-pdf-viewer:3.0.0-beta.3'
     implementation 'com.liulishuo.filedownloader:library:1.6.8'
+    implementation 'com.squareup.picasso:picasso:2.5.2'
+    implementation 'liji.library.dev:imagezoom:1.2.2'
+    implementation(name: 'AlivcPlayer', ext: "aar")
+    implementation(name: 'AliyunVodPlayer', ext: "aar")
+    implementation(name: 'AliyunVodPlayerView', ext: "aar")
 }

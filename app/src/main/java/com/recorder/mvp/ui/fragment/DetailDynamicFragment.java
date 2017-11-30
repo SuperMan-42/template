@@ -11,10 +11,9 @@ import android.widget.TextView;
 import com.core.base.BaseFragment;
 import com.core.di.component.AppComponent;
 import com.core.utils.CoreUtils;
-import com.luck.picture.lib.PictureSelector;
-import com.luck.picture.lib.entity.LocalMedia;
 import com.recorder.R;
 import com.recorder.mvp.model.entity.DealDetailBean;
+import com.recorder.mvp.ui.activity.PhotoPreviewActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -94,12 +93,15 @@ public class DetailDynamicFragment extends BaseFragment {
 
     @OnClick(R.id.imgs_layout)
     public void onViewClicked() {
-        List<LocalMedia> list = new ArrayList<>();
-        for (String string : mGrowth.getImages()) {
-            LocalMedia localMedia = new LocalMedia();
-            localMedia.setPath(string);
-            list.add(localMedia);
+        if (mGrowth == null) {
+            return;
         }
-        PictureSelector.create(this).externalPicturePreview(0, list);
+        List<String> list = new ArrayList<>();
+        list.add("http://bpic.588ku.com/element_origin_min_pic/00/00/05/115732f19cc0079.jpg");
+        list.add("http://b.zol-img.com.cn/sjbizhi/images/2/320x510/1352891767829.jpg");
+        list.add("http://image.tianjimedia.com/uploadImages/2012/289/71X94T2PF22Z.jpg");
+        list.add("http://b.zol-img.com.cn/sjbizhi/images/5/320x510/1372924333667.jpg");
+
+        PhotoPreviewActivity.show(getContext(), list.get(0), list);
     }
 }
