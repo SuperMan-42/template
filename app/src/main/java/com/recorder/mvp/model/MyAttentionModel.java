@@ -2,14 +2,21 @@ package com.recorder.mvp.model;
 
 import android.app.Application;
 
-import com.google.gson.Gson;
 import com.core.di.scope.ActivityScope;
 import com.core.integration.IRepositoryManager;
 import com.core.mvp.BaseModel;
+import com.core.utils.DeviceUtils;
+import com.google.gson.Gson;
+import com.recorder.mvp.contract.MyAttentionContract;
+import com.recorder.mvp.model.api.cache.ApiCache;
+import com.recorder.mvp.model.api.service.ApiService;
+import com.recorder.mvp.model.entity.UserFollowListBean;
 
 import javax.inject.Inject;
 
-import com.recorder.mvp.contract.MyAttentionContract;
+import io.reactivex.Observable;
+import io.rx_cache2.EvictProvider;
+import io.rx_cache2.Reply;
 
 @ActivityScope
 public class MyAttentionModel extends BaseModel implements MyAttentionContract.Model {
@@ -28,5 +35,13 @@ public class MyAttentionModel extends BaseModel implements MyAttentionContract.M
         super.onDestroy();
         this.mGson = null;
         this.mApplication = null;
+    }
+
+    @Override
+    public Observable<UserFollowListBean> userFollowlist(String page, String page_size) {
+        return Observable.just(mRepositoryManager.obtainRetrofitService(ApiService.class).userFollowlist("1", page, page_size))
+                .flatMap(resultObservable -> mRepositoryManager.obtainCacheService(ApiCache.class)
+                        .userFollowlist(resultObservable, new EvictProvider(DeviceUtils.netIsConnected(mApplication)))
+                        .map(Reply::getData));
     }
 }

@@ -32,7 +32,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:src="@drawable/ic_arrow_back_white_24dp" />
+                android:src="@drawable/title_back" />
 
         </RelativeLayout>
 
@@ -62,7 +62,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:src="@drawable/ic_arrow_back_white_24dp" />
+                android:src="@drawable/title_right" />
 
         </RelativeLayout>
     </LinearLayout>

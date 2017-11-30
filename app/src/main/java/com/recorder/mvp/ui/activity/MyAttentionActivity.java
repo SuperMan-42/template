@@ -8,6 +8,7 @@ import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.core.base.BaseActivity;
 import com.core.di.component.AppComponent;
+import com.core.utils.Constants;
 import com.core.utils.CoreUtils;
 import com.core.widget.recyclerview.BaseQuickAdapter;
 import com.core.widget.recyclerview.BaseViewHolder;
@@ -16,10 +17,8 @@ import com.recorder.R;
 import com.recorder.di.component.DaggerMyAttentionComponent;
 import com.recorder.di.module.MyAttentionModule;
 import com.recorder.mvp.contract.MyAttentionContract;
+import com.recorder.mvp.model.entity.UserFollowListBean;
 import com.recorder.mvp.presenter.MyAttentionPresenter;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 
@@ -48,28 +47,7 @@ public class MyAttentionActivity extends BaseActivity<MyAttentionPresenter> impl
     @Override
     public void initView(Bundle savedInstanceState) {
         title("我的关注");
-        List<String> list = new ArrayList<>();
-        list.add("http://ww4.sinaimg.cn/large/006uZZy8jw1faic259ohaj30ci08c74r.jpg");
-        list.add("http://ww4.sinaimg.cn/large/006uZZy8jw1faic2b16zuj30ci08cwf4.jpg");
-        list.add("http://ww4.sinaimg.cn/large/006uZZy8jw1faic2e7vsaj30ci08cglz.jpg");
-        list.add("http://bpic.588ku.com/element_origin_min_pic/00/00/05/115732f19cc0079.jpg");
-        list.add("http://bpic.588ku.com/element_origin_min_pic/00/00/05/115732f1ac12d1d.jpg");
-        list.add("http://bpic.588ku.com/element_origin_min_pic/00/00/05/115732f1bad97d1.jpg");
-        list.add("http://bpic.588ku.com/element_origin_min_pic/00/00/05/115732f1c83c228.jpg");
-        list.add("http://bpic.588ku.com/element_origin_min_pic/00/00/05/115732f1d53e3dd.jpg");
-        list.add("http://bpic.588ku.com/element_origin_min_pic/00/00/05/115732f1e37fea9.jpg");
-        list.add("http://bpic.588ku.com/element_origin_min_pic/00/00/05/115732f1ef4d709.jpg");
-        list.add("http://bpic.588ku.com/element_origin_min_pic/00/00/05/115732f20b3ea10.jpg");
-        list.add("http://bpic.588ku.com/element_origin_min_pic/00/00/05/115732f21927f8d.jpg");
-        list.add("http://ww4.sinaimg.cn/large/006uZZy8jw1faic1xjab4j30ci08cjrv.jpg");
-        list.add("http://ww4.sinaimg.cn/large/006uZZy8jw1faic21363tj30ci08ct96.jpg");
-        recyclerView.init(new BaseQuickAdapter<String, BaseViewHolder>(R.layout.item_equity, list) {
-            @Override
-            protected void convert(BaseViewHolder holder, String item) {
-                CoreUtils.imgLoader(MyAttentionActivity.this, item, holder.getView(R.id.im_cover));
-                holder.itemView.setOnClickListener(view1 -> ARouter.getInstance().build("/app/LoginActivity").navigation());
-            }
-        }, false);
+        mPresenter.userFollowlist(null, null);
     }
 
     @Override
@@ -97,5 +75,32 @@ public class MyAttentionActivity extends BaseActivity<MyAttentionPresenter> impl
     @Override
     public void killMyself() {
         finish();
+    }
+
+    @Override
+    public void showUserFollowList(UserFollowListBean.DataEntity data) {
+        recyclerView.init(new BaseQuickAdapter<UserFollowListBean.DataEntity.ListEntity, BaseViewHolder>(R.layout.item_equity, data.getList()) {
+            @Override
+            protected void convert(BaseViewHolder holder, UserFollowListBean.DataEntity.ListEntity item) {
+                CoreUtils.imgLoader(getApplication(), "http://ww4.sinaimg.cn/large/006uZZy8jw1faic1xjab4j30ci08cjrv.jpg", holder.getView(R.id.im_cover));
+                holder.setText(R.id.tv_deal_name, item.getDeal_name())
+                        .setText(R.id.tv_brief, item.getBrief())
+                        .setText(R.id.tv_labels, item.getLabels())
+                        .setText(R.id.tv_round, item.getRound())
+                        .setText(R.id.tv_online_str, item.getOnline_str())
+                        .setVisible(R.id.tv_is_group, item.getIs_group().equals("1"));
+                UserFollowListBean.DataEntity.ListEntity.ViewFooterEntity viewFooterEntity = item.getView_footer();
+                if (viewFooterEntity != null) {
+                    holder.setText(R.id.tv_view, String.valueOf(viewFooterEntity.getView()))
+                            .setText(R.id.tv_focus, String.valueOf(viewFooterEntity.getFocus()))
+                            .setText(R.id.tv_consult, String.valueOf(viewFooterEntity.getConsult()))
+                            .setVisible(R.id.ll_view_footer, true);
+                } else {
+                    holder.setVisible(R.id.ll_view_footer, false);
+                }
+                holder.itemView.setOnClickListener(view1 -> ARouter.getInstance().build("/app/EquityDetailsActivity")
+                        .withBoolean(Constants.IS_EQUITY, true).withString(Constants.DEAL_ID, item.getDealID()).withBoolean(Constants.IS_GROUP, item.getIs_group().equals("1")).navigation());
+            }
+        }, false);
     }
 }

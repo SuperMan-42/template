@@ -7,6 +7,7 @@ import com.recorder.mvp.model.entity.HomeRecommendBean;
 import com.recorder.mvp.model.entity.ImageUploadBean;
 import com.recorder.mvp.model.entity.LoginBean;
 import com.recorder.mvp.model.entity.NewsListBean;
+import com.recorder.mvp.model.entity.UserFollowListBean;
 import com.recorder.mvp.model.entity.UserInfoBean;
 
 import java.util.List;
@@ -104,4 +105,7 @@ public interface ApiService {
     @FormUrlEncoded
     @POST("deal/follow")
     Observable<Object> dealFollow(@Header("DIVERSION-VERSION") String version, @Field("dealID") String dealID);
+
+    @GET("user/followlist")
+    Observable<UserFollowListBean> userFollowlist(@Header("DIVERSION-VERSION") String version, @Query("page") String page, @Query("page_size") String page_size);
 }
