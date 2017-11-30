@@ -10,6 +10,7 @@ import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.core.base.BaseActivity;
 import com.core.di.component.AppComponent;
+import com.jaeger.library.StatusBarUtil;
 import com.recorder.utils.CommonUtils;
 import com.core.utils.CoreUtils;
 import com.recorder.R;
@@ -44,12 +45,18 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
 
     @Override
     public int getLayoutResID(Bundle savedInstanceState) {
+        StatusBarUtil.setTransparent(this);
         return R.layout.activity_login; //如果你不需要框架帮你设置 setContentView(id) 需要自行设置,请返回 0
     }
 
     @Override
+    public boolean isTransparent() {
+        return true;
+    }
+
+    @Override
     public void initView(Bundle savedInstanceState) {
-        setStatusBarColor(CoreUtils.getColor(this, R.color.white), 0);
+
     }
 
     @Override

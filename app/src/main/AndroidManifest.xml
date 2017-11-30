@@ -42,19 +42,23 @@
         <activity
             android:name=".mvp.ui.activity.LoginActivity"
             android:launchMode="singleTop"
-            android:theme="@style/CoreAppTheme.Transparent" />
+            android:theme="@style/CoreAppTheme.Transparent"
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".mvp.ui.activity.ForgetPasswordActivity"
             android:launchMode="singleTop"
-            android:theme="@style/CoreAppTheme.Transparent" />
+            android:theme="@style/CoreAppTheme.Transparent"
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".mvp.ui.activity.NewPasswordActivity"
             android:launchMode="singleTop"
-            android:theme="@style/CoreAppTheme.Transparent" />
+            android:theme="@style/CoreAppTheme.Transparent"
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".mvp.ui.activity.RegisterActivity"
             android:launchMode="singleTop"
-            android:theme="@style/CoreAppTheme.Transparent" />
+            android:theme="@style/CoreAppTheme.Transparent"
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".mvp.ui.activity.AuthActivity"
             android:theme="@style/CoreAppTheme.Transparent" />
