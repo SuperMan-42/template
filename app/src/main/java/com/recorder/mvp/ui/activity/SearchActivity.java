@@ -1,7 +1,6 @@
 package com.recorder.mvp.ui.activity;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.inputmethod.EditorInfo;
@@ -56,8 +55,7 @@ public class SearchActivity extends BaseActivity<SearchPresenter> implements Sea
     @Override
     public void initView(Bundle savedInstanceState) {
         ARouter.getInstance().inject(this);
-        setStatusBarColor(Color.parseColor("#F9F9F9"), 0);
-//        CommonUtils.setStatusBarLightMode(this, Color.parseColor("#F9F9F9"));
+//        setStatusBarColor(Color.parseColor("#F9F9F9"), 0);
         etInput.setOnEditorActionListener((textView, actionId, keyEvent) -> {
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                 mPresenter.dealList(isEquity ? "1" : "2", null, null, etInput.getText().toString(), null, null);

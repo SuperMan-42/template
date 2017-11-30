@@ -4,22 +4,22 @@ package com.recorder.mvp.model.entity;
  * Created by hpw on 17-11-22.
  */
 
-public class Bean {
-    String key;
+public class Bean<T> {
+    T key;
     String value;
     String other;
 
-    public Bean(String key, String value, String other) {
+    public Bean(T key, String value, String other) {
         this.key = key;
         this.value = value;
         this.other = other;
     }
 
-    public String getKey() {
+    public T getKey() {
         return key;
     }
 
-    public void setKey(String key) {
+    public void setKey(T key) {
         this.key = key;
     }
 

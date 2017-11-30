@@ -41,7 +41,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginRight="39px"
                     android:layout_toLeftOf="@id/im_right"
-                    android:src="@drawable/bga_textview_blue" />
+                    android:src="@drawable/ic_person" />
 
                 <ImageView
                     android:id="@+id/im_right"
@@ -49,7 +49,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:src="@drawable/im_login_phone" />
+                    android:src="@drawable/ic_person_right" />
 
             </RelativeLayout>
 
@@ -80,7 +80,7 @@
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:drawablePadding="39px"
-                    android:drawableRight="@drawable/im_login_phone"
+                    android:drawableRight="@drawable/ic_person_right"
                     android:gravity="center"
                     android:textColor="#999999"
                     android:textSize="42px"
@@ -115,7 +115,7 @@
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:drawablePadding="39px"
-                    android:drawableRight="@drawable/im_login_phone"
+                    android:drawableRight="@drawable/ic_person_right"
                     android:gravity="center"
                     android:textColor="#999999"
                     android:textSize="42px"
@@ -150,7 +150,7 @@
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:drawablePadding="39px"
-                    android:drawableRight="@drawable/im_login_phone"
+                    android:drawableRight="@drawable/ic_person_right"
                     android:gravity="center"
                     android:textColor="#999999"
                     android:textSize="42px"
@@ -185,7 +185,7 @@
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:drawablePadding="39px"
-                    android:drawableRight="@drawable/im_login_phone"
+                    android:drawableRight="@drawable/ic_person_right"
                     android:gravity="center"
                     android:textColor="#999999"
                     android:textSize="42px"
@@ -220,7 +220,7 @@
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:drawablePadding="39px"
-                    android:drawableRight="@drawable/im_login_phone"
+                    android:drawableRight="@drawable/ic_person_right"
                     android:gravity="center"
                     android:textColor="#999999"
                     android:textSize="42px"
@@ -255,7 +255,7 @@
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:drawablePadding="39px"
-                    android:drawableRight="@drawable/im_login_phone"
+                    android:drawableRight="@drawable/ic_person_right"
                     android:gravity="center"
                     android:textColor="#999999"
                     android:textSize="42px"
@@ -289,7 +289,7 @@
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:drawablePadding="39px"
-                    android:drawableRight="@drawable/im_login_phone"
+                    android:drawableRight="@drawable/ic_person_right"
                     android:gravity="center"
                     android:textColor="#999999"
                     android:textSize="42px"

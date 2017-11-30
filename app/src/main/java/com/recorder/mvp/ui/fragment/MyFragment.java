@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.bumptech.glide.request.RequestOptions;
 import com.core.base.BaseFragment;
 import com.core.di.component.AppComponent;
 import com.core.http.imageloader.ImageLoader;
@@ -80,12 +81,12 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
     public void initData(Bundle savedInstanceState) {
         mPresenter.userInfo();
         List<Bean> list = new ArrayList<>();
-        list.add(new Bean("http://bpic.588ku.com/element_origin_min_pic/00/00/05/115732f19cc0079.jpg", "我的消息", "/app/SettingActivity"));
-        list.add(new Bean("http://bpic.588ku.com/element_origin_min_pic/00/00/05/115732f1ac12d1d.jpg", "投资帮助", "/app/SettingActivity"));
-        list.add(new Bean("http://bpic.588ku.com/element_origin_min_pic/00/00/05/115732f1bad97d1.jpg", "设置", "/app/SettingActivity"));
-        list.add(new Bean("http://bpic.588ku.com/element_origin_min_pic/00/00/05/115732f1c83c228.jpg", "推荐项目", "/app/SettingActivity"));
-        list.add(new Bean("http://bpic.588ku.com/element_origin_min_pic/00/00/05/115732f1d53e3dd.jpg", "推荐给朋友", "/app/SettingActivity"));
-        list.add(new Bean("http://bpic.588ku.com/element_origin_min_pic/00/00/05/115732f1e37fea9.jpg", "投资人认证", "/app/SettingActivity"));
+        list.add(new Bean<>(R.drawable.ic_news, "我的消息", "/app/SettingActivity"));
+        list.add(new Bean<>(R.drawable.ic_help, "投资帮助", "/app/SettingActivity"));
+        list.add(new Bean<>(R.drawable.ic_setting, "设置", "/app/SettingActivity"));
+        list.add(new Bean<>(R.drawable.ic_project, "推荐项目", "/app/SettingActivity"));
+        list.add(new Bean<>(R.drawable.ic_recommend, "推荐给朋友", "/app/SettingActivity"));
+        list.add(new Bean<>(R.drawable.ic_auth, "投资人认证", "/app/SettingActivity"));
         GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 3) {
             @Override
             public boolean canScrollVertically() {
@@ -96,7 +97,7 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
         recyclerView.init(layoutManager, new BaseQuickAdapter<Bean, BaseViewHolder>(R.layout.item_my, list) {
             @Override
             protected void convert(BaseViewHolder holder, Bean item) {
-                CoreUtils.imgLoader(getContext(), item.getKey(), holder.getView(R.id.im_pic));
+                holder.setImageResource(R.id.im_pic, (Integer) item.getKey());
                 holder.setText(R.id.tv_content, item.getValue());
                 holder.itemView.setOnClickListener(view1 -> ARouter.getInstance().build(item.getOther()).navigation());
             }
@@ -172,7 +173,7 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
     @Override
     public void showUserInfo(ImageLoader imageLoader, UserInfoBean userInfoBean) {
         BCache.getInstance().put(Constants.USER_INFO, new Gson().toJson(userInfoBean));
-        CoreUtils.imgLoaderCircle(getContext(), "http://bpic.588ku.com/element_origin_min_pic/00/00/05/115732f19cc0079.jpg", profileImage);
+        CoreUtils.imgLoaderCircle(getContext(), "http://bpic.588ku.com/element_origin_min_pic/00/00/05/115732f19cc0079.jpg", RequestOptions.errorOf(R.drawable.ic_person), profileImage);
         tvUserName.setText(userInfoBean.getData().getUser_name());
         tvMyInvestment.setText(userInfoBean.getData().getMy_investment());
         tvFollowCount.setText(userInfoBean.getData().getMy_follow_count());

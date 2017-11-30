@@ -5,7 +5,7 @@
     android:id="@+id/toolbar"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/colorPrimary"
+    android:background="@color/colorTitle"
     app:contentInsetStart="0dp"
     app:layout_scrollFlags="scroll|enterAlways"
     app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
@@ -43,7 +43,7 @@
             android:ellipsize="end"
             android:gravity="center"
             android:maxLines="1"
-            android:textColor="@android:color/white"
+            android:textColor="@android:color/black"
             android:textSize="50px"
             tools:text="Android" />
 

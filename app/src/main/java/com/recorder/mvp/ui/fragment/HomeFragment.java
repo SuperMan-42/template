@@ -121,10 +121,10 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
         BGABanner banner = view.findViewById(R.id.banner);
         List<Bean> models = new ArrayList<>();
         List<String> titles = new ArrayList<>();
-        models.add(new Bean("", "http://ww4.sinaimg.cn/large/006uZZy8jw1faic259ohaj30ci08c74r.jpg", dataEntity.getDeal_recommend().getUrl()));
+        models.add(new Bean<>("", "http://ww4.sinaimg.cn/large/006uZZy8jw1faic259ohaj30ci08c74r.jpg", dataEntity.getDeal_recommend().getUrl()));
         titles.add(dataEntity.getDeal_recommend().getText());
         for (HomeRecommendBean.DataEntity.NewsRecommendEntity entity : dataEntity.getNews_recommend()) {
-            models.add(new Bean(entity.getNewsID(), entity.getCover(), entity.getUrl()));
+            models.add(new Bean<>(entity.getNewsID(), entity.getCover(), entity.getUrl()));
             titles.add(entity.getTitle());
         }
         banner.setAdapter((banner1, itemView, model, position) -> CoreUtils.imgLoader(getContext(), ((Bean) model).getValue(), (ImageView) itemView));
