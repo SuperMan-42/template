@@ -146,7 +146,7 @@
         android:id="@+id/ll_view_footer"
         android:layout_width="match_parent"
         android:layout_height="75px"
-        android:background="#F9F9F9"
+        android:background="@color/colorTitle"
         android:gravity="center_vertical"
         android:orientation="horizontal">
 

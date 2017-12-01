@@ -73,6 +73,8 @@ public class EquityDetailsActivity extends BaseActivity<EquityDetailsPresenter> 
     ImageView imBg;
     @BindView(R.id.toolbar_title)
     TextView toolbarTitle;
+    @BindView(R.id.view_toolbar)
+    View viewToolbar;
     @BindView(R.id.toolbar_right)
     RelativeLayout toolbarRight;
     @BindView(R.id.im_left)
@@ -195,6 +197,7 @@ public class EquityDetailsActivity extends BaseActivity<EquityDetailsPresenter> 
     @Override
     public void initView(Bundle savedInstanceState) {
         toolbarRight.setVisibility(View.VISIBLE);
+        viewToolbar.getBackground().setAlpha((int) (alpha * 255));
         imLeft.setImageResource(R.drawable.back_icon_black);
         imRight.setImageResource(R.drawable.collection_icon_black);
         toolbar.getBackground().setAlpha(0);
@@ -497,6 +500,7 @@ public class EquityDetailsActivity extends BaseActivity<EquityDetailsPresenter> 
         scrollview.setTranslucentListener((alpha, t) -> {
             this.alpha = alpha;
             toolbar.getBackground().setAlpha((int) (alpha * 255));
+            viewToolbar.getBackground().setAlpha((int) (alpha * 255));
             if (t >= CoreUtils.dip2px(this, 148)) {
                 title(dataEntity.getDeal_name());
                 tvDealName.setVisibility(View.INVISIBLE);
@@ -512,7 +516,7 @@ public class EquityDetailsActivity extends BaseActivity<EquityDetailsPresenter> 
                 }
                 imLeft.setImageResource(R.drawable.back_icon_black);
                 imRight.setImageResource(R.drawable.collection_icon_black);
-                toolbarTitle.setTextColor(Color.argb(0, 255, 255, 255));
+                toolbarTitle.setTextColor(Color.argb(0, 0, 0, 0));
                 imLeft.setImageAlpha((int) ((1 - alpha * 2) * 255));
                 imRight.setImageAlpha((int) ((1 - alpha * 2) * 255));
             } else if (alpha > 0.5 && alpha <= 1) {
@@ -523,7 +527,7 @@ public class EquityDetailsActivity extends BaseActivity<EquityDetailsPresenter> 
                 }
                 imLeft.setImageResource(R.drawable.back_icon_white);
                 imRight.setImageResource(R.drawable.collection_icon_white);
-                toolbarTitle.setTextColor(Color.argb((int) (((alpha - 0.5) * 2) * 255), 255, 255, 255));
+                toolbarTitle.setTextColor(Color.argb((int) (((alpha - 0.5) * 2) * 255), 0, 0, 0));
                 imLeft.setImageAlpha((int) (((alpha - 0.5) * 2) * 255));
                 imRight.setImageAlpha((int) (((alpha - 0.5) * 2) * 255));
             }
