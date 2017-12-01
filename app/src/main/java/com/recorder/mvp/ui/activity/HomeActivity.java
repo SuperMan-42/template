@@ -50,6 +50,8 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.OnClick;
 import me.majiajie.pagerbottomtabstrip.NavigationController;
+import me.majiajie.pagerbottomtabstrip.item.BaseTabItem;
+import me.majiajie.pagerbottomtabstrip.item.NormalItemView;
 import me.majiajie.pagerbottomtabstrip.listener.OnTabItemSelectedListener;
 
 import static com.core.utils.Preconditions.checkNotNull;
@@ -104,12 +106,12 @@ public class HomeActivity extends BaseActivity<HomePresenter> implements HomeCon
     private void initHome() {
         title("昊翔");
         back.setVisibility(View.INVISIBLE);
-        mNavigationController = navigation.material()
-                .addItem(R.drawable.bottom_home, R.drawable.bottom_home_selector, CoreUtils.getString(this, R.string.Home))
-                .addItem(R.drawable.bottom_equity, R.drawable.bottom_equity_selector, CoreUtils.getString(this, R.string.Equity))
-                .addItem(R.drawable.bottom_private, R.drawable.bottom_private_selector, CoreUtils.getString(this, R.string.Private))
-                .addItem(R.drawable.bottom_dynamic, R.drawable.bottom_dynamic_selector, CoreUtils.getString(this, R.string.Dynamic))
-                .addItem(R.drawable.bottom_my, R.drawable.bottom_my_selector, CoreUtils.getString(this, R.string.My))
+        mNavigationController = navigation.custom()
+                .addItem(newItem(R.drawable.bottom_home, R.drawable.bottom_home_selector, CoreUtils.getString(this, R.string.Home)))
+                .addItem(newItem(R.drawable.bottom_equity, R.drawable.bottom_equity_selector, CoreUtils.getString(this, R.string.Equity)))
+                .addItem(newItem(R.drawable.bottom_private, R.drawable.bottom_private_selector, CoreUtils.getString(this, R.string.Private)))
+                .addItem(newItem(R.drawable.bottom_dynamic, R.drawable.bottom_dynamic_selector, CoreUtils.getString(this, R.string.Dynamic)))
+                .addItem(newItem(R.drawable.bottom_my, R.drawable.bottom_my_selector, CoreUtils.getString(this, R.string.My)))
                 .build();
         List<Fragment> fragments = new ArrayList<>();
         fragments.add(HomeFragment.newInstance());
@@ -138,6 +140,14 @@ public class HomeActivity extends BaseActivity<HomePresenter> implements HomeCon
 
             }
         });
+    }
+
+    private BaseTabItem newItem(int drawable, int checkedDrawable, String text) {
+        NormalItemView normalItemView = new NormalItemView(this);
+        normalItemView.initialize(drawable, checkedDrawable, text);
+        normalItemView.setTextDefaultColor(0xFF878EA3);
+        normalItemView.setTextCheckedColor(0xFF3F56DC);
+        return normalItemView;
     }
 
     @Override
