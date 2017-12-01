@@ -17,10 +17,10 @@
     <com.recorder.widget.AutoPageNavigationView
         android:id="@+id/navigation"
         android:layout_width="0dp"
-        android:layout_height="@dimen/dimen_150px"
+        android:layout_height="50dp"
         android:background="@color/white"
-        app:NavigationPaddingBottom="-9px"
-        app:NavigationPaddingTop="-9px"
+        app:NavigationPaddingBottom="-3dp"
+        app:NavigationPaddingTop="-3dp"
         app:layout_constraintBottom_toBottomOf="parent" />
 
     <com.recorder.widget.AutoViewPager
