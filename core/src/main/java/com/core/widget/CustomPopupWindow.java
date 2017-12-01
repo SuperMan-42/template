@@ -1,13 +1,17 @@
 package com.core.widget;
 
+import android.app.Activity;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.view.ContextThemeWrapper;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.PopupWindow;
+
+import com.core.utils.AnimUtil;
 
 public class CustomPopupWindow extends PopupWindow {
     private View mContentView;
@@ -19,6 +23,8 @@ public class CustomPopupWindow extends PopupWindow {
     private int mAnimationStyle;
     private boolean isWrap;
     private static CustomPopupWindow window;
+    private float bgAlpha = 1f;
+    private boolean bright = false;
 
     private CustomPopupWindow(Builder builder) {
         this.mContentView = builder.contentView;
@@ -76,6 +82,13 @@ public class CustomPopupWindow extends PopupWindow {
         } else {
             showAtLocation(mParentView, Gravity.CENTER | Gravity.CENTER_HORIZONTAL, 0, 0);
         }
+    }
+
+    public void show(Activity activity) {//默认显示到中间
+        show();
+        AnimUtil animUtil = new AnimUtil();
+        toggleBright(activity, animUtil);
+        setOnDismissListener(() -> toggleBright(activity, animUtil));
     }
 
     public static final class Builder {
@@ -150,5 +163,30 @@ public class CustomPopupWindow extends PopupWindow {
 
     public interface CustomPopupWindowListener {
         void initPopupView(View contentView);
+    }
+
+    private void toggleBright(Activity activity, AnimUtil animUtil) {
+        //三个参数分别为： 起始值 结束值 时长  那么整个动画回调过来的值就是从0.5f--1f的
+        animUtil.setValueAnimator(0.5f, 1f, 350);
+        animUtil.addUpdateListener(progress -> {
+            //此处系统会根据上述三个值，计算每次回调的值是多少，我们根据这个值来改变透明度
+            bgAlpha = bright ? progress : (1.5f - progress);//三目运算，应该挺好懂的。
+            backgroundAlpha(activity, bgAlpha);//在此处改变背景，这样就不用通过Handler去刷新了。
+        });
+        animUtil.addEndListner(animator -> {
+            //在一次动画结束的时候，翻转状态
+            bright = !bright;
+        });
+        animUtil.startAnimator();
+    }
+
+    /***
+     * 此方法用于改变背景的透明度，从而达到“变暗”的效果
+     */
+    private void backgroundAlpha(Activity activity, float bgAlpha) {
+        WindowManager.LayoutParams lp = activity.getWindow().getAttributes();
+        lp.alpha = bgAlpha; //0.0-1.0
+        activity.getWindow().setAttributes(lp);
+        activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
     }
 }

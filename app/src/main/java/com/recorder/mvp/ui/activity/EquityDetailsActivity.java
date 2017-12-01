@@ -2,7 +2,7 @@ package com.recorder.mvp.ui.activity;
 
 import android.content.Intent;
 import android.graphics.Color;
-import android.net.Uri;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -29,6 +29,7 @@ import com.core.base.BaseActivity;
 import com.core.di.component.AppComponent;
 import com.core.utils.Constants;
 import com.core.utils.CoreUtils;
+import com.core.widget.CustomPopupWindow;
 import com.core.widget.autolayout.AutoScrollView;
 import com.core.widget.autolayout.AutoToolbar;
 import com.core.widget.recyclerview.BaseQuickAdapter;
@@ -67,6 +68,8 @@ public class EquityDetailsActivity extends BaseActivity<EquityDetailsPresenter> 
     String dealId;
     DealDetailBean.DataEntity dataEntity;
 
+    @BindView(R.id.ll_bottom)
+    View llBottom;
     @BindView(R.id.scrollview)
     AutoScrollView scrollview;
     @BindView(R.id.im_bg)
@@ -221,9 +224,19 @@ public class EquityDetailsActivity extends BaseActivity<EquityDetailsPresenter> 
         CoreUtils.snackbarText(message);
         switch (message) {
             case "统计电话联系数成功":
-                String phone = "15383465913";
-                Intent myIntentDial = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + phone));
-                startActivity(myIntentDial);
+                CustomPopupWindow.builder().contentView(CoreUtils.inflate(this, R.layout.detail_bottom))
+                        .animationStyle(R.style.popwindow_anim_buttom_style)
+                        .isOutsideTouch(true)
+                        .backgroundDrawable(new BitmapDrawable())
+                        .customListener(contentView -> {
+                            DealDetailBean.DataEntity.ManagerEntity manager = dataEntity.getManager();
+                            CoreUtils.imgLoader(this, "http://ww4.sinaimg.cn/large/006uZZy8jw1faic1xjab4j30ci08cjrv.jpg", contentView.findViewById(R.id.im_avatar));
+                            ((TextView) contentView.findViewById(R.id.tv_manager_name)).setText(manager.getManager_name());
+                            ((TextView) contentView.findViewById(R.id.tv_position)).setText(manager.getPosition());
+                            ((TextView) contentView.findViewById(R.id.tv_mobile)).setText(manager.getMobile());
+                            ((TextView) contentView.findViewById(R.id.tv_weixin)).setText(manager.getWechat());
+                            ((TextView) contentView.findViewById(R.id.tv_email)).setText(manager.getEmail());
+                        }).build().show(this);
                 break;
             case "项目取消关注成功":
                 dataEntity.setIs_follow("0");
@@ -429,6 +442,8 @@ public class EquityDetailsActivity extends BaseActivity<EquityDetailsPresenter> 
             llIsShowVideo.setOnClickListener(view -> ARouter.getInstance().build("/app/VideoActivity").withString("vid", dataEntity.getVideo().getVideo_id())
                     .withString("auth", dataEntity.getVideo().getPlay_auth()).navigation());
         }
+
+        llBottom.setVisibility(View.VISIBLE);
     }
 
     private void dynamic(List<DealDetailBean.DataEntity.GrowthEntity> mGrowths) {
@@ -501,7 +516,7 @@ public class EquityDetailsActivity extends BaseActivity<EquityDetailsPresenter> 
             this.alpha = alpha;
             toolbar.getBackground().setAlpha((int) (alpha * 255));
             viewToolbar.getBackground().setAlpha((int) (alpha * 255));
-            if (t >= CoreUtils.dip2px(this, 148)) {
+            if (t >= CoreUtils.dip2px(this, 151) - CoreUtils.getDimens(this, R.dimen.status_bar)) {
                 title(dataEntity.getDeal_name());
                 tvDealName.setVisibility(View.INVISIBLE);
             } else {
@@ -525,7 +540,7 @@ public class EquityDetailsActivity extends BaseActivity<EquityDetailsPresenter> 
                 } else {
                     imRight.setImageResource(R.drawable.collection_icon_white);
                 }
-                imLeft.setImageResource(R.drawable.back_icon_white);
+                imLeft.setImageResource(R.drawable.title_back);
                 imRight.setImageResource(R.drawable.collection_icon_white);
                 toolbarTitle.setTextColor(Color.argb((int) (((alpha - 0.5) * 2) * 255), 0, 0, 0));
                 imLeft.setImageAlpha((int) (((alpha - 0.5) * 2) * 255));

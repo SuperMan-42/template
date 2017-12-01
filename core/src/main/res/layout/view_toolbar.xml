@@ -61,7 +61,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:src="@drawable/title_fliter" />
+                android:src="@drawable/title_right" />
 
         </RelativeLayout>
     </LinearLayout>

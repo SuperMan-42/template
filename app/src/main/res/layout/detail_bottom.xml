@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <com.core.widget.autolayout.AutoConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="552px"
+        android:layout_alignParentBottom="true"
+        android:background="@color/white">
+
+        <ImageView
+            android:id="@+id/im_avatar"
+            android:layout_width="300px"
+            android:layout_height="270px"
+            android:layout_marginBottom="150px"
+            android:layout_marginLeft="63px"
+            android:layout_marginTop="120px"
+            android:src="@drawable/ic_detail_pop"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_manager_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="39px"
+            android:textColor="#262626"
+            android:textSize="45px"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toRightOf="@id/im_avatar"
+            app:layout_constraintTop_toTopOf="@id/im_avatar"
+            tools:text="董必政" />
+
+        <TextView
+            android:id="@+id/tv_position"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="9px"
+            android:textColor="#787878"
+            android:textSize="42px"
+            app:layout_constraintLeft_toRightOf="@id/tv_manager_name"
+            app:layout_constraintTop_toTopOf="@id/im_avatar"
+            tools:text="高级合伙人" />
+
+        <TextView
+            android:id="@+id/tv_mobile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15px"
+            android:textColor="#262626"
+            android:textSize="42px"
+            app:layout_constraintLeft_toLeftOf="@id/tv_manager_name"
+            app:layout_constraintTop_toBottomOf="@id/tv_manager_name"
+            tools:text="电话: 18511885858" />
+
+        <TextView
+            android:id="@+id/tv_weixin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15px"
+            android:textColor="#262626"
+            android:textSize="42px"
+            app:layout_constraintLeft_toLeftOf="@id/tv_mobile"
+            app:layout_constraintTop_toBottomOf="@id/tv_mobile"
+            tools:text="微信: bizhengd" />
+
+        <TextView
+            android:id="@+id/tv_email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15px"
+            android:textColor="#262626"
+            android:textSize="42px"
+            app:layout_constraintLeft_toLeftOf="@id/tv_weixin"
+            app:layout_constraintTop_toBottomOf="@id/tv_weixin"
+            tools:text="邮箱: dongbizheng@dreamfly.com" />
+
+    </com.core.widget.autolayout.AutoConstraintLayout>
+</RelativeLayout>

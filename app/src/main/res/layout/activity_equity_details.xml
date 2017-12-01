@@ -64,7 +64,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/im_bg"
                 android:background="@color/white"
-                android:drawableLeft="@drawable/im_login_phone"
+                android:drawableLeft="@drawable/ic_labels"
                 android:drawablePadding="15px"
                 android:paddingBottom="21px"
                 android:paddingLeft="36px"
@@ -105,10 +105,10 @@
                     android:layout_height="18px"
                     android:layout_marginTop="15px"
                     android:background="#00000000"
-                    app:finishColor="#4D57B6"
-                    app:loadingColor="#4D57B6"
+                    app:finishColor="#F7CE4D"
+                    app:loadingColor="#F7CE4D"
                     app:radius="15px"
-                    app:stopColor="#4D57B6"
+                    app:stopColor="#F7CE4D"
                     app:textSize="0px" />
             </LinearLayout>
 
@@ -687,6 +687,7 @@
         android:layout_height="147px"
         android:layout_alignParentBottom="true"
         android:orientation="horizontal"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent">
 
         <LinearLayout
@@ -700,7 +701,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:drawablePadding="12px"
-                android:drawableTop="@drawable/im_login_phone"
+                android:drawableTop="@drawable/ic_pdf"
                 android:text="商业计划书"
                 android:textColor="#333333"
                 android:textSize="33px" />
@@ -728,7 +729,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:drawableLeft="@drawable/im_login_phone"
+                android:drawableLeft="@drawable/ic_consultation"
+                android:gravity="center"
                 android:text="立即咨询"
                 android:textColor="@color/white"
                 android:textSize="45px" />
@@ -746,8 +748,9 @@
                 android:id="@+id/tv_buy_content"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:drawableLeft="@drawable/im_login_phone"
+                android:drawableLeft="@drawable/ic_buy"
                 android:drawablePadding="12px"
+                android:gravity="center"
                 android:text="我要认购"
                 android:textColor="@color/white"
                 android:textSize="45px" />

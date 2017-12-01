@@ -11,6 +11,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
@@ -61,6 +62,8 @@ public class HomeActivity extends BaseActivity<HomePresenter> implements HomeCon
     AutoViewPager viewPager;
     @BindView(R.id.toolbar_left)
     View back;
+    @BindView(R.id.im_left)
+    ImageView imLeft;
     @BindView(R.id.toolbar_right)
     View search;
     @BindView(R.id.recyclerview)
@@ -93,6 +96,7 @@ public class HomeActivity extends BaseActivity<HomePresenter> implements HomeCon
 
     @Override
     public void initView(Bundle savedInstanceState) {
+        imLeft.setImageResource(R.drawable.title_fliter);
         initHome();
         mPresenter.dealFilter();
     }

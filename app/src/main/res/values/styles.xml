@@ -75,4 +75,9 @@
         <!--相册文件夹列表选中图标-->
         <item name="picture.folder_checked_dot">@drawable/orange_oval</item>
     </style>
+
+    <style name="popwindow_anim_buttom_style">
+        <item name="android:windowEnterAnimation">@anim/buttom_in</item>
+        <item name="android:windowExitAnimation">@anim/buttom_out</item>
+    </style>
 </resources>
