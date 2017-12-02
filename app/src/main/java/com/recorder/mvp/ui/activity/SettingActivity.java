@@ -1,25 +1,45 @@
 package com.recorder.mvp.ui.activity;
 
 import android.content.Intent;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.text.TextUtils;
+import android.view.View;
+import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.core.base.BaseActivity;
 import com.core.di.component.AppComponent;
+import com.core.integration.cache.BCache;
+import com.core.utils.Constants;
 import com.core.utils.CoreUtils;
-
+import com.core.utils.DeviceUtils;
+import com.core.widget.CustomPopupWindow;
+import com.recorder.R;
 import com.recorder.di.component.DaggerSettingComponent;
 import com.recorder.di.module.SettingModule;
 import com.recorder.mvp.contract.SettingContract;
 import com.recorder.mvp.presenter.SettingPresenter;
+import com.recorder.utils.FileUtils;
 
-import com.recorder.R;
+import org.simple.eventbus.EventBus;
+
+import butterknife.BindView;
+import butterknife.OnClick;
 
 import static com.core.utils.Preconditions.checkNotNull;
 
 @Route(path = "/app/SettingActivity")
 public class SettingActivity extends BaseActivity<SettingPresenter> implements SettingContract.View {
+
+    @BindView(R.id.tv_version)
+    TextView tvVersion;
+    @BindView(R.id.tv_cache)
+    TextView tvCache;
+    @BindView(R.id.tv_login_out)
+    TextView tvLoginOut;
 
     @Override
     public void setupActivityComponent(AppComponent appComponent) {
@@ -38,7 +58,10 @@ public class SettingActivity extends BaseActivity<SettingPresenter> implements S
 
     @Override
     public void initView(Bundle savedInstanceState) {
-
+        title("设置");
+        tvVersion.setText("昊翔V" + DeviceUtils.getVersionName(this));
+        tvCache.setText("缓存大小" + FileUtils.getFileAllSize(Constants.SDCARD_PATH) / 1048576 + "M");
+        tvLoginOut.setVisibility(TextUtils.isEmpty(BCache.getInstance().getString(Constants.TOKEN)) ? View.GONE : View.VISIBLE);
     }
 
     @Override
@@ -66,5 +89,56 @@ public class SettingActivity extends BaseActivity<SettingPresenter> implements S
     @Override
     public void killMyself() {
         finish();
+    }
+
+    @OnClick({R.id.rl_1, R.id.rl_2, R.id.rl_3, R.id.tv_login_out})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.rl_1:
+                CustomPopupWindow.builder().contentView(CoreUtils.inflate(this, R.layout.view_setting_bottom))
+                        .animationStyle(R.style.popwindow_anim_buttom_style)
+                        .isOutsideTouch(true)
+                        .backgroundDrawable(new BitmapDrawable())
+                        .customListener(contentView -> {
+                            ((TextView) contentView.findViewById(R.id.tv_title)).setText("是否清除缓存");
+                            TextView button = contentView.findViewById(R.id.tv_button);
+                            button.setText("清除");
+                            button.setOnClickListener(view12 -> {
+                                FileUtils.cleanCustomCache(Constants.SDCARD_PATH);
+                                FileUtils.cleanExternalCache(this);
+                                FileUtils.cleanInternalDbs(this);
+                                FileUtils.cleanInternalFiles(this);
+                                FileUtils.cleanInternalSP(this);
+                                tvCache.setText("缓存大小" + FileUtils.getFileAllSize(Constants.SDCARD_PATH) / 1048576 + "M");
+                                CustomPopupWindow.killMySelf();
+                            });
+                            contentView.findViewById(R.id.tv_cancel).setOnClickListener(view1 -> CustomPopupWindow.killMySelf());
+                        }).build().show(this);
+                break;
+            case R.id.rl_2:
+                break;
+            case R.id.rl_3:
+                ARouter.getInstance().build("/app/ServiceCenterActivity").navigation();
+                break;
+            case R.id.tv_login_out:
+                CustomPopupWindow.builder().contentView(CoreUtils.inflate(this, R.layout.view_setting_bottom))
+                        .animationStyle(R.style.popwindow_anim_buttom_style)
+                        .isOutsideTouch(true)
+                        .backgroundDrawable(new BitmapDrawable())
+                        .customListener(contentView -> {
+                            ((TextView) contentView.findViewById(R.id.tv_title)).setText("是否退出登录");
+                            TextView button = contentView.findViewById(R.id.tv_button);
+                            button.setText("退出登录");
+                            button.setOnClickListener(view12 -> {
+                                BCache.getInstance().remove(Constants.TOKEN);
+                                BCache.getInstance().remove(Constants.LOGIN_INFO);
+                                BCache.getInstance().remove(Constants.USER_INFO);
+                                EventBus.getDefault().post(null, "loginactivity");
+                                CustomPopupWindow.killMySelf();
+                            });
+                            contentView.findViewById(R.id.tv_cancel).setOnClickListener(view1 -> CustomPopupWindow.killMySelf());
+                        }).build().show(this);
+                break;
+        }
     }
 }

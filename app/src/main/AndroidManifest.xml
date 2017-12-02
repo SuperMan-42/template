@@ -113,6 +113,9 @@
             android:name=".mvp.ui.activity.DealRecommendActivity"
             android:theme="@style/CoreAppTheme.Transparent"
             android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".mvp.ui.activity.ServiceCenterActivity"
+            android:theme="@style/CoreAppTheme.Transparent" />
     </application>
 
 </manifest>

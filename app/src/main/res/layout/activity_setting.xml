@@ -13,15 +13,16 @@
         android:layout_width="255px"
         android:layout_height="255px"
         android:layout_marginTop="150px"
-        android:src="@drawable/bga_textview_blue" />
+        android:src="@drawable/ic_setting_logo" />
 
     <TextView
+        android:id="@+id/tv_version"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="33px"
-        android:text="昊翔V1.0"
-        android:textColor="#24338A"
-        android:textSize="42px" />
+        android:textColor="#333333"
+        android:textSize="42px"
+        tools:text="昊翔V1.0" />
 
     <RelativeLayout
         android:id="@+id/rl_1"
@@ -41,12 +42,13 @@
             android:textSize="45px" />
 
         <TextView
+            android:id="@+id/tv_cache"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:drawablePadding="39px"
-            android:drawableRight="@drawable/im_login_phone"
+            android:drawableRight="@drawable/ic_person_right"
             android:textColor="#999999"
             android:textSize="42px"
             tools:text="eddie0730" />
@@ -79,7 +81,7 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:drawablePadding="39px"
-            android:drawableRight="@drawable/im_login_phone"
+            android:drawableRight="@drawable/ic_person_right"
             android:textColor="#999999"
             android:textSize="42px"
             tools:text="" />
@@ -112,7 +114,7 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:drawablePadding="39px"
-            android:drawableRight="@drawable/im_login_phone"
+            android:drawableRight="@drawable/ic_person_right"
             android:textColor="#999999"
             android:textSize="42px"
             tools:text="" />
@@ -120,12 +122,13 @@
     </RelativeLayout>
 
     <TextView
+        android:id="@+id/tv_login_out"
         android:layout_width="match_parent"
         android:layout_height="132px"
         android:layout_marginTop="120px"
         android:background="@color/white"
         android:gravity="center"
         android:text="退出登录"
-        android:textColor="#24338a"
+        android:textColor="#3F56DC"
         android:textSize="45px" />
 </LinearLayout>
