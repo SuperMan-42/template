@@ -21,6 +21,7 @@ import com.recorder.R;
 import com.recorder.di.component.DaggerSettingComponent;
 import com.recorder.di.module.SettingModule;
 import com.recorder.mvp.contract.SettingContract;
+import com.recorder.mvp.model.entity.LoginBean;
 import com.recorder.mvp.presenter.SettingPresenter;
 import com.recorder.utils.FileUtils;
 
@@ -133,7 +134,7 @@ public class SettingActivity extends BaseActivity<SettingPresenter> implements S
                                 BCache.getInstance().remove(Constants.TOKEN);
                                 BCache.getInstance().remove(Constants.LOGIN_INFO);
                                 BCache.getInstance().remove(Constants.USER_INFO);
-                                EventBus.getDefault().post(null, "loginactivity");
+                                EventBus.getDefault().post(new LoginBean(), "loginout");
                                 CustomPopupWindow.killMySelf();
                             });
                             contentView.findViewById(R.id.tv_cancel).setOnClickListener(view1 -> CustomPopupWindow.killMySelf());

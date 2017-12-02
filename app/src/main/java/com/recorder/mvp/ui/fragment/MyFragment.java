@@ -165,8 +165,19 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
     }
 
     @Subscriber(tag = "loginactivity")
-    private void equityfragment(LoginBean loginBean) {
+    private void loginactivity(LoginBean loginBean) {
         mPresenter.userInfo();
+    }
+
+    @Subscriber(tag = "loginout")
+    private void loginout(LoginBean loginBean) {
+        tvUserName.setText("您还没登录哦");
+        CoreUtils.imgLoaderCircle(getContext(), R.drawable.ic_person, RequestOptions.errorOf(R.drawable.ic_person), profileImage);
+        tvLogin.setVisibility(View.VISIBLE);
+        tvAuthType.setVisibility(View.GONE);
+        tvMyInvestment.setText("0");
+        tvFollowCount.setText("0");
+        tvPostInvestment.setText("0");
     }
 
     @OnClick({R.id.tv_login, R.id.profile_image, R.id.ll_investment, R.id.ll_attention, R.id.ll_manager})
