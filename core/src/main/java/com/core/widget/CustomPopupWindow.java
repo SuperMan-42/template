@@ -167,15 +167,18 @@ public class CustomPopupWindow extends PopupWindow {
 
     private void toggleBright(Activity activity, AnimUtil animUtil) {
         //三个参数分别为： 起始值 结束值 时长  那么整个动画回调过来的值就是从0.5f--1f的
-        animUtil.setValueAnimator(0.5f, 1f, 350);
+        animUtil.setValueAnimator(0.4f, 1f, 300);
         animUtil.addUpdateListener(progress -> {
             //此处系统会根据上述三个值，计算每次回调的值是多少，我们根据这个值来改变透明度
-            bgAlpha = bright ? progress : (1.5f - progress);//三目运算，应该挺好懂的。
+            bgAlpha = bright ? progress : (1.4f - progress);//三目运算，应该挺好懂的。
             backgroundAlpha(activity, bgAlpha);//在此处改变背景，这样就不用通过Handler去刷新了。
         });
         animUtil.addEndListner(animator -> {
             //在一次动画结束的时候，翻转状态
             bright = !bright;
+            if (!bright && bgAlpha == 1) {
+                activity.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_BLUR_BEHIND | WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+            }
         });
         animUtil.startAnimator();
     }
@@ -187,6 +190,6 @@ public class CustomPopupWindow extends PopupWindow {
         WindowManager.LayoutParams lp = activity.getWindow().getAttributes();
         lp.alpha = bgAlpha; //0.0-1.0
         activity.getWindow().setAttributes(lp);
-        activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+        activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_BLUR_BEHIND | WindowManager.LayoutParams.FLAG_DIM_BEHIND);
     }
 }
