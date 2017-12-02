@@ -120,7 +120,7 @@ public class SearchActivity extends BaseActivity<SearchPresenter> implements Sea
                     holder.setVisible(R.id.ll_view_footer, false);
                 }
                 holder.itemView.setOnClickListener(view1 -> ARouter.getInstance().build("/app/EquityDetailsActivity")
-                        .withBoolean(Constants.IS_EQUITY, isEquity).withString(Constants.DEAL_ID, item.getDealID()).withBoolean(Constants.IS_GROUP, item.getIs_group().equals("1")).navigation());
+                        .withBoolean(Constants.IS_EQUITY, isEquity).withString(Constants.DEAL_ID, item.getDealID()).navigation());
             }
         }, false);
     }

@@ -13,6 +13,7 @@ import com.alibaba.android.arouter.launcher.ARouter;
 import com.core.base.BaseFragment;
 import com.core.di.component.AppComponent;
 import com.core.http.imageloader.ImageLoader;
+import com.core.utils.Constants;
 import com.core.utils.CoreUtils;
 import com.core.widget.recyclerview.BaseQuickAdapter;
 import com.core.widget.recyclerview.BaseViewHolder;
@@ -142,7 +143,9 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
                         .setText(R.id.tv_tag, item instanceof HomeRecommendBean.DataEntity.ZcEntity ? "众筹" : "私募");
                 AutoProgressBar progressBar = holder.getView(R.id.numberProgressBar);
                 progressBar.setProgress(item.getProgress());
-                holder.itemView.setOnClickListener(view1 -> ARouter.getInstance().build("/app/LoginActivity").navigation());
+                holder.itemView.setOnClickListener(view1 -> ARouter.getInstance().build("/app/EquityDetailsActivity")
+                        .withBoolean(Constants.IS_EQUITY, item instanceof HomeRecommendBean.DataEntity.ZcEntity)
+                        .withString(Constants.DEAL_ID, item.getDealID()).navigation());
             }
         }, false);
         recyclerView.addHeaderView(view);

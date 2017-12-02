@@ -75,13 +75,14 @@ public class PersonActivity extends BaseActivity<PersonPresenter> implements Per
     @Override
     public void initView(Bundle savedInstanceState) {
         title("个人资料");
+        userInfoBean = new Gson().fromJson(BCache.getInstance().getString(Constants.USER_INFO), UserInfoBean.class).getData();
+        CoreUtils.imgLoaderCircle(this, userInfoBean.getAvatar(), RequestOptions.errorOf(R.drawable.ic_person), imAvatar);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         userInfoBean = new Gson().fromJson(BCache.getInstance().getString(Constants.USER_INFO), UserInfoBean.class).getData();
-        CoreUtils.imgLoaderCircle(this, userInfoBean.getAvatar(), RequestOptions.errorOf(R.drawable.ic_person), imAvatar);
         tvUserName.setText(userInfoBean.getUser_name());
         tvIntro.setText(userInfoBean.getIntro());
         tvMobile.setText(userInfoBean.getMobile());
@@ -166,7 +167,7 @@ public class PersonActivity extends BaseActivity<PersonPresenter> implements Per
                     builder.addFormDataPart("images", file.getName(), imageBody);//imgfile 后台接收图片流的参数名
                     List<MultipartBody.Part> parts = builder.build().parts();
 //                    RequestBody typeBody = RequestBody.create(MediaType.parse("text/plain"), "2");
-                    mPresenter.imageUpload(parts);
+                    mPresenter.imageUpload(parts, file.getPath());
                     break;
             }
         }

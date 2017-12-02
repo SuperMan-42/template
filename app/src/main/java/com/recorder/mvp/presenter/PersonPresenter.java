@@ -15,6 +15,8 @@ import com.recorder.R;
 import com.recorder.mvp.contract.PersonContract;
 import com.recorder.mvp.model.entity.UserInfoBean;
 
+import org.simple.eventbus.EventBus;
+
 import java.util.List;
 
 import javax.inject.Inject;
@@ -51,14 +53,15 @@ public class PersonPresenter extends BasePresenter<PersonContract.Model, PersonC
         this.mApplication = null;
     }
 
-    public void imageUpload(List<MultipartBody.Part> images) {
+    public void imageUpload(List<MultipartBody.Part> images, String path) {
         mModel.imageUpload(images)
                 .compose(RxLifecycleUtils.transformer(mRootView))
                 .observeOn(Schedulers.io())
                 .flatMap(imageUploadBean -> {
                     Gson gson = new Gson();
                     UserInfoBean userInfoBean = gson.fromJson(BCache.getInstance().getString(Constants.USER_INFO), UserInfoBean.class);
-                    userInfoBean.getData().setAvatar(imageUploadBean.getData().getImages().get(0));
+                    EventBus.getDefault().post(path, "person_avatar");
+                    userInfoBean.getData().setAvatar(path);
                     BCache.getInstance().put(Constants.USER_INFO, gson.toJson(userInfoBean));
                     return mModel.userModify("avatar", null, null, null, null, null, imageUploadBean.getData().getImages().get(0));
                 })

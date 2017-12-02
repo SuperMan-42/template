@@ -62,8 +62,6 @@ import static com.core.utils.Preconditions.checkNotNull;
 public class EquityDetailsActivity extends BaseActivity<EquityDetailsPresenter> implements EquityDetailsContract.View {
     @Autowired(name = Constants.IS_EQUITY)
     boolean isEquity;
-    @Autowired(name = Constants.IS_GROUP)
-    boolean isGroup;
     @Autowired(name = Constants.DEAL_ID)
     String dealId;
     DealDetailBean.DataEntity dataEntity;
@@ -341,7 +339,7 @@ public class EquityDetailsActivity extends BaseActivity<EquityDetailsPresenter> 
             }
         }
         //以下应该只分组合非组合的情况 无众筹私募的区分
-        tv1.setText(isGroup ? "项目亮点" : "项目介绍");
+        tv1.setText(dataEntity.getIs_group().equals("1") ? "项目亮点" : "项目介绍");
         tvIntro.setText(dataEntity.getIntro());
         LinearLayoutManager teamManager = new LinearLayoutManager(this) {
             @Override
@@ -371,14 +369,14 @@ public class EquityDetailsActivity extends BaseActivity<EquityDetailsPresenter> 
             dynamic(dataEntity.getGrowth());
         }
         //行业概况(非组合)
-        if (isGroup) {
+        if (dataEntity.getIs_group().equals("1")) {
             llIsShowOverview.setVisibility(View.GONE);
         } else {
             llIsShowOverview.setVisibility(View.VISIBLE);
             tvOverview.setText(dataEntity.getOverview());
         }
         //融资历史(非组合)
-        if (isGroup) {
+        if (dataEntity.getIs_group().equals("1")) {
             llIsShowFinanceHistory.setVisibility(View.GONE);
         } else {
             llIsShowFinanceHistory.setVisibility(View.VISIBLE);
@@ -414,7 +412,7 @@ public class EquityDetailsActivity extends BaseActivity<EquityDetailsPresenter> 
         }, false);
         rvQa.getRecyclerView().addItemDecoration(dividerItemDecoration);
         //投资文件(非组合)
-        if (isGroup) {
+        if (dataEntity.getIs_group().equals("1")) {
             llIsShowPublicFiles.setVisibility(View.GONE);
         } else {
             llIsShowPublicFiles.setVisibility(View.VISIBLE);

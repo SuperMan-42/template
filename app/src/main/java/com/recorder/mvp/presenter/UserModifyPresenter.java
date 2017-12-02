@@ -15,6 +15,8 @@ import com.recorder.R;
 import com.recorder.mvp.contract.UserModifyContract;
 import com.recorder.mvp.model.entity.UserInfoBean;
 
+import org.simple.eventbus.EventBus;
+
 import javax.inject.Inject;
 
 import me.jessyan.rxerrorhandler.core.RxErrorHandler;
@@ -58,6 +60,7 @@ public class UserModifyPresenter extends BasePresenter<UserModifyContract.Model,
                         switch (field) {
                             case "user_name":
                                 userInfoBean.getData().setUser_name(user_name);
+                                EventBus.getDefault().post(user_name, "person_name");
                                 break;
                             case "intro":
                                 userInfoBean.getData().setIntro(intro);

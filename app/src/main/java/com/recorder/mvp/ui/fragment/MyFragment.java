@@ -180,6 +180,16 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
         tvPostInvestment.setText("0");
     }
 
+    @Subscriber(tag = "person_avatar")
+    private void avatar(String avatar) {
+        CoreUtils.imgLoaderCircle(getContext(), avatar, RequestOptions.errorOf(R.drawable.ic_person), profileImage);
+    }
+
+    @Subscriber(tag = "person_name")
+    private void name(String name) {
+        tvUserName.setText(name);
+    }
+
     @OnClick({R.id.tv_login, R.id.profile_image, R.id.ll_investment, R.id.ll_attention, R.id.ll_manager})
     public void onViewClicked(View view) {
         switch (view.getId()) {
