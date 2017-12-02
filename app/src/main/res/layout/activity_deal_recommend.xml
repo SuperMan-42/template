@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#F0F2F5"
+    android:orientation="vertical"
+    android:paddingBottom="72px">
+
+    <include layout="@layout/view_toolbar" />
+
+    <com.core.widget.autolayout.AutoScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fadingEdge="none"
+        android:overScrollMode="never"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/et_deal_name"
+                android:layout_width="match_parent"
+                android:layout_height="132px"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:hint="项目名称"
+                android:paddingLeft="45px"
+                android:paddingRight="45px"
+                android:textColorHint="#999999"
+                android:textSize="45px" />
+
+            <View style="@style/divider" />
+
+            <EditText
+                android:id="@+id/et_industry"
+                android:layout_width="match_parent"
+                android:layout_height="132px"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:hint="行业类型"
+                android:paddingLeft="45px"
+                android:paddingRight="45px"
+                android:textColorHint="#999999"
+                android:textSize="45px" />
+
+            <View style="@style/divider" />
+
+            <EditText
+                android:id="@+id/et_requirement"
+                android:layout_width="match_parent"
+                android:layout_height="132px"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:hint="融资需求"
+                android:paddingLeft="45px"
+                android:paddingRight="45px"
+                android:textColorHint="#999999"
+                android:textSize="45px" />
+
+            <View style="@style/divider" />
+
+            <EditText
+                android:id="@+id/et_contact"
+                android:layout_width="match_parent"
+                android:layout_height="132px"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:hint="联系人"
+                android:paddingLeft="45px"
+                android:paddingRight="45px"
+                android:textColorHint="#999999"
+                android:textSize="45px" />
+
+            <View style="@style/divider" />
+
+            <EditText
+                android:id="@+id/et_phone"
+                android:layout_width="match_parent"
+                android:layout_height="132px"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:hint="电话/微信"
+                android:paddingLeft="45px"
+                android:paddingRight="45px"
+                android:textColorHint="#999999"
+                android:textSize="45px" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="132px"
+                android:gravity="center_vertical"
+                android:paddingLeft="45px"
+                android:paddingRight="45px"
+                android:text="主营业务"
+                android:textColor="#333333"
+                android:textSize="45px" />
+
+            <EditText
+                android:id="@+id/et_business"
+                android:layout_width="match_parent"
+                android:layout_height="300px"
+                android:background="@color/white"
+                android:gravity="center_vertical|top"
+                android:hint="简单描述(不超过100字)"
+                android:paddingLeft="45px"
+                android:paddingRight="45px"
+                android:paddingTop="24px"
+                android:textColorHint="#999999"
+                android:textSize="45px" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="132px"
+                android:gravity="center_vertical"
+                android:paddingLeft="45px"
+                android:paddingRight="45px"
+                android:text="核心团队"
+                android:textColor="#333333"
+                android:textSize="45px" />
+
+            <EditText
+                android:id="@+id/et_team"
+                android:layout_width="match_parent"
+                android:layout_height="300px"
+                android:background="@color/white"
+                android:gravity="center_vertical|top"
+                android:hint="简单描述(不超过100字)"
+                android:paddingLeft="45px"
+                android:paddingRight="45px"
+                android:paddingTop="24px"
+                android:textColorHint="#999999"
+                android:textSize="45px" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="81px"
+                android:layout_marginTop="51px"
+                android:gravity="center_vertical"
+                android:text="更多项目推荐信息请联系伯乐投官方渠道"
+                android:textColor="#666666"
+                android:textSize="42px" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="81px"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:text="客服电话: "
+                    android:textColor="#666666"
+                    android:textSize="42px" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:text="@string/recommend_phone"
+                    android:textColor="#303BD3"
+                    android:textSize="42px" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="81px"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:text="商务&amp;媒体合作邮箱: "
+                    android:textColor="#666666"
+                    android:textSize="42px" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:text="@string/recommend_email"
+                    android:textColor="#303BD3"
+                    android:textSize="42px" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_do"
+                android:layout_width="match_parent"
+                android:layout_height="120px"
+                android:layout_marginBottom="72px"
+                android:layout_marginLeft="45px"
+                android:layout_marginRight="45px"
+                android:layout_marginTop="120px"
+                android:background="@drawable/bga_button"
+                android:gravity="center"
+                android:text="确定"
+                android:textColor="@color/white"
+                android:textSize="45px" />
+        </LinearLayout>
+    </com.core.widget.autolayout.AutoScrollView>
+</LinearLayout>

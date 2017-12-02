@@ -109,6 +109,10 @@
         <activity
             android:name=".mvp.ui.activity.VideoActivity"
             android:theme="@style/CoreAppTheme.Transparent" />
+        <activity
+            android:name=".mvp.ui.activity.DealRecommendActivity"
+            android:theme="@style/CoreAppTheme.Transparent"
+            android:windowSoftInputMode="adjustResize" />
     </application>
 
 </manifest>

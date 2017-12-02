@@ -107,5 +107,13 @@ public interface ApiService {
     Observable<Object> dealFollow(@Header("DIVERSION-VERSION") String version, @Field("dealID") String dealID);
 
     @GET("user/followlist")
-    Observable<UserFollowListBean> userFollowlist(@Header("DIVERSION-VERSION") String version, @Query("page") String page, @Query("page_size") String page_size);
+    Observable<UserFollowListBean> userFollowlist(@Header("DIVERSION-VERSION") String version, @Query("page") String page,
+                                                  @Query("page_size") String page_size);
+
+    @FormUrlEncoded
+    @POST("deal/recommend")
+    Observable<Object> dealRecommend(@Header("DIVERSION-VERSION") String version, @Field("deal_name") String deal_name,
+                                     @Field("industry") String industry, @Field("requirement") String requirement,
+                                     @Field("contact") String contact, @Field("phone") String phone,
+                                     @Field("business") String business, @Field("team") String team);
 }

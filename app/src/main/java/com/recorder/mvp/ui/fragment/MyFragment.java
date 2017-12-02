@@ -84,7 +84,7 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
         list.add(new Bean<>(R.drawable.ic_news, "我的消息", "/app/SettingActivity"));
         list.add(new Bean<>(R.drawable.ic_help, "投资帮助", "/app/SettingActivity"));
         list.add(new Bean<>(R.drawable.ic_setting, "设置", "/app/SettingActivity"));
-        list.add(new Bean<>(R.drawable.ic_project, "推荐项目", "/app/SettingActivity"));
+        list.add(new Bean<>(R.drawable.ic_project, "推荐项目", "/app/DealRecommendActivity"));
         list.add(new Bean<>(R.drawable.ic_recommend, "推荐给朋友", "/app/SettingActivity"));
         list.add(new Bean<>(R.drawable.ic_auth, "投资人认证", "/app/SettingActivity"));
         GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 3) {

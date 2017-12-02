@@ -27,4 +27,7 @@
     <string name="text_download">文件下载成功</string>
     <string name="text_bp_no">暂无可预览的商业计划书</string>
     <string name="imgs_count">%1$s图</string>
+    <string name="recommend_phone">400-000-8888</string>
+    <string name="recommend_email">boletou@haoxiangcom</string>
+    <string name="text_deal_recommend">项目推荐成功</string>
 </resources>
