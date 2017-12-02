@@ -23,7 +23,6 @@ import io.reactivex.schedulers.Schedulers;
 import me.jessyan.rxerrorhandler.core.RxErrorHandler;
 import me.jessyan.rxerrorhandler.handler.ErrorHandleSubscriber;
 import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
 
 @ActivityScope
 public class PersonPresenter extends BasePresenter<PersonContract.Model, PersonContract.View> {
@@ -52,8 +51,8 @@ public class PersonPresenter extends BasePresenter<PersonContract.Model, PersonC
         this.mApplication = null;
     }
 
-    public void imageUpload(RequestBody type, List<MultipartBody.Part> images) {
-        mModel.imageUpload(type, images)
+    public void imageUpload(List<MultipartBody.Part> images) {
+        mModel.imageUpload(images)
                 .compose(RxLifecycleUtils.transformer(mRootView))
                 .observeOn(Schedulers.io())
                 .flatMap(imageUploadBean -> {

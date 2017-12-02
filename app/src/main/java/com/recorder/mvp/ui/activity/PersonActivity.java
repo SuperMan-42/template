@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.bumptech.glide.request.RequestOptions;
 import com.core.base.BaseActivity;
 import com.core.di.component.AppComponent;
 import com.core.integration.cache.BCache;
@@ -74,14 +75,13 @@ public class PersonActivity extends BaseActivity<PersonPresenter> implements Per
     @Override
     public void initView(Bundle savedInstanceState) {
         title("个人资料");
-        CoreUtils.imgLoaderCircle(this, "http://bpic.588ku.com/element_origin_min_pic/00/00/05/115732f19cc0079.jpg", imAvatar);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         userInfoBean = new Gson().fromJson(BCache.getInstance().getString(Constants.USER_INFO), UserInfoBean.class).getData();
-//        CoreUtils.imgLoaderCircle(this, "http://bpic.588ku.com/element_origin_min_pic/00/00/05/115732f19cc0079.jpg", imAvatar);
+        CoreUtils.imgLoaderCircle(this, userInfoBean.getAvatar(), RequestOptions.errorOf(R.drawable.ic_person), imAvatar);
         tvUserName.setText(userInfoBean.getUser_name());
         tvIntro.setText(userInfoBean.getIntro());
         tvMobile.setText(userInfoBean.getMobile());
@@ -165,8 +165,8 @@ public class PersonActivity extends BaseActivity<PersonPresenter> implements Per
                     RequestBody imageBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
                     builder.addFormDataPart("images", file.getName(), imageBody);//imgfile 后台接收图片流的参数名
                     List<MultipartBody.Part> parts = builder.build().parts();
-                    RequestBody typeBody = RequestBody.create(MediaType.parse("text/plain"), "2");
-                    mPresenter.imageUpload(typeBody, parts);
+//                    RequestBody typeBody = RequestBody.create(MediaType.parse("text/plain"), "2");
+                    mPresenter.imageUpload(parts);
                     break;
             }
         }

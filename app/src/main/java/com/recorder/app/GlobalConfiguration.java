@@ -119,9 +119,10 @@ public class GlobalConfiguration implements ConfigModule {
                                 RequestBody requestBody;
                                 Buffer buffer = new Buffer();
                                 if (request.body() instanceof MultipartBody) {
-                                    requestBody = ((MultipartBody) request.body()).parts().get(0).body();
-                                    requestBody.writeTo(buffer);
-                                    content = "type=" + URLDecoder.decode(buffer.readUtf8(), "utf-8");
+//                                    requestBody = ((MultipartBody) request.body()).parts().get(0).body();
+//                                    requestBody.writeTo(buffer);
+//                                    content = "type=" + URLDecoder.decode(buffer.readUtf8(), "utf-8");
+                                    content = "";
                                 } else {
                                     requestBody = request.body();
                                     requestBody.writeTo(buffer);

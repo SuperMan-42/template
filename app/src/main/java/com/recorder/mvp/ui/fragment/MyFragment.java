@@ -205,7 +205,7 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
     public void showUserInfo(ImageLoader imageLoader, UserInfoBean userInfoBean) {
         BCache.getInstance().put(Constants.USER_INFO, new Gson().toJson(userInfoBean));
         tvLogin.setVisibility(View.GONE);
-        CoreUtils.imgLoaderCircle(getContext(), "http://bpic.588ku.com/element_origin_min_pic/00/00/05/115732f19cc0079.jpg", RequestOptions.errorOf(R.drawable.ic_person), profileImage);
+        CoreUtils.imgLoaderCircle(getContext(), userInfoBean.getData().getAvatar(), RequestOptions.errorOf(R.drawable.ic_person), profileImage);
         tvUserName.setText(userInfoBean.getData().getUser_name());
         switch (userInfoBean.getData().getAuth_type()) {
             case "0":

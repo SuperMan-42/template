@@ -38,8 +38,8 @@ public class PersonModel extends BaseModel implements PersonContract.Model {
     }
 
     @Override
-    public Observable<ImageUploadBean> imageUpload(RequestBody type, List<MultipartBody.Part> images) {
-        return mRepositoryManager.obtainRetrofitService(ApiService.class).imageUpload("1", type, images);
+    public Observable<ImageUploadBean> imageUpload(List<MultipartBody.Part> images) {
+        return mRepositoryManager.obtainRetrofitService(ApiService.class).imageUpload("1", images);
     }
 
     @Override
