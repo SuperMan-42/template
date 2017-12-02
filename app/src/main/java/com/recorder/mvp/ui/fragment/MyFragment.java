@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.GridLayoutManager;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,8 +28,11 @@ import com.recorder.di.component.DaggerMyComponent;
 import com.recorder.di.module.MyModule;
 import com.recorder.mvp.contract.MyContract;
 import com.recorder.mvp.model.entity.Bean;
+import com.recorder.mvp.model.entity.LoginBean;
 import com.recorder.mvp.model.entity.UserInfoBean;
 import com.recorder.mvp.presenter.MyPresenter;
+
+import org.simple.eventbus.Subscriber;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,6 +60,8 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
     TextView tvPostInvestment;
     @BindView(R.id.tv_auth_type)
     TextView tvAuthType;
+    @BindView(R.id.tv_login)
+    TextView tvLogin;
 
     public static MyFragment newInstance() {
         MyFragment fragment = new MyFragment();
@@ -79,7 +85,13 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
 
     @Override
     public void initData(Bundle savedInstanceState) {
-        mPresenter.userInfo();
+        if (TextUtils.isEmpty(BCache.getInstance().getString(Constants.TOKEN))) {
+            tvUserName.setText("您还没登录哦");
+            profileImage.setVisibility(View.VISIBLE);
+            tvLogin.setVisibility(View.VISIBLE);
+        } else {
+            mPresenter.userInfo();
+        }
         List<Bean> list = new ArrayList<>();
         list.add(new Bean<>(R.drawable.ic_news, "我的消息", "/app/SettingActivity"));
         list.add(new Bean<>(R.drawable.ic_help, "投资帮助", "/app/SettingActivity"));
@@ -152,9 +164,17 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
 
     }
 
-    @OnClick({R.id.profile_image, R.id.ll_investment, R.id.ll_attention, R.id.ll_manager})
+    @Subscriber(tag = "loginactivity")
+    private void equityfragment(LoginBean loginBean) {
+        mPresenter.userInfo();
+    }
+
+    @OnClick({R.id.tv_login, R.id.profile_image, R.id.ll_investment, R.id.ll_attention, R.id.ll_manager})
     public void onViewClicked(View view) {
         switch (view.getId()) {
+            case R.id.tv_login:
+                ARouter.getInstance().build("/app/LoginActivity").navigation();
+                break;
             case R.id.profile_image:
                 ARouter.getInstance().build("/app/PersonActivity").navigation();
                 break;
@@ -173,8 +193,24 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
     @Override
     public void showUserInfo(ImageLoader imageLoader, UserInfoBean userInfoBean) {
         BCache.getInstance().put(Constants.USER_INFO, new Gson().toJson(userInfoBean));
+        tvLogin.setVisibility(View.GONE);
         CoreUtils.imgLoaderCircle(getContext(), "http://bpic.588ku.com/element_origin_min_pic/00/00/05/115732f19cc0079.jpg", RequestOptions.errorOf(R.drawable.ic_person), profileImage);
         tvUserName.setText(userInfoBean.getData().getUser_name());
+        switch (userInfoBean.getData().getAuth_type()) {
+            case "0":
+                tvAuthType.setText("未认证");
+                break;
+            case "1":
+                tvAuthType.setText("众筹认证");
+                break;
+            case "2":
+                tvAuthType.setText("合格认证");
+                break;
+            case "3":
+                tvAuthType.setText("机构认证");
+                break;
+        }
+        tvAuthType.setVisibility(View.VISIBLE);
         tvMyInvestment.setText(userInfoBean.getData().getMy_investment());
         tvFollowCount.setText(userInfoBean.getData().getMy_follow_count());
         tvPostInvestment.setText(userInfoBean.getData().getPost_investment());

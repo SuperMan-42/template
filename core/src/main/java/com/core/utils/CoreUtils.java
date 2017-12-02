@@ -513,5 +513,6 @@ public class CoreUtils {
 
     public static void imgLoaderCircle(Context context, Object o, RequestOptions requestOptions, ImageView image) {
         Glide.with(context).load(o).apply(requestOptions).into(image);
+        image.setVisibility(View.VISIBLE);
     }
 }

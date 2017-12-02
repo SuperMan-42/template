@@ -1,10 +1,12 @@
 package com.recorder.mvp.model.entity;
 
+import java.io.Serializable;
+
 /**
  * Created by hpw on 17-11-23.
  */
 
-public class LoginBean {
+public class LoginBean implements Serializable {
 
     /**
      * errno : 0

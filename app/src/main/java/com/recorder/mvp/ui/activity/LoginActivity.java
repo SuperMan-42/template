@@ -20,6 +20,8 @@ import com.recorder.mvp.contract.LoginContract;
 import com.recorder.mvp.model.entity.LoginBean;
 import com.recorder.mvp.presenter.LoginPresenter;
 
+import org.simple.eventbus.EventBus;
+
 import butterknife.BindView;
 import butterknife.OnClick;
 
@@ -116,6 +118,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
     @Override
     public void showLoginSuccess(LoginBean loginBean) {
         CoreUtils.snackbarText("登录成功");
+        EventBus.getDefault().post(loginBean, "loginactivity");
         finish();
     }
 }
