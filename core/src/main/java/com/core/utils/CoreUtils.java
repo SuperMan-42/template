@@ -233,6 +233,15 @@ public class CoreUtils {
         AppManager.post(message);
     }
 
+    public static void showEmpty(int what, int img, int text, String button) {
+        Message message = new Message();
+        message.what = what;
+        message.arg1 = img;
+        message.arg2 = text;
+        message.obj = button;
+        AppManager.post(message);
+    }
+
     /**
      * 使用 {@link Snackbar} 长时间显示文本消息
      *

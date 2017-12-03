@@ -43,6 +43,10 @@ public class EquityFragment extends BaseFragment<EquityPresenter> implements Equ
         return fragment;
     }
 
+    public CoreRecyclerView getRecyclerView(){
+        return recyclerView;
+    }
+
     @Override
     public void setupFragmentComponent(AppComponent appComponent) {
         DaggerEquityComponent //如找不到该类,请编译一下项目

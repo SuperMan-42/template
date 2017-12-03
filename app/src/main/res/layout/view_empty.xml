@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F0F2F5"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/im_empty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:src="@drawable/ic_no_net" />
+
+    <TextView
+        android:id="@+id/tv_empty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60px"
+        android:textColor="#999999"
+        android:textSize="45px"
+        tools:text="网络出问题了" />
+
+    <Button
+        android:id="@+id/bt_empty"
+        android:layout_width="match_parent"
+        android:layout_height="120px"
+        android:layout_marginLeft="171px"
+        android:layout_marginRight="171px"
+        android:layout_marginTop="111px"
+        android:background="@drawable/bga_round_empty"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:textSize="45px"
+        tools:text="重新连接" />
+</LinearLayout>

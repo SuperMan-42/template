@@ -758,4 +758,11 @@
     </LinearLayout>
 
     <include layout="@layout/view_toolbar_alpha" />
+
+    <include
+        android:id="@+id/view_empty"
+        layout="@layout/view_empty"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone" />
 </RelativeLayout>

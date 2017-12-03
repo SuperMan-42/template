@@ -13,6 +13,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.core.base.AdapterViewPager;
@@ -58,6 +59,9 @@ import static com.core.utils.Preconditions.checkNotNull;
 
 @Route(path = "/app/HomeActivity")
 public class HomeActivity extends BaseActivity<HomePresenter> implements HomeContract.View {
+    @Autowired(name = Constants.HOME_INDEX)
+    int index = 0;
+
     @BindView(R.id.navigation)
     AutoPageNavigationView navigation;
     @BindView(R.id.viewPager)
@@ -133,6 +137,9 @@ public class HomeActivity extends BaseActivity<HomePresenter> implements HomeCon
                 CoreUtils.obtainRxCache(getApplicationContext()).remove("isClear");
                 title(viewPager.getAdapter().getPageTitle(viewPager.getCurrentItem()));
                 findViewById(R.id.toolbar).setVisibility(index == 4 ? View.GONE : View.VISIBLE);
+                if (index == 4) {
+                    findViewById(R.id.view_empty).setVisibility(View.GONE);
+                }
             }
 
             @Override
@@ -140,6 +147,7 @@ public class HomeActivity extends BaseActivity<HomePresenter> implements HomeCon
 
             }
         });
+        mNavigationController.setSelect(index);
     }
 
     private BaseTabItem newItem(int drawable, int checkedDrawable, String text) {

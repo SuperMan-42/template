@@ -13,4 +13,9 @@ public class Constants {
     public static final String DEAL_ID = "deal_id";
     public static final String PDF_HTTP = "pdf_http";
     public static final String PDF_NAME = "pdf_name";
+    public static final String HOME_INDEX = "home_index";
+    public static final int NO_DATA = 0;
+    public static final int NO_NET = 1;
+    public static final int NO_LOGIN = 2;
+    public static final int NO_AUTH = 3;
 }
