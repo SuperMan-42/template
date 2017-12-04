@@ -54,7 +54,7 @@ public class MyAttentionActivity extends BaseActivity<MyAttentionPresenter> impl
         mPresenter.userFollowlist(null, null);
     }
 
-    @Subscriber(tag = Constants.RETRY_WHEN_LOGIN_OR_AUTH)
+    @Subscriber(tag = Constants.RETRY_MYATTENTION)
     private void retry(LoginBean loginBean) {
         findViewById(R.id.view_empty).setVisibility(View.GONE);
         mPresenter.userFollowlist(null, null);

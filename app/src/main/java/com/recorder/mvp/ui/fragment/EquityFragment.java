@@ -68,9 +68,9 @@ public class EquityFragment extends BaseFragment<EquityPresenter> implements Equ
         mPresenter.dealList("1", null, null, null, null, null);
     }
 
-    @Subscriber(tag = Constants.RETRY_WHEN_LOGIN_OR_AUTH)
+    @Subscriber(tag = Constants.RETRY_FRAGMENT)
     private void retry(LoginBean loginBean) {
-        getView().findViewById(R.id.view_empty).setVisibility(View.GONE);
+        getActivity().findViewById(R.id.view_empty).setVisibility(View.GONE);
         mPresenter.dealList("1", null, null, null, null, null);
     }
 

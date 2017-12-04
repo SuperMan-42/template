@@ -277,7 +277,21 @@ public class GlobalConfiguration implements ConfigModule {
                                 ((TextView) currentActivity.findViewById(R.id.tv_empty)).setText(CoreUtils.getString(currentActivity, msg.arg2));
                                 button.setVisibility(View.VISIBLE);
                                 button.setText((CharSequence) msg.obj);
-                                button.setOnClickListener(view -> ARouter.getInstance().build("/app/LoginActivity").navigation());
+                                button.setOnClickListener(view -> {
+                                    String retry = "";
+                                    if (currentActivity instanceof HomeActivity) {
+                                        retry = Constants.RETRY_FRAGMENT;
+                                    } else if (currentActivity instanceof SearchActivity) {
+                                        retry = Constants.RETRY_SEARCH;
+                                    } else if (currentActivity instanceof MyAttentionActivity) {
+                                        retry = Constants.RETRY_MYATTENTION;
+                                    } else if (currentActivity instanceof MyInvestmentActivity) {
+                                        retry = Constants.RETRY_MYINVESTMENT;
+                                    } else if (currentActivity instanceof BackStageManagerActivity) {
+                                        retry = Constants.RETRY_BACKSTAGEMANAGER;
+                                    }
+                                    ARouter.getInstance().build("/app/LoginActivity").withString(Constants.RETRY_WHEN_LOGIN_OR_AUTH, retry).navigation();
+                                });
                                 break;
                             case Constants.NO_AUTH:
                                 currentActivity.findViewById(R.id.im_empty).setBackgroundResource(msg.arg1);
@@ -287,7 +301,11 @@ public class GlobalConfiguration implements ConfigModule {
                                 button.setOnClickListener(view -> ARouter.getInstance().build("/app/AuthActivity").navigation());
                                 break;
                             case Constants.NO_DATA:
-                                if (currentActivity instanceof SearchActivity) {
+                                if (currentActivity instanceof HomeActivity) {
+                                    button.setVisibility(View.GONE);
+                                    currentActivity.findViewById(R.id.im_empty).setBackgroundResource(R.drawable.ic_list_empty);
+                                    ((TextView) currentActivity.findViewById(R.id.tv_empty)).setText(CoreUtils.getString(context, R.string.empty_list_empty));
+                                } else if (currentActivity instanceof SearchActivity) {
                                     button.setVisibility(View.GONE);
                                     currentActivity.findViewById(R.id.im_empty).setBackgroundResource(R.drawable.ic_search_emtpy);
                                     ((TextView) currentActivity.findViewById(R.id.tv_empty)).setText(CoreUtils.getString(activity, R.string.ic_search_emtpy));
@@ -349,41 +367,6 @@ public class GlobalConfiguration implements ConfigModule {
                 // https://developer.android.com/reference/android/app/Fragment.html?hl=zh-cn#setRetainInstance(boolean)
                 // 在 Activity 中绑定少量的 Fragment 建议这样做,如果需要绑定较多的 Fragment 不建议设置此参数,如 ViewPager 需要展示较多 Fragment
                 f.setRetainInstance(true);
-                CoreUtils.obtainAppComponentFromContext(context).appManager().setHandleListener((appManager, msg) -> {
-                    try {
-                        f.getView().findViewById(R.id.view_empty).setVisibility(View.VISIBLE);
-                        Button button = f.getView().findViewById(R.id.bt_empty);
-                        switch (msg.what) {
-                            case Constants.NO_NET:
-                                f.getView().findViewById(R.id.im_empty).setBackgroundResource(msg.arg1);
-                                ((TextView) f.getView().findViewById(R.id.tv_empty)).setText(CoreUtils.getString(context, msg.arg2));
-                                button.setVisibility(View.VISIBLE);
-                                button.setText("重新连接");
-                                break;
-                            case Constants.NO_LOGIN:
-                                f.getView().findViewById(R.id.im_empty).setBackgroundResource(msg.arg1);
-                                ((TextView) f.getView().findViewById(R.id.tv_empty)).setText(CoreUtils.getString(context, msg.arg2));
-                                button.setVisibility(View.VISIBLE);
-                                button.setText((CharSequence) msg.obj);
-                                button.setOnClickListener(view -> ARouter.getInstance().build("/app/LoginActivity").navigation());
-                                break;
-                            case Constants.NO_AUTH:
-                                f.getView().findViewById(R.id.im_empty).setBackgroundResource(msg.arg1);
-                                ((TextView) f.getView().findViewById(R.id.tv_empty)).setText(CoreUtils.getString(context, msg.arg2));
-                                button.setVisibility(View.VISIBLE);
-                                button.setText((CharSequence) msg.obj);
-                                button.setOnClickListener(view -> ARouter.getInstance().build("/app/AuthActivity").navigation());
-                                break;
-                            case Constants.NO_DATA:
-                                button.setVisibility(View.GONE);
-                                f.getView().findViewById(R.id.im_empty).setBackgroundResource(R.drawable.ic_list_empty);
-                                ((TextView) f.getView().findViewById(R.id.tv_empty)).setText(CoreUtils.getString(context, R.string.empty_list_empty));
-                                break;
-                        }
-                    } catch (Exception e) {
-                        Logger.d("Fragment设置空状态页面异常" + e.getMessage());
-                    }
-                });
             }
 
             @Override

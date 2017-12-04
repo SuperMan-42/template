@@ -164,7 +164,7 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
 
     }
 
-    @Subscriber(tag = Constants.RETRY_WHEN_LOGIN_OR_AUTH)
+    @Subscriber(tag = Constants.RETRY_MY)
     private void retry(LoginBean loginBean) {
         mPresenter.userInfo();
     }
@@ -194,7 +194,7 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_login:
-                ARouter.getInstance().build("/app/LoginActivity").navigation();
+                ARouter.getInstance().build("/app/LoginActivity").withString(Constants.RETRY_WHEN_LOGIN_OR_AUTH, Constants.RETRY_MY).navigation();
                 break;
             case R.id.profile_image:
                 ARouter.getInstance().build("/app/PersonActivity").navigation();

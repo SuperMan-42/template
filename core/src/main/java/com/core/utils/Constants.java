@@ -19,4 +19,10 @@ public class Constants {
     public static final int NO_LOGIN = 2;
     public static final int NO_AUTH = 3;
     public static final String RETRY_WHEN_LOGIN_OR_AUTH = "retry_when_login_or_auth";
+    public static final String RETRY_BACKSTAGEMANAGER = "retry_backstagemanager";
+    public static final String RETRY_MYINVESTMENT = "retry_myinvestment";
+    public static final String RETRY_FRAGMENT = "retry_fragment";
+    public static final String RETRY_MY = "retry_my";
+    public static final String RETRY_SEARCH = "retry_search";
+    public static final String RETRY_MYATTENTION = "retry_myattention";
 }

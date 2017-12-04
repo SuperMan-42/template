@@ -62,6 +62,7 @@ public class SearchActivity extends BaseActivity<SearchPresenter> implements Sea
 //        setStatusBarColor(Color.parseColor("#F9F9F9"), 0);
         etInput.setOnEditorActionListener((textView, actionId, keyEvent) -> {
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                findViewById(R.id.view_empty).setVisibility(View.GONE);
                 mPresenter.dealList(isEquity ? "1" : "2", null, null, etInput.getText().toString(), null, null);
                 CoreUtils.hideSoftInput(etInput);
                 return true;
@@ -70,7 +71,7 @@ public class SearchActivity extends BaseActivity<SearchPresenter> implements Sea
         });
     }
 
-    @Subscriber(tag = Constants.RETRY_WHEN_LOGIN_OR_AUTH)
+    @Subscriber(tag = Constants.RETRY_SEARCH)
     private void retry(LoginBean loginBean) {
         findViewById(R.id.view_empty).setVisibility(View.GONE);
         mPresenter.dealList(isEquity ? "1" : "2", null, null, etInput.getText().toString(), null, null);

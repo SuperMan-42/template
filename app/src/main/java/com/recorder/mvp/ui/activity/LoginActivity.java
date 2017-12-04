@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.EditText;
 
+import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.core.base.BaseActivity;
@@ -30,6 +31,8 @@ import static com.core.utils.Preconditions.checkNotNull;
 
 @Route(path = "/app/LoginActivity")
 public class LoginActivity extends BaseActivity<LoginPresenter> implements LoginContract.View {
+    @Autowired(name = Constants.RETRY_WHEN_LOGIN_OR_AUTH)
+    String retry;
 
     @BindView(R.id.et_phone)
     EditText etPhone;
@@ -59,7 +62,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
 
     @Override
     public void initView(Bundle savedInstanceState) {
-
+        ARouter.getInstance().inject(this);
     }
 
     @Override
@@ -119,7 +122,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
     @Override
     public void showLoginSuccess(LoginBean loginBean) {
         CoreUtils.snackbarText("登录成功");
+        EventBus.getDefault().post(loginBean, retry);
         killMyself();
-        EventBus.getDefault().post(loginBean, Constants.RETRY_WHEN_LOGIN_OR_AUTH);
     }
 }

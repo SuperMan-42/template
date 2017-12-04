@@ -44,7 +44,7 @@ public class BackStageManagerActivity extends BaseActivity<BackStageManagerPrese
 
     }
 
-    @Subscriber(tag = Constants.RETRY_WHEN_LOGIN_OR_AUTH)
+    @Subscriber(tag = Constants.RETRY_BACKSTAGEMANAGER)
     private void retry(LoginBean loginBean) {
         findViewById(R.id.view_empty).setVisibility(View.GONE);
     }

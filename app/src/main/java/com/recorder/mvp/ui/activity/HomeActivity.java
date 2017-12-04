@@ -74,6 +74,8 @@ public class HomeActivity extends BaseActivity<HomePresenter> implements HomeCon
     CoreRecyclerView recyclerView;
     @BindView(R.id.ll_filter)
     View llFilter;
+    @BindView(R.id.view_empty)
+    View viewEmpty;
 
     private List<String> lablesList = new ArrayList<>();
     private List<String> lablesNameList = new ArrayList<>();
@@ -135,11 +137,15 @@ public class HomeActivity extends BaseActivity<HomePresenter> implements HomeCon
         mNavigationController.addTabItemSelectedListener(new OnTabItemSelectedListener() {
             @Override
             public void onSelected(int index, int old) {
+                viewEmpty.setVisibility(View.GONE);
                 search.setVisibility(index == 1 || index == 2 ? View.VISIBLE : View.INVISIBLE);
                 back.setVisibility(index == 1 || index == 2 ? View.VISIBLE : View.INVISIBLE);
                 CoreUtils.obtainRxCache(getApplicationContext()).remove("isClear");
                 title(viewPager.getAdapter().getPageTitle(viewPager.getCurrentItem()));
                 findViewById(R.id.toolbar).setVisibility(index == 4 ? View.GONE : View.VISIBLE);
+                if (index == 4) {
+                    findViewById(R.id.view_empty).setVisibility(View.GONE);
+                }
             }
 
             @Override

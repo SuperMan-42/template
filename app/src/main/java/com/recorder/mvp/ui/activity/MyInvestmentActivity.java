@@ -6,7 +6,6 @@ import android.support.annotation.NonNull;
 import android.view.View;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
-import com.alibaba.android.arouter.launcher.ARouter;
 import com.core.base.BaseActivity;
 import com.core.di.component.AppComponent;
 import com.core.utils.Constants;
@@ -73,13 +72,12 @@ public class MyInvestmentActivity extends BaseActivity<MyInvestmentPresenter> im
             @Override
             protected void convert(BaseViewHolder holder, String item) {
                 CoreUtils.imgLoader(MyInvestmentActivity.this, item, holder.getView(R.id.im_cover));
-                holder.itemView.setOnClickListener(view1 -> ARouter.getInstance().build("/app/LoginActivity").navigation());
             }
         }, false);
         recyclerView.getRecyclerView().addItemDecoration(new SpacesItemDecoration(0, 36));
     }
 
-    @Subscriber(tag = Constants.RETRY_WHEN_LOGIN_OR_AUTH)
+    @Subscriber(tag = Constants.RETRY_MYINVESTMENT)
     private void retry(LoginBean loginBean) {
         findViewById(R.id.view_empty).setVisibility(View.GONE);
     }
