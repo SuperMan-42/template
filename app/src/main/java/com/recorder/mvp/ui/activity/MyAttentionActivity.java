@@ -3,6 +3,7 @@ package com.recorder.mvp.ui.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.view.View;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
@@ -17,8 +18,11 @@ import com.recorder.R;
 import com.recorder.di.component.DaggerMyAttentionComponent;
 import com.recorder.di.module.MyAttentionModule;
 import com.recorder.mvp.contract.MyAttentionContract;
+import com.recorder.mvp.model.entity.LoginBean;
 import com.recorder.mvp.model.entity.UserFollowListBean;
 import com.recorder.mvp.presenter.MyAttentionPresenter;
+
+import org.simple.eventbus.Subscriber;
 
 import butterknife.BindView;
 
@@ -47,6 +51,12 @@ public class MyAttentionActivity extends BaseActivity<MyAttentionPresenter> impl
     @Override
     public void initView(Bundle savedInstanceState) {
         title("我的关注");
+        mPresenter.userFollowlist(null, null);
+    }
+
+    @Subscriber(tag = Constants.RETRY_WHEN_LOGIN_OR_AUTH)
+    private void retry(LoginBean loginBean) {
+        findViewById(R.id.view_empty).setVisibility(View.GONE);
         mPresenter.userFollowlist(null, null);
     }
 

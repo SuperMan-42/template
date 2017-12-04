@@ -164,8 +164,8 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
 
     }
 
-    @Subscriber(tag = "loginactivity")
-    private void loginactivity(LoginBean loginBean) {
+    @Subscriber(tag = Constants.RETRY_WHEN_LOGIN_OR_AUTH)
+    private void retry(LoginBean loginBean) {
         mPresenter.userInfo();
     }
 

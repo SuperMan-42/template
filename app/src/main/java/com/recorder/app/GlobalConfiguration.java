@@ -45,6 +45,7 @@ import com.squareup.leakcanary.RefWatcher;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.simple.eventbus.EventBus;
 
 import java.net.URLDecoder;
 import java.util.Arrays;
@@ -175,7 +176,6 @@ public class GlobalConfiguration implements ConfigModule {
                 })
                 .responseErrorListener((context1, t) -> {
                     if (t instanceof CompositeException && isConnection) {
-                        Logger.d("=============>" + ((CompositeException) t).getExceptions().toString());
                         if (((CompositeException) t).getExceptions().toString().contains("RxCacheException")) {
                             CoreUtils.showEmpty(Constants.NO_NET, R.drawable.ic_no_net, R.string.empty_no_net, "重新连接");
                         }
@@ -260,60 +260,48 @@ public class GlobalConfiguration implements ConfigModule {
                     activity.findViewById(R.id.toolbar_left).setOnClickListener(v -> activity.onBackPressed());
                 }
 
-                CoreUtils.obtainAppComponentFromContext(activity).appManager().setHandleListener((appManager, msg) -> {
+                CoreUtils.obtainAppComponentFromContext(context).appManager().setHandleListener((appManager, msg) -> {
                     try {
-                        Button button = activity.findViewById(R.id.bt_empty);
+                        Activity currentActivity = appManager.getCurrentActivity();
+                        currentActivity.findViewById(R.id.view_empty).setVisibility(View.VISIBLE);
+                        Button button = currentActivity.findViewById(R.id.bt_empty);
                         switch (msg.what) {
                             case Constants.NO_NET:
-                                activity.findViewById(R.id.im_empty).setBackgroundResource(msg.arg1);
-                                ((TextView) activity.findViewById(R.id.tv_empty)).setText(CoreUtils.getString(activity, msg.arg2));
+                                currentActivity.findViewById(R.id.im_empty).setBackgroundResource(msg.arg1);
+                                ((TextView) currentActivity.findViewById(R.id.tv_empty)).setText(CoreUtils.getString(currentActivity, msg.arg2));
                                 button.setVisibility(View.VISIBLE);
                                 button.setText("重新连接");
-                                activity.findViewById(R.id.view_empty).setVisibility(View.VISIBLE);
                                 break;
                             case Constants.NO_LOGIN:
-                                activity.findViewById(R.id.im_empty).setBackgroundResource(msg.arg1);
-                                ((TextView) activity.findViewById(R.id.tv_empty)).setText(CoreUtils.getString(activity, msg.arg2));
+                                currentActivity.findViewById(R.id.im_empty).setBackgroundResource(msg.arg1);
+                                ((TextView) currentActivity.findViewById(R.id.tv_empty)).setText(CoreUtils.getString(currentActivity, msg.arg2));
                                 button.setVisibility(View.VISIBLE);
                                 button.setText((CharSequence) msg.obj);
-                                button.setOnClickListener(view -> {
-                                    activity.findViewById(R.id.view_empty).setVisibility(View.GONE);
-                                    ARouter.getInstance().build("/app/LoginActivity").navigation();
-                                });
-                                activity.findViewById(R.id.view_empty).setVisibility(View.VISIBLE);
+                                button.setOnClickListener(view -> ARouter.getInstance().build("/app/LoginActivity").navigation());
                                 break;
                             case Constants.NO_AUTH:
-                                activity.findViewById(R.id.im_empty).setBackgroundResource(msg.arg1);
-                                ((TextView) activity.findViewById(R.id.tv_empty)).setText(CoreUtils.getString(activity, msg.arg2));
+                                currentActivity.findViewById(R.id.im_empty).setBackgroundResource(msg.arg1);
+                                ((TextView) currentActivity.findViewById(R.id.tv_empty)).setText(CoreUtils.getString(currentActivity, msg.arg2));
                                 button.setVisibility(View.VISIBLE);
                                 button.setText((CharSequence) msg.obj);
-                                button.setOnClickListener(view -> {
-                                    activity.findViewById(R.id.view_empty).setVisibility(View.GONE);
-                                    ARouter.getInstance().build("/app/AuthActivity").navigation();
-                                });
-                                activity.findViewById(R.id.view_empty).setVisibility(View.VISIBLE);
+                                button.setOnClickListener(view -> ARouter.getInstance().build("/app/AuthActivity").navigation());
                                 break;
                             case Constants.NO_DATA:
-                                if (activity instanceof HomeActivity) {
+                                if (currentActivity instanceof SearchActivity) {
                                     button.setVisibility(View.GONE);
-                                    activity.findViewById(R.id.im_empty).setBackgroundResource(R.drawable.ic_list_empty);
-                                    ((TextView) activity.findViewById(R.id.tv_empty)).setText(CoreUtils.getString(activity, R.string.empty_list_empty));
-                                } else if (activity instanceof SearchActivity) {
-                                    button.setVisibility(View.GONE);
-                                    activity.findViewById(R.id.im_empty).setBackgroundResource(R.drawable.ic_search_emtpy);
-                                    ((TextView) activity.findViewById(R.id.tv_empty)).setText(CoreUtils.getString(activity, R.string.ic_search_emtpy));
-                                } else if (activity instanceof MyInvestmentActivity) {
-                                    setEmpty(activity, button, R.drawable.ic_investment_empty, R.string.ic_investment_empty);
-                                } else if (activity instanceof MyAttentionActivity) {
-                                    setEmpty(activity, button, R.drawable.ic_attention_emtyp, R.string.ic_attention_emtyp);
-                                } else if (activity instanceof BackStageManagerActivity) {
-                                    setEmpty(activity, button, R.drawable.ic_manager_empty, R.string.ic_manager_empty);
+                                    currentActivity.findViewById(R.id.im_empty).setBackgroundResource(R.drawable.ic_search_emtpy);
+                                    ((TextView) currentActivity.findViewById(R.id.tv_empty)).setText(CoreUtils.getString(activity, R.string.ic_search_emtpy));
+                                } else if (currentActivity instanceof MyInvestmentActivity) {
+                                    setEmpty(currentActivity, button, R.drawable.ic_investment_empty, R.string.ic_investment_empty);
+                                } else if (currentActivity instanceof MyAttentionActivity) {
+                                    setEmpty(currentActivity, button, R.drawable.ic_attention_emtyp, R.string.ic_attention_emtyp);
+                                } else if (currentActivity instanceof BackStageManagerActivity) {
+                                    setEmpty(currentActivity, button, R.drawable.ic_manager_empty, R.string.ic_manager_empty);
                                 }
-                                activity.findViewById(R.id.view_empty).setVisibility(View.VISIBLE);
                                 break;
                         }
                     } catch (Exception e) {
-                        Logger.d("设置空状态页面异常" + e.getMessage());
+                        Logger.d("Activity设置空状态页面异常" + e.getMessage());
                     }
                 });
             }
@@ -361,6 +349,41 @@ public class GlobalConfiguration implements ConfigModule {
                 // https://developer.android.com/reference/android/app/Fragment.html?hl=zh-cn#setRetainInstance(boolean)
                 // 在 Activity 中绑定少量的 Fragment 建议这样做,如果需要绑定较多的 Fragment 不建议设置此参数,如 ViewPager 需要展示较多 Fragment
                 f.setRetainInstance(true);
+                CoreUtils.obtainAppComponentFromContext(context).appManager().setHandleListener((appManager, msg) -> {
+                    try {
+                        f.getView().findViewById(R.id.view_empty).setVisibility(View.VISIBLE);
+                        Button button = f.getView().findViewById(R.id.bt_empty);
+                        switch (msg.what) {
+                            case Constants.NO_NET:
+                                f.getView().findViewById(R.id.im_empty).setBackgroundResource(msg.arg1);
+                                ((TextView) f.getView().findViewById(R.id.tv_empty)).setText(CoreUtils.getString(context, msg.arg2));
+                                button.setVisibility(View.VISIBLE);
+                                button.setText("重新连接");
+                                break;
+                            case Constants.NO_LOGIN:
+                                f.getView().findViewById(R.id.im_empty).setBackgroundResource(msg.arg1);
+                                ((TextView) f.getView().findViewById(R.id.tv_empty)).setText(CoreUtils.getString(context, msg.arg2));
+                                button.setVisibility(View.VISIBLE);
+                                button.setText((CharSequence) msg.obj);
+                                button.setOnClickListener(view -> ARouter.getInstance().build("/app/LoginActivity").navigation());
+                                break;
+                            case Constants.NO_AUTH:
+                                f.getView().findViewById(R.id.im_empty).setBackgroundResource(msg.arg1);
+                                ((TextView) f.getView().findViewById(R.id.tv_empty)).setText(CoreUtils.getString(context, msg.arg2));
+                                button.setVisibility(View.VISIBLE);
+                                button.setText((CharSequence) msg.obj);
+                                button.setOnClickListener(view -> ARouter.getInstance().build("/app/AuthActivity").navigation());
+                                break;
+                            case Constants.NO_DATA:
+                                button.setVisibility(View.GONE);
+                                f.getView().findViewById(R.id.im_empty).setBackgroundResource(R.drawable.ic_list_empty);
+                                ((TextView) f.getView().findViewById(R.id.tv_empty)).setText(CoreUtils.getString(context, R.string.empty_list_empty));
+                                break;
+                        }
+                    } catch (Exception e) {
+                        Logger.d("Fragment设置空状态页面异常" + e.getMessage());
+                    }
+                });
             }
 
             @Override
@@ -378,7 +401,8 @@ public class GlobalConfiguration implements ConfigModule {
         ((TextView) activity.findViewById(R.id.tv_empty)).setText(CoreUtils.getString(activity, text));
         button.setOnClickListener(view -> {
             activity.findViewById(R.id.view_empty).setVisibility(View.GONE);
-            ARouter.getInstance().build("/app/HomeActivity").withInt(Constants.HOME_INDEX, 1).navigation();
+            EventBus.getDefault().post(1, Constants.HOME_INDEX);
+            ARouter.getInstance().build("/app/HomeActivity").navigation();
         });
     }
 }

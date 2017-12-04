@@ -23,6 +23,7 @@ import com.recorder.di.component.DaggerPrivateComponent;
 import com.recorder.di.module.PrivateModule;
 import com.recorder.mvp.contract.PrivateContract;
 import com.recorder.mvp.model.entity.EquityBean;
+import com.recorder.mvp.model.entity.LoginBean;
 import com.recorder.mvp.presenter.PrivatePresenter;
 
 import org.simple.eventbus.Subscriber;
@@ -60,6 +61,12 @@ public class PrivateFragment extends BaseFragment<PrivatePresenter> implements P
 
     @Override
     public void initData(Bundle savedInstanceState) {
+        mPresenter.dealList("2", null, null, null, null, null);
+    }
+
+    @Subscriber(tag = Constants.RETRY_WHEN_LOGIN_OR_AUTH)
+    private void retry(LoginBean loginBean) {
+        getView().findViewById(R.id.view_empty).setVisibility(View.GONE);
         mPresenter.dealList("2", null, null, null, null, null);
     }
 

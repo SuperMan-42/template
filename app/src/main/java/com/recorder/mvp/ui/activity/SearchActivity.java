@@ -3,6 +3,7 @@ package com.recorder.mvp.ui.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.AutoCompleteTextView;
 
@@ -21,7 +22,10 @@ import com.recorder.di.component.DaggerSearchComponent;
 import com.recorder.di.module.SearchModule;
 import com.recorder.mvp.contract.SearchContract;
 import com.recorder.mvp.model.entity.EquityBean;
+import com.recorder.mvp.model.entity.LoginBean;
 import com.recorder.mvp.presenter.SearchPresenter;
+
+import org.simple.eventbus.Subscriber;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -64,6 +68,12 @@ public class SearchActivity extends BaseActivity<SearchPresenter> implements Sea
             }
             return false;
         });
+    }
+
+    @Subscriber(tag = Constants.RETRY_WHEN_LOGIN_OR_AUTH)
+    private void retry(LoginBean loginBean) {
+        findViewById(R.id.view_empty).setVisibility(View.GONE);
+        mPresenter.dealList(isEquity ? "1" : "2", null, null, etInput.getText().toString(), null, null);
     }
 
     @Override

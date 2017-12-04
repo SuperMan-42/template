@@ -10,6 +10,7 @@ import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.core.base.BaseActivity;
 import com.core.di.component.AppComponent;
+import com.core.utils.Constants;
 import com.jaeger.library.StatusBarUtil;
 import com.recorder.utils.CommonUtils;
 import com.core.utils.CoreUtils;
@@ -118,7 +119,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
     @Override
     public void showLoginSuccess(LoginBean loginBean) {
         CoreUtils.snackbarText("登录成功");
-        EventBus.getDefault().post(loginBean, "loginactivity");
-        finish();
+        killMyself();
+        EventBus.getDefault().post(loginBean, Constants.RETRY_WHEN_LOGIN_OR_AUTH);
     }
 }

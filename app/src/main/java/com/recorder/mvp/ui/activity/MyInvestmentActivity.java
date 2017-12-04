@@ -3,11 +3,13 @@ package com.recorder.mvp.ui.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.view.View;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.core.base.BaseActivity;
 import com.core.di.component.AppComponent;
+import com.core.utils.Constants;
 import com.core.utils.CoreUtils;
 import com.core.widget.recyclerview.BaseQuickAdapter;
 import com.core.widget.recyclerview.BaseViewHolder;
@@ -17,7 +19,10 @@ import com.recorder.R;
 import com.recorder.di.component.DaggerMyInvestmentComponent;
 import com.recorder.di.module.MyInvestmentModule;
 import com.recorder.mvp.contract.MyInvestmentContract;
+import com.recorder.mvp.model.entity.LoginBean;
 import com.recorder.mvp.presenter.MyInvestmentPresenter;
+
+import org.simple.eventbus.Subscriber;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -72,6 +77,11 @@ public class MyInvestmentActivity extends BaseActivity<MyInvestmentPresenter> im
             }
         }, false);
         recyclerView.getRecyclerView().addItemDecoration(new SpacesItemDecoration(0, 36));
+    }
+
+    @Subscriber(tag = Constants.RETRY_WHEN_LOGIN_OR_AUTH)
+    private void retry(LoginBean loginBean) {
+        findViewById(R.id.view_empty).setVisibility(View.GONE);
     }
 
     @Override

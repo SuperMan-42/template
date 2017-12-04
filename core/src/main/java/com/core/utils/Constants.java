@@ -18,4 +18,5 @@ public class Constants {
     public static final int NO_NET = 1;
     public static final int NO_LOGIN = 2;
     public static final int NO_AUTH = 3;
+    public static final String RETRY_WHEN_LOGIN_OR_AUTH = "retry_when_login_or_auth";
 }

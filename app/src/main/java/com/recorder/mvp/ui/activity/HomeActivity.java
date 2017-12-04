@@ -13,7 +13,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.core.base.AdapterViewPager;
@@ -44,6 +43,7 @@ import com.recorder.widget.AutoPageNavigationView;
 import com.recorder.widget.AutoViewPager;
 
 import org.simple.eventbus.EventBus;
+import org.simple.eventbus.Subscriber;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,8 +59,6 @@ import static com.core.utils.Preconditions.checkNotNull;
 
 @Route(path = "/app/HomeActivity")
 public class HomeActivity extends BaseActivity<HomePresenter> implements HomeContract.View {
-    @Autowired(name = Constants.HOME_INDEX)
-    int index = 0;
 
     @BindView(R.id.navigation)
     AutoPageNavigationView navigation;
@@ -76,8 +74,6 @@ public class HomeActivity extends BaseActivity<HomePresenter> implements HomeCon
     CoreRecyclerView recyclerView;
     @BindView(R.id.ll_filter)
     View llFilter;
-    @BindView(R.id.view_empty)
-    View viewEmpty;
 
     private List<String> lablesList = new ArrayList<>();
     private List<String> lablesNameList = new ArrayList<>();
@@ -104,10 +100,14 @@ public class HomeActivity extends BaseActivity<HomePresenter> implements HomeCon
 
     @Override
     public void initView(Bundle savedInstanceState) {
-        ARouter.getInstance().inject(this);
         imLeft.setImageResource(R.drawable.title_fliter);
-        initHome();
         mPresenter.dealFilter();
+        initHome();
+    }
+
+    @Subscriber(tag = Constants.HOME_INDEX)
+    public void init(int index) {
+        mNavigationController.setSelect(index);
     }
 
     private void initHome() {
@@ -135,15 +135,11 @@ public class HomeActivity extends BaseActivity<HomePresenter> implements HomeCon
         mNavigationController.addTabItemSelectedListener(new OnTabItemSelectedListener() {
             @Override
             public void onSelected(int index, int old) {
-                viewEmpty.setVisibility(View.GONE);
                 search.setVisibility(index == 1 || index == 2 ? View.VISIBLE : View.INVISIBLE);
                 back.setVisibility(index == 1 || index == 2 ? View.VISIBLE : View.INVISIBLE);
                 CoreUtils.obtainRxCache(getApplicationContext()).remove("isClear");
                 title(viewPager.getAdapter().getPageTitle(viewPager.getCurrentItem()));
                 findViewById(R.id.toolbar).setVisibility(index == 4 ? View.GONE : View.VISIBLE);
-                if (index == 4) {
-                    findViewById(R.id.view_empty).setVisibility(View.GONE);
-                }
             }
 
             @Override
@@ -151,7 +147,6 @@ public class HomeActivity extends BaseActivity<HomePresenter> implements HomeCon
 
             }
         });
-        mNavigationController.setSelect(index);
     }
 
     private BaseTabItem newItem(int drawable, int checkedDrawable, String text) {

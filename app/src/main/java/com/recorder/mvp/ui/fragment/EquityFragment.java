@@ -23,6 +23,7 @@ import com.recorder.di.component.DaggerEquityComponent;
 import com.recorder.di.module.EquityModule;
 import com.recorder.mvp.contract.EquityContract;
 import com.recorder.mvp.model.entity.EquityBean;
+import com.recorder.mvp.model.entity.LoginBean;
 import com.recorder.mvp.presenter.EquityPresenter;
 
 import org.simple.eventbus.Subscriber;
@@ -64,6 +65,12 @@ public class EquityFragment extends BaseFragment<EquityPresenter> implements Equ
 
     @Override
     public void initData(Bundle savedInstanceState) {
+        mPresenter.dealList("1", null, null, null, null, null);
+    }
+
+    @Subscriber(tag = Constants.RETRY_WHEN_LOGIN_OR_AUTH)
+    private void retry(LoginBean loginBean) {
+        getView().findViewById(R.id.view_empty).setVisibility(View.GONE);
         mPresenter.dealList("1", null, null, null, null, null);
     }
 

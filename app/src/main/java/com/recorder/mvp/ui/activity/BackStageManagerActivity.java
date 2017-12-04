@@ -3,18 +3,21 @@ package com.recorder.mvp.ui.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.view.View;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.core.base.BaseActivity;
 import com.core.di.component.AppComponent;
+import com.core.utils.Constants;
 import com.core.utils.CoreUtils;
-
+import com.recorder.R;
 import com.recorder.di.component.DaggerBackStageManagerComponent;
 import com.recorder.di.module.BackStageManagerModule;
 import com.recorder.mvp.contract.BackStageManagerContract;
+import com.recorder.mvp.model.entity.LoginBean;
 import com.recorder.mvp.presenter.BackStageManagerPresenter;
 
-import com.recorder.R;
+import org.simple.eventbus.Subscriber;
 
 import static com.core.utils.Preconditions.checkNotNull;
 
@@ -39,6 +42,11 @@ public class BackStageManagerActivity extends BaseActivity<BackStageManagerPrese
     @Override
     public void initView(Bundle savedInstanceState) {
 
+    }
+
+    @Subscriber(tag = Constants.RETRY_WHEN_LOGIN_OR_AUTH)
+    private void retry(LoginBean loginBean) {
+        findViewById(R.id.view_empty).setVisibility(View.GONE);
     }
 
     @Override
