@@ -5,7 +5,6 @@ import android.app.Application;
 import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
@@ -15,20 +14,17 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.alibaba.android.arouter.launcher.ARouter;
-import com.core.base.BaseActivity;
 import com.core.base.delegate.AppLifecycles;
 import com.core.di.module.GlobalConfigModule;
 import com.core.http.GlobalHttpHandler;
 import com.core.http.RequestInterceptor;
 import com.core.http.exception.ApiErrorCode;
 import com.core.http.exception.ApiException;
-import com.core.integration.AppManager;
 import com.core.integration.ConfigModule;
 import com.core.integration.cache.BCache;
 import com.core.utils.Constants;
 import com.core.utils.CoreUtils;
 import com.core.utils.DataHelper;
-import com.core.widget.recyclerview.CoreRecyclerView;
 import com.google.gson.Gson;
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.FormatStrategy;
@@ -43,8 +39,6 @@ import com.recorder.mvp.ui.activity.HomeActivity;
 import com.recorder.mvp.ui.activity.MyAttentionActivity;
 import com.recorder.mvp.ui.activity.MyInvestmentActivity;
 import com.recorder.mvp.ui.activity.SearchActivity;
-import com.recorder.mvp.ui.fragment.EquityFragment;
-import com.recorder.mvp.ui.fragment.HomeFragment;
 import com.recorder.utils.DeviceInfoUtils;
 import com.squareup.leakcanary.LeakCanary;
 import com.squareup.leakcanary.RefWatcher;
@@ -53,26 +47,25 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.net.URLDecoder;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import cn.bingoogolapple.swipebacklayout.BGASwipeBackHelper;
+import io.reactivex.exceptions.CompositeException;
 import okhttp3.Interceptor;
 import okhttp3.MultipartBody;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 import okio.Buffer;
-import timber.log.Timber;
-
-import static com.core.integration.AppManager.SHOW_SNACKBAR;
 
 /**
  * app的全局配置信息在此配置,需要将此实现类声明到AndroidManifest中
  */
 
 public class GlobalConfiguration implements ConfigModule {
+
+    private static boolean isConnection = true;
 
     @Override
     public void applyOptions(Context context, GlobalConfigModule.Builder builder) {
@@ -82,60 +75,43 @@ public class GlobalConfiguration implements ConfigModule {
                 .globalHttpHandler(new GlobalHttpHandler() {
                     @Override
                     public Response onHttpResultResponse(String httpResult, Interceptor.Chain chain, Response response) {
-                        if (response.code() == 404) {//网络错误
-                            CoreUtils.showEmpty(Constants.NO_NET, R.drawable.ic_no_net, R.string.empty_no_net, "重新连接");
-                        } else {
-                      /* 这里可以先客户端一步拿到每一次http请求的结果,可以解析成json,做一些操作,如检测到token过期后
-                           重新请求token,并重新执行请求 */
-                            if (!TextUtils.isEmpty(httpResult) && RequestInterceptor.isJson(response.body().contentType())) {
-                                Logger.json(httpResult);
-
-                                JSONObject jsonObject = null;
-                                try {
-                                    jsonObject = new JSONObject(httpResult);
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
-                                }
-                                //关注的重点，自定义响应码中非0的情况，一律抛出ApiException异常。
-                                //这样，我们就成功的将该异常交给onError()去处理了。
-                                int code = jsonObject.optInt("errno");
-                                switch (code) {
-                                    case 0:
-                                        if (chain.request().url().toString().endsWith("/user/login")) {
-                                            CoreUtils.obtainRxCache(context).remove("isClear");
-                                            BCache.getInstance().put(Constants.TOKEN, response.header("SESSION-TOKEN"));
-                                        }
-                                        break;
-                                    case ApiErrorCode.ERROR_USER_AUTHORIZED:
-                                        response.body().close();
-                                        CoreUtils.obtainRxCache(context).put("isClear", "false");
-                                        CoreUtils.showEmpty(Constants.NO_AUTH, R.drawable.ic_no_auth, R.string.empty_no_auth, "去认证");
-                                        throw new ApiException(code, jsonObject.optString("error"));
-                                    default:
-                                        response.body().close();
-                                        CoreUtils.snackbarText(jsonObject.optString("error"));
-                                }
-                                String data = jsonObject.optString("data");
-                                if (response.request().method().equals("GET") && TextUtils.isEmpty(data)) {
-                                    CoreUtils.showEmpty(Constants.NO_DATA, R.drawable.ic_list_empty, R.string.empty_list_empty, "去看项目");
-                                }
+                        if (!TextUtils.isEmpty(httpResult) && RequestInterceptor.isJson(response.body().contentType())) {
+                            Logger.json(httpResult);
+                            JSONObject jsonObject = null;
+                            try {
+                                jsonObject = new JSONObject(httpResult);
+                            } catch (JSONException e) {
+                                e.printStackTrace();
                             }
-                        /* 这里如果发现token过期,可以先请求最新的token,然后在拿新的token放入request里去重新请求
-                        注意在这个回调之前已经调用过proceed,所以这里必须自己去建立网络请求,如使用okhttp使用新的request去请求
-                        create a new request and modify it accordingly using the new token
-                        Request newRequest = chain.request().newBuilder().header("token", newToken)
-                                             .build();
-                        retry the request
-                        response.body().close();
-                        如果使用okhttp将新的请求,请求成功后,将返回的response  return出去即可
-                        如果不需要返回新的结果,则直接把response参数返回出去 */
+                            int code = jsonObject.optInt("errno");
+                            switch (code) {
+                                case 0:
+                                    isConnection = true;
+                                    if (chain.request().url().toString().contains("/user/login")) {
+                                        CoreUtils.obtainRxCache(context).remove("isClear");
+                                        BCache.getInstance().put(Constants.TOKEN, response.header("SESSION-TOKEN"));
+                                    }
+                                    break;
+                                case ApiErrorCode.ERROR_USER_AUTHORIZED:
+                                    isConnection = false;
+                                    response.body().close();
+                                    CoreUtils.obtainRxCache(context).put("isClear", "false");
+                                    CoreUtils.showEmpty(Constants.NO_AUTH, R.drawable.ic_no_auth, R.string.empty_no_auth, "去认证");
+                                    throw new ApiException(code, jsonObject.optString("error"));
+                                default:
+                                    response.body().close();
+                                    CoreUtils.snackbarText(jsonObject.optString("error"));
+                            }
+                            Object data = jsonObject.optJSONObject("data").opt("total_count");
+                            if (response.request().method().equals("GET") && data != null && (Integer) data == 0) {
+                                CoreUtils.showEmpty(Constants.NO_DATA, R.drawable.ic_list_empty, R.string.empty_list_empty, "去看项目");
+                            }
                         }
                         return response;
                     }
 
                     @Override
                     public Request onHttpRequestBefore(Interceptor.Chain chain, Request request) {
-//                         如果需要再请求服务器之前做一些操作,则重新返回一个做过操作的的requeat如增加header,不做操作则直接返回request参数
                         Request.Builder requestBuilder = null;
                         try {
                             String content;
@@ -185,7 +161,11 @@ public class GlobalConfiguration implements ConfigModule {
                             if (token != null) {
                                 requestBuilder.addHeader("SESSION-TOKEN", token);
                             } else {
-                                CoreUtils.showEmpty(Constants.NO_LOGIN, R.drawable.ic_no_login, R.string.empty_no_login, "去登录");
+                                if (chain.request().url().toString().contains("/deal/list") || chain.request().url().toString().contains("/user/followlist")) {
+                                    CoreUtils.showEmpty(Constants.NO_LOGIN, R.drawable.ic_no_login, R.string.empty_no_login, "去登录");
+                                    isConnection = false;
+                                    return null;
+                                }
                             }
                         } catch (Exception e) {
                             Logger.e("AUTH-INFO生成错误: " + e);
@@ -194,8 +174,19 @@ public class GlobalConfiguration implements ConfigModule {
                     }
                 })
                 .responseErrorListener((context1, t) -> {
-                    Logger.d("=============>" + t.getMessage());
-                    CoreUtils.snackbarText("responseErrorListener=> " + t.getMessage());
+                    if (t instanceof CompositeException && isConnection) {
+                        Logger.d("=============>" + ((CompositeException) t).getExceptions().toString());
+                        if (((CompositeException) t).getExceptions().toString().contains("RxCacheException")) {
+                            CoreUtils.showEmpty(Constants.NO_NET, R.drawable.ic_no_net, R.string.empty_no_net, "重新连接");
+                        }
+                    } else {
+                        if (t instanceof CompositeException) {
+                            Logger.d(((CompositeException) t).getExceptions().toString());
+                        } else {
+                            Logger.d("=============>" + t.getMessage());
+                            CoreUtils.snackbarText("responseErrorListener=> " + t.getMessage());
+                        }
+                    }
                 })
                 .gsonConfiguration((context12, builder1) -> builder1.serializeNulls().enableComplexMapKeySerialization())
                 .rxCacheConfiguration((context13, builder12) -> builder12.useExpiredDataIfLoaderNotAvailable(true));
@@ -222,12 +213,12 @@ public class GlobalConfiguration implements ConfigModule {
                             return BuildConfig.LOG_DEBUG;
                         }
                     });
-                    Timber.plant(new Timber.DebugTree() {
-                        @Override
-                        protected void log(int priority, String tag, String message, Throwable t) {
-                            Logger.log(priority, tag, message, t);
-                        }
-                    });
+//                    Timber.plant(new Timber.DebugTree() {
+//                        @Override
+//                        protected void log(int priority, String tag, String message, Throwable t) {
+//                            Logger.log(priority, tag, message, t);
+//                        }
+//                    });//TODO 暂时关闭(用来打印框架的一些日志)
                 }
                 //leakCanary内存泄露检查
                 CoreUtils.obtainRxCache(context).put(RefWatcher.class.getName(), BuildConfig.USE_CANARY ? LeakCanary.install(application) : RefWatcher.DISABLED);
@@ -269,75 +260,60 @@ public class GlobalConfiguration implements ConfigModule {
                     activity.findViewById(R.id.toolbar_left).setOnClickListener(v -> activity.onBackPressed());
                 }
 
-                CoreUtils.obtainAppComponentFromContext(activity).appManager().setHandleListener((appManager, message) -> {
-                    activity.findViewById(R.id.im_empty).setBackgroundResource(message.arg1);
-                    ((TextView) activity.findViewById(R.id.tv_empty)).setText(CoreUtils.getString(activity, message.arg2));
-                    Button button = activity.findViewById(R.id.bt_empty);
-                    if (TextUtils.isEmpty((String) message.obj)) {
-                        button.setVisibility(View.GONE);
-                    } else {
-                        button.setText((String) message.obj);
-                        button.setVisibility(View.VISIBLE);
-                    }
-                    activity.findViewById(R.id.view_empty).setVisibility(View.VISIBLE);
-                    switch (message.what) {
-                        case Constants.NO_NET:
-                            break;
-                        case Constants.NO_LOGIN:
-                            button.setOnClickListener(view -> {
-                                activity.findViewById(R.id.view_empty).setVisibility(View.GONE);
-                                ARouter.getInstance().build("/app/LoginActivity").navigation();
-                            });
-                            break;
-                        case Constants.NO_AUTH:
-                            button.setOnClickListener(view -> {
-                                activity.findViewById(R.id.view_empty).setVisibility(View.GONE);
-                                ARouter.getInstance().build("/app/AuthActivity").navigation();
-                            });
-                            break;
-                        case Constants.NO_DATA:
-                            if (activity instanceof HomeActivity) {
-                                button.setVisibility(View.GONE);
-                                activity.findViewById(R.id.im_empty).setBackgroundResource(R.drawable.ic_list_empty);
-                                ((TextView) activity.findViewById(R.id.tv_empty)).setText(CoreUtils.getString(activity, R.string.empty_list_empty));
-                            } else if (activity instanceof SearchActivity) {
-                                button.setVisibility(View.GONE);
-                                activity.findViewById(R.id.im_empty).setBackgroundResource(R.drawable.ic_search_emtpy);
-                                ((TextView) activity.findViewById(R.id.tv_empty)).setText(CoreUtils.getString(activity, R.string.ic_search_emtpy));
-                            } else if (activity instanceof MyInvestmentActivity) {
-                                button.setText("去看项目");
+                CoreUtils.obtainAppComponentFromContext(activity).appManager().setHandleListener((appManager, msg) -> {
+                    try {
+                        Button button = activity.findViewById(R.id.bt_empty);
+                        switch (msg.what) {
+                            case Constants.NO_NET:
+                                activity.findViewById(R.id.im_empty).setBackgroundResource(msg.arg1);
+                                ((TextView) activity.findViewById(R.id.tv_empty)).setText(CoreUtils.getString(activity, msg.arg2));
                                 button.setVisibility(View.VISIBLE);
-                                activity.findViewById(R.id.im_empty).setBackgroundResource(R.drawable.ic_investment_empty);
-                                ((TextView) activity.findViewById(R.id.tv_empty)).setText(CoreUtils.getString(activity, R.string.ic_investment_empty));
+                                button.setText("重新连接");
+                                activity.findViewById(R.id.view_empty).setVisibility(View.VISIBLE);
+                                break;
+                            case Constants.NO_LOGIN:
+                                activity.findViewById(R.id.im_empty).setBackgroundResource(msg.arg1);
+                                ((TextView) activity.findViewById(R.id.tv_empty)).setText(CoreUtils.getString(activity, msg.arg2));
+                                button.setVisibility(View.VISIBLE);
+                                button.setText((CharSequence) msg.obj);
+                                button.setOnClickListener(view -> {
+                                    activity.findViewById(R.id.view_empty).setVisibility(View.GONE);
+                                    ARouter.getInstance().build("/app/LoginActivity").navigation();
+                                });
+                                activity.findViewById(R.id.view_empty).setVisibility(View.VISIBLE);
+                                break;
+                            case Constants.NO_AUTH:
+                                activity.findViewById(R.id.im_empty).setBackgroundResource(msg.arg1);
+                                ((TextView) activity.findViewById(R.id.tv_empty)).setText(CoreUtils.getString(activity, msg.arg2));
+                                button.setVisibility(View.VISIBLE);
+                                button.setText((CharSequence) msg.obj);
                                 button.setOnClickListener(view -> {
                                     activity.findViewById(R.id.view_empty).setVisibility(View.GONE);
                                     ARouter.getInstance().build("/app/AuthActivity").navigation();
                                 });
-                            } else if (activity instanceof MyAttentionActivity) {
-                                button.setText("去看项目");
-                                button.setVisibility(View.VISIBLE);
-                                activity.findViewById(R.id.im_empty).setBackgroundResource(R.drawable.ic_attention_emtyp);
-                                ((TextView) activity.findViewById(R.id.tv_empty)).setText(CoreUtils.getString(activity, R.string.ic_attention_emtyp));
-                                button.setOnClickListener(view -> {
-                                    activity.findViewById(R.id.view_empty).setVisibility(View.GONE);
-                                    ARouter.getInstance().build("/app/HomeActivity").withInt(Constants.HOME_INDEX, 1).navigation();
-                                });
-                            } else if (activity instanceof BackStageManagerActivity) {
-                                button.setText("去看项目");
-                                button.setVisibility(View.VISIBLE);
-                                activity.findViewById(R.id.im_empty).setBackgroundResource(R.drawable.ic_manager_empty);
-                                ((TextView) activity.findViewById(R.id.tv_empty)).setText(CoreUtils.getString(activity, R.string.ic_manager_empty));
-                                button.setOnClickListener(view -> {
-                                    activity.findViewById(R.id.view_empty).setVisibility(View.GONE);
-                                    ARouter.getInstance().build("/app/HomeActivity").withInt(Constants.HOME_INDEX, 1).navigation();
-                                });
-                            }
-
-                            button.setOnClickListener(view -> {
-                                activity.findViewById(R.id.view_empty).setVisibility(View.GONE);
-                                ARouter.getInstance().build("/app/HomeActivity").withInt(Constants.HOME_INDEX, 1).navigation();
-                            });
-                            break;
+                                activity.findViewById(R.id.view_empty).setVisibility(View.VISIBLE);
+                                break;
+                            case Constants.NO_DATA:
+                                if (activity instanceof HomeActivity) {
+                                    button.setVisibility(View.GONE);
+                                    activity.findViewById(R.id.im_empty).setBackgroundResource(R.drawable.ic_list_empty);
+                                    ((TextView) activity.findViewById(R.id.tv_empty)).setText(CoreUtils.getString(activity, R.string.empty_list_empty));
+                                } else if (activity instanceof SearchActivity) {
+                                    button.setVisibility(View.GONE);
+                                    activity.findViewById(R.id.im_empty).setBackgroundResource(R.drawable.ic_search_emtpy);
+                                    ((TextView) activity.findViewById(R.id.tv_empty)).setText(CoreUtils.getString(activity, R.string.ic_search_emtpy));
+                                } else if (activity instanceof MyInvestmentActivity) {
+                                    setEmpty(activity, button, R.drawable.ic_investment_empty, R.string.ic_investment_empty);
+                                } else if (activity instanceof MyAttentionActivity) {
+                                    setEmpty(activity, button, R.drawable.ic_attention_emtyp, R.string.ic_attention_emtyp);
+                                } else if (activity instanceof BackStageManagerActivity) {
+                                    setEmpty(activity, button, R.drawable.ic_manager_empty, R.string.ic_manager_empty);
+                                }
+                                activity.findViewById(R.id.view_empty).setVisibility(View.VISIBLE);
+                                break;
+                        }
+                    } catch (Exception e) {
+                        Logger.d("设置空状态页面异常" + e.getMessage());
                     }
                 });
             }
@@ -391,6 +367,18 @@ public class GlobalConfiguration implements ConfigModule {
             public void onFragmentDestroyed(FragmentManager fm, Fragment f) {
                 ((RefWatcher) CoreUtils.obtainRxCache(f.getActivity().getApplication()).get(RefWatcher.class.getName())).watch(f);
             }
+        });
+    }
+
+    private void setEmpty(Activity activity, Button button, int res, int text) {
+        button.setVisibility(View.VISIBLE);
+        button.setText("去看项目");
+        button.setVisibility(View.VISIBLE);
+        activity.findViewById(R.id.im_empty).setBackgroundResource(res);
+        ((TextView) activity.findViewById(R.id.tv_empty)).setText(CoreUtils.getString(activity, text));
+        button.setOnClickListener(view -> {
+            activity.findViewById(R.id.view_empty).setVisibility(View.GONE);
+            ARouter.getInstance().build("/app/HomeActivity").withInt(Constants.HOME_INDEX, 1).navigation();
         });
     }
 }

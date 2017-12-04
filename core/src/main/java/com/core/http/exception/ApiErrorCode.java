@@ -8,7 +8,7 @@ public interface ApiErrorCode {
     /**
      * 用户授权失败
      */
-    int ERROR_USER_AUTHORIZED = 101;
+    int ERROR_USER_AUTHORIZED = 301;
 
     /**
      * 账户或密码错误

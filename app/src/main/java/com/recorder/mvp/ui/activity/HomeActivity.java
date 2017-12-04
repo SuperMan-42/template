@@ -76,6 +76,8 @@ public class HomeActivity extends BaseActivity<HomePresenter> implements HomeCon
     CoreRecyclerView recyclerView;
     @BindView(R.id.ll_filter)
     View llFilter;
+    @BindView(R.id.view_empty)
+    View viewEmpty;
 
     private List<String> lablesList = new ArrayList<>();
     private List<String> lablesNameList = new ArrayList<>();
@@ -102,6 +104,7 @@ public class HomeActivity extends BaseActivity<HomePresenter> implements HomeCon
 
     @Override
     public void initView(Bundle savedInstanceState) {
+        ARouter.getInstance().inject(this);
         imLeft.setImageResource(R.drawable.title_fliter);
         initHome();
         mPresenter.dealFilter();
@@ -132,6 +135,7 @@ public class HomeActivity extends BaseActivity<HomePresenter> implements HomeCon
         mNavigationController.addTabItemSelectedListener(new OnTabItemSelectedListener() {
             @Override
             public void onSelected(int index, int old) {
+                viewEmpty.setVisibility(View.GONE);
                 search.setVisibility(index == 1 || index == 2 ? View.VISIBLE : View.INVISIBLE);
                 back.setVisibility(index == 1 || index == 2 ? View.VISIBLE : View.INVISIBLE);
                 CoreUtils.obtainRxCache(getApplicationContext()).remove("isClear");

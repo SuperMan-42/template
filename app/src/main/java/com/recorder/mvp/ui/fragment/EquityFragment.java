@@ -43,7 +43,7 @@ public class EquityFragment extends BaseFragment<EquityPresenter> implements Equ
         return fragment;
     }
 
-    public CoreRecyclerView getRecyclerView(){
+    public CoreRecyclerView getRecyclerView() {
         return recyclerView;
     }
 

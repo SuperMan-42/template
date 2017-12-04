@@ -136,6 +136,7 @@ public class SettingActivity extends BaseActivity<SettingPresenter> implements S
                                 BCache.getInstance().remove(Constants.USER_INFO);
                                 EventBus.getDefault().post(new LoginBean(), "loginout");
                                 CustomPopupWindow.killMySelf();
+                                tvLoginOut.setVisibility(View.GONE);
                             });
                             contentView.findViewById(R.id.tv_cancel).setOnClickListener(view1 -> CustomPopupWindow.killMySelf());
                         }).build().show(this);

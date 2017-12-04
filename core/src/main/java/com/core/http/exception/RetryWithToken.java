@@ -3,6 +3,7 @@ package com.core.http.exception;
 import com.core.base.BaseApplication;
 import com.core.integration.cache.BCache;
 import com.core.utils.CoreUtils;
+import com.orhanobut.logger.Logger;
 
 import java.util.concurrent.TimeUnit;
 
@@ -41,9 +42,11 @@ public class RetryWithToken implements Function<Observable<Throwable>, Observabl
                                     if (BCache.getInstance().getString("token") != null || CoreUtils.obtainRxCache(BaseApplication.getContext()).get("isClear") == null) {
                                         break;
                                     } else {
+                                        Logger.d("apiexception, retrywithtoken=> sleep");
                                         sleep(1000);
                                     }
                                 }
+                                Logger.d("apiexception, retrywithtoken=> break");
                                 return Observable.timer(100, TimeUnit.MILLISECONDS);
                         }
                     } else if (throwable instanceof CompositeException && ((CompositeException) throwable).getExceptions().toString().contains("ApiException")) {
@@ -51,9 +54,11 @@ public class RetryWithToken implements Function<Observable<Throwable>, Observabl
                             if (BCache.getInstance().getString("token") != null || CoreUtils.obtainRxCache(BaseApplication.getContext()).get("isClear") == null) {
                                 break;
                             } else {
+                                Logger.d("CompositeException, retrywithtoken=> sleep");
                                 sleep(1000);
                             }
                         }
+                        Logger.d("CompositeException, retrywithtoken=> break");
                         return Observable.timer(100, TimeUnit.MILLISECONDS);
                     } else {
                         if (++retryCount <= maxRetries) {

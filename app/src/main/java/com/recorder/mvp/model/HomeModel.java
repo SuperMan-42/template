@@ -5,6 +5,7 @@ import android.app.Application;
 import com.core.di.scope.ActivityScope;
 import com.core.integration.IRepositoryManager;
 import com.core.mvp.BaseModel;
+import com.core.utils.DeviceUtils;
 import com.google.gson.Gson;
 import com.recorder.mvp.contract.HomeContract;
 import com.recorder.mvp.model.api.cache.ApiCache;
@@ -49,7 +50,7 @@ public class HomeModel extends BaseModel implements HomeContract.Model {
     public Observable<HomeRecommendBean> homeRecommend() {
         return Observable.just(mRepositoryManager.obtainRetrofitService(ApiService.class).homeRecommend("1"))
                 .flatMap(resultObservable -> mRepositoryManager.obtainCacheService(ApiCache.class)
-                        .homeRecommend(resultObservable, new EvictProvider(false))
+                        .homeRecommend(resultObservable, new EvictProvider(DeviceUtils.netIsConnected(mApplication)))
                         .map(Reply::getData));
     }
 }
