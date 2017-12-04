@@ -281,4 +281,134 @@ public class CommonUtils {
             }
         };
     }
+
+    public static <Upstream> ObservableTransformer<Upstream, BaseDownloadTask> transformPay(
+            Context context, String url, String savePath, boolean isDir, boolean hasNext) {
+        return new ObservableTransformer<Upstream, BaseDownloadTask>() {
+            @Override
+            public ObservableSource<BaseDownloadTask> apply(io.reactivex.Observable<Upstream> upstream) {
+                return upstream.create(new ObservableOnSubscribe<BaseDownloadTask>() {
+                    @Override
+                    public void subscribe(ObservableEmitter<BaseDownloadTask> observableEmitter) throws Exception {
+                        if (!TextUtils.isEmpty(url)) {
+                            FileDownloader.setup(context);
+                            FileDownloader.getImpl().create(url).setPath(savePath, isDir)
+                                    .setCallbackProgressTimes(300)
+                                    .setMinIntervalUpdateSpeed(400)
+                                    .setListener(new FileDownloadSampleListener() {
+
+                                        @Override
+                                        protected void pending(BaseDownloadTask task, int soFarBytes, int totalBytes) {
+                                            super.pending(task, soFarBytes, totalBytes);
+                                        }
+
+                                        @Override
+                                        protected void progress(BaseDownloadTask task, int soFarBytes, int totalBytes) {
+                                            super.progress(task, soFarBytes, totalBytes);
+                                            if (hasNext)
+                                                observableEmitter.onNext(task);
+                                        }
+
+                                        @Override
+                                        protected void error(BaseDownloadTask task, Throwable e) {
+                                            super.error(task, e);
+                                            observableEmitter.onError(e);
+                                        }
+
+                                        @Override
+                                        protected void connected(BaseDownloadTask task, String etag, boolean isContinue,
+                                                                 int soFarBytes, int totalBytes) {
+                                            super.connected(task, etag, isContinue, soFarBytes, totalBytes);
+                                        }
+
+                                        @Override
+                                        protected void paused(BaseDownloadTask task, int soFarBytes, int totalBytes) {
+                                            super.paused(task, soFarBytes, totalBytes);
+                                        }
+
+                                        @Override
+                                        protected void completed(BaseDownloadTask task) {
+                                            super.completed(task);
+                                            if (hasNext) {
+                                                observableEmitter.onComplete();
+                                            } else {
+                                                observableEmitter.onNext(task);
+                                            }
+                                        }
+
+                                        @Override
+                                        protected void warn(BaseDownloadTask task) {
+                                            super.warn(task);
+                                        }
+                                    }).start();
+                        } else {
+                            if (hasNext) {
+                                observableEmitter.onError(new Throwable("url为空"));
+                            } else {
+                                observableEmitter.onComplete();
+                            }
+                        }
+                    }
+                });
+            }
+        };
+    }
+
+//    public static void pay(Activity mActivity, String order_sn, String prj_name, String brief,
+//                           String img, String productID, boolean isEmail, boolean isMy) {
+//        ArrayList<YshNameValuePair> valuePairs = new ArrayList<>();
+//        valuePairs.add(new YshNameValuePair("order_sn", order_sn));
+//        RxUtil.post(mActivity, Action.PRODUCT_PAY, "32", OrderPayBean.class, valuePairs)
+//                .subscribe(
+//                        data -> {
+//                            OrderPayBean temp = (OrderPayBean) data;
+//                            // 封装接口参数
+//                            Bundle b = new Bundle();
+//                            b.putString("merchantId", temp.getMerchantId()); // 商户ID
+//                            b.putString("userId", Session.getInstance(mActivity).getUid()); // 商户系统用户ID
+//                            b.putString("outOrderId", temp.getOuterOrderId()); // 商户订单号
+////                            b.putString("merchantBankCardNo", temp.get); // 银行卡号(非必填)
+//                            b.putString("sign", temp.getSign()); // 签名由商户后台签名后传给客户端，分为MD5和RSA两种签名加密
+//
+//                            // 认证支付接口
+//                            UcfpayInterface.gotoPay(mActivity, b, new ResultReceiver(new Handler()) {
+//                                @Override
+//                                protected void onReceiveResult(int resultCode, Bundle resultData) {
+//                                    super.onReceiveResult(resultCode, resultData);
+//                                    // 获取Bundle中的数据，做业务处理
+//                                    switch (resultCode) {
+//                                        case -5:
+//                                            // 充值处理中
+//                                            LogUtils.i(TAG, "充值处理中");
+//                                            break;
+//                                        case -4:
+//                                            // 认证结果失败
+//                                            LogUtils.i(TAG, "认证结果失败");
+//                                            payFailed(mActivity, temp, prj_name, brief, img, order_sn, productID, "认证结果失败", isEmail, isMy);
+//                                            break;
+//                                        case -3:
+//                                            // 认证结果处理中
+//                                            LogUtils.i(TAG, "认证结果处理中");
+//                                            break;
+//                                        case -2:
+//                                            // 错误
+//                                            LogUtils.i(TAG, "错误");
+//                                            payFailed(mActivity, temp, prj_name, brief, img, order_sn, productID, "支付超时", isEmail, isMy);
+//                                            break;
+//                                        case -1:
+//                                            // 用户主动退出
+//                                            LogUtils.i(TAG, "用户主动退出");
+//                                            payFailed(mActivity, temp, prj_name, brief, img, order_sn, productID, "用户主动退出", isEmail, isMy);
+//                                            break;
+//                                        case 0:
+//                                            // 充值成功
+//                                            LogUtils.i(TAG, "充值成功");
+//                                            paySuccess(mActivity, temp, prj_name, brief, img, order_sn, productID, isEmail, isMy);
+//                                            break;
+//                                    }
+//                                }
+//                            });
+//                        },
+//                        e -> ToastUtils.displayToast(mActivity, ((CoreApiException) e).getMessage()));
+//    }
 }

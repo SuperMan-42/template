@@ -287,7 +287,8 @@ public class EquityDetailsActivity extends BaseActivity<EquityDetailsPresenter> 
                 mPresenter.dealConsult(dataEntity.getDealID());
                 break;
             case R.id.ll_buy:
-                ARouter.getInstance().build("/app/BuyActivity").navigation();
+                //TODO 去认证的逻辑
+                mPresenter.payCheck(dataEntity.getDealID());
                 break;
         }
     }

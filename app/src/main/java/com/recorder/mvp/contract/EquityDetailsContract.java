@@ -3,6 +3,7 @@ package com.recorder.mvp.contract;
 import com.core.mvp.IModel;
 import com.core.mvp.IView;
 import com.recorder.mvp.model.entity.DealDetailBean;
+import com.recorder.mvp.model.entity.PayCheckBean;
 
 import io.reactivex.Observable;
 
@@ -23,5 +24,7 @@ public interface EquityDetailsContract {
         Observable<Object> dealUnfollow(String dealID);
 
         Observable<Object> dealFollow(String dealID);
+
+        Observable<PayCheckBean> payCheck(String dealID);
     }
 }

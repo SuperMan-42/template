@@ -7,6 +7,7 @@ import com.recorder.mvp.model.entity.HomeRecommendBean;
 import com.recorder.mvp.model.entity.ImageUploadBean;
 import com.recorder.mvp.model.entity.LoginBean;
 import com.recorder.mvp.model.entity.NewsListBean;
+import com.recorder.mvp.model.entity.PayCheckBean;
 import com.recorder.mvp.model.entity.UserFollowListBean;
 import com.recorder.mvp.model.entity.UserInfoBean;
 
@@ -114,4 +115,7 @@ public interface ApiService {
                                      @Field("industry") String industry, @Field("requirement") String requirement,
                                      @Field("contact") String contact, @Field("phone") String phone,
                                      @Field("business") String business, @Field("team") String team);
+
+    @GET("pay/check")
+    Observable<PayCheckBean> payCheck(@Header("DIVERSION-VERSION") String version, @Query("dealID") String dealID);
 }

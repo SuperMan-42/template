@@ -244,3 +244,79 @@
 }
 -dontwarn com.just.library.**
 -keepclassmembers class com.just.library.agentweb.AndroidInterface{ *; }
+
+##先锋支付相关
+##---------------Begin: proguard configuration for union  ----------
+-keep class com.unionpay.** {*;}
+-dontwarn  com.unionpay.**
+
+-keep  public class com.unionpay.uppay.net.HttpConnection {
+	public <methods>;
+}
+-keep  public class com.unionpay.uppay.net.HttpParameters {
+	public <methods>;
+}
+-keep  public class com.unionpay.uppay.model.BankCardInfo {
+	public <methods>;
+}
+-keep  public class com.unionpay.uppay.model.PAAInfo {
+	public <methods>;
+}
+-keep  public class com.unionpay.uppay.model.ResponseInfo {
+	public <methods>;
+}
+-keep  public class com.unionpay.uppay.model.PurchaseInfo {
+	public <methods>;
+}
+-keep  public class com.unionpay.uppay.util.DeviceInfo {
+	public <methods>;
+}
+-keep  public class java.util.HashMap {
+	public <methods>;
+}
+-keep  public class java.lang.String {
+	public <methods>;
+}
+-keep  public class java.util.List {
+	public <methods>;
+}
+-keep  public class com.unionpay.uppay.util.PayEngine {
+	public <methods>;
+	native <methods>;
+}
+##---------------End: proguard configuration for union  ----------
+
+-keep class com.ucfpay.plugin.certification.** {
+    protected <fields>;
+    public <fields>;
+    private <fields>;
+    protected <methods>;
+    public <methods>;
+    private <methods>;
+}
+
+-keepclassmembers enum  *,* {
+    public static **[] values();
+    public static ** valueOf(java.lang.String);
+}
+
+# Keep names - Native method names. Keep all native class/method names.
+-keepclasseswithmembers,allowshrinking class * {
+    native <methods>;
+}
+
+# 序列化后必须使用下面这段
+-keepnames class * implements java.io.Serializable
+-keepclassmembers class * implements java.io.Serializable {
+   static final long serialVersionUID;
+   private static final java.io.ObjectStreamField[] serialPersistentFields;
+   !static !transient <fields>;
+   private void writeObject(java.io.ObjectOutputStream);
+   private void readObject(java.io.ObjectInputStream);
+   java.lang.Object writeReplace();
+   java.lang.Object readResolve();
+}
+
+##---------------Begin: proguard configuration for 设备指纹 ----------
+-keep public class cn.com.bsfit.** {*;}
+##---------------End: proguard configuration for 设备指纹  ----------

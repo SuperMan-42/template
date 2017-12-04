@@ -11,6 +11,7 @@ import com.recorder.mvp.contract.EquityDetailsContract;
 import com.recorder.mvp.model.api.cache.ApiCache;
 import com.recorder.mvp.model.api.service.ApiService;
 import com.recorder.mvp.model.entity.DealDetailBean;
+import com.recorder.mvp.model.entity.PayCheckBean;
 
 import javax.inject.Inject;
 
@@ -58,5 +59,10 @@ public class EquityDetailsModel extends BaseModel implements EquityDetailsContra
     @Override
     public Observable<Object> dealFollow(String dealID) {
         return mRepositoryManager.obtainRetrofitService(ApiService.class).dealFollow("1", dealID);
+    }
+
+    @Override
+    public Observable<PayCheckBean> payCheck(String dealID) {
+        return mRepositoryManager.obtainRetrofitService(ApiService.class).payCheck("1", dealID);
     }
 }

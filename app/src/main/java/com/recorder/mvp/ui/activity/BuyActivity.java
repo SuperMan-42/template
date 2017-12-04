@@ -4,22 +4,26 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 
+import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.core.base.BaseActivity;
 import com.core.di.component.AppComponent;
 import com.core.utils.CoreUtils;
-
+import com.recorder.R;
 import com.recorder.di.component.DaggerBuyComponent;
 import com.recorder.di.module.BuyModule;
 import com.recorder.mvp.contract.BuyContract;
+import com.recorder.mvp.model.entity.PayCheckBean;
 import com.recorder.mvp.presenter.BuyPresenter;
-
-import com.recorder.R;
 
 import static com.core.utils.Preconditions.checkNotNull;
 
 @Route(path = "/app/BuyActivity")
 public class BuyActivity extends BaseActivity<BuyPresenter> implements BuyContract.View {
+    @Autowired
+    String payCheck;
+
+    private PayCheckBean payCheckBean;
 
     @Override
     public void setupActivityComponent(AppComponent appComponent) {

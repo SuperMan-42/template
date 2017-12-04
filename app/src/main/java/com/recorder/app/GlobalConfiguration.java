@@ -99,9 +99,9 @@ public class GlobalConfiguration implements ConfigModule {
                                     CoreUtils.obtainRxCache(context).put("isClear", "false");
                                     CoreUtils.showEmpty(Constants.NO_AUTH, R.drawable.ic_no_auth, R.string.empty_no_auth, "去认证");
                                     throw new ApiException(code, jsonObject.optString("error"));
-                                default:
-                                    response.body().close();
-                                    CoreUtils.snackbarText(jsonObject.optString("error"));
+//                                default:
+//                                    response.body().close();
+//                                    CoreUtils.snackbarText(jsonObject.optString("error"));
                             }
                             Object data = jsonObject.optJSONObject("data").opt("total_count");
                             if (response.request().method().equals("GET") && data != null && (Integer) data == 0) {
@@ -262,61 +262,63 @@ public class GlobalConfiguration implements ConfigModule {
 
                 CoreUtils.obtainAppComponentFromContext(context).appManager().setHandleListener((appManager, msg) -> {
                     try {
-                        Activity currentActivity = appManager.getCurrentActivity();
-                        currentActivity.findViewById(R.id.view_empty).setVisibility(View.VISIBLE);
-                        Button button = currentActivity.findViewById(R.id.bt_empty);
-                        switch (msg.what) {
-                            case Constants.NO_NET:
-                                currentActivity.findViewById(R.id.im_empty).setBackgroundResource(msg.arg1);
-                                ((TextView) currentActivity.findViewById(R.id.tv_empty)).setText(CoreUtils.getString(currentActivity, msg.arg2));
-                                button.setVisibility(View.VISIBLE);
-                                button.setText("重新连接");
-                                break;
-                            case Constants.NO_LOGIN:
-                                currentActivity.findViewById(R.id.im_empty).setBackgroundResource(msg.arg1);
-                                ((TextView) currentActivity.findViewById(R.id.tv_empty)).setText(CoreUtils.getString(currentActivity, msg.arg2));
-                                button.setVisibility(View.VISIBLE);
-                                button.setText((CharSequence) msg.obj);
-                                button.setOnClickListener(view -> {
-                                    String retry = "";
+                        if (msg.what != 5001) {
+                            Activity currentActivity = appManager.getCurrentActivity();
+                            currentActivity.findViewById(R.id.view_empty).setVisibility(View.VISIBLE);
+                            Button button = currentActivity.findViewById(R.id.bt_empty);
+                            switch (msg.what) {
+                                case Constants.NO_NET:
+                                    currentActivity.findViewById(R.id.im_empty).setBackgroundResource(msg.arg1);
+                                    ((TextView) currentActivity.findViewById(R.id.tv_empty)).setText(CoreUtils.getString(currentActivity, msg.arg2));
+                                    button.setVisibility(View.VISIBLE);
+                                    button.setText("重新连接");
+                                    break;
+                                case Constants.NO_LOGIN:
+                                    currentActivity.findViewById(R.id.im_empty).setBackgroundResource(msg.arg1);
+                                    ((TextView) currentActivity.findViewById(R.id.tv_empty)).setText(CoreUtils.getString(currentActivity, msg.arg2));
+                                    button.setVisibility(View.VISIBLE);
+                                    button.setText((CharSequence) msg.obj);
+                                    button.setOnClickListener(view -> {
+                                        String retry = "";
+                                        if (currentActivity instanceof HomeActivity) {
+                                            retry = Constants.RETRY_FRAGMENT;
+                                        } else if (currentActivity instanceof SearchActivity) {
+                                            retry = Constants.RETRY_SEARCH;
+                                        } else if (currentActivity instanceof MyAttentionActivity) {
+                                            retry = Constants.RETRY_MYATTENTION;
+                                        } else if (currentActivity instanceof MyInvestmentActivity) {
+                                            retry = Constants.RETRY_MYINVESTMENT;
+                                        } else if (currentActivity instanceof BackStageManagerActivity) {
+                                            retry = Constants.RETRY_BACKSTAGEMANAGER;
+                                        }
+                                        ARouter.getInstance().build("/app/LoginActivity").withString(Constants.RETRY_WHEN_LOGIN_OR_AUTH, retry).navigation();
+                                    });
+                                    break;
+                                case Constants.NO_AUTH:
+                                    currentActivity.findViewById(R.id.im_empty).setBackgroundResource(msg.arg1);
+                                    ((TextView) currentActivity.findViewById(R.id.tv_empty)).setText(CoreUtils.getString(currentActivity, msg.arg2));
+                                    button.setVisibility(View.VISIBLE);
+                                    button.setText((CharSequence) msg.obj);
+                                    button.setOnClickListener(view -> ARouter.getInstance().build("/app/AuthActivity").navigation());
+                                    break;
+                                case Constants.NO_DATA:
                                     if (currentActivity instanceof HomeActivity) {
-                                        retry = Constants.RETRY_FRAGMENT;
+                                        button.setVisibility(View.GONE);
+                                        currentActivity.findViewById(R.id.im_empty).setBackgroundResource(R.drawable.ic_list_empty);
+                                        ((TextView) currentActivity.findViewById(R.id.tv_empty)).setText(CoreUtils.getString(context, R.string.empty_list_empty));
                                     } else if (currentActivity instanceof SearchActivity) {
-                                        retry = Constants.RETRY_SEARCH;
-                                    } else if (currentActivity instanceof MyAttentionActivity) {
-                                        retry = Constants.RETRY_MYATTENTION;
+                                        button.setVisibility(View.GONE);
+                                        currentActivity.findViewById(R.id.im_empty).setBackgroundResource(R.drawable.ic_search_emtpy);
+                                        ((TextView) currentActivity.findViewById(R.id.tv_empty)).setText(CoreUtils.getString(activity, R.string.ic_search_emtpy));
                                     } else if (currentActivity instanceof MyInvestmentActivity) {
-                                        retry = Constants.RETRY_MYINVESTMENT;
+                                        setEmpty(currentActivity, button, R.drawable.ic_investment_empty, R.string.ic_investment_empty);
+                                    } else if (currentActivity instanceof MyAttentionActivity) {
+                                        setEmpty(currentActivity, button, R.drawable.ic_attention_emtyp, R.string.ic_attention_emtyp);
                                     } else if (currentActivity instanceof BackStageManagerActivity) {
-                                        retry = Constants.RETRY_BACKSTAGEMANAGER;
+                                        setEmpty(currentActivity, button, R.drawable.ic_manager_empty, R.string.ic_manager_empty);
                                     }
-                                    ARouter.getInstance().build("/app/LoginActivity").withString(Constants.RETRY_WHEN_LOGIN_OR_AUTH, retry).navigation();
-                                });
-                                break;
-                            case Constants.NO_AUTH:
-                                currentActivity.findViewById(R.id.im_empty).setBackgroundResource(msg.arg1);
-                                ((TextView) currentActivity.findViewById(R.id.tv_empty)).setText(CoreUtils.getString(currentActivity, msg.arg2));
-                                button.setVisibility(View.VISIBLE);
-                                button.setText((CharSequence) msg.obj);
-                                button.setOnClickListener(view -> ARouter.getInstance().build("/app/AuthActivity").navigation());
-                                break;
-                            case Constants.NO_DATA:
-                                if (currentActivity instanceof HomeActivity) {
-                                    button.setVisibility(View.GONE);
-                                    currentActivity.findViewById(R.id.im_empty).setBackgroundResource(R.drawable.ic_list_empty);
-                                    ((TextView) currentActivity.findViewById(R.id.tv_empty)).setText(CoreUtils.getString(context, R.string.empty_list_empty));
-                                } else if (currentActivity instanceof SearchActivity) {
-                                    button.setVisibility(View.GONE);
-                                    currentActivity.findViewById(R.id.im_empty).setBackgroundResource(R.drawable.ic_search_emtpy);
-                                    ((TextView) currentActivity.findViewById(R.id.tv_empty)).setText(CoreUtils.getString(activity, R.string.ic_search_emtpy));
-                                } else if (currentActivity instanceof MyInvestmentActivity) {
-                                    setEmpty(currentActivity, button, R.drawable.ic_investment_empty, R.string.ic_investment_empty);
-                                } else if (currentActivity instanceof MyAttentionActivity) {
-                                    setEmpty(currentActivity, button, R.drawable.ic_attention_emtyp, R.string.ic_attention_emtyp);
-                                } else if (currentActivity instanceof BackStageManagerActivity) {
-                                    setEmpty(currentActivity, button, R.drawable.ic_manager_empty, R.string.ic_manager_empty);
-                                }
-                                break;
+                                    break;
+                            }
                         }
                     } catch (Exception e) {
                         Logger.d("Activity设置空状态页面异常" + e.getMessage());
