@@ -103,6 +103,7 @@
             android:theme="@style/CoreAppTheme.Transparent" />
         <activity
             android:name=".mvp.ui.activity.EquityDetailsActivity"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/CoreAppTheme.Transparent" />
         <activity

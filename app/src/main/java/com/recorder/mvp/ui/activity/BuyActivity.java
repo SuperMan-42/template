@@ -7,7 +7,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -16,6 +15,7 @@ import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.core.base.BaseActivity;
 import com.core.di.component.AppComponent;
+import com.core.utils.Constants;
 import com.core.utils.CoreUtils;
 import com.core.widget.recyclerview.BaseQuickAdapter;
 import com.core.widget.recyclerview.BaseViewHolder;
@@ -33,7 +33,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 import static com.core.utils.Preconditions.checkNotNull;
@@ -85,14 +84,6 @@ public class BuyActivity extends BaseActivity<BuyPresenter> implements BuyContra
     LinearLayout llCustomFee;
     @BindView(R.id.recyclerview)
     CoreRecyclerView recyclerview;
-    @BindView(R.id.tv_go_authentication)
-    TextView tvGoAuthentication;
-    @BindView(R.id.tv_go_home)
-    TextView tvGoHome;
-    @BindView(R.id.ll_dialog)
-    LinearLayout llDialog;
-    @BindView(R.id.fl_dialog)
-    FrameLayout flDialog;
 
     private PayCheckBean.DataEntity dataEntity;
 
@@ -183,14 +174,7 @@ public class BuyActivity extends BaseActivity<BuyPresenter> implements BuyContra
         finish();
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-    }
-
-    @OnClick({R.id.tv_submit, R.id.tv_go_authentication, R.id.tv_go_home})
+    @OnClick({R.id.tv_submit})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_submit:
@@ -200,13 +184,12 @@ public class BuyActivity extends BaseActivity<BuyPresenter> implements BuyContra
                     return;
                 }
                 BigDecimal bigDecimal = new BigDecimal(value);
-                if (Integer.parseInt(value) <= 50) {
-                    mPresenter.payPay(dataEntity.getDealID(), bigDecimal.multiply(new BigDecimal(10000)).toString(), "2");
-                }
-                break;
-            case R.id.tv_go_authentication:
-                break;
-            case R.id.tv_go_home:
+                ARouter.getInstance().build("/app/CashierActivity")
+                        .withString(Constants.DEAL_ID, dataEntity.getDealID())
+                        .withString("deal_name", dataEntity.getDeal_name())
+                        .withString("amount", bigDecimal.multiply(new BigDecimal(10000)).toString()).navigation();
+                killMyself();
+                overridePendingTransition(R.anim.slide_in_right, R.anim.empty);
                 break;
         }
     }

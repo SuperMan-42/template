@@ -75,8 +75,8 @@
                         android:layout_marginLeft="21px"
                         android:background="@null"
                         android:gravity="center|start"
-                        android:lines="1"
                         android:maxLength="2"
+                        android:maxLines="1"
                         android:maxWidth="720px"
                         android:minWidth="180px"
                         android:textColor="#333333"
@@ -336,7 +336,5 @@
                 android:textSize="45px" />
         </LinearLayout>
     </com.core.widget.autolayout.AutoScrollView>
-
-    <include layout="@layout/include_success" />
 
 </com.core.widget.autolayout.AutoConstraintLayout>
