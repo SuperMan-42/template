@@ -9,7 +9,7 @@ public class UserInfoBean {
     /**
      * errno : 0
      * error : 成功
-     * data : {"userID":"722979e7bbedfb0d5994bbb9","user_name":"用户K6400920","avatar":"","auth_type":"0","intro":"","email":"","address":"","weixin":"","mobile":"185****0920","my_investment":"0","my_follow_count":"0","post_investment":"0"}
+     * data : {"userID":"722979e7bbedfb0d5994bbb9","user_id":"3","user_name":"用户K6400920","avatar":"","auth_type":"0","intro":"","email":"","address":"","weixin":"","mobile":"185****0920","my_investment":"0","my_follow_count":"0","post_investment":"0"}
      */
 
     private int errno;
@@ -43,6 +43,7 @@ public class UserInfoBean {
     public static class DataEntity {
         /**
          * userID : 722979e7bbedfb0d5994bbb9
+         * user_id : 3
          * user_name : 用户K6400920
          * avatar :
          * auth_type : 0
@@ -57,6 +58,7 @@ public class UserInfoBean {
          */
 
         private String userID;
+        private String user_id;
         private String user_name;
         private String avatar;
         private String auth_type;
@@ -71,6 +73,10 @@ public class UserInfoBean {
 
         public void setUserID(String userID) {
             this.userID = userID;
+        }
+
+        public void setUser_id(String user_id) {
+            this.user_id = user_id;
         }
 
         public void setUser_name(String user_name) {
@@ -119,6 +125,10 @@ public class UserInfoBean {
 
         public String getUserID() {
             return userID;
+        }
+
+        public String getUser_id() {
+            return user_id;
         }
 
         public String getUser_name() {

@@ -295,7 +295,7 @@ public class CommonUtils {
         // 封装接口参数
         Bundle b = new Bundle();
         b.putString("merchantId", dataEntity.getMerchantId()); // 商户ID
-        b.putString("userId", userInfoBean.getData().getUserID()); // 商户系统用户ID
+        b.putString("userId", userInfoBean.getData().getUser_id()); // 商户系统用户ID
         b.putString("outOrderId", dataEntity.getPayment_sn()); // 商户订单号
         //b.putString("merchantBankCardNo", temp.get); // 银行卡号(非必填)
         b.putString("sign", dataEntity.getSign()); // 签名由商户后台签名后传给客户端，分为MD5和RSA两种签名加密
@@ -333,6 +333,6 @@ public class CommonUtils {
                         break;
                 }
             }
-        }, true);
+        }, false);
     }
 }

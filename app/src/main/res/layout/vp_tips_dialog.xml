@@ -78,7 +78,7 @@
             android:id="@+id/phone_num"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/vp_tips_phone_num"
+            android:text="1111111"
             android:textColor="@color/vp_link_blue"
             android:textSize="16sp"
             android:layout_marginBottom="5dp"

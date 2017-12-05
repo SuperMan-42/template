@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#66000000"
+    android:background="#CC000000"
     android:orientation="vertical">
 
     <ScrollView
@@ -20,8 +20,8 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:orientation="vertical"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp">
+            android:paddingLeft="40dp"
+            android:paddingRight="40dp">
 
             <!-- 短信验证框 -->
             <LinearLayout
@@ -46,7 +46,7 @@
                         android:layout_marginRight="15dp"
                         android:text="请输入短信验证码"
                         android:textColor="#ff3747"
-                        android:textSize="18sp" />
+                        android:textSize="17sp" />
 
                     <!-- 关闭 按钮 -->
                     <!-- 通过设置padding增大按钮可点击区域 -->
@@ -54,7 +54,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:layout_marginRight="2dp"
+                        android:layout_margin="4dp"
                         android:orientation="vertical">
 
                         <ImageButton
@@ -65,7 +65,7 @@
                             android:background="@null"
                             android:paddingBottom="10dp"
                             android:paddingLeft="10dp"
-                            android:paddingRight="8dp"
+                            android:paddingRight="6dp"
                             android:paddingTop="8dp"
                             android:src="@drawable/vp_closed" />
 
@@ -85,18 +85,18 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:layout_marginTop="19dp"
-                    android:layout_marginBottom="19dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="15dp"
                     android:text="￥100.00"
                     android:textColor="@color/vp_back2"
-                    android:textSize="27sp" />
+                    android:textSize="30sp" />
 
                 <!-- 手机号 ＋ 重新获取 -->
                 <RelativeLayout
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginRight="15dp"
+                    android:layout_marginLeft="25dp"
+                    android:layout_marginRight="25dp"
                     android:orientation="horizontal">
 
                     <!-- 手机号 -->
@@ -127,8 +127,8 @@
                 <LinearLayout
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginRight="15dp"
+                    android:layout_marginLeft="25dp"
+                    android:layout_marginRight="25dp"
                     android:layout_marginTop="17dp">
                     <!--<LinearLayout-->
                     <!--android:layout_width="fill_parent"-->
@@ -171,6 +171,7 @@
                 </RelativeLayout>
 
                 <LinearLayout
+                    android:id="@+id/vp_footer"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"

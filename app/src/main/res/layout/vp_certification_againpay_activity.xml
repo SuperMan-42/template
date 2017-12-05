@@ -32,30 +32,30 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
                 android:gravity="left"
+                android:layout_marginTop="10dp"
                 android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/outOrderid"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginRight="15dp"
                     android:text="@string/vp_out_order_id"
                     android:textColor="@color/vp_dark_gray"
-                    android:textSize="18sp" />
+                    android:textSize="18sp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp" />
 
                 <TextView
                     android:id="@+id/amount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginRight="15dp"
                     android:layout_marginTop="10dp"
                     android:text="@string/vp_amount"
                     android:textColor="@color/vp_dark_gray"
-                    android:textSize="18sp" />
+                    android:textSize="18sp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp" />
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -66,9 +66,9 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:layout_alignParentTop="true"
                         android:layout_marginBottom="1dp"
-                        android:background="#D7D7D7" />
+                        android:background="#D7D7D7"
+                        android:layout_alignParentTop="true" />
 
                     <LinearLayout
                         android:id="@+id/layout_bank"
@@ -83,9 +83,9 @@
                             android:id="@+id/bankLogo"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:src="@drawable/vp_bank_branch_icon"
                             android:layout_marginLeft="15dp"
-                            android:layout_marginRight="10dp"
-                            android:src="@drawable/vp_bank_branch_icon" />
+                            android:layout_marginRight="10dp" />
 
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -105,8 +105,8 @@
                                 android:id="@+id/bankCard"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginLeft="5dp"
                                 android:paddingTop="10dp"
+                                android:layout_marginLeft="5dp"
                                 android:text="**** **** **** ***1 234"
                                 android:textColor="@color/vp_dark_gray"
                                 android:textSize="16sp" />
@@ -118,19 +118,19 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:layout_below="@id/layout_bank"
                         android:layout_marginBottom="1dp"
-                        android:background="#D7D7D7" />
+                        android:background="#D7D7D7"
+                        android:layout_below="@id/layout_bank" />
 
                 </RelativeLayout>
 
                 <Button
                     android:id="@+id/next_button"
                     style="@style/vp_btn_finish"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginRight="15dp"
                     android:layout_marginTop="20dp"
-                    android:text="@string/vp_btn_next_step" />
+                    android:text="@string/vp_btn_next_step"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp" />
 
             </LinearLayout>
 

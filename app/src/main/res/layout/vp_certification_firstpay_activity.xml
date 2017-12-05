@@ -276,7 +276,9 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
-                <include layout="@layout/vp_ucfpay_logo" />
+                <include
+                    android:id="@+id/vp_footer"
+                    layout="@layout/vp_ucfpay_logo" />
             </LinearLayout>
 
         </LinearLayout>

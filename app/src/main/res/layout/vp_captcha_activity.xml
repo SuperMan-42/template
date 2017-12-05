@@ -15,8 +15,8 @@
         android:id="@+id/scroll_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/title"
-        android:fillViewport="true">
+        android:fillViewport="true"
+        android:layout_below="@id/title">
 
         <LinearLayout
             android:id="@+id/scroll_layout"
@@ -31,17 +31,17 @@
                 android:layout_marginTop="20dp"
                 android:paddingLeft="15dp"
                 android:paddingRight="15dp"
-                android:textColor="@color/vp_black"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                android:textColor="@color/vp_black" />
 
             <RelativeLayout
                 android:id="@+id/rl_get_verify_code_again"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
                 android:background="@color/vp_white"
                 android:orientation="horizontal"
-                android:padding="15dp">
+                android:padding="15dp"
+                android:layout_marginTop="20dp">
 
                 <TextView
                     android:id="@+id/tv_get_verify_code_again"
@@ -57,27 +57,27 @@
                     android:id="@+id/edit_code"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="10dp"
-                    android:layout_toLeftOf="@id/tv_get_verify_code_again"
                     android:background="@null"
-                    android:gravity="center_vertical"
-                    android:hint="@string/vp_msg_code"
-                    android:maxLength="6"
-                    android:numeric="integer"
+                    android:layout_toLeftOf="@id/tv_get_verify_code_again"
                     android:singleLine="true"
-                    android:text=""
+                    android:maxLength="6"
+                    android:textSize="15sp"
+                    android:layout_marginRight="10dp"
+                    android:hint="@string/vp_msg_code"
+                    android:numeric="integer"
                     android:textColorHint="#cecece"
-                    android:textSize="15sp" />
+                    android:gravity="center_vertical"
+                    android:text="" />
 
             </RelativeLayout>
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
+                android:paddingTop="@dimen/vp_row_gap"
                 android:paddingLeft="15dp"
                 android:paddingRight="15dp"
-                android:paddingTop="@dimen/vp_row_gap">
+                android:layout_marginTop="15dp">
 
                 <TextView
                     android:id="@+id/agreement"
@@ -85,15 +85,15 @@
                     android:layout_height="wrap_content"
                     android:text="@string/vp_user_agreement"
                     android:textColor="@color/vp_gray"
-                    android:textColorLink="@color/vp_linked_blue"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"
+                    android:textColorLink="@color/vp_linked_blue" />
 
             </RelativeLayout>
 
             <Button
                 android:id="@+id/next_step"
-                style="@style/vp_btn_common_style"
-                android:text="@string/vp_btn_next_step" />
+                android:text="@string/vp_btn_next_step"
+                style="@style/vp_btn_common_style" />
 
             <TextView
                 android:id="@+id/post_code_info"
@@ -102,10 +102,12 @@
                 android:layout_marginTop="20dp"
                 android:paddingLeft="20dp"
                 android:paddingRight="20dp"
-                android:textColor="@color/vp_text_color"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                android:textColor="@color/vp_text_color" />
 
-            <include layout="@layout/vp_footer" />
+            <include
+                android:id="@+id/vp_footer"
+                layout="@layout/vp_footer" />
 
         </LinearLayout>
 

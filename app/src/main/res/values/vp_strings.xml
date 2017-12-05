@@ -5,7 +5,6 @@
     <string name="vp_connect_error">服务器连接错误</string>
     <string name="vp_connect_timeout">请求超时，请重试</string>
     <string name="vp_service_busy">系统繁忙，请稍后重试</string>
-    <string name="vp_tips_phone_num">4008909888</string>
     <string name="vp_tips_look_banks_list">查看支持银行列表</string>
     <string name="vp_btn_i_know">我知道了</string>
     <string name="vp_dialog_title">提醒</string>
@@ -25,7 +24,7 @@
     <string name="vp_bank_lines">银行限额</string>
     <string name="vp_hide">&#160;****&#160;****&#160;</string>
     <string name="vp_pay">立即支付</string>
-   
+
     <!-- 填写验证码页面 -->
     <string name="vp_title_input_vali_info">填写验证码</string>
     <string name="vp_msg_code">短信验证码</string>
@@ -45,26 +44,31 @@
     <string name="vp_hint_bank_phone_number">请输入银行预留手机号</string>
     <string name="vp_hint_bank_card_number">请输入您本人的储蓄卡号</string>
     <string name="vp_validate_valid_phone">请输入有效的手机号</string>
-  
+
     <!-- 再次认证支付输银行卡页面 -->
     <string name="vp_out_order_id">流水号:  %s</string>
     <string name="vp_amount">金&#160;&#160;&#160;&#160;额:  %s元</string>
-    
+
     <!-- 认证支付结果页面  -->
     <string name="vp_btn_back">返&#160;&#160;回</string>
     <string name="vp_title_verify_result">支付结果</string>
     <string name="vp_verify_pay_success">支付完成!</string>
     <string name="vp_first_verify_pay_success">请返回查询交易订单，以确认交易是否成功完成，如有疑问请联系商户客服。</string>
     <string name="vp_verify_pay_process">已提交银行处理！</string>
-    <string name="vp_verify_pay_process_tip">预计30分钟至4小时内到账，如有疑问请致电先锋支付客服:</string>
-    <string name="vp_tips_ucfpay_phone_num">4008189889</string>
+    <string name="vp_verify_pay_process_tip">预计30分钟至4小时内到账，如有疑问请致电</string>
+    <string name="vp_verify_pay_process_tip2">客服:</string>
     <string name="vp_verify_pay_failed">支付失败</string>
-    <string name="vp_verify_pay_failed_tip">如有疑问请致电先锋支付客服：</string>
+    <string name="vp_verify_pay_failed_tip">如有疑问请致电</string>
+    <string name="vp_verify_pay_failed_tip2">客服：</string>
     <string name="vp_again_verify_pay_failed">支付订单已提交银行处理!</string>
     <string name="vp_again_verify_pay_failed_tip">预计30分钟至4小时内到账</string>
     <string name="vp_refresh">刷新</string>
-    
+    <string name="vp_ucf_company_name">先锋支付</string>
+    <string name="vp_js_company_name">九商金融</string>
+    <string name="vp_tips_ucfpay_phone_num">4008189889</string>
+    <string name="vp_tips_js_phone_num">0431-96888</string>
+
     <!-- 选择银行卡列表页面 -->
     <string name="vp_card_list">支持银行列表</string>
-    
+
 </resources>

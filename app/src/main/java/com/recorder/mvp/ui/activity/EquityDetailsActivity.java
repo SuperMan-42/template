@@ -207,6 +207,12 @@ public class EquityDetailsActivity extends BaseActivity<EquityDetailsPresenter> 
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        viewToolbar.getBackground().setAlpha((int) (alpha * 255));
+    }
+
+    @Override
     public void showLoading() {
 
     }
