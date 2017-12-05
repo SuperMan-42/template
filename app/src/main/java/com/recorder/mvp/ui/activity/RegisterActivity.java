@@ -44,8 +44,6 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter> implements
     @BindView(R.id.tv_get_code)
     TextView tvGetCode;
 
-    CustomPopupWindow dialog;
-
     @Override
     public void setupActivityComponent(AppComponent appComponent) {
         DaggerRegisterComponent //如找不到该类,请编译一下项目

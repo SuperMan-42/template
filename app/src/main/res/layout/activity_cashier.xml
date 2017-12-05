@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F0F2F5"
+    android:orientation="vertical">
+
+    <include layout="@layout/view_toolbar" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:paddingBottom="24px"
+        android:paddingLeft="45px"
+        android:paddingRight="45px"
+        android:paddingTop="24px">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="支付金额"
+            android:textColor="#666666"
+            android:textSize="42px" />
+
+        <TextView
+            android:id="@+id/tv_amount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:textColor="#FF5701"
+            android:textSize="45px"
+            android:textStyle="bold"
+            tools:text="6万元" />
+    </RelativeLayout>
+
+    <View style="@style/divider" />
+
+    <RelativeLayout
+        android:id="@+id/rl_onLine"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:padding="45px">
+
+        <ImageView
+            android:id="@+id/im_cover"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/vp_abc" />
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="45px"
+            android:layout_toRightOf="@id/im_cover"
+            android:text="先锋支付"
+            android:textColor="#333333"
+            android:textSize="45px"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_name"
+            android:layout_marginLeft="45px"
+            android:layout_marginTop="6px"
+            android:layout_toRightOf="@id/im_cover"
+            android:text="先锋金融旗下安全支付"
+            android:textColor="#666666"
+            android:textSize="39px" />
+    </RelativeLayout>
+
+    <View style="@style/divider" />
+
+    <RelativeLayout
+        android:id="@+id/rl_offLine"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:padding="45px">
+
+        <ImageView
+            android:id="@+id/im_cover_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/vp_gdb" />
+
+        <TextView
+            android:id="@+id/tv_name_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="45px"
+            android:layout_toRightOf="@id/im_cover_1"
+            android:text="线下支付"
+            android:textColor="#333333"
+            android:textSize="45px"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_name_1"
+            android:layout_marginLeft="45px"
+            android:layout_marginTop="6px"
+            android:layout_toRightOf="@id/im_cover_1"
+            android:text="网银或银行柜台转账"
+            android:textColor="#666666"
+            android:textSize="39px" />
+    </RelativeLayout>
+</LinearLayout>

@@ -152,6 +152,9 @@
         <activity
             android:name=".mvp.ui.activity.ServiceCenterActivity"
             android:theme="@style/CoreAppTheme.Transparent" />
+        <activity
+            android:name=".mvp.ui.activity.CashierActivity"
+            android:theme="@style/CoreAppTheme.Transparent" />
     </application>
 
 </manifest>

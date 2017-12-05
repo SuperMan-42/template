@@ -60,6 +60,9 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 import okio.Buffer;
 
+import static com.core.http.exception.ApiErrorCode.ERROR_USER_INFO_AUDIT;
+import static com.core.http.exception.ApiErrorCode.ERROR_USER_INFO_NOT_ALL;
+
 /**
  * app的全局配置信息在此配置,需要将此实现类声明到AndroidManifest中
  */
@@ -99,6 +102,12 @@ public class GlobalConfiguration implements ConfigModule {
                                     CoreUtils.obtainRxCache(context).put("isClear", "false");
                                     CoreUtils.showEmpty(Constants.NO_AUTH, R.drawable.ic_no_auth, R.string.empty_no_auth, "去认证");
                                     throw new ApiException(code, jsonObject.optString("error"));
+                                case ERROR_USER_INFO_NOT_ALL:
+                                    CoreUtils.snackbarText(jsonObject.optString("error"));
+                                    break;
+                                case ERROR_USER_INFO_AUDIT:
+                                    CoreUtils.snackbarText(jsonObject.optString("error"));
+                                    break;
                                 default:
                                     response.body().close();
                                     CoreUtils.snackbarText(jsonObject.optString("error"));
@@ -171,7 +180,7 @@ public class GlobalConfiguration implements ConfigModule {
                                 }
                             }
                         } catch (Exception e) {
-                            Logger.e("AUTH-INFO生成错误: " + e);
+                            Logger.d("AUTH-INFO生成错误: " + e);
                         }
                         return requestBuilder.build();
                     }
@@ -186,7 +195,6 @@ public class GlobalConfiguration implements ConfigModule {
                             Logger.d(((CompositeException) t).getExceptions().toString());
                         } else {
                             Logger.d("=============>" + t.getMessage());
-//                            CoreUtils.snackbarText("responseErrorListener=> " + t.getMessage());
                         }
                     }
                 })
@@ -223,7 +231,7 @@ public class GlobalConfiguration implements ConfigModule {
 //                    });//TODO 暂时关闭(用来打印框架的一些日志)
                 }
                 //leakCanary内存泄露检查
-                CoreUtils.obtainRxCache(context).put(RefWatcher.class.getName(), BuildConfig.USE_CANARY ? LeakCanary.install(application) : RefWatcher.DISABLED);
+                CoreUtils.obtainRxCache(context).put(RefWatcher.class.getName(), BuildConfig.IS_RELEASE ? LeakCanary.install(application) : RefWatcher.DISABLED);
 
                 //ARouter初始化
                 if (BuildConfig.LOG_DEBUG) {

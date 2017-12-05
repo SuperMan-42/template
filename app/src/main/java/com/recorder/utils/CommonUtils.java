@@ -20,6 +20,7 @@ import com.jaeger.library.StatusBarUtil;
 import com.liulishuo.filedownloader.BaseDownloadTask;
 import com.liulishuo.filedownloader.FileDownloadSampleListener;
 import com.liulishuo.filedownloader.FileDownloader;
+import com.recorder.BuildConfig;
 import com.recorder.mvp.model.entity.PayPayBean;
 import com.recorder.mvp.model.entity.UserInfoBean;
 import com.ucfpay.plugin.certification.utils.UcfpayInterface;
@@ -333,6 +334,6 @@ public class CommonUtils {
                         break;
                 }
             }
-        }, false);
+        }, BuildConfig.IS_RELEASE);
     }
 }

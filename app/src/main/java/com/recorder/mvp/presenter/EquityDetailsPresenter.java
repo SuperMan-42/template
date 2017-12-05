@@ -1,6 +1,7 @@
 package com.recorder.mvp.presenter;
 
 import android.app.Application;
+import android.widget.TextView;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.core.di.scope.ActivityScope;
@@ -9,8 +10,8 @@ import com.core.integration.AppManager;
 import com.core.mvp.BasePresenter;
 import com.core.utils.CoreUtils;
 import com.core.utils.RxLifecycleUtils;
+import com.core.widget.CustomPopupWindow;
 import com.google.gson.Gson;
-import com.orhanobut.logger.Logger;
 import com.recorder.R;
 import com.recorder.mvp.contract.EquityDetailsContract;
 import com.recorder.mvp.model.entity.DealDetailBean;
@@ -20,6 +21,10 @@ import javax.inject.Inject;
 
 import me.jessyan.rxerrorhandler.core.RxErrorHandler;
 import me.jessyan.rxerrorhandler.handler.ErrorHandleSubscriber;
+
+import static com.core.http.exception.ApiErrorCode.ERROR_USER_AUTHORIZED;
+import static com.core.http.exception.ApiErrorCode.ERROR_USER_INFO_AUDIT;
+import static com.core.http.exception.ApiErrorCode.ERROR_USER_INFO_NOT_ALL;
 
 @ActivityScope
 public class EquityDetailsPresenter extends BasePresenter<EquityDetailsContract.Model, EquityDetailsContract.View> {
@@ -99,9 +104,14 @@ public class EquityDetailsPresenter extends BasePresenter<EquityDetailsContract.
                     @Override
                     public void onNext(PayCheckBean payCheckBean) {
                         switch (payCheckBean.getErrno()) {
-                            case 113:
-                                mRootView.showMessage(payCheckBean.getError());
-                                Logger.d("payCheck=> " + payCheckBean.getError());
+                            case ERROR_USER_AUTHORIZED:
+                                showDialog(CoreUtils.getString(mApplication, R.string.text_error_user_authorized));
+                                break;
+                            case ERROR_USER_INFO_NOT_ALL:
+                                showDialog(CoreUtils.getString(mApplication, R.string.text_error_user_info_not_all));
+                                break;
+                            case ERROR_USER_INFO_AUDIT:
+                                showDialog(CoreUtils.getString(mApplication, R.string.text_error_user_info_audit));
                                 break;
                             case 0:
                                 ARouter.getInstance().build("/app/BuyActivity").withString("payCheck", new Gson().toJson(payCheckBean)).navigation();
@@ -109,5 +119,17 @@ public class EquityDetailsPresenter extends BasePresenter<EquityDetailsContract.
                         }
                     }
                 });
+    }
+
+    private void showDialog(String content) {
+        CustomPopupWindow.builder().contentView(CoreUtils.inflate(mAppManager.getCurrentActivity(), R.layout.layout_dialog_two_button)).isOutsideTouch(false)
+                .customListener(contentView -> {
+                    ((TextView) contentView.findViewById(R.id.tv_content)).setText(content);
+                    contentView.findViewById(R.id.tv_sure).setOnClickListener(view -> {
+                        ARouter.getInstance().build("/app/AuthActivity").navigation();
+                        CustomPopupWindow.killMySelf();
+                    });
+                    contentView.findViewById(R.id.tv_cancel).setOnClickListener(view -> CustomPopupWindow.killMySelf());
+                }).build().show();
     }
 }

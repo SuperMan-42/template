@@ -209,6 +209,7 @@ public class EquityDetailsActivity extends BaseActivity<EquityDetailsPresenter> 
     @Override
     protected void onResume() {
         super.onResume();
+        toolbar.getBackground().setAlpha((int) alpha);
         viewToolbar.getBackground().setAlpha((int) (alpha * 255));
     }
 
@@ -293,7 +294,6 @@ public class EquityDetailsActivity extends BaseActivity<EquityDetailsPresenter> 
                 mPresenter.dealConsult(dataEntity.getDealID());
                 break;
             case R.id.ll_buy:
-                //TODO 去认证的逻辑
                 mPresenter.payCheck(dataEntity.getDealID());
                 break;
         }

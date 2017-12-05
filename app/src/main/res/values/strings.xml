@@ -38,4 +38,7 @@
     <string name="ic_investment_empty">您暂时还没有投资过的项目哦</string>
     <string name="ic_attention_emtyp">您还没有关注过项目哦</string>
     <string name="ic_manager_empty">目前没有投后管理的项目</string>
+    <string name="text_error_user_authorized">认证权限不够</string>
+    <string name="text_error_user_info_not_all">投资人认证正在审核中</string>
+    <string name="text_error_user_info_audit">认证用户需上传符合投资人条件的资产证明,审核通过后再认购项目</string>
 </resources>

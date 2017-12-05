@@ -11,6 +11,7 @@ import android.view.WindowManager;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.PopupWindow;
 
+import com.core.R;
 import com.core.utils.AnimUtil;
 
 public class CustomPopupWindow extends PopupWindow {
@@ -98,7 +99,7 @@ public class CustomPopupWindow extends PopupWindow {
         private boolean isOutsideTouch = true;//默认为true
         private boolean isFocus = true;//默认为true
         private Drawable backgroundDrawable = new ColorDrawable(0x50000000);//默认为透明
-        private int animationStyle = -1;
+        private int animationStyle = R.style.popwindow_anim_default;
         private boolean isWrap;
 
         private Builder() {
