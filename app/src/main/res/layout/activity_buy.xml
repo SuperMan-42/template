@@ -13,6 +13,8 @@
         android:layout_height="0dp"
         android:layout_marginLeft="45px"
         android:layout_marginRight="45px"
+        android:fadingEdge="none"
+        android:overScrollMode="never"
         android:scrollbars="none"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/toolbar">
@@ -23,6 +25,7 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/tv_deal_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="33px"
@@ -71,14 +74,15 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="21px"
                         android:background="@null"
+                        android:gravity="center|start"
                         android:lines="1"
-                        android:maxLength="9"
+                        android:maxLength="2"
                         android:maxWidth="720px"
                         android:minWidth="180px"
                         android:textColor="#333333"
                         android:textSize="165px"
                         app:layout_constraintLeft_toRightOf="@id/tv_1"
-                        tools:text="36" />
+                        tools:text="--" />
 
                     <TextView
                         android:id="@+id/textView"
@@ -97,6 +101,7 @@
                 <View style="@style/divider" />
 
                 <TextView
+                    android:id="@+id/tv_limit_price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="24px"
@@ -118,6 +123,7 @@
                 android:paddingTop="36px">
 
                 <LinearLayout
+                    android:id="@+id/ll_shakes"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
@@ -125,11 +131,12 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="占股比例: "
+                        android:text="项目出让股份: "
                         android:textColor="#878787"
                         android:textSize="42px" />
 
                     <TextView
+                        android:id="@+id/tv_shakes"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="18%"
@@ -139,6 +146,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/ll_manager_fee"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="24px"
@@ -147,11 +155,12 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="占股比例: "
+                        android:text="管理费比例: "
                         android:textColor="#878787"
                         android:textSize="42px" />
 
                     <TextView
+                        android:id="@+id/tv_manager_fee"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="22%"
@@ -161,6 +170,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/ll_consult_fee"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="24px"
@@ -169,11 +179,133 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="占股比例: "
+                        android:text="财务管理费比例: "
                         android:textColor="#878787"
                         android:textSize="42px" />
 
                     <TextView
+                        android:id="@+id/tv_consult_fee"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="33%"
+                        android:textColor="#262626"
+                        android:textSize="42px"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_subscription_fee"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24px"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="申购费比例: "
+                        android:textColor="#878787"
+                        android:textSize="42px" />
+
+                    <TextView
+                        android:id="@+id/tv_subscription_fee"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="33%"
+                        android:textColor="#262626"
+                        android:textSize="42px"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_partner_fee"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24px"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="合伙人费比例: "
+                        android:textColor="#878787"
+                        android:textSize="42px" />
+
+                    <TextView
+                        android:id="@+id/tv_partner_fee"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="33%"
+                        android:textColor="#262626"
+                        android:textSize="42px"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_plat_manage_fee"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24px"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="平台管理费: "
+                        android:textColor="#878787"
+                        android:textSize="42px" />
+
+                    <TextView
+                        android:id="@+id/tv_plat_manage_fee"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="33%"
+                        android:textColor="#262626"
+                        android:textSize="42px"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_other_fee"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24px"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="其他费费用比例: "
+                        android:textColor="#878787"
+                        android:textSize="42px" />
+
+                    <TextView
+                        android:id="@+id/tv_other_fee"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="33%"
+                        android:textColor="#262626"
+                        android:textSize="42px"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_custom_fee"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24px"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_custom_fee_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="自定义费用比例: "
+                        android:textColor="#878787"
+                        android:textSize="42px" />
+
+                    <TextView
+                        android:id="@+id/tv_custom_fee"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="33%"
@@ -184,68 +316,14 @@
 
             </LinearLayout>
 
-            <LinearLayout
+            <com.core.widget.recyclerview.CoreRecyclerView
+                android:id="@+id/recyclerview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="66px"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/im_login_phone" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="21px"
-                    android:text="我已知晓初创及成长期的企业有较高危险性，我将承担可能的损失，甚至能是100%的损失。"
-                    android:textColor="#666666"
-                    android:textSize="39px" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="36px"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/im_login_phone" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="21px"
-                    android:text="我已知晓初创及成长期的企业有较高危险性，我将承担可能的损失，甚至能是100%的损失。"
-                    android:textColor="#666666"
-                    android:textSize="39px" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="36px"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/im_login_phone" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="21px"
-                    android:text="我已知晓初创及成长期的企业有较高危险性，我将承担可能的损失，甚至能是100%的损失。"
-                    android:textColor="#666666"
-                    android:textSize="39px" />
-            </LinearLayout>
+                android:layout_marginTop="36px" />
 
             <TextView
-                android:id="@+id/tv_login"
+                android:id="@+id/tv_submit"
                 android:layout_width="match_parent"
                 android:layout_height="132px"
                 android:layout_marginBottom="180px"

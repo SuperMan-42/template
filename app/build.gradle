@@ -31,10 +31,21 @@ android {
             abiFilters "armeabi", "armeabi-v7a", "x86", "mips"
         }
     }
+
+    signingConfigs {
+        release {
+            storeFile file("yuanshihui")
+            storePassword "123456"
+            keyAlias "yuanshihui"
+            keyPassword "123456"
+        }
+    }
+
     buildTypes {
         debug {
             buildConfigField "boolean", "LOG_DEBUG", "true"
             buildConfigField "boolean", "USE_CANARY", "true"
+            signingConfig signingConfigs.release
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
@@ -42,6 +53,7 @@ android {
         release {
             buildConfigField "boolean", "LOG_DEBUG", "false"
             buildConfigField "boolean", "USE_CANARY", "false"
+            signingConfig signingConfigs.release
             minifyEnabled true
             shrinkResources true
             zipAlignEnabled true

@@ -3,6 +3,7 @@ package com.recorder.mvp.ui.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.text.TextUtils;
 import android.view.View;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
@@ -19,12 +20,10 @@ import com.recorder.di.component.DaggerMyInvestmentComponent;
 import com.recorder.di.module.MyInvestmentModule;
 import com.recorder.mvp.contract.MyInvestmentContract;
 import com.recorder.mvp.model.entity.LoginBean;
+import com.recorder.mvp.model.entity.OrderListBean;
 import com.recorder.mvp.presenter.MyInvestmentPresenter;
 
 import org.simple.eventbus.Subscriber;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 
@@ -53,33 +52,13 @@ public class MyInvestmentActivity extends BaseActivity<MyInvestmentPresenter> im
     @Override
     public void initView(Bundle savedInstanceState) {
         title("我的投资");
-        List<String> list = new ArrayList<>();
-        list.add("http://ww4.sinaimg.cn/large/006uZZy8jw1faic259ohaj30ci08c74r.jpg");
-        list.add("http://ww4.sinaimg.cn/large/006uZZy8jw1faic2b16zuj30ci08cwf4.jpg");
-        list.add("http://ww4.sinaimg.cn/large/006uZZy8jw1faic2e7vsaj30ci08cglz.jpg");
-        list.add("http://bpic.588ku.com/element_origin_min_pic/00/00/05/115732f19cc0079.jpg");
-        list.add("http://bpic.588ku.com/element_origin_min_pic/00/00/05/115732f1ac12d1d.jpg");
-        list.add("http://bpic.588ku.com/element_origin_min_pic/00/00/05/115732f1bad97d1.jpg");
-        list.add("http://bpic.588ku.com/element_origin_min_pic/00/00/05/115732f1c83c228.jpg");
-        list.add("http://bpic.588ku.com/element_origin_min_pic/00/00/05/115732f1d53e3dd.jpg");
-        list.add("http://bpic.588ku.com/element_origin_min_pic/00/00/05/115732f1e37fea9.jpg");
-        list.add("http://bpic.588ku.com/element_origin_min_pic/00/00/05/115732f1ef4d709.jpg");
-        list.add("http://bpic.588ku.com/element_origin_min_pic/00/00/05/115732f20b3ea10.jpg");
-        list.add("http://bpic.588ku.com/element_origin_min_pic/00/00/05/115732f21927f8d.jpg");
-        list.add("http://ww4.sinaimg.cn/large/006uZZy8jw1faic1xjab4j30ci08cjrv.jpg");
-        list.add("http://ww4.sinaimg.cn/large/006uZZy8jw1faic21363tj30ci08ct96.jpg");
-        recyclerView.init(new BaseQuickAdapter<String, BaseViewHolder>(R.layout.item_my_investment, list) {
-            @Override
-            protected void convert(BaseViewHolder holder, String item) {
-                CoreUtils.imgLoader(MyInvestmentActivity.this, item, holder.getView(R.id.im_cover));
-            }
-        }, false);
-        recyclerView.getRecyclerView().addItemDecoration(new SpacesItemDecoration(0, 36));
+        mPresenter.orderList(null, null);
     }
 
     @Subscriber(tag = Constants.RETRY_MYINVESTMENT)
     private void retry(LoginBean loginBean) {
         findViewById(R.id.view_empty).setVisibility(View.GONE);
+        mPresenter.orderList(null, null);
     }
 
     @Override
@@ -107,5 +86,41 @@ public class MyInvestmentActivity extends BaseActivity<MyInvestmentPresenter> im
     @Override
     public void killMyself() {
         finish();
+    }
+
+    @Override
+    public void showOrderList(OrderListBean.DataEntity data) {
+        recyclerView.init(new BaseQuickAdapter<OrderListBean.DataEntity.ListEntity, BaseViewHolder>(R.layout.item_my_investment, data.getList()) {
+            @Override
+            protected void convert(BaseViewHolder holder, OrderListBean.DataEntity.ListEntity item) {
+                CoreUtils.imgLoader(holder.itemView.getContext(), item.getCover(), holder.getView(R.id.im_cover));
+                holder.setText(R.id.tv_deal_name, item.getDeal_name())
+                        .setText(R.id.tv_amount, item.getAmount())
+                        .setText(R.id.tv_actual_amount, item.getActual_amount());
+                setContent(holder, item, item.getManager_amount(), R.id.ll_manager_amount, R.id.tv_manager_amount);
+                setContent(holder, item, item.getConsult_amount(), R.id.ll_consult_amount, R.id.tv_consult_amount);
+                setContent(holder, item, item.getSubscription_amount(), R.id.ll_subscription_amount, R.id.tv_subscription_amount);
+                setContent(holder, item, item.getPartner_amount(), R.id.ll_partner_amount, R.id.tv_partner_amount);
+                setContent(holder, item, item.getPlat_manage_amount(), R.id.ll_plat_manage_amount, R.id.tv_plat_manage_amount);
+                setContent(holder, item, item.getOther_amount(), R.id.ll_other_amount, R.id.tv_other_amount);
+                setContent(holder, item, item.getCustom_amount(), R.id.ll_custom_amount, R.id.tv_custom_amount);
+                holder.getView(R.id.tv_pay_bt).setOnClickListener(view -> {
+                    //TODO
+                });
+            }
+        }, false);
+        recyclerView.getRecyclerView().addItemDecoration(new SpacesItemDecoration(0, 36));
+    }
+
+    private void setContent(BaseViewHolder holder, OrderListBean.DataEntity.ListEntity data, String value, int ll, int tv) {
+        if (TextUtils.isEmpty(value) || Float.parseFloat(value) <= 0) {
+            holder.setVisible(ll, false);
+        } else {
+            holder.setVisible(ll, true);
+            holder.setText(tv, value);
+            if (value.equals(data.getCustom_amount())) {
+                holder.setText(R.id.tv_custom_amount_name, data.getCustom_amount_name());
+            }
+        }
     }
 }

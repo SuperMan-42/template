@@ -9,6 +9,7 @@ import com.core.integration.AppManager;
 import com.core.mvp.BasePresenter;
 import com.core.utils.CoreUtils;
 import com.core.utils.RxLifecycleUtils;
+import com.google.gson.Gson;
 import com.orhanobut.logger.Logger;
 import com.recorder.R;
 import com.recorder.mvp.contract.EquityDetailsContract;
@@ -103,7 +104,7 @@ public class EquityDetailsPresenter extends BasePresenter<EquityDetailsContract.
                                 Logger.d("payCheck=> " + payCheckBean.getError());
                                 break;
                             case 0:
-                                ARouter.getInstance().build("/app/BuyActivity").withString("payCheck", payCheckBean.toString()).navigation();
+                                ARouter.getInstance().build("/app/BuyActivity").withString("payCheck", new Gson().toJson(payCheckBean)).navigation();
                                 break;
                         }
                     }

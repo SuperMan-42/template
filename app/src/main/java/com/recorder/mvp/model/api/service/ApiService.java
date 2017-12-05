@@ -7,7 +7,9 @@ import com.recorder.mvp.model.entity.HomeRecommendBean;
 import com.recorder.mvp.model.entity.ImageUploadBean;
 import com.recorder.mvp.model.entity.LoginBean;
 import com.recorder.mvp.model.entity.NewsListBean;
+import com.recorder.mvp.model.entity.OrderListBean;
 import com.recorder.mvp.model.entity.PayCheckBean;
+import com.recorder.mvp.model.entity.PayPayBean;
 import com.recorder.mvp.model.entity.UserFollowListBean;
 import com.recorder.mvp.model.entity.UserInfoBean;
 
@@ -118,4 +120,13 @@ public interface ApiService {
 
     @GET("pay/check")
     Observable<PayCheckBean> payCheck(@Header("DIVERSION-VERSION") String version, @Query("dealID") String dealID);
+
+    @FormUrlEncoded
+    @POST("pay/pay")
+    Observable<PayPayBean> payPay(@Header("DIVERSION-VERSION") String version, @Field("dealID") String dealID,
+                                  @Field("amount") String amount, @Field("payment_way") String payment_way);
+
+    @GET("order/list")
+    Observable<OrderListBean> orderList(@Header("DIVERSION-VERSION") String version, @Query("page") String page,
+                                        @Query("page_size") String page_size);
 }

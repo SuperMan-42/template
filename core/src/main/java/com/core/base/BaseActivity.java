@@ -180,5 +180,8 @@ public abstract class BaseActivity<P extends IPresenter> extends AppCompatActivi
 
     public void title(CharSequence title) {
         ((TextView) findViewById(R.id.toolbar_title)).setText(title);
+        if (findViewById(R.id.view_toolbar) == null) {
+            findViewById(R.id.toolbar).getBackground().setAlpha(255);
+        }
     }
 }

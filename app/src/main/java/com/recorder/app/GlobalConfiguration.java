@@ -99,9 +99,9 @@ public class GlobalConfiguration implements ConfigModule {
                                     CoreUtils.obtainRxCache(context).put("isClear", "false");
                                     CoreUtils.showEmpty(Constants.NO_AUTH, R.drawable.ic_no_auth, R.string.empty_no_auth, "去认证");
                                     throw new ApiException(code, jsonObject.optString("error"));
-//                                default:
-//                                    response.body().close();
-//                                    CoreUtils.snackbarText(jsonObject.optString("error"));
+                                default:
+                                    response.body().close();
+                                    CoreUtils.snackbarText(jsonObject.optString("error"));
                             }
                             Object data = jsonObject.optJSONObject("data").opt("total_count");
                             if (response.request().method().equals("GET") && data != null && (Integer) data == 0) {
@@ -162,7 +162,9 @@ public class GlobalConfiguration implements ConfigModule {
                             if (token != null) {
                                 requestBuilder.addHeader("SESSION-TOKEN", token);
                             } else {
-                                if (chain.request().url().toString().contains("/deal/list") || chain.request().url().toString().contains("/user/followlist")) {
+                                if (chain.request().url().toString().contains("/deal/list")
+                                        || chain.request().url().toString().contains("/user/followlist")
+                                        || chain.request().url().toString().contains("/order/list")) {
                                     CoreUtils.showEmpty(Constants.NO_LOGIN, R.drawable.ic_no_login, R.string.empty_no_login, "去登录");
                                     isConnection = false;
                                     return null;
@@ -184,7 +186,7 @@ public class GlobalConfiguration implements ConfigModule {
                             Logger.d(((CompositeException) t).getExceptions().toString());
                         } else {
                             Logger.d("=============>" + t.getMessage());
-                            CoreUtils.snackbarText("responseErrorListener=> " + t.getMessage());
+//                            CoreUtils.snackbarText("responseErrorListener=> " + t.getMessage());
                         }
                     }
                 })

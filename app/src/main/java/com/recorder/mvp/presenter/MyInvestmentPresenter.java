@@ -6,11 +6,14 @@ import com.core.di.scope.ActivityScope;
 import com.core.http.imageloader.ImageLoader;
 import com.core.integration.AppManager;
 import com.core.mvp.BasePresenter;
+import com.core.utils.RxLifecycleUtils;
 import com.recorder.mvp.contract.MyInvestmentContract;
+import com.recorder.mvp.model.entity.OrderListBean;
 
 import javax.inject.Inject;
 
 import me.jessyan.rxerrorhandler.core.RxErrorHandler;
+import me.jessyan.rxerrorhandler.handler.ErrorHandleSubscriber;
 
 @ActivityScope
 public class MyInvestmentPresenter extends BasePresenter<MyInvestmentContract.Model, MyInvestmentContract.View> {
@@ -37,5 +40,16 @@ public class MyInvestmentPresenter extends BasePresenter<MyInvestmentContract.Mo
         this.mAppManager = null;
         this.mImageLoader = null;
         this.mApplication = null;
+    }
+
+    public void orderList(String page, String page_size) {
+        mModel.orderList(page, page_size)
+                .compose(RxLifecycleUtils.transformer(mRootView))
+                .subscribe(new ErrorHandleSubscriber<OrderListBean>(mErrorHandler) {
+                    @Override
+                    public void onNext(OrderListBean orderListBean) {
+                        mRootView.showOrderList(orderListBean.getData());
+                    }
+                });
     }
 }
