@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.View;
+import android.view.animation.AnimationUtils;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.TextView;
@@ -13,6 +14,7 @@ import com.alibaba.android.arouter.launcher.ARouter;
 import com.core.base.BaseActivity;
 import com.core.di.component.AppComponent;
 import com.core.http.imageloader.ImageLoader;
+import com.core.utils.Constants;
 import com.core.utils.CoreUtils;
 import com.core.widget.CustomPopupWindow;
 import com.recorder.R;
@@ -22,6 +24,8 @@ import com.recorder.mvp.contract.ForgetPasswordContract;
 import com.recorder.mvp.contract.RegisterContract;
 import com.recorder.mvp.presenter.RegisterPresenter;
 import com.recorder.utils.CommonUtils;
+
+import org.simple.eventbus.EventBus;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -107,6 +111,7 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter> implements
                 ARouter.getInstance().build("/app/AuthActivity").navigation();
                 break;
             case R.id.tv_go_home:
+                EventBus.getDefault().post(0, Constants.HOME_INDEX);
                 ARouter.getInstance().build("/app/HomeActivity").navigation();
                 break;
         }
@@ -128,7 +133,9 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter> implements
 
     @Override
     public void showRegisterSuccess(ImageLoader imageLoader, Object object) {
+        title("提交成功");
         flDialog.setVisibility(View.VISIBLE);
+        flDialog.startAnimation(AnimationUtils.loadAnimation(this, R.anim.fade_in));
     }
 
     public void getCode() {
