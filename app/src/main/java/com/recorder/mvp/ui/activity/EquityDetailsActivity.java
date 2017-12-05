@@ -36,6 +36,7 @@ import com.core.widget.recyclerview.BaseQuickAdapter;
 import com.core.widget.recyclerview.BaseViewHolder;
 import com.core.widget.recyclerview.CoreRecyclerView;
 import com.jaeger.library.StatusBarUtil;
+import com.orhanobut.logger.Logger;
 import com.recorder.R;
 import com.recorder.di.component.DaggerEquityDetailsComponent;
 import com.recorder.di.module.EquityDetailsModule;
@@ -172,7 +173,7 @@ public class EquityDetailsActivity extends BaseActivity<EquityDetailsPresenter> 
     TextView lastTimeTv;
     @BindView(R.id.visible)
     LinearLayout visible;
-    private float alpha;
+    private float alpha = 0;
 
     @Override
     public void setupActivityComponent(AppComponent appComponent) {
@@ -207,10 +208,9 @@ public class EquityDetailsActivity extends BaseActivity<EquityDetailsPresenter> 
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-        toolbar.getBackground().setAlpha((int) alpha);
-        viewToolbar.getBackground().setAlpha((int) (alpha * 255));
+    protected void onPause() {
+        super.onPause();
+        toolbar.setAlpha(alpha);
     }
 
     @Override
@@ -519,6 +519,8 @@ public class EquityDetailsActivity extends BaseActivity<EquityDetailsPresenter> 
     public void translucentBar() {
         scrollview.setTranslucentListener((alpha, t) -> {
             this.alpha = alpha;
+            Logger.d("alpha=> " + alpha);
+            toolbar.setAlpha(1);
             toolbar.getBackground().setAlpha((int) (alpha * 255));
             viewToolbar.getBackground().setAlpha((int) (alpha * 255));
             if (t >= CoreUtils.dip2px(this, 151) - CoreUtils.getDimens(this, R.dimen.status_bar)) {
