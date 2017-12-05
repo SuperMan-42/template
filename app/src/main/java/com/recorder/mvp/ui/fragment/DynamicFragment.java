@@ -55,6 +55,7 @@ public class DynamicFragment extends BaseFragment<DynamicPresenter> implements D
     @Override
     public void initData(Bundle savedInstanceState) {
         mPresenter.newsList(null, null);
+        recyclerView.getRecyclerView().addItemDecoration(new SpacesItemDecoration(30, 45));
     }
 
     /**
@@ -111,6 +112,5 @@ public class DynamicFragment extends BaseFragment<DynamicPresenter> implements D
                 holder.itemView.setOnClickListener(view1 -> ARouter.getInstance().build("/app/WebActivity").withString("url", item.getUrl()).navigation());
             }
         }, false);
-        recyclerView.getRecyclerView().addItemDecoration(new SpacesItemDecoration(30, 45));
     }
 }

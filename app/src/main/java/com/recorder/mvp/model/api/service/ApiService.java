@@ -129,4 +129,9 @@ public interface ApiService {
     @GET("order/list")
     Observable<OrderListBean> orderList(@Header("DIVERSION-VERSION") String version, @Query("page") String page,
                                         @Query("page_size") String page_size);
+
+    @FormUrlEncoded
+    @POST("order/pay")
+    Observable<PayPayBean> orderPay(@Header("DIVERSION-VERSION") String version, @Field("orderID") String orderID,
+                                    @Field("payment_way") String payment_way);
 }

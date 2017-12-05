@@ -9,6 +9,7 @@ import com.google.gson.Gson;
 import com.recorder.mvp.contract.MyInvestmentContract;
 import com.recorder.mvp.model.api.service.ApiService;
 import com.recorder.mvp.model.entity.OrderListBean;
+import com.recorder.mvp.model.entity.PayPayBean;
 
 import javax.inject.Inject;
 
@@ -37,5 +38,10 @@ public class MyInvestmentModel extends BaseModel implements MyInvestmentContract
     public Observable<OrderListBean> orderList(String page, String page_size) {
         return mRepositoryManager.obtainRetrofitService(ApiService.class)
                 .orderList("1", page, page_size);
+    }
+
+    @Override
+    public Observable<PayPayBean> orderPay(String orderID, String payment_way) {
+        return mRepositoryManager.obtainRetrofitService(ApiService.class).orderPay("1", orderID, payment_way);
     }
 }

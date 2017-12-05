@@ -104,6 +104,7 @@ public class HomeActivity extends BaseActivity<HomePresenter> implements HomeCon
     public void initView(Bundle savedInstanceState) {
         imLeft.setImageResource(R.drawable.title_fliter);
         mPresenter.dealFilter();
+        recyclerView.getRecyclerView().addItemDecoration(new SimpleDividerDecoration(this));
         initHome();
     }
 
@@ -271,7 +272,6 @@ public class HomeActivity extends BaseActivity<HomePresenter> implements HomeCon
             }
         });
         recyclerView.init(manager, adapter, false);
-        recyclerView.getRecyclerView().addItemDecoration(new SimpleDividerDecoration(this));
         adapter.expandAll();
     }
 

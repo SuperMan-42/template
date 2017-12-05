@@ -7,11 +7,15 @@ import com.core.http.imageloader.ImageLoader;
 import com.core.integration.AppManager;
 import com.core.mvp.BasePresenter;
 import com.core.utils.RxLifecycleUtils;
+import com.orhanobut.logger.Logger;
 import com.recorder.mvp.contract.MyInvestmentContract;
 import com.recorder.mvp.model.entity.OrderListBean;
+import com.recorder.utils.CommonUtils;
 
 import javax.inject.Inject;
 
+import io.reactivex.Observable;
+import io.reactivex.ObservableOnSubscribe;
 import me.jessyan.rxerrorhandler.core.RxErrorHandler;
 import me.jessyan.rxerrorhandler.handler.ErrorHandleSubscriber;
 
@@ -50,6 +54,23 @@ public class MyInvestmentPresenter extends BasePresenter<MyInvestmentContract.Mo
                     public void onNext(OrderListBean orderListBean) {
                         mRootView.showOrderList(orderListBean.getData());
                     }
+                });
+    }
+
+    public void orderPay(String orderID, OrderListBean.DataEntity.ListEntity item, String payment_way) {
+        mModel.orderPay(orderID, payment_way)
+                .compose(RxLifecycleUtils.transformer(mRootView))
+                .flatMap(payPayBean -> Observable.create((ObservableOnSubscribe<String>) e -> CommonUtils.pay(mAppManager.getCurrentActivity(), e, payPayBean.getData())))
+                .subscribe(data -> {
+                    //处理中的情况
+                    Logger.d("buy=> " + data);
+                    mRootView.showMessage(data);
+                }, e -> {
+                    Logger.d("buy=> e " + e.getMessage() + " " + e.toString());
+                    mRootView.showResult(false, null, e.getMessage());
+                }, () -> {
+                    mRootView.showResult(true, item, item.getAmount());
+                    Logger.d("buy=> complete");
                 });
     }
 }

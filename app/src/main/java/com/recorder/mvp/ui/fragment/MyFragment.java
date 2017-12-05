@@ -89,6 +89,9 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
             tvUserName.setText("您还没登录哦");
             profileImage.setVisibility(View.VISIBLE);
             tvLogin.setVisibility(View.VISIBLE);
+            tvMyInvestment.setText("0");
+            tvFollowCount.setText("0");
+            tvPostInvestment.setText("0");
         } else {
             mPresenter.userInfo();
         }

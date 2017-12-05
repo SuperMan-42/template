@@ -145,6 +145,7 @@ public class CashierActivity extends BaseActivity<CashierPresenter> implements C
     public void showResult(boolean isSuccess, String msg) {
         this.isSuccess = isSuccess;
         if (isSuccess) {
+            CoreUtils.imgLoaderCircle(this, R.drawable.ic_result_success, imCover);
             tvTitle.setText(CoreUtils.getString(this, R.string.text_buy_success));
             String content = CoreUtils.getString(this, R.string.text_buy_success_alter) + deal_name + ",认购金额:" + msg + "元";
             SpannableString spannableString = new SpannableString(content);
@@ -152,12 +153,14 @@ public class CashierActivity extends BaseActivity<CashierPresenter> implements C
             tvContent.setText(spannableString);
             tvContent.setTextColor(Color.parseColor("#333333"));
             tvGoAuthentication.setText("项目详情");
+            title("支付成功");
         } else {
             CoreUtils.imgLoaderCircle(this, R.drawable.ic_result_fail, imCover);
             tvTitle.setText(CoreUtils.getString(this, R.string.text_buy_fail));
             tvContent.setText(CoreUtils.getString(this, R.string.text_buy_fail_alter) + msg);
             tvContent.setTextColor(Color.parseColor("#FF5701"));
             tvGoAuthentication.setText("重新支付");
+            title("支付失败");
         }
         tvGoHome.setText("我的订单");
         flDialog.setVisibility(View.VISIBLE);
