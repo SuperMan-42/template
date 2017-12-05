@@ -145,7 +145,7 @@ public class BuyActivity extends BaseActivity<BuyPresenter> implements BuyContra
     }
 
     private void setContent(String value, LinearLayout ll, TextView tv) {
-        if (TextUtils.isEmpty(value)) {
+        if (TextUtils.isEmpty(value) || Float.parseFloat(value) <= 0) {
             ll.setVisibility(View.GONE);
         } else {
             ll.setVisibility(View.VISIBLE);

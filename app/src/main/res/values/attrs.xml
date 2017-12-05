@@ -23,7 +23,7 @@
     </declare-styleable>
 
     <declare-styleable name="ProgressBar">
-        <attr name="textSize" format="dimension" />
+        <attr name="progressTextSize" format="dimension" />
         <attr name="loadingColor" format="color" />
         <attr name="stopColor" format="color" />
         <attr name="finishColor" format="color" />

@@ -1,0 +1,166 @@
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <style name="vp_loading_dialog" parent="@android:style/Theme.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowIsTranslucent">false</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:backgroundDimEnabled">true</item>
+    </style>
+
+    <style name="vp_notify_dialog" parent="@android:style/Theme.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowIsTranslucent">false</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:backgroundDimEnabled">false</item>
+    </style>
+
+    <style name="vp_btn_orange_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/vp_common_btn_height</item>
+        <item name="android:textColor">@color/vp_white</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:background">@drawable/vp_common_btn_orange</item>
+        <item name="android:layout_marginTop">@dimen/vp_top_margin</item>
+    </style>
+
+    <style name="vp_btn_gray_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/vp_common_btn_height</item>
+        <item name="android:textColor">@color/vp_dark_gray</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:background">@drawable/vp_common_btn_gray</item>
+        <item name="android:layout_marginTop">@dimen/vp_top_margin</item>
+    </style>
+
+    <style name="vp_btn_blue_corner_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/vp_common_btn_height</item>
+        <item name="android:textColor">@color/vp_white</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:background">@drawable/vp_common_coner_btn_blue</item>
+        <item name="android:layout_marginTop">@dimen/vp_top_margin</item>
+    </style>
+
+    <style name="vp_btn_blue_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">@dimen/vp_common_btn_height</item>
+        <item name="android:textColor">@color/vp_white</item>
+        <item name="android:background">@drawable/vp_common_btn_blue</item>
+    </style>
+
+    <style name="vp_soft_keyboard_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">@color/vp_keyboard_bg_color</item>
+        <item name="android:layout_marginTop">@dimen/vp_keyboard_top_margin</item>
+    </style>
+
+    <style name="vp_checkbox_style" parent="@android:style/Widget.CompoundButton.CheckBox">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/vp_text_color</item>
+        <item name="android:button">@drawable/vp_checkbox_selector</item>
+    </style>
+
+    <!-- 普通按钮样式 -->
+    <style name="vp_btn_common_style">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">@dimen/vp_common_btn_height</item>
+        <item name="android:textColor">@color/vp_white</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:background">@drawable/vp_common_btn_orange</item>
+        <item name="android:layout_marginTop">@dimen/vp_top_margin</item>
+        <item name="android:layout_marginLeft">@dimen/vp_left_margin</item>
+        <item name="android:layout_marginRight">@dimen/vp_right_margin</item>
+    </style>
+    <!-- 成功页面完成 -->
+    <style name="vp_btn_finish">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">@dimen/vp_common_btn_height</item>
+        <item name="android:textColor">@color/vp_white</item>
+        <item name="android:textSize">19sp</item>
+        <item name="android:background">@drawable/vp_common_btn_orange</item>
+    </style>
+
+    <style name="vp_tip_text_style">
+        <item name="android:textColor">@color/vp_tip_text_color</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="vp_dialog_activity" parent="@android:style/Theme.Dialog">
+        　
+        <item name="android:windowBackground">@android:color/transparent</item>
+        　　
+        <item name="android:windowIsTranslucent">true</item>
+        　　
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation.Translucent</item>
+    </style>
+
+    <!-- 编辑框的样式 -->
+    <style name="vp_editor_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/vp_editor_height</item>
+        <item name="android:textColor">@color/vp_dark_gray</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:background">@drawable/vp_bg_nopress</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:paddingLeft">10dp</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:textColorHint">@color/vp_editor_hint_color</item>
+    </style>
+
+    <!-- 卡片支付密码样式 -->
+    <style name="vp_password_edittext_style">
+        <item name="android:paddingLeft">10dp</item>
+        <item name="android:background">@color/vp_transparent_color</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">@dimen/vp_editor_height</item>
+    </style>
+
+    <!-- 键盘进入退出样式 -->
+    <style name="vp_input_method_style">
+        <item name="android:windowEnterAnimation">@anim/vp_input_method_enter</item>
+        <item name="android:windowExitAnimation">@anim/vp_input_method_exit</item>
+    </style>
+
+    <!-- 透明dialog样式 -->
+    <style name="vp_transparent_dialog" parent="@android:style/Theme.Dialog">
+        <item name="android:windowFrame">@null</item><!--边框-->
+        <item name="android:windowIsFloating">true</item><!--是否浮现在activity之上-->
+        <item name="android:windowIsTranslucent">false</item><!--半透明-->
+        <item name="android:windowNoTitle">true</item><!--无标题-->
+        <item name="android:windowBackground">@drawable/vp_selector_dialog_bg</item><!--背景透明-->
+        <item name="android:backgroundDimEnabled">false</item><!--模糊-->
+        <item name="android:backgroundDimAmount">0.6</item>
+    </style>
+
+    <!-- 自定义密码框 -->
+    <style name="GridPasswordView" />
+
+    <style name="GridPasswordView.TextView">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">@null</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:singleLine">true</item>
+    </style>
+
+    <style name="GridPasswordView.EditText" parent="GridPasswordView.TextView">
+        <item name="android:cursorVisible">false</item>
+    </style>
+
+    <style name="GridPasswordView.Divider">
+        <item name="android:layout_width">1dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_marginTop">1dp</item>
+        <item name="android:layout_marginBottom">1dp</item>
+    </style>
+
+</resources>

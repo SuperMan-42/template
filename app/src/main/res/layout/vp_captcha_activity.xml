@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?><!-- 填写验证码页面 -->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/vp_gray_bg"
+    android:orientation="vertical">
+
+    <com.ucfpay.plugin.certification.views.UcfTitleView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true" />
+
+    <ScrollView
+        android:id="@+id/scroll_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/title"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:id="@+id/scroll_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/phone_number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:textColor="@color/vp_black"
+                android:textSize="16sp" />
+
+            <RelativeLayout
+                android:id="@+id/rl_get_verify_code_again"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:background="@color/vp_white"
+                android:orientation="horizontal"
+                android:padding="15dp">
+
+                <TextView
+                    android:id="@+id/tv_get_verify_code_again"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:text="@string/vp_get_sms_verify_code_again"
+                    android:textColor="@color/vp_linked_blue"
+                    android:textSize="16sp" />
+
+                <EditText
+                    android:id="@+id/edit_code"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:layout_toLeftOf="@id/tv_get_verify_code_again"
+                    android:background="@null"
+                    android:gravity="center_vertical"
+                    android:hint="@string/vp_msg_code"
+                    android:maxLength="6"
+                    android:numeric="integer"
+                    android:singleLine="true"
+                    android:text=""
+                    android:textColorHint="#cecece"
+                    android:textSize="15sp" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:paddingTop="@dimen/vp_row_gap">
+
+                <TextView
+                    android:id="@+id/agreement"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/vp_user_agreement"
+                    android:textColor="@color/vp_gray"
+                    android:textColorLink="@color/vp_linked_blue"
+                    android:textSize="14sp" />
+
+            </RelativeLayout>
+
+            <Button
+                android:id="@+id/next_step"
+                style="@style/vp_btn_common_style"
+                android:text="@string/vp_btn_next_step" />
+
+            <TextView
+                android:id="@+id/post_code_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:textColor="@color/vp_text_color"
+                android:textSize="16sp" />
+
+            <include layout="@layout/vp_footer" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <com.ucfpay.plugin.certification.views.MyKeyboardWindow
+        android:id="@+id/custom_keyboard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:visibility="visible" />
+</RelativeLayout>

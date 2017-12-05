@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="vp_disable_color">#ffa6a6a6</color>
+    <color name="vp_transparent">#01000000</color>
+    <color name="vp_search_edit_color">#b3b9c7</color>
+    <color name="vp_tip_text_color">#777777</color>
+    <color name="vp_text_color">#686b7d</color>
+    <color name="vp_info_text_color">#bcccd6</color>
+    <color name="vp_white">#ffffff</color>
+    <color name="vp_right_btn_disable_color">#8cffffff</color>
+    <color name="vp_black">#ff000000</color>
+    <color name="vp_keyboard_bg_color">#58656e</color>
+    <color name="vp_common_bg_color">#ffffff</color>
+    <color name="vp_title_bg">#ffffff</color>
+    <color name="vp_order_info_bg_color">#2e353f</color>
+    <color name="vp_bank_info_bg_color">#d4d4d4</color>
+    <color name="vp_listview_pressed">#ffffff</color>
+    <color name="vp_listview_normal">#fafafa</color>
+    <color name="vp_listview_divider">#d1d1d1</color>
+    <color name="vp_editor_hint_color">#ffc7c7c7</color>
+    <color name="vp_footer_tips">#777777</color>
+    <color name="vp_orange_color">#f64172</color>
+    <color name="vp_ucf_dialog_bg_color">#fafafa</color>
+    <color name="vp_yellow_color">#fffecd</color>
+    <color name="vp_dark_gray">#ff000000</color>
+    <color name="vp_gray3">#A6A6A6</color>
+    <color name="vp_gray4">#8a95a3</color>
+    <color name="vp_gray5">#888888</color>
+    <color name="vp_gray6">#dddddd</color>
+    <color name="vp_gray7">#f6f7f9</color>
+    <color name="vp_link_blue">#5ca9e4</color>   
+    <color name="vp_red_invest">#ff3747</color>
+    <color name="vp_red_pressed">#cc2c39</color>
+    <color name="vp_btn_disable">#FC6774</color>
+    <color name="vp_btn_blue_normal">#5ca9e4</color>
+    <color name="vp_btn_blue_pressed">#3e94d6</color>
+    <color name="vp_light_text_color">#c8d9e3</color>
+    <color name="vp_light_background_color">#fafafa</color>
+    <color name="vp_keyboard_head_normal">#ffa9b5c0</color>
+    <color name="vp_keyboard_head_pressed">#ff879192</color>
+    <color name="vp_money">#ee7a51</color>
+    <color name="vp_transparent_color">#00000000</color>
+    <color name="vp_transparent_color2">#e0000000</color>
+    <color name="vp_key_btn_normal">#33fdfdfd</color>
+    <color name="vp_key_btn_pressed">#ffbbbec3</color>
+
+    <color name="vp_gray_bg">#f5f5f9</color>
+    <color name="vp_hint_gray">#cecece</color>
+    <color name="vp_linked_blue">#2baef9</color>
+    <color name="vp_gray">#959595</color>
+    <color name="vp_back2">#5e5e5e</color>
+
+</resources>

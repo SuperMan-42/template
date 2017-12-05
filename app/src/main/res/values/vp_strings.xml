@@ -1,0 +1,70 @@
+<resources>
+    <!-- common strings -->
+    <string name="vp_loading_tips">正在加载...</string>
+    <string name="vp_no_connection">无网络连接，请检查网络</string>
+    <string name="vp_connect_error">服务器连接错误</string>
+    <string name="vp_connect_timeout">请求超时，请重试</string>
+    <string name="vp_service_busy">系统繁忙，请稍后重试</string>
+    <string name="vp_tips_phone_num">4008909888</string>
+    <string name="vp_tips_look_banks_list">查看支持银行列表</string>
+    <string name="vp_btn_i_know">我知道了</string>
+    <string name="vp_dialog_title">提醒</string>
+    <string name="vp_dialog_confirm">确定</string>
+    <string name="vp_dialog_cancel">取消</string>
+    <string name="vp_callback_user_giveup_pay">用户退出</string>
+    <string name="vp_callback_error">错误</string>
+    <string name="vp_callback_verify_result_failure">认证结果失败</string>
+    <string name="vp_callback_verify_processing">认证结果处理中</string>
+    <string name="vp_callback_recharge_processing">充值处理中</string>
+    <string name="vp_callback_succeed">成功</string>
+    <string name="vp_ucfpay_provide">本服务由先锋支付提供</string>
+    <string name="vp_certificationpay_title">认证支付</string>
+    <string name="vp_cancel_withdrawal">您确定放弃本次操作吗?</string>
+    <string name="vp_title_user_protocol">用户协议</string>
+    <string name="vp_check_bank_lines">查看银行限额</string>
+    <string name="vp_bank_lines">银行限额</string>
+    <string name="vp_hide">&#160;****&#160;****&#160;</string>
+    <string name="vp_pay">立即支付</string>
+   
+    <!-- 填写验证码页面 -->
+    <string name="vp_title_input_vali_info">填写验证码</string>
+    <string name="vp_msg_code">短信验证码</string>
+    <string name="vp_btn_next_step">下一步</string>
+    <string name="vp_input_phone_num">短信验证码已发至</string>
+    <string name="vp_received_msg_code">，长时间未收到请点击重新获取</string>
+    <string name="vp_btn_second">秒</string>
+    <string name="vp_btn_get_msg_code">重新获取</string>
+    <string name="vp_user_agreement">我同意《支付协议》</string>
+    <string name="vp_get_sms_verify_code_again">重新获取</string>
+
+    <!-- 首次认证支付输银行卡页面 -->
+    <string name="vp_card_user_name">持卡人:  %s</string>
+    <string name="vp_id_card_number">身份证:  %s</string>
+    <string name="vp_hint_user_name_number">请输入持卡人姓名</string>
+    <string name="vp_hint_id_card_number">请输入二代身份证号码</string>
+    <string name="vp_hint_bank_phone_number">请输入银行预留手机号</string>
+    <string name="vp_hint_bank_card_number">请输入您本人的储蓄卡号</string>
+    <string name="vp_validate_valid_phone">请输入有效的手机号</string>
+  
+    <!-- 再次认证支付输银行卡页面 -->
+    <string name="vp_out_order_id">流水号:  %s</string>
+    <string name="vp_amount">金&#160;&#160;&#160;&#160;额:  %s元</string>
+    
+    <!-- 认证支付结果页面  -->
+    <string name="vp_btn_back">返&#160;&#160;回</string>
+    <string name="vp_title_verify_result">支付结果</string>
+    <string name="vp_verify_pay_success">支付完成!</string>
+    <string name="vp_first_verify_pay_success">请返回查询交易订单，以确认交易是否成功完成，如有疑问请联系商户客服。</string>
+    <string name="vp_verify_pay_process">已提交银行处理！</string>
+    <string name="vp_verify_pay_process_tip">预计30分钟至4小时内到账，如有疑问请致电先锋支付客服:</string>
+    <string name="vp_tips_ucfpay_phone_num">4008189889</string>
+    <string name="vp_verify_pay_failed">支付失败</string>
+    <string name="vp_verify_pay_failed_tip">如有疑问请致电先锋支付客服：</string>
+    <string name="vp_again_verify_pay_failed">支付订单已提交银行处理!</string>
+    <string name="vp_again_verify_pay_failed_tip">预计30分钟至4小时内到账</string>
+    <string name="vp_refresh">刷新</string>
+    
+    <!-- 选择银行卡列表页面 -->
+    <string name="vp_card_list">支持银行列表</string>
+    
+</resources>

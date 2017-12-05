@@ -1,0 +1,215 @@
+<!-- 再次支付，预支付和短信 -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#66000000"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:id="@+id/root_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:fillViewport="true"
+        android:orientation="vertical"
+        android:visibility="visible">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp">
+
+            <!-- 短信验证框 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/vp_again_pay_dialog_bg"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="42dp"
+                    android:layout_marginLeft="5dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <!-- title -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="15dp"
+                        android:text="请输入短信验证码"
+                        android:textColor="#ff3747"
+                        android:textSize="18sp" />
+
+                    <!-- 关闭 按钮 -->
+                    <!-- 通过设置padding增大按钮可点击区域 -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="2dp"
+                        android:orientation="vertical">
+
+                        <ImageButton
+                            android:id="@+id/vp_againpay_close_btn"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="right"
+                            android:background="@null"
+                            android:paddingBottom="10dp"
+                            android:paddingLeft="10dp"
+                            android:paddingRight="8dp"
+                            android:paddingTop="8dp"
+                            android:src="@drawable/vp_closed" />
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+                <!-- 分割线 -->
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="#929292" />
+
+                <!-- 支付金额 -->
+                <TextView
+                    android:id="@+id/vp_againpay_money"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_marginTop="19dp"
+                    android:layout_marginBottom="19dp"
+                    android:text="￥100.00"
+                    android:textColor="@color/vp_back2"
+                    android:textSize="27sp" />
+
+                <!-- 手机号 ＋ 重新获取 -->
+                <RelativeLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:orientation="horizontal">
+
+                    <!-- 手机号 -->
+                    <TextView
+                        android:id="@+id/vp_againpay_phone"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="短信已发送至151****1234"
+                        android:textColor="#959595"
+                        android:textSize="15sp"
+                        android:layout_alignParentLeft="true" />
+
+                    <!-- 重新获取 -->
+                    <TextView
+                        android:id="@+id/vp_againpay_again"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:text="重新获取"
+                        android:textColor="#2baef9"
+                        android:textSize="15sp"
+                        android:layout_alignParentRight="true"
+                        android:enabled="false" />
+
+                </RelativeLayout>
+
+                <!-- 支付密码 -->
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="17dp">
+                    <!--<LinearLayout-->
+                    <!--android:layout_width="fill_parent"-->
+                    <!--android:layout_height="45dp"-->
+                    <!--android:layout_marginLeft="15dp"-->
+                    <!--android:layout_marginRight="15dp"-->
+                    <!--android:layout_marginTop="15dp"-->
+                    <!--android:background="@drawable/vp_bg_nopress" >-->
+                    <!--<com.ucfpay.plugin.certification.views.SixPasswdFullScreenEditText-->
+                    <!--android:id="@+id/vp_againpay_passwd"-->
+                    <!--style="@style/vp_password_edittext_style"-->
+                    <!--android:focusable="true"-->
+                    <!--android:focusableInTouchMode="true"-->
+                    <!--android:inputType="text"-->
+                    <!--android:maxLength="6"-->
+                    <!--android:visibility="visible"/>-->
+                    <com.ucfpay.plugin.certification.views.GridPasswordView
+                        android:id="@+id/vp_againpay_passwordType"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        app:passwordType="textPassword" />
+
+                </LinearLayout>
+
+                <!-- 申购银行卡、用户协议 -->
+                <RelativeLayout
+                    android:id="@+id/vp_againpay_info"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="15dp">
+
+                    <TextView
+                        android:id="@+id/vp_againpay_bank_info"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="支付方式：招商银行(1234)"
+                        android:textColor="#959595"
+                        android:textSize="12sp" />
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:gravity="center"
+                    android:paddingBottom="15dp">
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/vp_saftyicon" />
+
+                    <TextView
+                        android:id="@+id/footer"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:gravity="left"
+                        android:paddingTop="2dp"
+                        android:text="@string/vp_ucfpay_provide"
+                        android:textColor="#959595"
+                        android:textSize="12sp" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <!-- 键盘 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="bottom"
+        android:orientation="horizontal">
+
+        <com.ucfpay.plugin.certification.views.MyKeyboardWindow
+            android:id="@+id/custom_keyboard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="visible" />
+    </LinearLayout>
+
+</LinearLayout>

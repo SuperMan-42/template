@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?><!-- 认证支付结果页面  -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center_horizontal"
+    android:background="@color/vp_gray_bg"
+    android:orientation="vertical">
+
+    <com.ucfpay.plugin.certification.views.UcfTitleView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/vp_title_height" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginBottom="1dp"
+        android:background="#D7D7D7" />
+
+    <ScrollView
+        android:id="@+id/scroll_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:id="@+id/scroll_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp">
+
+                <ImageView
+                    android:id="@+id/image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="56dp"
+                    android:src="@drawable/vp_success" />
+
+                <TextView
+                    android:id="@+id/message"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="25dp"
+                    android:gravity="center_horizontal"
+                    android:text="支付成功"
+                    android:textColor="@color/vp_black"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/sub_message"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="25dp"
+                    android:paddingLeft="@dimen/vp_left_margin"
+                    android:paddingRight="@dimen/vp_right_margin"
+                    android:gravity="center_horizontal"
+                    android:textColor="@color/vp_gray"
+                    android:textSize="15sp" />
+
+                <Button
+                    android:id="@+id/finish_button"
+                    style="@style/vp_btn_finish"
+                    android:layout_marginTop="45dp"
+                    android:text="@string/vp_btn_back" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="20dp"
+                android:gravity="center_horizontal|bottom"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_marginBottom="10dp"
+                        android:src="@drawable/vp_saftyicon" />
+
+                    <TextView
+                        android:id="@+id/footer"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="15dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginTop="5dp"
+                        android:gravity="left"
+                        android:paddingTop="2dp"
+                        android:text="@string/vp_ucfpay_provide"
+                        android:textColor="@color/vp_gray" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

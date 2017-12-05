@@ -120,12 +120,13 @@
                 android:paddingBottom="36px"
                 android:paddingLeft="51px"
                 android:paddingRight="51px"
-                android:paddingTop="36px">
+                android:paddingTop="12px">
 
                 <LinearLayout
                     android:id="@+id/ll_shakes"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="24px"
                     android:orientation="horizontal">
 
                     <TextView

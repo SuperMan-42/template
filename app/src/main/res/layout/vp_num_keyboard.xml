@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/vp_soft_keyboard_style">
+
+    <!--  第一行  -->
+    <Button
+        android:id="@+id/n_num_0"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content" />
+
+    <Button
+        android:id="@+id/n_num_1"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_toRightOf="@id/n_num_0" />
+
+    <Button
+        android:id="@+id/n_num_2"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_toRightOf="@id/n_num_1" />
+
+
+    <!-- 第二行  -->
+
+    <Button
+        android:id="@+id/n_num_3"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_below="@id/n_num_0" />
+
+    <Button
+        android:id="@+id/n_num_4"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_below="@id/n_num_1"
+        android:layout_toRightOf="@id/n_num_3" />
+
+
+    <Button
+        android:id="@+id/n_num_5"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_below="@id/n_num_2"
+        android:layout_toRightOf="@id/n_num_4" />
+
+
+    <!--  第三行  -->
+    <Button
+        android:id="@+id/n_num_6"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_below="@id/n_num_3" />
+
+    <Button
+        android:id="@+id/n_num_7"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_below="@id/n_num_4"
+        android:layout_toRightOf="@id/n_num_6" />
+
+    <Button
+        android:id="@+id/n_num_8"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_below="@id/n_num_5"
+        android:layout_toRightOf="@id/n_num_7" />
+
+    <!--  第四行  -->
+    <Button
+        android:id="@+id/n_char_X"
+        android:enabled="false"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_below="@id/n_num_6" />
+
+    <Button
+        android:id="@+id/n_num_9"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_toRightOf="@id/n_char_X"
+        android:layout_below="@id/n_num_7" />
+
+    <LinearLayout
+        android:id="@+id/actionDel"
+        android:orientation="horizontal"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_toRightOf="@id/n_num_9"
+        android:layout_below="@id/n_num_8"
+        android:gravity="center"
+        android:background="@drawable/vp_delete_btn_selector">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/vp_delete_btn_bg" />
+
+    </LinearLayout>
+
+</RelativeLayout>
+

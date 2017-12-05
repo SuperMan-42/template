@@ -96,7 +96,7 @@
             app:loadingColor="#5486DF"
             app:radius="24px"
             app:stopColor="#5486DF"
-            app:textSize="30px" />
+            app:progressTextSize="30px" />
     </FrameLayout>
 
     <TextView

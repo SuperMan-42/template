@@ -109,7 +109,7 @@
                     app:loadingColor="#F7CE4D"
                     app:radius="15px"
                     app:stopColor="#F7CE4D"
-                    app:textSize="0px" />
+                    app:progressTextSize="0px" />
             </LinearLayout>
 
             <LinearLayout

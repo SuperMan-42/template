@@ -134,7 +134,7 @@ public class AutoProgressBar extends ViewGroup implements Runnable {
     private void initAttrs(AttributeSet attrs) {
         TypedArray ta = getContext().obtainStyledAttributes(attrs, R.styleable.ProgressBar);
         try {
-            textSize = (int) ta.getDimension(R.styleable.ProgressBar_textSize, 12);
+            textSize = (int) ta.getDimension(R.styleable.ProgressBar_progressTextSize, 12);
             loadingColor = ta.getColor(R.styleable.ProgressBar_loadingColor, Color.parseColor("#40c4ff"));
             pauseColor = ta.getColor(R.styleable.ProgressBar_stopColor, Color.parseColor("#ff9800"));
             finishColor = ta.getColor(R.styleable.ProgressBar_finishColor, Color.parseColor("#3CB371"));

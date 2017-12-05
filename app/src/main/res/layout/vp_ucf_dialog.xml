@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/loading_progress"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp"
+    android:background="@drawable/vp_ucf_dialog_background"
+    android:clickable="false"
+    android:visibility="visible">
+
+    <!-- titile  -->
+    <LinearLayout
+        android:id="@+id/title_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/vp_row_gap"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/title_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:contentDescription="@null"
+            android:src="@drawable/vp_tip_info" />
+
+        <TextView
+            android:id="@+id/title_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:text="持卡人说明"
+            android:textColor="@color/vp_red_invest"
+            android:textSize="20sp" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/title_layout"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="30dp"
+        android:layout_marginRight="10dp"
+        android:minHeight="70dp"
+        android:gravity="center_vertical"
+        android:orientation="vertical">
+
+        <!-- 图片内容 -->
+        <ImageView
+            android:id="@+id/content_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="5dp"
+            android:contentDescription="@null"
+            android:layout_gravity="center_horizontal"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/content_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/vp_black"
+            android:gravity="center"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
+            android:textSize="18sp" />
+        <!--
+        <TextView
+            android:id="@+id/phone_num"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/vp_tips_phone_num"
+            android:textColor="#fd6b51"
+            android:gravity="center"
+            android:textSize="16sp" 
+            android:layout_marginBottom="5dp"
+            android:visibility="visible"/>
+            -->
+    </LinearLayout>
+
+    <View
+        android:id="@+id/line_02"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_below="@id/content"
+        android:background="@color/vp_gray3" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@id/line_02"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/cancel"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:background="@drawable/vp_dialog_left_button_bg"
+            android:text="@string/vp_btn_i_know"
+            android:textColor="@color/vp_ucf_dialog_btn_text_color"
+            android:textSize="18sp" />
+
+        <View
+            android:id="@+id/button_divider"
+            android:layout_width="1px"
+            android:layout_height="match_parent"
+            android:background="@color/vp_gray3" />
+
+
+        <TextView
+            android:id="@+id/confirm"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:background="@drawable/vp_dialog_right_button_bg"
+            android:text="@string/vp_btn_i_know"
+            android:textColor="@color/vp_ucf_dialog_btn_text_color"
+            android:textSize="18sp" />
+
+
+    </LinearLayout>
+
+</RelativeLayout>
