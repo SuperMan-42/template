@@ -26,7 +26,6 @@ import com.recorder.mvp.presenter.AuthInfoPresenter;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 import static com.core.utils.Preconditions.checkNotNull;
@@ -101,13 +100,6 @@ public class AuthInfoActivity extends BaseActivity<AuthInfoPresenter> implements
     @Override
     public void killMyself() {
         finish();
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
     }
 
     @OnClick({R.id.im_positive, R.id.im_other, R.id.im_agree, R.id.tv_next, R.id.tv_go_authentication, R.id.tv_go_home})

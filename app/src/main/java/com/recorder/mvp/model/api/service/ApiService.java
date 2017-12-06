@@ -1,5 +1,6 @@
 package com.recorder.mvp.model.api.service;
 
+import com.recorder.mvp.model.entity.AppStartBean;
 import com.recorder.mvp.model.entity.DealDetailBean;
 import com.recorder.mvp.model.entity.DealFilter;
 import com.recorder.mvp.model.entity.EquityBean;
@@ -138,4 +139,7 @@ public interface ApiService {
 
     @GET("order/pimanage")
     Observable<OrderPimanageBean> orderPimanage(@Header("DIVERSION-VERSION") String version);
+
+    @GET("app/start")
+    Observable<AppStartBean> appStart(@Header("DIVERSION-VERSION") String version);
 }

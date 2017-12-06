@@ -22,8 +22,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".mvp.ui.activity.HomeActivity"
-            android:launchMode="singleTask">
+            android:name=".mvp.ui.activity.SplashActivity"
+            android:theme="@style/CoreAppTheme.Transparent">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -75,6 +75,9 @@
         <activity android:name="com.unionpay.uppay.PayActivity" />
         <!-- 先锋支付 end -->
 
+        <activity
+            android:name=".mvp.ui.activity.HomeActivity"
+            android:launchMode="singleTask" />
         <activity
             android:name=".mvp.ui.activity.LoginActivity"
             android:launchMode="singleTop"

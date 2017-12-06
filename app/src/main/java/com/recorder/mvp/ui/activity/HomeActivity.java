@@ -84,6 +84,7 @@ public class HomeActivity extends BaseActivity<HomePresenter> implements HomeCon
     private static boolean isFilterOpen = false;
     NavigationController mNavigationController;
     private ArrayList<MultiItemEntity> res = new ArrayList<>();
+    private static long firstTime = 0;
 
     @Override
     public void setupActivityComponent(AppComponent appComponent) {
@@ -391,8 +392,14 @@ public class HomeActivity extends BaseActivity<HomePresenter> implements HomeCon
             llFilter.setVisibility(View.GONE);
             isFilterOpen = !isFilterOpen;
         } else {
-            finish();
-            overridePendingTransition(0, R.anim.zoom_out);
+            long secondTime = System.currentTimeMillis();
+            if (secondTime - firstTime > 1000) {//如果两次按键时间间隔大于1000毫秒，则不退出
+                CoreUtils.snackbarText(CoreUtils.getString(this, R.string.text_exit));
+                firstTime = secondTime;//更新firstTime
+            } else {
+                CoreUtils.exitApp();
+                overridePendingTransition(0, R.anim.zoom_out);
+            }
         }
     }
 }

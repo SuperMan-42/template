@@ -1,5 +1,6 @@
 package com.recorder.mvp.model.api.cache;
 
+import com.recorder.mvp.model.entity.AppStartBean;
 import com.recorder.mvp.model.entity.DealDetailBean;
 import com.recorder.mvp.model.entity.DealFilter;
 import com.recorder.mvp.model.entity.EquityBean;
@@ -38,4 +39,6 @@ public interface ApiCache {
     Observable<Reply<UserFollowListBean>> userFollowlist(Observable<UserFollowListBean> resultObservable, EvictProvider evictProvider);
 
     Observable<Reply<OrderPimanageBean>> orderPimanage(Observable<OrderPimanageBean> resultObservable, EvictProvider evictProvider);
+
+    Observable<Reply<AppStartBean>> appStart(Observable<AppStartBean> resultObservable, EvictProvider evictProvider);
 }
