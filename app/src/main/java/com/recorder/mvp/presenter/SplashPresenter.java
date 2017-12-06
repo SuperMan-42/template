@@ -1,7 +1,5 @@
 package com.recorder.mvp.presenter;
 
-import android.Manifest;
-import android.app.Activity;
 import android.app.Application;
 
 import com.alibaba.android.arouter.launcher.ARouter;
@@ -13,8 +11,6 @@ import com.core.utils.RxLifecycleUtils;
 import com.recorder.R;
 import com.recorder.mvp.contract.SplashContract;
 import com.recorder.mvp.model.entity.AppStartBean;
-import com.tbruyelle.rxpermissions2.Permission;
-import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import java.util.concurrent.TimeUnit;
 
@@ -60,15 +56,10 @@ public class SplashPresenter extends BasePresenter<SplashContract.Model, SplashC
                     mRootView.showAppStart(appStartBean.getData());
                     return Observable.timer(3000, TimeUnit.MILLISECONDS);
                 })
-                .compose(new RxPermissions((Activity) mRootView).ensureEach(Manifest.permission.READ_PHONE_STATE, Manifest.permission.CAMERA,
-                        Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.ACCESS_COARSE_LOCATION))
-                .subscribe(new ErrorHandleSubscriber<Permission>(mErrorHandler) {
+                .subscribe(new ErrorHandleSubscriber<Object>(mErrorHandler) {
                     @Override
-                    public void onNext(Permission permission) {
-                        if (permission.granted) {
-                            ARouter.getInstance().build("/app/HomeActivity").withTransition(R.anim.fade_in, R.anim.zoom_out).navigation();
-                            mRootView.killMyself();
-                        }
+                    public void onNext(Object o) {
+                        ARouter.getInstance().build("/app/HomeActivity").withTransition(R.anim.fade_in, R.anim.zoom_out).navigation();
                     }
                 });
     }

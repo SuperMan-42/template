@@ -46,4 +46,6 @@
     <string name="text_buy_fail">抱歉,支付未成功</string>
     <string name="text_buy_fail_alter">失败原因:</string>
     <string name="text_exit">再按一次退出程序</string>
+    <string name="text_permission_success">权限申请成功</string>
+    <string name="text_permission_fail">权限申请失败</string>
 </resources>

@@ -1,15 +1,20 @@
 package com.recorder.mvp.presenter;
 
+import android.Manifest;
+import android.app.Activity;
 import android.app.Application;
 
 import com.core.di.scope.ActivityScope;
 import com.core.http.imageloader.ImageLoader;
 import com.core.integration.AppManager;
 import com.core.mvp.BasePresenter;
+import com.core.utils.CoreUtils;
 import com.core.utils.RxLifecycleUtils;
+import com.recorder.R;
 import com.recorder.mvp.contract.HomeContract;
 import com.recorder.mvp.model.entity.DealFilter;
 import com.recorder.mvp.model.entity.HomeRecommendBean;
+import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import javax.inject.Inject;
 
@@ -61,6 +66,29 @@ public class HomePresenter extends BasePresenter<HomeContract.Model, HomeContrac
                     @Override
                     public void onNext(HomeRecommendBean homeRecommendBean) {
                         mRootView.showHomeRecomment(homeRecommendBean.getData());
+                    }
+                });
+    }
+
+    public void getPermissons() {
+        new RxPermissions((Activity) mRootView)
+                .request(Manifest.permission.READ_PHONE_STATE, Manifest.permission.CAMERA,
+                        Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.ACCESS_COARSE_LOCATION)
+//                .doOnNext(granted -> {
+//                    if (!granted) {
+//                        throw new RuntimeException("no permission");
+//                    }
+//                })
+                .compose(RxLifecycleUtils.transformer(mRootView))
+                .subscribe(new ErrorHandleSubscriber<Boolean>(mErrorHandler) {
+                    @Override
+                    public void onNext(Boolean granted) {
+                        if (granted) {
+                            mRootView.showMessage(CoreUtils.getString(mApplication, R.string.text_permission_success));
+                        } else {
+                            mRootView.showMessage(CoreUtils.getString(mApplication, R.string.text_permission_fail));
+                            getPermissons();
+                        }
                     }
                 });
     }

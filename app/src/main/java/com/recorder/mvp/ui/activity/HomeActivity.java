@@ -104,9 +104,15 @@ public class HomeActivity extends BaseActivity<HomePresenter> implements HomeCon
     @Override
     public void initView(Bundle savedInstanceState) {
         imLeft.setImageResource(R.drawable.title_fliter);
+        mPresenter.getPermissons();
         mPresenter.dealFilter();
         recyclerView.getRecyclerView().addItemDecoration(new SimpleDividerDecoration(this));
         initHome();
+    }
+
+    @Override
+    public boolean isSupportSwipeBack() {
+        return false;
     }
 
     @Subscriber(tag = Constants.HOME_INDEX)
