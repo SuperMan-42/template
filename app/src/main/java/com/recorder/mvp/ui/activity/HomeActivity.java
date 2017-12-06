@@ -109,7 +109,6 @@ public class HomeActivity extends BaseActivity<HomePresenter> implements HomeCon
         imLeft.setImageResource(R.drawable.title_fliter);
         mPresenter.getPermissons();
         mPresenter.dealFilter();
-        recyclerView.getRecyclerView().addItemDecoration(new SimpleDividerDecoration(this));
         initHome();
     }
 
@@ -282,6 +281,7 @@ public class HomeActivity extends BaseActivity<HomePresenter> implements HomeCon
             }
         });
         recyclerView.init(manager, adapter, false);
+        recyclerView.getRecyclerView().addItemDecoration(new SimpleDividerDecoration(this));
         adapter.expandAll();
     }
 
