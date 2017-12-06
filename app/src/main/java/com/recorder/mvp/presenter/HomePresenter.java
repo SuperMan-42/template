@@ -14,6 +14,7 @@ import com.recorder.R;
 import com.recorder.mvp.contract.HomeContract;
 import com.recorder.mvp.model.entity.DealFilter;
 import com.recorder.mvp.model.entity.HomeRecommendBean;
+import com.tbruyelle.rxpermissions2.Permission;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import javax.inject.Inject;
@@ -72,7 +73,7 @@ public class HomePresenter extends BasePresenter<HomeContract.Model, HomeContrac
 
     public void getPermissons() {
         new RxPermissions((Activity) mRootView)
-                .request(Manifest.permission.READ_PHONE_STATE, Manifest.permission.CAMERA,
+                .requestEach(Manifest.permission.READ_PHONE_STATE, Manifest.permission.CAMERA,
                         Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.ACCESS_COARSE_LOCATION)
 //                .doOnNext(granted -> {
 //                    if (!granted) {
@@ -80,14 +81,13 @@ public class HomePresenter extends BasePresenter<HomeContract.Model, HomeContrac
 //                    }
 //                })
                 .compose(RxLifecycleUtils.transformer(mRootView))
-                .subscribe(new ErrorHandleSubscriber<Boolean>(mErrorHandler) {
+                .subscribe(new ErrorHandleSubscriber<Permission>(mErrorHandler) {
                     @Override
-                    public void onNext(Boolean granted) {
-                        if (granted) {
+                    public void onNext(Permission permission) {
+                        if (permission.granted) {
                             mRootView.showMessage(CoreUtils.getString(mApplication, R.string.text_permission_success));
                         } else {
                             mRootView.showMessage(CoreUtils.getString(mApplication, R.string.text_permission_fail));
-                            getPermissons();
                         }
                     }
                 });

@@ -42,6 +42,8 @@ import com.recorder.mvp.ui.activity.SearchActivity;
 import com.recorder.utils.DeviceInfoUtils;
 import com.squareup.leakcanary.LeakCanary;
 import com.squareup.leakcanary.RefWatcher;
+import com.umeng.analytics.MobclickAgent;
+import com.umeng.commonsdk.UMConfigure;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -239,6 +241,9 @@ public class GlobalConfiguration implements ConfigModule {
                     ARouter.openDebug();   // 开启调试模式(如果在InstantRun模式下运行，必须开启调试模式！线上版本需要关闭,否则有安全风险)
                 }
                 ARouter.init(application); // 尽可能早，推荐在Application中初始化
+                //友盟相关
+                MobclickAgent.setScenarioType(context, MobclickAgent.EScenarioType.E_UM_NORMAL);
+                UMConfigure.init(context, "58747d635312dd8e3f000d62", "haoxiang", UMConfigure.DEVICE_TYPE_PHONE, null);
             }
 
             @Override
@@ -343,12 +348,12 @@ public class GlobalConfiguration implements ConfigModule {
 
             @Override
             public void onActivityResumed(Activity activity) {
-
+                MobclickAgent.onResume(activity);
             }
 
             @Override
             public void onActivityPaused(Activity activity) {
-
+                MobclickAgent.onPause(activity);
             }
 
             @Override
@@ -384,6 +389,20 @@ public class GlobalConfiguration implements ConfigModule {
             @Override
             public void onFragmentDestroyed(FragmentManager fm, Fragment f) {
                 ((RefWatcher) CoreUtils.obtainRxCache(f.getActivity().getApplication()).get(RefWatcher.class.getName())).watch(f);
+            }
+
+            @Override
+            public void onFragmentResumed(FragmentManager fm, Fragment f) {
+                super.onFragmentResumed(fm, f);
+                MobclickAgent.onResume(f.getContext());
+                MobclickAgent.onPageStart(f.getClass().getName());
+            }
+
+            @Override
+            public void onFragmentPaused(FragmentManager fm, Fragment f) {
+                super.onFragmentPaused(fm, f);
+                MobclickAgent.onPause(f.getContext());
+                MobclickAgent.onPageEnd(f.getClass().getName());
             }
         });
     }
