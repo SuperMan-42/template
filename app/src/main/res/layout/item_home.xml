@@ -52,7 +52,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_tag"
-        app:srcCompat="@color/colorAccent" />
+        tools:src="@color/colorAccent" />
 
     <!--<com.recorder.widget.AutoNumberProgressBar-->
     <!--android:id="@+id/numberProgressBar"-->
@@ -94,9 +94,9 @@
             android:background="#00000000"
             app:finishColor="#5486DF"
             app:loadingColor="#5486DF"
+            app:progressTextSize="30px"
             app:radius="24px"
-            app:stopColor="#5486DF"
-            app:progressTextSize="30px" />
+            app:stopColor="#5486DF" />
     </FrameLayout>
 
     <TextView
