@@ -8,9 +8,7 @@ import com.core.di.scope.ActivityScope;
 import com.core.http.imageloader.ImageLoader;
 import com.core.integration.AppManager;
 import com.core.mvp.BasePresenter;
-import com.core.utils.CoreUtils;
 import com.core.utils.RxLifecycleUtils;
-import com.recorder.R;
 import com.recorder.mvp.contract.HomeContract;
 import com.recorder.mvp.model.entity.DealFilter;
 import com.recorder.mvp.model.entity.HomeRecommendBean;
@@ -84,11 +82,11 @@ public class HomePresenter extends BasePresenter<HomeContract.Model, HomeContrac
                 .subscribe(new ErrorHandleSubscriber<Permission>(mErrorHandler) {
                     @Override
                     public void onNext(Permission permission) {
-                        if (permission.granted) {
-                            mRootView.showMessage(CoreUtils.getString(mApplication, R.string.text_permission_success));
-                        } else {
-                            mRootView.showMessage(CoreUtils.getString(mApplication, R.string.text_permission_fail));
-                        }
+//                        if (permission.granted) {
+//                            mRootView.showMessage(CoreUtils.getString(mApplication, R.string.text_permission_success));
+//                        } else {
+//                            mRootView.showMessage(CoreUtils.getString(mApplication, R.string.text_permission_fail));
+//                        }
                     }
                 });
     }

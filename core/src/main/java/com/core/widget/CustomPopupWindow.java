@@ -1,18 +1,27 @@
 package com.core.widget;
 
 import android.app.Activity;
+import android.content.res.Resources;
+import android.graphics.Point;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.view.ContextThemeWrapper;
+import android.view.Display;
 import android.view.Gravity;
+import android.view.KeyCharacterMap;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewConfiguration;
 import android.view.WindowManager;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.PopupWindow;
 
 import com.core.R;
 import com.core.utils.AnimUtil;
+
+import java.lang.reflect.Method;
 
 public class CustomPopupWindow extends PopupWindow {
     private View mContentView;
@@ -86,7 +95,11 @@ public class CustomPopupWindow extends PopupWindow {
     }
 
     public void show(Activity activity) {//默认显示到中间
-        show();
+        if (mParentView == null) {
+            showAtLocation(mContentView, Gravity.CENTER | Gravity.CENTER_HORIZONTAL, 0, -getNavigationBarHeight(activity));
+        } else {
+            showAtLocation(mParentView, Gravity.CENTER | Gravity.CENTER_HORIZONTAL, 0, -getNavigationBarHeight(activity));
+        }
         AnimUtil animUtil = new AnimUtil();
         toggleBright(activity, animUtil);
         setOnDismissListener(() -> toggleBright(activity, animUtil));
@@ -193,5 +206,58 @@ public class CustomPopupWindow extends PopupWindow {
         activity.getWindow().setAttributes(lp);
         activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_BLUR_BEHIND);
         activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+    }
+
+    private boolean checkDeviceHasNavigationBar(Activity activity) {
+        boolean hasNavigationBar = false;
+        Resources rs = activity.getResources();
+        int id = rs.getIdentifier("config_showNavigationBar", "bool", "android");
+        if (id > 0) {
+            hasNavigationBar = rs.getBoolean(id);
+        }
+        try {
+            Class systemPropertiesClass = Class.forName("android.os.SystemProperties");
+            Method m = systemPropertiesClass.getMethod("get", String.class);
+            String navBarOverride = (String) m.invoke(systemPropertiesClass, "qemu.hw.mainkeys");
+            if ("1".equals(navBarOverride)) {
+                hasNavigationBar = false;
+            } else if ("0".equals(navBarOverride)) {
+                hasNavigationBar = true;
+            }
+        } catch (Exception e) {
+        }
+        return hasNavigationBar;
+    }
+
+    private boolean isNavigationBarShow(Activity activity) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            Display display = activity.getWindowManager().getDefaultDisplay();
+            Point size = new Point();
+            Point realSize = new Point();
+            display.getSize(size);
+            display.getRealSize(realSize);
+            return realSize.y != size.y;
+        } else {
+            boolean menu = ViewConfiguration.get(activity).hasPermanentMenuKey();
+            boolean back = KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_BACK);
+            if (menu || back) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+    }
+
+    private int getNavigationBarHeight(Activity activity) {
+        int navigationBarHeight = 0;
+        if (!isNavigationBarShow(activity)) {
+            return navigationBarHeight;
+        }
+        Resources rs = activity.getResources();
+        int id = rs.getIdentifier("navigation_bar_height", "dimen", "android");
+        if (id > 0 && checkDeviceHasNavigationBar(activity)) {
+            navigationBarHeight = rs.getDimensionPixelSize(id);
+        }
+        return navigationBarHeight;
     }
 }
