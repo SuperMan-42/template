@@ -322,3 +322,7 @@
 ##---------------End: proguard configuration for 设备指纹  ----------
 ##友盟相关
 -keep class com.umeng.commonsdk.** {*;}
+##百度推送
+-libraryjars libs/pushservice-VERSION.jar
+-dontwarn com.baidu.**
+-keep class com.baidu.**{*; }

@@ -15,6 +15,8 @@ import android.widget.ImageView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.baidu.android.pushservice.PushConstants;
+import com.baidu.android.pushservice.PushManager;
 import com.core.base.AdapterViewPager;
 import com.core.base.BaseActivity;
 import com.core.di.component.AppComponent;
@@ -103,6 +105,7 @@ public class HomeActivity extends BaseActivity<HomePresenter> implements HomeCon
 
     @Override
     public void initView(Bundle savedInstanceState) {
+        PushManager.startWork(getApplicationContext(), PushConstants.LOGIN_TYPE_API_KEY, "xRXgNId4ct4tDpNrC5BOAGsb");
         imLeft.setImageResource(R.drawable.title_fliter);
         mPresenter.getPermissons();
         mPresenter.dealFilter();
