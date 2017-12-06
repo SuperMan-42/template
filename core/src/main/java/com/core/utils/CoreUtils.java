@@ -33,6 +33,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
 import android.view.WindowManager;
+import android.view.animation.AnimationUtils;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -40,9 +41,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.bumptech.glide.request.RequestOptions;
+import com.core.R;
 import com.core.base.App;
 import com.core.di.component.AppComponent;
+import com.core.http.imageloader.glide.GlideArms;
 import com.core.http.imageloader.glide.ImageConfigImpl;
 import com.core.integration.AppManager;
 import com.core.integration.cache.Cache;
@@ -456,8 +460,13 @@ public class CoreUtils {
         return obtainAppComponentFromContext(context).extras();
     }
 
-    public static void imgLoader(Context context, String url, ImageView view) {
+    //下面两个方法列表里用
+    public static void imgLoader(Context context, Object url, ImageView view) {
         obtainAppComponentFromContext(context).imageLoader().loadImage(context, ImageConfigImpl.builder().url(url).imageView(view).build());
+    }
+
+    public static void imgLoader(Context context, Object url, int replace, ImageView view) {
+        obtainAppComponentFromContext(context).imageLoader().loadImage(context, ImageConfigImpl.builder().url(url).fallback(replace).errorPic(replace).imageView(view).build());
     }
 
     /**
@@ -516,6 +525,23 @@ public class CoreUtils {
         return 0xff << 24 | red << 16 | green << 8 | blue;
     }
 
+    //下面四个用于头像获取非列表
+    public static void imgLoaderCircle(Context context, Object o, Drawable replace, ImageView image) {
+        GlideArms.with(context).load(o).transition(DrawableTransitionOptions.withCrossFade().crossFade(200)).fallback(replace).error(replace).into(image);
+    }
+
+    public static void imgLoaderCircle(Context context, Object o, RequestOptions requestOptions, Drawable replace, ImageView image) {
+        GlideArms.with(context).load(o).transition(DrawableTransitionOptions.withCrossFade().crossFade(200)).fallback(replace).error(replace).apply(requestOptions).into(image);
+    }
+
+    public static void imgLoaderCircle(Context context, Object o, int replace, ImageView image) {
+        GlideArms.with(context).load(o).transition(DrawableTransitionOptions.withCrossFade().crossFade(200)).fallback(replace).error(replace).into(image);
+    }
+
+    public static void imgLoaderCircle(Context context, Object o, RequestOptions requestOptions, int replace, ImageView image) {
+        GlideArms.with(context).load(o).transition(DrawableTransitionOptions.withCrossFade().crossFade(200)).fallback(replace).error(replace).apply(requestOptions).into(image);
+    }
+
     public static void imgLoaderCircle(Context context, Object o, ImageView image) {
         Glide.with(context).load(o).into(image);
     }
@@ -523,5 +549,6 @@ public class CoreUtils {
     public static void imgLoaderCircle(Context context, Object o, RequestOptions requestOptions, ImageView image) {
         Glide.with(context).load(o).apply(requestOptions).into(image);
         image.setVisibility(View.VISIBLE);
+        image.startAnimation(AnimationUtils.loadAnimation(context, R.anim.fade_in));
     }
 }

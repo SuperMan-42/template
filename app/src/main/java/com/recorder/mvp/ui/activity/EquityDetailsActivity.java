@@ -23,7 +23,6 @@ import android.widget.TextView;
 import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
-import com.bumptech.glide.Glide;
 import com.core.base.AdapterViewPager;
 import com.core.base.BaseActivity;
 import com.core.di.component.AppComponent;
@@ -176,6 +175,12 @@ public class EquityDetailsActivity extends BaseActivity<EquityDetailsPresenter> 
     private float alpha = 0;
 
     @Override
+    protected void onPause() {
+        super.onPause();
+        toolbar.setAlpha(alpha);
+    }
+
+    @Override
     public void setupActivityComponent(AppComponent appComponent) {
         DaggerEquityDetailsComponent //如找不到该类,请编译一下项目
                 .builder()
@@ -205,12 +210,6 @@ public class EquityDetailsActivity extends BaseActivity<EquityDetailsPresenter> 
         toolbar.getBackground().setAlpha(0);
         ARouter.getInstance().inject(this);
         mPresenter.dealDetail(dealId);
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        toolbar.setAlpha(alpha);
     }
 
     @Override
@@ -317,8 +316,8 @@ public class EquityDetailsActivity extends BaseActivity<EquityDetailsPresenter> 
             translucentBar();
         }
         tvDealName.setText(dataEntity.getDeal_name());//头部标题
-        CoreUtils.imgLoader(this, dataEntity.getCover(), imCover);//头部头像
-        Glide.with(this).load(dataEntity.getCover()).apply(bitmapTransform(new BlurTransformation())).into(imBg);//头部高斯模糊背景
+        CoreUtils.imgLoader(this, dataEntity.getCover(), R.drawable.ic_detail_cover, imCover);//头部头像
+        CoreUtils.imgLoaderCircle(this, dataEntity.getCover(), bitmapTransform(new BlurTransformation()), R.drawable.ic_detail_cover_bg, imBg);//头部高斯模糊背景
         tvBrief.setText(dataEntity.getBrief());//头部简介
         tvLabels.setText(dataEntity.getLabels());//标签
         //进度条相关

@@ -24,12 +24,12 @@ import android.widget.ImageView;
  * ================================================
  */
 public class ImageConfig {
-    protected String url;
+    protected Object url;
     protected ImageView imageView;
     protected int placeholder;//占位符
     protected int errorPic;//错误占位符
 
-    public String getUrl() {
+    public Object getUrl() {
         return url;
     }
 

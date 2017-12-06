@@ -31,7 +31,7 @@
                 android:layout_height="270px"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="201px"
-                android:src="@drawable/bga_round" />
+                tools:src="@drawable/bga_round" />
 
             <TextView
                 android:id="@+id/tv_deal_name"

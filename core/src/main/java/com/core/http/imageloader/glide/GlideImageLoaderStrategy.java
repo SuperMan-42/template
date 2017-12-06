@@ -17,7 +17,6 @@ package com.core.http.imageloader.glide;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
-import android.text.TextUtils;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -47,7 +46,7 @@ public class GlideImageLoaderStrategy implements BaseImageLoaderStrategy<ImageCo
     public void loadImage(Context ctx, ImageConfigImpl config) {
         if (ctx == null) throw new NullPointerException("Context is required");
         if (config == null) throw new NullPointerException("ImageConfigImpl is required");
-        if (TextUtils.isEmpty(config.getUrl())) throw new NullPointerException("Url is required");
+//        if (TextUtils.isEmpty(config.getUrl())) throw new NullPointerException("Url is required");
         if (config.getImageView() == null) throw new NullPointerException("Imageview is required");
 
         GlideRequests requests;

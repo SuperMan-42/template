@@ -146,7 +146,7 @@ public class MyInvestmentActivity extends BaseActivity<MyInvestmentPresenter> im
     public void showResult(boolean isSuccess, OrderListBean.DataEntity.ListEntity item, String msg) {
         this.isSuccess = isSuccess;
         if (isSuccess) {
-            CoreUtils.imgLoaderCircle(this, R.drawable.ic_result_success, imCover);
+            CoreUtils.imgLoader(this, R.drawable.ic_result_success, imCover);
             tvTitle.setText(CoreUtils.getString(this, R.string.text_buy_success));
             String content = CoreUtils.getString(this, R.string.text_buy_success_alter) + item.getDeal_name() + ",认购金额:" + msg + "元";
             SpannableString spannableString = new SpannableString(content);
@@ -156,7 +156,7 @@ public class MyInvestmentActivity extends BaseActivity<MyInvestmentPresenter> im
             tvGoAuthentication.setText("项目详情");
             title("支付成功");
         } else {
-            CoreUtils.imgLoaderCircle(this, R.drawable.ic_result_fail, imCover);
+            CoreUtils.imgLoader(this, R.drawable.ic_result_fail, imCover);
             tvTitle.setText(CoreUtils.getString(this, R.string.text_buy_fail));
             tvContent.setText(CoreUtils.getString(this, R.string.text_buy_fail_alter) + msg);
             tvContent.setTextColor(Color.parseColor("#FF5701"));
