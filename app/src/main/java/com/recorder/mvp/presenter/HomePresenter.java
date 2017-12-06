@@ -71,8 +71,18 @@ public class HomePresenter extends BasePresenter<HomeContract.Model, HomeContrac
 
     public void getPermissons() {
         new RxPermissions((Activity) mRootView)
-                .requestEach(Manifest.permission.READ_PHONE_STATE, Manifest.permission.CAMERA,
-                        Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.ACCESS_COARSE_LOCATION)
+                .requestEach(Manifest.permission.CAMERA,
+                        Manifest.permission.ACCESS_COARSE_LOCATION,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                        Manifest.permission.ACCESS_FINE_LOCATION,
+                        Manifest.permission.CALL_PHONE,
+                        Manifest.permission.READ_LOGS,
+                        Manifest.permission.READ_PHONE_STATE,
+                        Manifest.permission.READ_EXTERNAL_STORAGE,
+                        Manifest.permission.SET_DEBUG_APP,
+                        Manifest.permission.SYSTEM_ALERT_WINDOW,
+                        Manifest.permission.GET_ACCOUNTS,
+                        Manifest.permission.WRITE_APN_SETTINGS)
 //                .doOnNext(granted -> {
 //                    if (!granted) {
 //                        throw new RuntimeException("no permission");

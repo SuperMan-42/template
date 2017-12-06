@@ -44,6 +44,8 @@ import com.squareup.leakcanary.LeakCanary;
 import com.squareup.leakcanary.RefWatcher;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.commonsdk.UMConfigure;
+import com.umeng.socialize.PlatformConfig;
+import com.umeng.socialize.UMShareAPI;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -216,8 +218,10 @@ public class GlobalConfiguration implements ConfigModule {
 
             @Override
             public void onCreate(Application application) {
+                //侧滑相关
                 BGASwipeBackHelper.init(application, null);
-                if (BuildConfig.LOG_DEBUG) {//日志打印
+                //日志打印相关Logger Timer
+                if (BuildConfig.LOG_DEBUG) {
                     FormatStrategy formatStrategy = PrettyFormatStrategy.newBuilder().tag("hpw").build();
                     Logger.addLogAdapter(new AndroidLogAdapter(formatStrategy) {
                         @Override
@@ -234,7 +238,6 @@ public class GlobalConfiguration implements ConfigModule {
                 }
                 //leakCanary内存泄露检查
                 CoreUtils.obtainRxCache(context).put(RefWatcher.class.getName(), BuildConfig.IS_RELEASE ? LeakCanary.install(application) : RefWatcher.DISABLED);
-
                 //ARouter初始化
                 if (BuildConfig.LOG_DEBUG) {
                     ARouter.openLog();     // 打印日志
@@ -244,6 +247,9 @@ public class GlobalConfiguration implements ConfigModule {
                 //友盟相关
                 MobclickAgent.setScenarioType(context, MobclickAgent.EScenarioType.E_UM_NORMAL);
                 UMConfigure.init(context, "58747d635312dd8e3f000d62", "haoxiang", UMConfigure.DEVICE_TYPE_PHONE, null);
+                //分享相关
+                PlatformConfig.setWeixin("wx9a21ba70630cf6ee", "9175381035b534c13a53659f737c22e1");
+                UMShareAPI.get(context);
             }
 
             @Override

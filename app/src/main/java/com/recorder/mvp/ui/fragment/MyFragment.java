@@ -31,6 +31,7 @@ import com.recorder.mvp.model.entity.Bean;
 import com.recorder.mvp.model.entity.LoginBean;
 import com.recorder.mvp.model.entity.UserInfoBean;
 import com.recorder.mvp.presenter.MyPresenter;
+import com.recorder.utils.CommonUtils;
 
 import org.simple.eventbus.Subscriber;
 
@@ -100,7 +101,7 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
         list.add(new Bean<>(R.drawable.ic_help, "投资帮助", "/app/SettingActivity"));
         list.add(new Bean<>(R.drawable.ic_setting, "设置", "/app/SettingActivity"));
         list.add(new Bean<>(R.drawable.ic_project, "推荐项目", "/app/DealRecommendActivity"));
-        list.add(new Bean<>(R.drawable.ic_recommend, "推荐给朋友", "/app/SettingActivity"));
+        list.add(new Bean<>(R.drawable.ic_recommend, "推荐给朋友", "recommend"));
         list.add(new Bean<>(R.drawable.ic_auth, "投资人认证", "/app/SettingActivity"));
         GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 3) {
             @Override
@@ -114,7 +115,16 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
             protected void convert(BaseViewHolder holder, Bean item) {
                 holder.setImageResource(R.id.im_pic, (Integer) item.getKey());
                 holder.setText(R.id.tv_content, item.getValue());
-                holder.itemView.setOnClickListener(view1 -> ARouter.getInstance().build(item.getOther()).navigation());
+                holder.itemView.setOnClickListener(view1 -> {
+                    switch (item.getOther()) {
+                        case "recommend":
+                            CommonUtils.share(getActivity(), "", "昊翔分享测试", "昊翔分享测试", "http://bpic.588ku.com/element_origin_min_pic/00/00/05/115732f19cc0079.jpg");
+                            break;
+                        default:
+                            ARouter.getInstance().build(item.getOther()).navigation();
+                            break;
+                    }
+                });
             }
         }, false);
         GridDividerItemDecoration dividerItemDecoration = new GridDividerItemDecoration(getActivity(), GridDividerItemDecoration.GRID_DIVIDER_VERTICAL);

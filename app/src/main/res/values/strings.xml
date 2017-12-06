@@ -48,4 +48,7 @@
     <string name="text_exit">再按一次退出程序</string>
     <string name="text_permission_success">权限申请成功</string>
     <string name="text_permission_fail">权限申请失败</string>
+    <string name="text_share_error">分享失败</string>
+    <string name="text_share_cancel">分享取消</string>
+    <string name="text_share_success">分享成功</string>
 </resources>

@@ -2,6 +2,7 @@ package com.recorder.utils;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -15,15 +16,22 @@ import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.core.integration.cache.BCache;
+import com.core.utils.CoreUtils;
 import com.google.gson.Gson;
 import com.jaeger.library.StatusBarUtil;
 import com.liulishuo.filedownloader.BaseDownloadTask;
 import com.liulishuo.filedownloader.FileDownloadSampleListener;
 import com.liulishuo.filedownloader.FileDownloader;
 import com.recorder.BuildConfig;
+import com.recorder.R;
 import com.recorder.mvp.model.entity.PayPayBean;
 import com.recorder.mvp.model.entity.UserInfoBean;
 import com.ucfpay.plugin.certification.utils.UcfpayInterface;
+import com.umeng.socialize.ShareAction;
+import com.umeng.socialize.UMShareListener;
+import com.umeng.socialize.bean.SHARE_MEDIA;
+import com.umeng.socialize.media.UMWeb;
+import com.umeng.socialize.shareboard.ShareBoardConfig;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -335,5 +343,43 @@ public class CommonUtils {
                 }
             }
         }, BuildConfig.IS_RELEASE);
+    }
+
+    public static void share(Activity activity, String url, String title, String content, String img) {
+        ShareBoardConfig config = new ShareBoardConfig();
+        config.setIndicatorVisibility(false);
+        config.setCancelButtonVisibility(true);
+        config.setShareboardBackgroundColor(Color.parseColor("#F9F9F9"));
+
+        UMWeb web = new UMWeb(url);
+        web.setTitle(title);
+//        web.setThumb(new UMImage(activity, R.drawable.ic_person));
+        web.setDescription(content);
+        new ShareAction(activity)
+                .withMedia(web)
+//                .withText(title)
+                .setDisplayList(SHARE_MEDIA.WEIXIN, SHARE_MEDIA.WEIXIN_CIRCLE, SHARE_MEDIA.SMS, SHARE_MEDIA.EMAIL)
+                .setCallback(new UMShareListener() {
+                    @Override
+                    public void onStart(SHARE_MEDIA share_media) {
+
+                    }
+
+                    @Override
+                    public void onResult(SHARE_MEDIA share_media) {
+                        CoreUtils.snackbarText(CoreUtils.getString(activity, R.string.text_share_success));
+                    }
+
+                    @Override
+                    public void onError(SHARE_MEDIA share_media, Throwable throwable) {
+                        CoreUtils.snackbarText(CoreUtils.getString(activity, R.string.text_share_error));
+                    }
+
+                    @Override
+                    public void onCancel(SHARE_MEDIA share_media) {
+                        CoreUtils.snackbarText(CoreUtils.getString(activity, R.string.text_share_cancel));
+                    }
+                })
+                .open(config);
     }
 }

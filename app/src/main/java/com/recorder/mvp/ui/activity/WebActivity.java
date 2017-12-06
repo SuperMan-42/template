@@ -4,11 +4,14 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.KeyEvent;
+import android.view.View;
 import android.webkit.WebChromeClient;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
@@ -18,12 +21,20 @@ import com.core.di.component.AppComponent;
 import com.just.library.AgentWeb;
 import com.just.library.ChromeClientCallbackManager;
 import com.recorder.R;
+import com.recorder.utils.CommonUtils;
+
+import butterknife.BindView;
+import butterknife.OnClick;
 
 @Route(path = "/app/WebActivity")
 public class WebActivity extends BaseActivity {
     @Autowired
     String url;
     protected AgentWeb mAgentWeb;
+    @BindView(R.id.im_right)
+    ImageView imRight;
+    @BindView(R.id.toolbar_right)
+    RelativeLayout toolbarRight;
     private LinearLayout mLinearLayout;
 
     @Override
@@ -39,6 +50,8 @@ public class WebActivity extends BaseActivity {
     @Override
     public void initView(Bundle savedInstanceState) {
         ARouter.getInstance().inject(this);
+        imRight.setImageResource(R.drawable.title_right);
+        toolbarRight.setVisibility(View.VISIBLE);
         mLinearLayout = this.findViewById(R.id.container);
         mAgentWeb = AgentWeb.with(this)
                 .setAgentWebParent(mLinearLayout, new LinearLayout.LayoutParams(-1, -1))//
@@ -107,5 +120,10 @@ public class WebActivity extends BaseActivity {
     protected void onDestroy() {
         super.onDestroy();
         mAgentWeb.getWebLifeCycle().onDestroy();
+    }
+
+    @OnClick(R.id.toolbar_right)
+    public void onViewClicked() {
+        CommonUtils.share(this, "", "昊翔分享测试", "昊翔分享测试", "http://bpic.588ku.com/element_origin_min_pic/00/00/05/115732f19cc0079.jpg");
     }
 }
