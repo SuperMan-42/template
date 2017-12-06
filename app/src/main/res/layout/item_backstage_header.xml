@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="120px"
+    android:layout_marginTop="36px"
+    android:background="@color/white"
+    android:gravity="center_vertical"
+    android:orientation="horizontal">
+
+    <ImageView
+        android:id="@+id/im_left"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="45px"
+        android:src="@drawable/ic_home_equity" />
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="24px"
+        android:layout_weight="1"
+        android:textColor="#333333"
+        android:textSize="45px"
+        android:textStyle="bold"
+        tools:text="共享电动车项目" />
+
+    <ImageView
+        android:id="@+id/im_right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="45px"
+        android:src="@drawable/ic_backstage_up" />
+</LinearLayout>

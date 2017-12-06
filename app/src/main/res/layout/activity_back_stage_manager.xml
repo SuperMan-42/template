@@ -3,9 +3,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#F0F2F5"
     android:orientation="vertical">
 
     <include layout="@layout/view_toolbar" />
+
+    <com.core.widget.recyclerview.CoreRecyclerView
+        android:id="@+id/recyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/toolbar" />
 
     <include
         android:id="@+id/view_empty"
