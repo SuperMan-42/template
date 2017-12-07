@@ -106,12 +106,18 @@ public class UploadActivity extends BaseActivity<UploadPresenter> implements Upl
                         .theme(R.style.picture_hx_style)
                         .forResult(holder.getAdapterPosition() + (item.getKey() ? 0 : 10)));
                 holder.itemView.setOnLongClickListener(view -> {
-                    if (!item.getKey())
-                        remove(holder.getAdapterPosition());
-                    if (getItemCount() == 3) {
+                    int index = 0;
+                    for (Bean<Boolean> bean : getData()) {
+                        if (!bean.getKey()) {
+                            index++;
+                        }
+                    }
+                    if (index == 4) {
                         addData(new Bean<>(true, null, null));
                         notifyItemRangeChanged(holder.getAdapterPosition(), 4);
                     }
+                    if (!item.getKey())
+                        recyclerView.remove(holder.getAdapterPosition());
                     return true;
                 });
             }

@@ -9,7 +9,7 @@
         android:id="@+id/im_upload"
         android:layout_width="240px"
         android:layout_height="240px"
-        android:padding="8px"
+        android:padding="10px"
         android:scaleType="fitCenter"
         tools:src="@drawable/ic_upload" />
 </LinearLayout>
