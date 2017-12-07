@@ -26,4 +26,5 @@ public class Constants {
     public static final String RETRY_SEARCH = "retry_search";
     public static final String RETRY_MYATTENTION = "retry_myattention";
     public static final String WEB_URL = "web_url";
+    public static final String IS_SHOW_RIGHT = "is_show_right";
 }

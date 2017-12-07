@@ -31,6 +31,8 @@ import butterknife.OnClick;
 public class WebActivity extends BaseActivity {
     @Autowired(name = Constants.WEB_URL)
     String url;
+    @Autowired(name = Constants.IS_SHOW_RIGHT)
+    boolean right;
     protected AgentWeb mAgentWeb;
     @BindView(R.id.im_right)
     ImageView imRight;
@@ -51,8 +53,10 @@ public class WebActivity extends BaseActivity {
     @Override
     public void initView(Bundle savedInstanceState) {
         ARouter.getInstance().inject(this);
-        imRight.setImageResource(R.drawable.title_right);
-        toolbarRight.setVisibility(View.VISIBLE);
+        if (right) {
+            imRight.setImageResource(R.drawable.title_right);
+            toolbarRight.setVisibility(View.VISIBLE);
+        }
         mLinearLayout = this.findViewById(R.id.container);
         mAgentWeb = AgentWeb.with(this)
                 .setAgentWebParent(mLinearLayout, new LinearLayout.LayoutParams(-1, -1))//
@@ -65,6 +69,9 @@ public class WebActivity extends BaseActivity {
                 .createAgentWeb()
                 .ready()
                 .go(getUrl());
+        if (!getUrl().startsWith("http")) {
+            mAgentWeb.getWebCreator().get().loadData(getUrl(), "text/html; charset=UTF-8", null);
+        }
     }
 
     private WebViewClient mWebViewClient = new WebViewClient() {
@@ -76,13 +83,9 @@ public class WebActivity extends BaseActivity {
         @Override
         public void onPageStarted(WebView view, String url, Bitmap favicon) {
             //do you  work
-            if (url.startsWith("http")) {
-                view.loadUrl(url);
-            } else {
-                view.loadData(url, "text/html; charset=UTF-8", null);
-            }
         }
     };
+
     private WebChromeClient mWebChromeClient = new WebChromeClient() {
         @Override
         public void onProgressChanged(WebView view, int newProgress) {
@@ -101,7 +104,7 @@ public class WebActivity extends BaseActivity {
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        return mAgentWeb.handleKeyEvent(keyCode, event) || super.onKeyDown(keyCode, event);
+        return mAgentWeb.handleKeyEvent(keyCode, event) && getUrl().startsWith("http") || super.onKeyDown(keyCode, event);
     }
 
     @Override

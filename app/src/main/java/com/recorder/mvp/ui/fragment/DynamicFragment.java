@@ -110,7 +110,9 @@ public class DynamicFragment extends BaseFragment<DynamicPresenter> implements D
             protected void convert(BaseViewHolder holder, NewsListBean.DataEntity.ListEntity item) {
                 CoreUtils.imgLoader(getContext(), "http://ww4.sinaimg.cn/large/006uZZy8jw1faic1xjab4j30ci08cjrv.jpg", holder.getView(R.id.im_cover));
                 holder.setText(R.id.tv_title, item.getTitle());
-                holder.itemView.setOnClickListener(view1 -> ARouter.getInstance().build("/app/WebActivity").withString(Constants.WEB_URL, item.getUrl()).navigation());
+                holder.itemView.setOnClickListener(view1 -> ARouter.getInstance().build("/app/WebActivity")
+                        .withBoolean(Constants.IS_SHOW_RIGHT, true)
+                        .withString(Constants.WEB_URL, item.getUrl()).navigation());
             }
         }, false);
     }

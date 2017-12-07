@@ -100,6 +100,7 @@ public class HelpListActivity extends BaseActivity<HelpListPresenter> implements
     @Override
     public void showHelpContent(HelpContentBean.DataEntity data) {
         ARouter.getInstance().build("/app/WebActivity")
+                .withBoolean(Constants.IS_SHOW_RIGHT, false)
                 .withString(Constants.WEB_URL, data.getContent()).navigation();
     }
 }
