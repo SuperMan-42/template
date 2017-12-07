@@ -8,7 +8,6 @@ import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
-import com.bumptech.glide.request.RequestOptions;
 import com.core.base.BaseActivity;
 import com.core.di.component.AppComponent;
 import com.core.integration.cache.BCache;
@@ -76,7 +75,7 @@ public class PersonActivity extends BaseActivity<PersonPresenter> implements Per
     public void initView(Bundle savedInstanceState) {
         title("个人资料");
         userInfoBean = new Gson().fromJson(BCache.getInstance().getString(Constants.USER_INFO), UserInfoBean.class).getData();
-        CoreUtils.imgLoaderCircle(this, userInfoBean.getAvatar(), RequestOptions.errorOf(R.drawable.ic_person), imAvatar);
+        CoreUtils.imgLoaderCircle(this, userInfoBean.getAvatar(), imAvatar, R.drawable.ic_person);
     }
 
     @Override
@@ -161,7 +160,7 @@ public class PersonActivity extends BaseActivity<PersonPresenter> implements Per
                 case IM_AVATAR:
                     // 图片选择结果回调
                     File file = new File(PictureSelector.obtainMultipleResult(data).get(0).getCompressPath());
-                    CoreUtils.imgLoaderCircle(this, file, imAvatar);
+                    CoreUtils.imgLoaderCircle(this, file, imAvatar, imAvatar.getDrawable());
                     MultipartBody.Builder builder = new MultipartBody.Builder().setType(MultipartBody.FORM);//表单类型
                     RequestBody imageBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
                     builder.addFormDataPart("images", file.getName(), imageBody);//imgfile 后台接收图片流的参数名

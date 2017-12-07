@@ -21,7 +21,6 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.os.Message;
-import android.support.annotation.ColorInt;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.RecyclerView;
@@ -40,7 +39,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.bumptech.glide.request.RequestOptions;
 import com.core.R;
@@ -504,27 +502,6 @@ public class CoreUtils {
         }
     }
 
-    /**
-     * 计算色
-     *
-     * @param color
-     * @param alpha
-     * @return
-     */
-    public static int calculateStatusColor(@ColorInt int color, int alpha) {
-        if (alpha == 0) {
-            return color;
-        }
-        float a = 1 - alpha / 255f;
-        int red = color >> 16 & 0xff;
-        int green = color >> 8 & 0xff;
-        int blue = color & 0xff;
-        red = (int) (red * a + 0.5);
-        green = (int) (green * a + 0.5);
-        blue = (int) (blue * a + 0.5);
-        return 0xff << 24 | red << 16 | green << 8 | blue;
-    }
-
     //下面四个用于头像获取非列表
     public static void imgLoaderCircle(Context context, Object o, Drawable replace, ImageView image) {
         GlideArms.with(context).load(o).transition(DrawableTransitionOptions.withCrossFade().crossFade(200)).fallback(replace).error(replace).into(image);
@@ -542,13 +519,12 @@ public class CoreUtils {
         GlideArms.with(context).load(o).transition(DrawableTransitionOptions.withCrossFade().crossFade(200)).fallback(replace).error(replace).apply(requestOptions).into(image);
     }
 
-    public static void imgLoaderCircle(Context context, Object o, ImageView image) {
-        Glide.with(context).load(o).into(image);
+    public static void imgLoaderCircle(Context context, Object o, ImageView image, Drawable res) {
+        GlideArms.with(context).load(o).dontAnimate().placeholder(image.getDrawable()).fallback(res).error(res).into(image);
     }
 
-    public static void imgLoaderCircle(Context context, Object o, RequestOptions requestOptions, ImageView image) {
-        Glide.with(context).load(o).apply(requestOptions).into(image);
-        image.setVisibility(View.VISIBLE);
+    public static void imgLoaderCircle(Context context, Object o, ImageView image, int res) {
+        GlideArms.with(context).load(o).dontAnimate().placeholder(image.getDrawable()).fallback(res).error(res).into(image);
         image.startAnimation(AnimationUtils.loadAnimation(context, R.anim.fade_in));
     }
 }

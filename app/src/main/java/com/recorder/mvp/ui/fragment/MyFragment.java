@@ -12,7 +12,6 @@ import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
-import com.bumptech.glide.request.RequestOptions;
 import com.core.base.BaseFragment;
 import com.core.di.component.AppComponent;
 import com.core.http.imageloader.ImageLoader;
@@ -88,7 +87,6 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
     public void initData(Bundle savedInstanceState) {
         if (TextUtils.isEmpty(BCache.getInstance().getString(Constants.TOKEN))) {
             tvUserName.setText("您还没登录哦");
-            profileImage.setVisibility(View.VISIBLE);
             tvLogin.setVisibility(View.VISIBLE);
             tvMyInvestment.setText("0");
             tvFollowCount.setText("0");
@@ -118,7 +116,7 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
                 holder.itemView.setOnClickListener(view1 -> {
                     switch (item.getOther()) {
                         case "recommend":
-                            CommonUtils.share(getActivity(), "", "昊翔分享测试", "昊翔分享测试", "http://bpic.588ku.com/element_origin_min_pic/00/00/05/115732f19cc0079.jpg");
+                            CommonUtils.share(getActivity(), "http://baidu.com", "昊翔分享测试", "昊翔分享测试", "http://bpic.588ku.com/element_origin_min_pic/00/00/05/115732f19cc0079.jpg");
                             break;
                         default:
                             ARouter.getInstance().build(item.getOther()).navigation();
@@ -185,7 +183,7 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
     @Subscriber(tag = "loginout")
     private void loginout(LoginBean loginBean) {
         tvUserName.setText("您还没登录哦");
-        CoreUtils.imgLoaderCircle(getContext(), R.drawable.ic_person, RequestOptions.errorOf(R.drawable.ic_person), profileImage);
+        CoreUtils.imgLoaderCircle(getContext(), R.drawable.ic_person, profileImage, R.drawable.ic_person);
         tvLogin.setVisibility(View.VISIBLE);
         tvAuthType.setVisibility(View.GONE);
         tvMyInvestment.setText("0");
@@ -195,7 +193,7 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
 
     @Subscriber(tag = "person_avatar")
     private void avatar(String avatar) {
-        CoreUtils.imgLoaderCircle(getContext(), avatar, RequestOptions.errorOf(R.drawable.ic_person), profileImage);
+        CoreUtils.imgLoaderCircle(getContext(), avatar, profileImage, R.drawable.ic_person);
     }
 
     @Subscriber(tag = "person_name")
@@ -228,7 +226,7 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
     public void showUserInfo(ImageLoader imageLoader, UserInfoBean userInfoBean) {
         BCache.getInstance().put(Constants.USER_INFO, new Gson().toJson(userInfoBean));
         tvLogin.setVisibility(View.GONE);
-        CoreUtils.imgLoaderCircle(getContext(), userInfoBean.getData().getAvatar(), RequestOptions.errorOf(R.drawable.ic_person), profileImage);
+        CoreUtils.imgLoaderCircle(getContext(), userInfoBean.getData().getAvatar(), profileImage, R.drawable.ic_person);
         tvUserName.setText(userInfoBean.getData().getUser_name());
         switch (userInfoBean.getData().getAuth_type()) {
             case "0":

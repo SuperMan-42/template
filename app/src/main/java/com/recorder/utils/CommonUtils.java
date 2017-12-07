@@ -22,6 +22,7 @@ import com.jaeger.library.StatusBarUtil;
 import com.liulishuo.filedownloader.BaseDownloadTask;
 import com.liulishuo.filedownloader.FileDownloadSampleListener;
 import com.liulishuo.filedownloader.FileDownloader;
+import com.orhanobut.logger.Logger;
 import com.recorder.BuildConfig;
 import com.recorder.R;
 import com.recorder.mvp.model.entity.PayPayBean;
@@ -30,6 +31,7 @@ import com.ucfpay.plugin.certification.utils.UcfpayInterface;
 import com.umeng.socialize.ShareAction;
 import com.umeng.socialize.UMShareListener;
 import com.umeng.socialize.bean.SHARE_MEDIA;
+import com.umeng.socialize.media.UMImage;
 import com.umeng.socialize.media.UMWeb;
 import com.umeng.socialize.shareboard.ShareBoardConfig;
 
@@ -350,14 +352,11 @@ public class CommonUtils {
         config.setIndicatorVisibility(false);
         config.setCancelButtonVisibility(true);
         config.setShareboardBackgroundColor(Color.parseColor("#F9F9F9"));
-
         UMWeb web = new UMWeb(url);
         web.setTitle(title);
-//        web.setThumb(new UMImage(activity, R.drawable.ic_person));
         web.setDescription(content);
+        web.setThumb(new UMImage(activity, img));
         new ShareAction(activity)
-                .withMedia(web)
-//                .withText(title)
                 .setDisplayList(SHARE_MEDIA.WEIXIN, SHARE_MEDIA.WEIXIN_CIRCLE, SHARE_MEDIA.SMS, SHARE_MEDIA.EMAIL)
                 .setCallback(new UMShareListener() {
                     @Override
@@ -372,7 +371,8 @@ public class CommonUtils {
 
                     @Override
                     public void onError(SHARE_MEDIA share_media, Throwable throwable) {
-                        CoreUtils.snackbarText(CoreUtils.getString(activity, R.string.text_share_error));
+                        CoreUtils.snackbarText(CoreUtils.getString(activity, R.string.text_share_error) + throwable.getMessage());
+                        Logger.d("share=> " + throwable.getMessage());
                     }
 
                     @Override
@@ -380,6 +380,7 @@ public class CommonUtils {
                         CoreUtils.snackbarText(CoreUtils.getString(activity, R.string.text_share_cancel));
                     }
                 })
+                .withMedia(web)
                 .open(config);
     }
 }
