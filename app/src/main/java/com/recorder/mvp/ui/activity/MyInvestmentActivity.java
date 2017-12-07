@@ -126,7 +126,21 @@ public class MyInvestmentActivity extends BaseActivity<MyInvestmentPresenter> im
                 CoreUtils.imgLoader(holder.itemView.getContext(), item.getCover(), holder.getView(R.id.im_cover));
                 holder.setText(R.id.tv_deal_name, item.getDeal_name())
                         .setText(R.id.tv_amount, item.getAmount())
-                        .setText(R.id.tv_actual_amount, item.getActual_amount());
+                        .setText(R.id.tv_actual_amount, item.getActual_amount())
+                        .setText(R.id.tv_order_status_name, item.getOrder_status_name());
+                if (item.getOrder_status() == 0 || item.getOrder_status() == 1) {
+                    holder.setText(R.id.tv_pay_bt, "支付");
+                    holder.getView(R.id.tv_pay_bt).setOnClickListener(view -> {
+                        mPresenter.orderPay(item.getOrderID(), item, "2");
+                        position = holder.getAdapterPosition();
+                    });
+                } else if (item.getOrder_status() == 4) {
+                    holder.setText(R.id.tv_pay_bt, "上传打款凭证");
+                    holder.getView(R.id.tv_pay_bt).setOnClickListener(view -> {
+                        ARouter.getInstance().build("/app/UploadActivity").withBoolean(Constants.ORDER_PROOF, true).navigation();
+                        position = holder.getAdapterPosition();
+                    });
+                }
                 setContent(holder, item, item.getManager_amount(), R.id.ll_manager_amount, R.id.tv_manager_amount);
                 setContent(holder, item, item.getConsult_amount(), R.id.ll_consult_amount, R.id.tv_consult_amount);
                 setContent(holder, item, item.getSubscription_amount(), R.id.ll_subscription_amount, R.id.tv_subscription_amount);
@@ -134,12 +148,13 @@ public class MyInvestmentActivity extends BaseActivity<MyInvestmentPresenter> im
                 setContent(holder, item, item.getPlat_manage_amount(), R.id.ll_plat_manage_amount, R.id.tv_plat_manage_amount);
                 setContent(holder, item, item.getOther_amount(), R.id.ll_other_amount, R.id.tv_other_amount);
                 setContent(holder, item, item.getCustom_amount(), R.id.ll_custom_amount, R.id.tv_custom_amount);
-                holder.getView(R.id.tv_pay_bt).setOnClickListener(view -> {
-                    mPresenter.orderPay(item.getOrderID(), item, "2");
-                    position = holder.getAdapterPosition();
-                });
             }
         }, false);
+    }
+
+    @Subscriber(tag = Constants.ORDER_PROOF)
+    public void upload() {
+        recyclerView.remove(position);
     }
 
     @Override

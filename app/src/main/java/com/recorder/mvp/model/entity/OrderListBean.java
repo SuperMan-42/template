@@ -131,7 +131,7 @@ public class OrderListBean {
             private String custom_amount;
             private String custom_amount_name;
             private String actual_amount;
-            private String order_status;
+            private int order_status;
             private String order_status_name;
 
             public void setOrderID(String orderID) {
@@ -190,7 +190,7 @@ public class OrderListBean {
                 this.actual_amount = actual_amount;
             }
 
-            public void setOrder_status(String order_status) {
+            public void setOrder_status(int order_status) {
                 this.order_status = order_status;
             }
 
@@ -254,7 +254,7 @@ public class OrderListBean {
                 return actual_amount;
             }
 
-            public String getOrder_status() {
+            public int getOrder_status() {
                 return order_status;
             }
 

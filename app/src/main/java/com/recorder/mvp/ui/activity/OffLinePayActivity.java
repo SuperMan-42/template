@@ -12,8 +12,6 @@ import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.core.base.BaseActivity;
 import com.core.di.component.AppComponent;
-import com.google.gson.Gson;
-import com.orhanobut.logger.Logger;
 import com.recorder.R;
 import com.recorder.mvp.model.entity.PayPayOffLineBean;
 
@@ -52,7 +50,6 @@ public class OffLinePayActivity extends BaseActivity {
         title("线下支付信息");
         ARouter.getInstance().inject(this);
         PayPayOffLineBean.DataEntity dataEntity = (PayPayOffLineBean.DataEntity) offlinedata.getSerializable("offlinedata");
-        Logger.d("OffLinePay=> " + new Gson().toJson(offlinedata.getSerializable("offlinedata")));
         String content = "为保证您的认购及时有效，请转账成功后，到我的－我的投资，点击“上传打款凭证”，上传您的转账凭证。";
         SpannableString spannableString = new SpannableString(content);
         spannableString.setSpan(new ForegroundColorSpan(Color.parseColor("#FC3F08")), content.indexOf("我的－我的投资"), content.indexOf("，点击“"), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F0F2F5"
+    android:orientation="vertical">
+
+    <include layout="@layout/view_toolbar" />
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30px"
+        android:background="@color/white"
+        android:paddingBottom="15px"
+        android:paddingLeft="45px"
+        android:paddingRight="45px"
+        android:paddingTop="33px"
+        android:textColor="#666666"
+        android:textSize="42px"
+        tools:text="请上传金融资产不低于300万元或者最近三年个人年均收入不低于50万元的个人资产证明，认证通过后会短信通知您再进行购买。" />
+
+    <com.core.widget.recyclerview.CoreRecyclerView
+        android:id="@+id/recyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:padding="45px" />
+</LinearLayout>
