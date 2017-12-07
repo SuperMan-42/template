@@ -51,4 +51,6 @@
     <string name="text_share_error">分享失败</string>
     <string name="text_share_cancel">分享取消</string>
     <string name="text_share_success">分享成功</string>
+    <string name="text_feedback_content">意见不能能为空</string>
+    <string name="text_feedback_success">反馈意见提交成功</string>
 </resources>

@@ -4,6 +4,8 @@ import com.recorder.mvp.model.entity.AppStartBean;
 import com.recorder.mvp.model.entity.DealDetailBean;
 import com.recorder.mvp.model.entity.DealFilter;
 import com.recorder.mvp.model.entity.EquityBean;
+import com.recorder.mvp.model.entity.HelpContentBean;
+import com.recorder.mvp.model.entity.HelpListBean;
 import com.recorder.mvp.model.entity.HomeRecommendBean;
 import com.recorder.mvp.model.entity.ImageUploadBean;
 import com.recorder.mvp.model.entity.LoginBean;
@@ -142,4 +144,15 @@ public interface ApiService {
 
     @GET("app/start")
     Observable<AppStartBean> appStart(@Header("DIVERSION-VERSION") String version);
+
+    @FormUrlEncoded
+    @POST("app/feedback")
+    Observable<Object> appFeedback(@Header("DIVERSION-VERSION") String version, @Field("content") String content,
+                                   @Field("contact") String contact);
+
+    @GET("help/list")
+    Observable<HelpListBean> helpList(@Header("DIVERSION-VERSION") String version);
+
+    @GET("help/content")
+    Observable<HelpContentBean> helpContent(@Header("DIVERSION-VERSION") String version, @Query("helperID") String helperID);
 }

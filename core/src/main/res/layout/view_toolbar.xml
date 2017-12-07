@@ -63,6 +63,19 @@
                 android:layout_marginRight="10dp"
                 android:src="@drawable/title_right" />
 
+            <TextView
+                android:id="@+id/tv_right"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:text="提交"
+                android:textColor="#3F56DC"
+                android:textSize="45px"
+                android:textStyle="bold"
+                android:visibility="invisible" />
+
         </RelativeLayout>
     </LinearLayout>
 

@@ -117,6 +117,7 @@ public class SettingActivity extends BaseActivity<SettingPresenter> implements S
                         }).build().show(this);
                 break;
             case R.id.rl_2:
+                ARouter.getInstance().build("/app/FeedBackActivity").navigation();
                 break;
             case R.id.rl_3:
                 ARouter.getInstance().build("/app/ServiceCenterActivity").navigation();

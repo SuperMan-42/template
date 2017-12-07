@@ -11,6 +11,7 @@ import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.core.base.BaseFragment;
 import com.core.di.component.AppComponent;
+import com.core.utils.Constants;
 import com.core.utils.CoreUtils;
 import com.core.widget.recyclerview.BaseQuickAdapter;
 import com.core.widget.recyclerview.BaseViewHolder;
@@ -109,7 +110,7 @@ public class DynamicFragment extends BaseFragment<DynamicPresenter> implements D
             protected void convert(BaseViewHolder holder, NewsListBean.DataEntity.ListEntity item) {
                 CoreUtils.imgLoader(getContext(), "http://ww4.sinaimg.cn/large/006uZZy8jw1faic1xjab4j30ci08cjrv.jpg", holder.getView(R.id.im_cover));
                 holder.setText(R.id.tv_title, item.getTitle());
-                holder.itemView.setOnClickListener(view1 -> ARouter.getInstance().build("/app/WebActivity").withString("url", item.getUrl()).navigation());
+                holder.itemView.setOnClickListener(view1 -> ARouter.getInstance().build("/app/WebActivity").withString(Constants.WEB_URL, item.getUrl()).navigation());
             }
         }, false);
     }

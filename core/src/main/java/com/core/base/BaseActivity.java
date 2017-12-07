@@ -86,7 +86,7 @@ public abstract class BaseActivity<P extends IPresenter> extends AppCompatActivi
         }
         super.onCreate(savedInstanceState);
         if (!isTransparent())
-            setStatusBarColor(CoreUtils.getColor(this, R.color.colorPrimary), 0);
+            setStatusBarColor(CoreUtils.getColor(this, R.color.colorStatus), 0);
         if (findViewById(R.id.toolbar) != null)
             findViewById(R.id.toolbar_left).setVisibility(View.VISIBLE);
         initView(savedInstanceState);

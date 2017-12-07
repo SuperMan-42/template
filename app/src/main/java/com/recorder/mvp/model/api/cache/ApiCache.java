@@ -4,6 +4,8 @@ import com.recorder.mvp.model.entity.AppStartBean;
 import com.recorder.mvp.model.entity.DealDetailBean;
 import com.recorder.mvp.model.entity.DealFilter;
 import com.recorder.mvp.model.entity.EquityBean;
+import com.recorder.mvp.model.entity.HelpContentBean;
+import com.recorder.mvp.model.entity.HelpListBean;
 import com.recorder.mvp.model.entity.HomeRecommendBean;
 import com.recorder.mvp.model.entity.NewsListBean;
 import com.recorder.mvp.model.entity.OrderPimanageBean;
@@ -41,4 +43,8 @@ public interface ApiCache {
     Observable<Reply<OrderPimanageBean>> orderPimanage(Observable<OrderPimanageBean> resultObservable, EvictProvider evictProvider);
 
     Observable<Reply<AppStartBean>> appStart(Observable<AppStartBean> resultObservable, EvictProvider evictProvider);
+
+    Observable<Reply<HelpListBean>> helpList(Observable<HelpListBean> resultObservable, EvictProvider evictProvider);
+
+    Observable<Reply<HelpContentBean>> helpContent(Observable<HelpContentBean> resultObservable, EvictProvider evictProvider);
 }

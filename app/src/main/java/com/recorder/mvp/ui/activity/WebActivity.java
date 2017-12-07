@@ -18,6 +18,7 @@ import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.core.base.BaseActivity;
 import com.core.di.component.AppComponent;
+import com.core.utils.Constants;
 import com.just.library.AgentWeb;
 import com.just.library.ChromeClientCallbackManager;
 import com.recorder.R;
@@ -28,7 +29,7 @@ import butterknife.OnClick;
 
 @Route(path = "/app/WebActivity")
 public class WebActivity extends BaseActivity {
-    @Autowired
+    @Autowired(name = Constants.WEB_URL)
     String url;
     protected AgentWeb mAgentWeb;
     @BindView(R.id.im_right)
@@ -75,6 +76,11 @@ public class WebActivity extends BaseActivity {
         @Override
         public void onPageStarted(WebView view, String url, Bitmap favicon) {
             //do you  work
+            if (url.startsWith("http")) {
+                view.loadUrl(url);
+            } else {
+                view.loadData(url, "text/html; charset=UTF-8", null);
+            }
         }
     };
     private WebChromeClient mWebChromeClient = new WebChromeClient() {
