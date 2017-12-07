@@ -3,6 +3,7 @@ package com.recorder.mvp.contract;
 import com.core.mvp.IModel;
 import com.core.mvp.IView;
 import com.recorder.mvp.model.entity.PayPayBean;
+import com.recorder.mvp.model.entity.PayPayOffLineBean;
 
 import io.reactivex.Observable;
 
@@ -11,11 +12,15 @@ public interface CashierContract {
     interface View extends IView {
 
         void showResult(boolean isSuccess, String msg);
+
+        void showPayOffLine(PayPayOffLineBean.DataEntity data);
     }
 
     //Model层定义接口,外部只需关心Model返回的数据,无需关心内部细节,即是否使用缓存
     interface Model extends IModel {
 
         Observable<PayPayBean> payPay(String dealID, String amount, String payment_way);
+
+        Observable<PayPayOffLineBean> payPayOffLine(String dealID, String amount, String payment_way);
     }
 }

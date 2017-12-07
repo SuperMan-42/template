@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F0F2F5"
+    android:orientation="vertical">
+
+    <include layout="@layout/view_toolbar" />
+
+    <com.core.widget.autolayout.AutoScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fadingEdge="none"
+        android:overScrollMode="never"
+        android:scrollbars="none">
+
+        <com.core.widget.autolayout.AutoConstraintLayout
+            android:id="@+id/cl"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <RelativeLayout
+                android:id="@+id/rl_1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:paddingBottom="24px"
+                android:paddingLeft="45px"
+                android:paddingRight="45px"
+                android:paddingTop="24px"
+                app:layout_constraintTop_toBottomOf="@id/toolbar">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="支付金额"
+                    android:textColor="#666666"
+                    android:textSize="42px" />
+
+                <TextView
+                    android:id="@+id/tv_amount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:textColor="#FF5701"
+                    android:textSize="45px"
+                    android:textStyle="bold"
+                    tools:text="6万元" />
+            </RelativeLayout>
+
+            <View
+                android:id="@+id/divider"
+                style="@style/divider"
+                app:layout_constraintTop_toBottomOf="@id/rl_1" />
+
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:paddingBottom="36px"
+                android:paddingLeft="45px"
+                android:paddingRight="45px"
+                android:paddingTop="36px"
+                android:text="已为您生成线下支付订单，请按照下面的打款信息用网银或到银行柜台进行转账"
+                android:textColor="#666666"
+                android:textSize="42px"
+                app:layout_constraintTop_toBottomOf="@id/divider" />
+
+            <LinearLayout
+                android:id="@+id/ll_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30px"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:paddingLeft="45px"
+                android:paddingRight="45px"
+                app:layout_constraintTop_toBottomOf="@id/tv_title">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="36px"
+                    android:text="收款人户名"
+                    android:textColor="#878787"
+                    android:textSize="42px" />
+
+                <TextView
+                    android:id="@+id/tv_payee"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="36px"
+                    android:layout_marginTop="30px"
+                    android:textColor="#333333"
+                    android:textSize="48px"
+                    android:textStyle="bold"
+                    tools:text="共青城梦元盈达投资合伙企业（有限合伙）" />
+
+                <View style="@style/divider" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="36px"
+                    android:text="账号"
+                    android:textColor="#878787"
+                    android:textSize="42px" />
+
+                <TextView
+                    android:id="@+id/tv_account"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="36px"
+                    android:layout_marginTop="30px"
+                    android:textColor="#333333"
+                    android:textSize="48px"
+                    android:textStyle="bold"
+                    tools:text="6226 0332 4495 3321 431" />
+
+                <View style="@style/divider" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="36px"
+                    android:text="开户行"
+                    android:textColor="#878787"
+                    android:textSize="42px" />
+
+                <TextView
+                    android:id="@+id/tv_bank_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="36px"
+                    android:layout_marginTop="30px"
+                    android:textColor="#333333"
+                    android:textSize="48px"
+                    android:textStyle="bold"
+                    tools:text="上海银行北京分行" />
+
+                <View style="@style/divider" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="36px"
+                    android:text="附加信息及用途"
+                    android:textColor="#878787"
+                    android:textSize="42px" />
+
+                <TextView
+                    android:id="@+id/tv_bank_memo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="36px"
+                    android:layout_marginTop="30px"
+                    android:textColor="#333333"
+                    android:textSize="48px"
+                    android:textStyle="bold"
+                    tools:text="投资款" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_tag"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="45px"
+                android:layout_marginRight="45px"
+                android:layout_marginTop="36px"
+                app:layout_constraintTop_toBottomOf="@id/ll_content"
+                tools:text="为保证您的认购及时有效，请转账成功后，到" />
+
+            <TextView
+                android:id="@+id/tv_submit"
+                android:layout_width="match_parent"
+                android:layout_height="132px"
+                android:layout_marginBottom="120px"
+                android:layout_marginLeft="45px"
+                android:layout_marginRight="45px"
+                android:layout_marginTop="120px"
+                android:background="@drawable/bga_button"
+                android:gravity="center"
+                android:text="完成"
+                android:textColor="@color/white"
+                android:textSize="45px"
+                app:layout_constraintBottom_toBottomOf="@id/cl"
+                app:layout_constraintTop_toBottomOf="@id/tv_tag" />
+        </com.core.widget.autolayout.AutoConstraintLayout>
+    </com.core.widget.autolayout.AutoScrollView>
+</LinearLayout>

@@ -9,6 +9,7 @@ import com.google.gson.Gson;
 import com.recorder.mvp.contract.CashierContract;
 import com.recorder.mvp.model.api.service.ApiService;
 import com.recorder.mvp.model.entity.PayPayBean;
+import com.recorder.mvp.model.entity.PayPayOffLineBean;
 
 import javax.inject.Inject;
 
@@ -36,5 +37,10 @@ public class CashierModel extends BaseModel implements CashierContract.Model {
     @Override
     public Observable<PayPayBean> payPay(String dealID, String amount, String payment_way) {
         return mRepositoryManager.obtainRetrofitService(ApiService.class).payPay("1", dealID, amount, payment_way);
+    }
+
+    @Override
+    public Observable<PayPayOffLineBean> payPayOffLine(String dealID, String amount, String payment_way) {
+        return mRepositoryManager.obtainRetrofitService(ApiService.class).payPayOffLine("1", dealID, amount, payment_way);
     }
 }

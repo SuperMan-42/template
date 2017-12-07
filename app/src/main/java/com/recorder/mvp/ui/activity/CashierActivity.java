@@ -26,6 +26,7 @@ import com.recorder.R;
 import com.recorder.di.component.DaggerCashierComponent;
 import com.recorder.di.module.CashierModule;
 import com.recorder.mvp.contract.CashierContract;
+import com.recorder.mvp.model.entity.PayPayOffLineBean;
 import com.recorder.mvp.presenter.CashierPresenter;
 
 import java.math.BigDecimal;
@@ -111,6 +112,7 @@ public class CashierActivity extends BaseActivity<CashierPresenter> implements C
     @Override
     public void killMyself() {
         finish();
+        overridePendingTransition(R.anim.slide_in_right, R.anim.empty);
     }
 
     @OnClick({R.id.toolbar_left, R.id.rl_onLine, R.id.rl_offLine, R.id.tv_go_authentication, R.id.tv_go_home})
@@ -124,6 +126,7 @@ public class CashierActivity extends BaseActivity<CashierPresenter> implements C
                 mPresenter.payPay(dealID, amount, "2");
                 break;
             case R.id.rl_offLine:
+                mPresenter.payPayOffLine(dealID, amount, "1");
                 break;
             case R.id.tv_go_authentication:
                 if (isSuccess) {
@@ -165,6 +168,15 @@ public class CashierActivity extends BaseActivity<CashierPresenter> implements C
         tvGoHome.setText("我的订单");
         flDialog.setVisibility(View.VISIBLE);
         flDialog.startAnimation(AnimationUtils.loadAnimation(this, R.anim.fade_in));
+    }
+
+    @Override
+    public void showPayOffLine(PayPayOffLineBean.DataEntity data) {
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("offlinedata", data);
+        bundle.putString("amount", new BigDecimal(amount).divide(new BigDecimal(10000)) + "万元");
+        ARouter.getInstance().build("/app/OffLinePayActivity").withBundle("offlinedata", bundle).navigation();
+        killMyself();
     }
 
     @Override

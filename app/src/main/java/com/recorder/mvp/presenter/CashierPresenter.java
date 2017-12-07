@@ -9,6 +9,7 @@ import com.core.mvp.BasePresenter;
 import com.core.utils.RxLifecycleUtils;
 import com.orhanobut.logger.Logger;
 import com.recorder.mvp.contract.CashierContract;
+import com.recorder.mvp.model.entity.PayPayOffLineBean;
 import com.recorder.utils.CommonUtils;
 
 import javax.inject.Inject;
@@ -16,6 +17,7 @@ import javax.inject.Inject;
 import io.reactivex.Observable;
 import io.reactivex.ObservableOnSubscribe;
 import me.jessyan.rxerrorhandler.core.RxErrorHandler;
+import me.jessyan.rxerrorhandler.handler.ErrorHandleSubscriber;
 
 @ActivityScope
 public class CashierPresenter extends BasePresenter<CashierContract.Model, CashierContract.View> {
@@ -58,6 +60,17 @@ public class CashierPresenter extends BasePresenter<CashierContract.Model, Cashi
                 }, () -> {
                     mRootView.showResult(true, amount);
                     Logger.d("buy=> complete");
+                });
+    }
+
+    public void payPayOffLine(String dealID, String amount, String payment_way) {
+        mModel.payPayOffLine(dealID, amount, payment_way)
+                .compose(RxLifecycleUtils.transformer(mRootView))
+                .subscribe(new ErrorHandleSubscriber<PayPayOffLineBean>(mErrorHandler) {
+                    @Override
+                    public void onNext(PayPayOffLineBean payOffLineBean) {
+                        mRootView.showPayOffLine(payOffLineBean.getData());
+                    }
                 });
     }
 }

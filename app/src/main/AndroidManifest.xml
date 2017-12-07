@@ -255,6 +255,9 @@
         <activity
             android:name=".mvp.ui.activity.MyMessageActivity"
             android:theme="@style/CoreAppTheme.Transparent" />
+        <activity
+            android:name=".mvp.ui.activity.OffLinePayActivity"
+            android:theme="@style/CoreAppTheme.Transparent" />
     </application>
 
 </manifest>

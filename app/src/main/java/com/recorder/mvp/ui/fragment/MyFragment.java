@@ -100,7 +100,7 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
         list.add(new Bean<>(R.drawable.ic_setting, "设置", "/app/SettingActivity"));
         list.add(new Bean<>(R.drawable.ic_project, "推荐项目", "/app/DealRecommendActivity"));
         list.add(new Bean<>(R.drawable.ic_recommend, "推荐给朋友", "recommend"));
-        list.add(new Bean<>(R.drawable.ic_auth, "投资人认证", "/app/SettingActivity"));
+        list.add(new Bean<>(R.drawable.ic_auth, "投资人认证", "/app/AuthActivity"));
         GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 3) {
             @Override
             public boolean canScrollVertically() {
