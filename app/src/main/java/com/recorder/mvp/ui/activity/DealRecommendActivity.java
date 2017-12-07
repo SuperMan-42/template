@@ -99,11 +99,11 @@ public class DealRecommendActivity extends BaseActivity<DealRecommendPresenter> 
             return;
         }
         if (TextUtils.isEmpty(etContact.getText().toString())) {
-            CoreUtils.snackbarText("项目名称为空");
+            CoreUtils.snackbarText("联系人为空");
             return;
         }
         if (TextUtils.isEmpty(etPhone.getText().toString())) {
-            CoreUtils.snackbarText("项目名称为空");
+            CoreUtils.snackbarText("联系方式为空");
             return;
         }
         mPresenter.dealRecommend(etDealName.getText().toString(), etIndustry.getText().toString(), etRequirement.getText().toString(),

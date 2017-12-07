@@ -252,6 +252,9 @@
         <activity
             android:name=".mvp.ui.activity.HelpListActivity"
             android:theme="@style/CoreAppTheme.Transparent" />
+        <activity
+            android:name=".mvp.ui.activity.MyMessageActivity"
+            android:theme="@style/CoreAppTheme.Transparent" />
     </application>
 
 </manifest>

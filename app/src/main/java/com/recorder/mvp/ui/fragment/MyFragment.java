@@ -95,7 +95,7 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
             mPresenter.userInfo();
         }
         List<Bean> list = new ArrayList<>();
-        list.add(new Bean<>(R.drawable.ic_news, "我的消息", "/app/SettingActivity"));
+        list.add(new Bean<>(R.drawable.ic_news, "我的消息", "/app/MyMessageActivity"));
         list.add(new Bean<>(R.drawable.ic_help, "投资帮助", "/app/HelpListActivity"));
         list.add(new Bean<>(R.drawable.ic_setting, "设置", "/app/SettingActivity"));
         list.add(new Bean<>(R.drawable.ic_project, "推荐项目", "/app/DealRecommendActivity"));
