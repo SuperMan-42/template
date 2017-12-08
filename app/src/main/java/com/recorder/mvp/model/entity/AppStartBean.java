@@ -9,7 +9,7 @@ public class AppStartBean {
     /**
      * errno : 0
      * error : 成功
-     * data : {"sp_img":"http://ustatic-test.dreamflyc.com//attachment/201711/27/181511779800.jpg","service_tel":"400-888-888","user_auth_prompt":{"zc_auth":"勾选并承诺金融资产不低于300万元或者最近三年个人年均收入不低于50万元。","conformity_auth":"勾选并承诺金融资产不低于300万元或者最近三年个人年均收入不低于50万元。","organ_auth":"勾选并承诺净资产不低于1000万元的单位或者其他符合证监会规定的合格投资者"}}
+     * data : {"sp_img":"http://ustatic-test.dreamflyc.com//attachment/201711/27/181511779800.jpg","service_tel":"400-888-888","email":"haoxiang@163.com","user_auth_prompt":{"zc_auth":"勾选并承诺金融资产不低于300万元或者最近三年个人年均收入不低于50万元。","conformity_auth":"勾选并承诺金融资产不低于300万元或者最近三年个人年均收入不低于50万元。","organ_auth":"勾选并承诺净资产不低于1000万元的单位或者其他符合证监会规定的合格投资者"}}
      */
 
     private int errno;
@@ -44,11 +44,13 @@ public class AppStartBean {
         /**
          * sp_img : http://ustatic-test.dreamflyc.com//attachment/201711/27/181511779800.jpg
          * service_tel : 400-888-888
+         * email : haoxiang@163.com
          * user_auth_prompt : {"zc_auth":"勾选并承诺金融资产不低于300万元或者最近三年个人年均收入不低于50万元。","conformity_auth":"勾选并承诺金融资产不低于300万元或者最近三年个人年均收入不低于50万元。","organ_auth":"勾选并承诺净资产不低于1000万元的单位或者其他符合证监会规定的合格投资者"}
          */
 
         private String sp_img;
         private String service_tel;
+        private String email;
         private UserAuthPromptEntity user_auth_prompt;
 
         public void setSp_img(String sp_img) {
@@ -57,6 +59,10 @@ public class AppStartBean {
 
         public void setService_tel(String service_tel) {
             this.service_tel = service_tel;
+        }
+
+        public void setEmail(String email) {
+            this.email = email;
         }
 
         public void setUser_auth_prompt(UserAuthPromptEntity user_auth_prompt) {
@@ -69,6 +75,10 @@ public class AppStartBean {
 
         public String getService_tel() {
             return service_tel;
+        }
+
+        public String getEmail() {
+            return email;
         }
 
         public UserAuthPromptEntity getUser_auth_prompt() {

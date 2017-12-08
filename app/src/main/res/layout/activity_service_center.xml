@@ -26,15 +26,16 @@
             android:textSize="45px" />
 
         <TextView
+            android:id="@+id/tv_phone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:drawablePadding="39px"
             android:drawableRight="@drawable/ic_person_right"
-            android:text="400-800-666"
             android:textColor="#999999"
-            android:textSize="42px" />
+            android:textSize="42px"
+            tools:text="400-800-666" />
 
     </RelativeLayout>
 
@@ -60,15 +61,16 @@
             android:textSize="45px" />
 
         <TextView
+            android:id="@+id/tv_email"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:drawablePadding="39px"
             android:drawableRight="@drawable/ic_person_right"
-            android:text="haoxiang@163.com"
             android:textColor="#999999"
-            android:textSize="42px" />
+            android:textSize="42px"
+            tools:text="haoxiang@163.com" />
 
     </RelativeLayout>
 </LinearLayout>

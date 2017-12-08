@@ -15,6 +15,7 @@ import com.recorder.mvp.model.entity.OrderPimanageBean;
 import com.recorder.mvp.model.entity.PayCheckBean;
 import com.recorder.mvp.model.entity.PayPayBean;
 import com.recorder.mvp.model.entity.PayPayOffLineBean;
+import com.recorder.mvp.model.entity.UserAuthInfoBean;
 import com.recorder.mvp.model.entity.UserFollowListBean;
 import com.recorder.mvp.model.entity.UserInfoBean;
 
@@ -176,4 +177,7 @@ public interface ApiService {
     @POST("auth/organ")
     Observable<Object> authOrgan(@Header("DIVERSION-VERSION") String version, @Field("organ_name") String organ_name, @Field("legal_person") String legal_person,
                                  @Field("contact") String contact, @Field("license") String license, @Field("check") String check, @Field("assets") String assets);
+
+    @GET("user/authinfo")
+    Observable<UserAuthInfoBean> userAuthInfo(@Header("DIVERSION-VERSION") String version);
 }

@@ -17,16 +17,16 @@
         android:layout_marginLeft="45px"
         android:layout_marginRight="45px"
         android:layout_marginTop="70px"
-        android:background="@color/white">
+        android:background="@drawable/bga_round_white">
 
-        <ImageView
+        <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/im_head"
             android:layout_width="252px"
             android:layout_height="252px"
-            android:layout_marginBottom="45px"
+            android:layout_marginBottom="75px"
             android:layout_marginLeft="36px"
-            android:layout_marginTop="45px"
-            android:src="@color/colorPrimary"
+            android:layout_marginTop="75px"
+            android:src="@drawable/auth_zc"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -36,42 +36,55 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="36px"
-            android:layout_marginTop="40px"
+            android:layout_marginTop="60px"
             android:text="股权投资人"
-            android:textColor="#333333"
-            android:textSize="45px"
-            app:layout_constraintBottom_toTopOf="@+id/tv_content"
+            app:layout_constraintBottom_toTopOf="@+id/tag_left"
             app:layout_constraintLeft_toRightOf="@id/im_head"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:textColor="#333333"
+            tools:textSize="45px" />
+
+        <ImageView
+            android:id="@+id/tag_left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15px"
+            app:layout_constraintLeft_toLeftOf="@id/tv_title"
+            app:layout_constraintTop_toBottomOf="@id/tv_title"
+            tools:src="@drawable/bga_button_blue" />
+
+        <ImageView
+            android:id="@+id/tag_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15px"
+            app:layout_constraintLeft_toRightOf="@id/tag_left"
+            app:layout_constraintTop_toTopOf="@id/tag_left"
+            tools:src="@drawable/bga_button_blue" />
 
         <TextView
             android:id="@+id/tv_content"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="40px"
+            android:layout_marginBottom="60px"
             android:layout_marginRight="45px"
-            android:layout_marginTop="30px"
+            android:layout_marginTop="15px"
             android:text="需要认购20%以上股份,才能通过认证成为股权投资人"
-            android:textColor="#666666"
-            android:textSize="42px"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="@id/tv_title"
+            app:layout_constraintLeft_toLeftOf="@id/tag_left"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_title" />
+            app:layout_constraintTop_toBottomOf="@id/tag_right"
+            tools:textColor="#666666"
+            tools:textSize="42px" />
 
-        <TextView
-            android:id="@+id/tv_auth"
+        <ImageView
+            android:id="@+id/im_auth"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:background="#FFA100"
-            android:paddingLeft="30px"
-            android:paddingRight="20px"
-            android:text="待认证"
-            android:textColor="@color/white"
-            android:textSize="39px"
+            android:layout_marginTop="30px"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@drawable/auth_cn_status_0" />
     </com.core.widget.autolayout.AutoConstraintLayout>
 
     <com.core.widget.autolayout.AutoConstraintLayout
@@ -80,81 +93,17 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="45px"
         android:layout_marginRight="45px"
-        android:layout_marginTop="45px"
-        android:background="@color/white">
+        android:layout_marginTop="36px"
+        android:background="@drawable/bga_round_white">
 
-        <ImageView
-            android:id="@+id/im_head1"
-            android:layout_width="252px"
-            android:layout_height="252px"
-            android:layout_marginBottom="45px"
-            android:layout_marginLeft="36px"
-            android:layout_marginTop="45px"
-            android:src="@color/colorPrimary"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/tv_title1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="36px"
-            android:layout_marginTop="40px"
-            android:text="合格投资人"
-            android:textColor="#333333"
-            android:textSize="45px"
-            app:layout_constraintBottom_toTopOf="@+id/tv_content1"
-            app:layout_constraintLeft_toRightOf="@id/im_head1"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/tv_content1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="40px"
-            android:layout_marginRight="45px"
-            android:layout_marginTop="30px"
-            android:text="需要认购20%以上股份,才能通过认证成为股权投资人"
-            android:textColor="#666666"
-            android:textSize="42px"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="@id/tv_title1"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_title1" />
-
-        <TextView
-            android:id="@+id/tv_auth1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:background="#FFA100"
-            android:paddingLeft="30px"
-            android:paddingRight="20px"
-            android:text="待认证"
-            android:textColor="@color/white"
-            android:textSize="39px"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-    </com.core.widget.autolayout.AutoConstraintLayout>
-
-    <com.core.widget.autolayout.AutoConstraintLayout
-        android:id="@+id/cl_3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="45px"
-        android:layout_marginRight="45px"
-        android:layout_marginTop="45px"
-        android:background="@color/white">
-
-        <ImageView
+        <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/im_head2"
             android:layout_width="252px"
             android:layout_height="252px"
-            android:layout_marginBottom="45px"
+            android:layout_marginBottom="75px"
             android:layout_marginLeft="36px"
-            android:layout_marginTop="45px"
-            android:src="@color/colorPrimary"
+            android:layout_marginTop="75px"
+            android:src="@drawable/auth_conformity"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -164,42 +113,132 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="36px"
-            android:layout_marginTop="40px"
-            android:text="机构投资人"
-            android:textColor="#333333"
-            android:textSize="45px"
-            app:layout_constraintBottom_toTopOf="@+id/tv_content2"
+            android:layout_marginTop="60px"
+            android:text="合格投资人"
+            app:layout_constraintBottom_toTopOf="@+id/tag_left2"
             app:layout_constraintLeft_toRightOf="@id/im_head2"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:textColor="#333333"
+            tools:textSize="45px" />
+
+        <ImageView
+            android:id="@+id/tag_left2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15px"
+            app:layout_constraintLeft_toLeftOf="@id/tv_title2"
+            app:layout_constraintTop_toBottomOf="@id/tv_title2"
+            tools:src="@drawable/bga_button_blue" />
+
+        <ImageView
+            android:id="@+id/tag_right2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15px"
+            app:layout_constraintLeft_toRightOf="@id/tag_left2"
+            app:layout_constraintTop_toTopOf="@id/tag_left2"
+            tools:src="@drawable/bga_button_blue" />
 
         <TextView
             android:id="@+id/tv_content2"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="40px"
+            android:layout_marginBottom="60px"
             android:layout_marginRight="45px"
-            android:layout_marginTop="30px"
+            android:layout_marginTop="15px"
             android:text="需要认购20%以上股份,才能通过认证成为股权投资人"
-            android:textColor="#666666"
-            android:textSize="42px"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="@id/tv_title2"
+            app:layout_constraintLeft_toLeftOf="@id/tag_left2"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_title2" />
+            app:layout_constraintTop_toBottomOf="@id/tag_right2"
+            tools:textColor="#666666"
+            tools:textSize="42px" />
 
-        <TextView
-            android:id="@+id/tv_auth2"
+        <ImageView
+            android:id="@+id/im_auth2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:background="#FFA100"
-            android:paddingLeft="30px"
-            android:paddingRight="20px"
-            android:text="待认证"
-            android:textColor="@color/white"
-            android:textSize="39px"
+            android:layout_marginTop="30px"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@drawable/auth_cn_status_0" />
+    </com.core.widget.autolayout.AutoConstraintLayout>
+
+    <com.core.widget.autolayout.AutoConstraintLayout
+        android:id="@+id/cl_3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="45px"
+        android:layout_marginRight="45px"
+        android:layout_marginTop="36px"
+        android:background="@drawable/bga_round_white">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/im_head3"
+            android:layout_width="252px"
+            android:layout_height="252px"
+            android:layout_marginBottom="75px"
+            android:layout_marginLeft="36px"
+            android:layout_marginTop="75px"
+            android:src="@drawable/auth_organ"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_title3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="36px"
+            android:layout_marginTop="60px"
+            android:text="机构投资人"
+            app:layout_constraintBottom_toTopOf="@+id/tag_left3"
+            app:layout_constraintLeft_toRightOf="@id/im_head3"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:textColor="#333333"
+            tools:textSize="45px" />
+
+        <ImageView
+            android:id="@+id/tag_left3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15px"
+            app:layout_constraintLeft_toLeftOf="@id/tv_title3"
+            app:layout_constraintTop_toBottomOf="@id/tv_title3"
+            tools:src="@drawable/bga_button_blue" />
+
+        <ImageView
+            android:id="@+id/tag_right3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15px"
+            app:layout_constraintLeft_toRightOf="@id/tag_left3"
+            app:layout_constraintTop_toTopOf="@id/tag_left3"
+            tools:src="@drawable/bga_button_blue" />
+
+        <TextView
+            android:id="@+id/tv_content3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="60px"
+            android:layout_marginRight="45px"
+            android:layout_marginTop="15px"
+            android:text="需要认购20%以上股份,才能通过认证成为股权投资人"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="@id/tag_left3"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tag_right3"
+            tools:textColor="#666666"
+            tools:textSize="42px" />
+
+        <ImageView
+            android:id="@+id/im_auth3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30px"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@drawable/auth_cn_status_0" />
     </com.core.widget.autolayout.AutoConstraintLayout>
 
 </LinearLayout>

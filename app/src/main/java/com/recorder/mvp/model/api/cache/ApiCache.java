@@ -9,6 +9,7 @@ import com.recorder.mvp.model.entity.HelpListBean;
 import com.recorder.mvp.model.entity.HomeRecommendBean;
 import com.recorder.mvp.model.entity.NewsListBean;
 import com.recorder.mvp.model.entity.OrderPimanageBean;
+import com.recorder.mvp.model.entity.UserAuthInfoBean;
 import com.recorder.mvp.model.entity.UserFollowListBean;
 import com.recorder.mvp.model.entity.UserInfoBean;
 
@@ -47,4 +48,6 @@ public interface ApiCache {
     Observable<Reply<HelpListBean>> helpList(Observable<HelpListBean> resultObservable, EvictProvider evictProvider);
 
     Observable<Reply<HelpContentBean>> helpContent(Observable<HelpContentBean> resultObservable, EvictProvider evictProvider);
+
+    Observable<Reply<UserAuthInfoBean>> userAuthInfo(Observable<UserAuthInfoBean> resultObservable, EvictProvider evictProvider);
 }
