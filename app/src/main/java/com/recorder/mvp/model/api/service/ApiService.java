@@ -1,6 +1,7 @@
 package com.recorder.mvp.model.api.service;
 
 import com.recorder.mvp.model.entity.AppStartBean;
+import com.recorder.mvp.model.entity.AuthGetBean;
 import com.recorder.mvp.model.entity.DealDetailBean;
 import com.recorder.mvp.model.entity.DealFilter;
 import com.recorder.mvp.model.entity.EquityBean;
@@ -180,4 +181,7 @@ public interface ApiService {
 
     @GET("user/authinfo")
     Observable<UserAuthInfoBean> userAuthInfo(@Header("DIVERSION-VERSION") String version);
+
+    @GET("auth/get")
+    Observable<AuthGetBean> authGet(@Header("DIVERSION-VERSION") String version, @Query("type") int type);
 }

@@ -24,6 +24,9 @@ import com.jaeger.library.StatusBarUtil;
 import com.liulishuo.filedownloader.BaseDownloadTask;
 import com.liulishuo.filedownloader.FileDownloadSampleListener;
 import com.liulishuo.filedownloader.FileDownloader;
+import com.luck.picture.lib.PictureSelector;
+import com.luck.picture.lib.config.PictureConfig;
+import com.luck.picture.lib.config.PictureMimeType;
 import com.orhanobut.logger.Logger;
 import com.recorder.BuildConfig;
 import com.recorder.R;
@@ -405,5 +408,20 @@ public class CommonUtils {
                 .gridLeftVisible(false)
                 .gridRightVisible(false)
                 .create();
+    }
+
+    public static void pictureSingle(Activity activity, int resultCode) {
+        PictureSelector.create(activity)
+                .openGallery(PictureMimeType.ofImage())
+                .selectionMode(PictureConfig.SINGLE)
+                .enableCrop(true)
+                .hideBottomControls(false)
+                .freeStyleCropEnabled(true)
+                .showCropFrame(true)
+                .showCropGrid(false)
+                .rotateEnabled(true)
+                .scaleEnabled(true)
+                .theme(R.style.picture_hx_style)
+                .forResult(resultCode);
     }
 }

@@ -47,7 +47,22 @@
                 android:textColorHint="#999999"
                 android:textSize="45px" />
 
+            <EditText
+                android:id="@+id/et_contact"
+                android:layout_width="match_parent"
+                android:layout_height="132px"
+                android:layout_marginLeft="45px"
+                android:layout_marginRight="45px"
+                android:layout_marginTop="45px"
+                android:background="@drawable/bga_textview"
+                android:hint="机构联系方式"
+                android:paddingLeft="45px"
+                android:textColorHint="#999999"
+                android:textSize="45px"
+                android:visibility="gone" />
+
             <TextView
+                android:id="@+id/tv_1"
                 android:layout_width="match_parent"
                 android:layout_height="80px"
                 android:layout_marginTop="60px"
@@ -64,9 +79,10 @@
                 android:layout_height="450px"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="84px"
-                android:background="@drawable/bga_round" />
+                android:background="@drawable/id_0" />
 
             <TextView
+                android:id="@+id/tv_positive"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
@@ -81,9 +97,10 @@
                 android:layout_height="450px"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="84px"
-                android:background="@drawable/bga_round" />
+                android:background="@drawable/id_1" />
 
             <TextView
+                android:id="@+id/tv_other"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
@@ -115,14 +132,15 @@
                     android:id="@+id/im_agree"
                     android:layout_width="66px"
                     android:layout_height="66px"
-                    android:src="@drawable/bottom_home" />
+                    android:src="@drawable/ic_item_buy" />
 
                 <TextView
+                    android:id="@+id/tv_agree"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20px"
                     android:layout_weight="1"
-                    android:text="勾选并承诺净资产不低于1000万的单位或者其他符合证监会规定的合格投资者" />
+                    tools:text="勾选并承诺净资产不低于1000万的单位或者其他符合证监会规定的合格投资者" />
             </LinearLayout>
 
             <com.core.widget.recyclerview.CoreRecyclerView
@@ -130,7 +148,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="45px"
-                android:layout_marginTop="60px" />
+                android:layout_marginTop="60px"
+                android:paddingLeft="45px"
+                android:paddingRight="45px" />
 
             <FrameLayout
                 android:layout_width="match_parent"

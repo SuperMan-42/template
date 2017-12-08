@@ -108,7 +108,7 @@ public class AuthActivity extends BaseActivity<AuthPresenter> implements AuthCon
             tagLeft.setImageResource(R.drawable.auth_zc_0);
             tagRight.setImageResource(R.drawable.auth_right_0);
             imAuth.setImageResource(R.drawable.auth_cn_status_0);
-            cl1.setOnClickListener(view -> ARouter.getInstance().build("/app/AuthInfoActivity").navigation());
+            cl1.setOnClickListener(view -> ARouter.getInstance().build("/app/AuthInfoActivity").withInt(Constants.AUTH_TYPE, zcAuthEntity.getType()).navigation());
         } else if (zcAuthEntity.getStatus() == 1 || zcAuthEntity.getStatus() == 2 || (zcAuthEntity.getStatus() == 4 && zcAuthEntity.getFile_status() == 1)) {
             //提示用户审核中
             tagLeft.setImageResource(zcAuthEntity.getStatus() == 4 && zcAuthEntity.getFile_status() == 1 ? R.drawable.auth_zc_1 : R.drawable.auth_zc_0);
@@ -135,7 +135,7 @@ public class AuthActivity extends BaseActivity<AuthPresenter> implements AuthCon
             tagLeft2.setImageResource(R.drawable.auth_conformity_0);
             tagRight2.setImageResource(R.drawable.auth_right_0);
             imAuth2.setImageResource(R.drawable.auth_cn_status_0);
-            cl2.setOnClickListener(view -> ARouter.getInstance().build("/app/AuthInfoActivity").navigation());
+            cl2.setOnClickListener(view -> ARouter.getInstance().build("/app/AuthInfoActivity").withInt(Constants.AUTH_TYPE, conformityAuthEntity.getType()).navigation());
         } else if (conformityAuthEntity.getStatus() == 1 || conformityAuthEntity.getStatus() == 2 || (conformityAuthEntity.getStatus() == 4 && conformityAuthEntity.getFile_status() == 1)) {
             //提示用户审核中
             tagLeft2.setImageResource(conformityAuthEntity.getStatus() == 4 && conformityAuthEntity.getFile_status() == 1 ? R.drawable.auth_conformity_1 : R.drawable.auth_conformity_0);
@@ -162,7 +162,7 @@ public class AuthActivity extends BaseActivity<AuthPresenter> implements AuthCon
             tagLeft3.setImageResource(R.drawable.auth_organ_0);
             tagRight3.setImageResource(R.drawable.auth_right_0);
             imAuth3.setImageResource(R.drawable.auth_cn_status_0);
-            cl3.setOnClickListener(view -> ARouter.getInstance().build("/app/AuthInfoActivity").navigation());
+            cl3.setOnClickListener(view -> ARouter.getInstance().build("/app/AuthInfoActivity").withInt(Constants.AUTH_TYPE, organAuthEntity.getType()).navigation());
         } else if (organAuthEntity.getStatus() == 1 || organAuthEntity.getStatus() == 2 || (organAuthEntity.getStatus() == 4 && organAuthEntity.getFile_status() == 1)) {
             //提示用户审核中
             tagLeft3.setImageResource(organAuthEntity.getStatus() == 4 && organAuthEntity.getFile_status() == 1 ? R.drawable.auth_organ_1 : R.drawable.auth_organ_0);
