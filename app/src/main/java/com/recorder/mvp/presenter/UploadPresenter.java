@@ -86,7 +86,7 @@ public class UploadPresenter extends BasePresenter<UploadContract.Model, UploadC
                             .subscribe(new ErrorHandleSubscriber<Object>(mErrorHandler) {
                                 @Override
                                 public void onNext(Object object) {
-                                    mRootView.showMessage(CoreUtils.getString(mApplication, R.string.text_order_proof_success));
+                                    CoreUtils.snackbarText(CoreUtils.getString(mApplication, R.string.text_order_proof_success));
                                     if (isOrderProof) {
                                         EventBus.getDefault().post(object, Constants.ORDER_PROOF);
                                     }
