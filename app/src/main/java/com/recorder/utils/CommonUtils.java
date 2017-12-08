@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.ResultReceiver;
 import android.support.v4.view.ViewCompat;
+import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
 
+import com.arjinmc.recyclerviewdecoration.RecyclerViewItemDecoration;
 import com.core.integration.cache.BCache;
 import com.core.utils.CoreUtils;
 import com.google.gson.Gson;
@@ -382,5 +384,26 @@ public class CommonUtils {
                 })
                 .withMedia(web)
                 .open(config);
+    }
+
+    public static RecyclerView.ItemDecoration linearDivider(Context context, int padding) {
+        return new RecyclerViewItemDecoration.Builder(context)
+                .color("#E7E7E7")
+                .thickness(2)
+                .paddingStart(padding)
+                .firstLineVisible(false)
+                .lastLineVisible(false)
+                .create();
+    }
+
+    public static RecyclerView.ItemDecoration girdDivider(Context context) {
+        return new RecyclerViewItemDecoration.Builder(context)
+                .color("#E7E7E7")
+                .thickness(2)
+                .gridBottomVisible(false)
+                .gridTopVisible(false)
+                .gridLeftVisible(false)
+                .gridRightVisible(false)
+                .create();
     }
 }

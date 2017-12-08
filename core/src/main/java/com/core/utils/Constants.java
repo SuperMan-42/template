@@ -28,4 +28,6 @@ public class Constants {
     public static final String WEB_URL = "web_url";
     public static final String IS_SHOW_RIGHT = "is_show_right";
     public static final String ORDER_PROOF = "order_proof";
+    public static final String UPLOAD = "upload";
+    public static final String UPLOAD_ORDERID = "upload_orderid";
 }

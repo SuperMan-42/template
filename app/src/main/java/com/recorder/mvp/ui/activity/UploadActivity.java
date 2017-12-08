@@ -19,13 +19,11 @@ import com.core.utils.CoreUtils;
 import com.core.widget.recyclerview.BaseQuickAdapter;
 import com.core.widget.recyclerview.BaseViewHolder;
 import com.core.widget.recyclerview.CoreRecyclerView;
-import com.core.widget.recyclerview.GirdDecoration;
-import com.google.gson.Gson;
+import com.core.widget.recyclerview.GridSpacingItemDecoration;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
 import com.luck.picture.lib.entity.LocalMedia;
-import com.orhanobut.logger.Logger;
 import com.recorder.R;
 import com.recorder.di.component.DaggerUploadComponent;
 import com.recorder.di.module.UploadModule;
@@ -33,11 +31,15 @@ import com.recorder.mvp.contract.UploadContract;
 import com.recorder.mvp.model.entity.Bean;
 import com.recorder.mvp.presenter.UploadPresenter;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 
 import static com.core.utils.Preconditions.checkNotNull;
 
@@ -45,6 +47,8 @@ import static com.core.utils.Preconditions.checkNotNull;
 public class UploadActivity extends BaseActivity<UploadPresenter> implements UploadContract.View {
     @Autowired(name = Constants.ORDER_PROOF)
     boolean isOrderProof;//如果是上传打款凭证需要Eventbus.post否则不用
+    @Autowired(name = Constants.UPLOAD)
+    Bundle upload;
 
     @BindView(R.id.im_right)
     ImageView imRight;
@@ -96,7 +100,11 @@ public class UploadActivity extends BaseActivity<UploadPresenter> implements Upl
         recyclerView.init(layoutManager, new BaseQuickAdapter<Bean<Boolean>, BaseViewHolder>(R.layout.item_upload, list) {
             @Override
             protected void convert(BaseViewHolder holder, Bean<Boolean> item) {
-                CoreUtils.imgLoader(getApplicationContext(), item.getKey() ? R.drawable.ic_upload : item.getValue(), holder.getView(R.id.im_upload));
+                if (item.getKey()) {
+                    holder.setImageResource(R.id.im_upload, R.drawable.ic_upload);
+                } else {
+                    CoreUtils.imgLoader(getApplicationContext(), item.getValue(), holder.getView(R.id.im_upload));
+                }
                 holder.itemView.setOnClickListener(view -> PictureSelector.create(UploadActivity.this)
                         .openGallery(PictureMimeType.ofImage())
                         .selectionMode(item.getKey() ? PictureConfig.MULTIPLE : PictureConfig.SINGLE)
@@ -122,7 +130,7 @@ public class UploadActivity extends BaseActivity<UploadPresenter> implements Upl
                 });
             }
         }, false);
-        recyclerView.getRecyclerView().addItemDecoration(new GirdDecoration(this, 15));
+        recyclerView.getRecyclerView().addItemDecoration(new GridSpacingItemDecoration(4, 45, false));
     }
 
     @Override
@@ -154,8 +162,25 @@ public class UploadActivity extends BaseActivity<UploadPresenter> implements Upl
 
     @OnClick(R.id.toolbar_right)
     public void onViewClicked() {
-        Logger.d("hpw=> adapter ");
-        Logger.json(new Gson().toJson(recyclerView.getAdapter().getData()));
+//        MultipartBody.Builder builder = new MultipartBody.Builder().setType(MultipartBody.FORM);//表单类型
+//        for (Object bean : recyclerView.getAdapter().getData()) {
+//            File file = new File(((Bean) bean).getValue());
+//            RequestBody imageBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+//            builder.addFormDataPart("images", file.getName(), imageBody);
+//        }
+//        List<MultipartBody.Part> parts = builder.build().parts();
+
+        List<Bean<Boolean>> data = recyclerView.getAdapter().getData();
+        List<MultipartBody.Part> parts = new ArrayList<>();
+        for (Bean<Boolean> bean : data) {
+            if (!bean.getKey()) {
+                File file = new File(bean.getValue());
+                RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+                MultipartBody.Part part = MultipartBody.Part.createFormData("images", file.toString(), requestBody);
+                parts.add(part);
+            }
+        }
+        mPresenter.imageUpload(upload.getString(Constants.UPLOAD_ORDERID), parts, isOrderProof);
     }
 
     @Override
@@ -177,12 +202,6 @@ public class UploadActivity extends BaseActivity<UploadPresenter> implements Upl
                     recyclerView.remove(4);
                 }
             }
-//            File file = new File(PictureSelector.obtainMultipleResult(data).get(0).getPath());
-//            MultipartBody.Builder builder = new MultipartBody.Builder().setType(MultipartBody.FORM);//表单类型
-//            RequestBody imageBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
-//            builder.addFormDataPart("images", file.getName(), imageBody);//imgfile 后台接收图片流的参数名
-//            List<MultipartBody.Part> parts = builder.build().parts();
-//            mPresenter.imageUpload(parts, file.getPath());
         }
     }
 }

@@ -161,4 +161,8 @@ public interface ApiService {
 
     @GET("help/content")
     Observable<HelpContentBean> helpContent(@Header("DIVERSION-VERSION") String version, @Query("helperID") String helperID);
+
+    @FormUrlEncoded
+    @POST("order/proof")
+    Observable<Object> orderProof(@Header("DIVERSION-VERSION") String version, @Field("orderID") String orderID, @Field("proof") String proof);
 }

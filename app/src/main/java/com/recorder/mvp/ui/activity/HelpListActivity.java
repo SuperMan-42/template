@@ -21,8 +21,8 @@ import com.recorder.mvp.contract.HelpListContract;
 import com.recorder.mvp.model.entity.HelpContentBean;
 import com.recorder.mvp.model.entity.HelpListBean;
 import com.recorder.mvp.presenter.HelpListPresenter;
+import com.recorder.utils.CommonUtils;
 
-import app.dinus.com.itemdecoration.LinearDividerItemDecoration;
 import butterknife.BindView;
 
 import static com.core.utils.Preconditions.checkNotNull;
@@ -92,9 +92,7 @@ public class HelpListActivity extends BaseActivity<HelpListPresenter> implements
                 holder.itemView.setOnClickListener(view1 -> mPresenter.helpContent(item.getHelperID()));
             }
         }, false);
-        LinearDividerItemDecoration dividerItemDecoration = new LinearDividerItemDecoration(this, LinearDividerItemDecoration.LINEAR_DIVIDER_VERTICAL);
-        dividerItemDecoration.setDivider(CoreUtils.getDrawablebyResource(this, R.drawable.bga_divider));
-        recyclerview.getRecyclerView().addItemDecoration(dividerItemDecoration);
+        recyclerview.getRecyclerView().addItemDecoration(CommonUtils.linearDivider(this, 45));
     }
 
     @Override

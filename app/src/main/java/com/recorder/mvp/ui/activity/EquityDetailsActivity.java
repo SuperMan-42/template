@@ -43,6 +43,7 @@ import com.recorder.mvp.contract.EquityDetailsContract;
 import com.recorder.mvp.model.entity.DealDetailBean;
 import com.recorder.mvp.presenter.EquityDetailsPresenter;
 import com.recorder.mvp.ui.fragment.DetailDynamicFragment;
+import com.recorder.utils.CommonUtils;
 import com.recorder.utils.DateUtil;
 import com.recorder.widget.AutoHeightViewPager;
 import com.recorder.widget.AutoProgressBar;
@@ -50,7 +51,6 @@ import com.recorder.widget.AutoProgressBar;
 import java.util.ArrayList;
 import java.util.List;
 
-import app.dinus.com.itemdecoration.LinearDividerItemDecoration;
 import butterknife.BindView;
 import butterknife.OnClick;
 import jp.wasabeef.glide.transformations.BlurTransformation;
@@ -354,8 +354,6 @@ public class EquityDetailsActivity extends BaseActivity<EquityDetailsPresenter> 
             }
         };
         teamManager.setAutoMeasureEnabled(true);
-        LinearDividerItemDecoration dividerItemDecoration = new LinearDividerItemDecoration(this, LinearDividerItemDecoration.LINEAR_DIVIDER_VERTICAL);
-        dividerItemDecoration.setDivider(CoreUtils.getDrawablebyResource(this, R.drawable.bga_divider));
         //团队成员
         rvTeam.init(teamManager, new BaseQuickAdapter<DealDetailBean.DataEntity.TeamEntity, BaseViewHolder>(R.layout.item_detail_team, dataEntity.getTeam()) {
             @Override
@@ -366,7 +364,7 @@ public class EquityDetailsActivity extends BaseActivity<EquityDetailsPresenter> 
                         .setText(R.id.tv_intro, item.getIntro());
             }
         }, false);
-        rvTeam.getRecyclerView().addItemDecoration(dividerItemDecoration);
+        rvTeam.getRecyclerView().addItemDecoration(CommonUtils.linearDivider(this, 45));
         //项目动态(可隐藏)
         if (dataEntity.getGrowth() == null || dataEntity.getGrowth().size() == 0) {
             llIsShowGrowth.setVisibility(View.GONE);
@@ -416,7 +414,7 @@ public class EquityDetailsActivity extends BaseActivity<EquityDetailsPresenter> 
                         .setText(R.id.tv_answer, item.getAnswer());
             }
         }, false);
-        rvQa.getRecyclerView().addItemDecoration(dividerItemDecoration);
+        rvQa.getRecyclerView().addItemDecoration(CommonUtils.linearDivider(this, 45));
         //投资文件(非组合)
         if (dataEntity.getIs_group().equals("1")) {
             llIsShowPublicFiles.setVisibility(View.GONE);

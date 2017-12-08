@@ -112,7 +112,7 @@ dependencies {
     implementation 'com.github.LuckSiege.PictureSelector:picture_library:v2.1.7'
     implementation 'cn.bingoogolapple:bga-banner:2.1.8@aar'
     implementation 'de.hdodenhof:circleimageview:2.2.0'
-    implementation 'com.dinuscxj:recycleritemdecoration:1.0.0'
+    implementation 'com.arjinmc.android:recyclerviewdecoration:2.3'
     implementation 'jp.wasabeef:glide-transformations:3.0.1'
     implementation 'com.github.barteksc:android-pdf-viewer:3.0.0-beta.3'
     implementation 'com.liulishuo.filedownloader:library:1.6.8'

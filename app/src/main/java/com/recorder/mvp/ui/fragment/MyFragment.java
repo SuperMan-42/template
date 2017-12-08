@@ -37,7 +37,6 @@ import org.simple.eventbus.Subscriber;
 import java.util.ArrayList;
 import java.util.List;
 
-import app.dinus.com.itemdecoration.GridDividerItemDecoration;
 import butterknife.BindView;
 import butterknife.OnClick;
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -125,10 +124,7 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
                 });
             }
         }, false);
-        GridDividerItemDecoration dividerItemDecoration = new GridDividerItemDecoration(getActivity(), GridDividerItemDecoration.GRID_DIVIDER_VERTICAL);
-        dividerItemDecoration.setVerticalDivider(CoreUtils.getDrawablebyResource(getContext(), R.drawable.bga_divider));
-        dividerItemDecoration.setHorizontalDivider(CoreUtils.getDrawablebyResource(getContext(), R.drawable.bga_divider));
-        recyclerView.getRecyclerView().addItemDecoration(dividerItemDecoration);
+        recyclerView.getRecyclerView().addItemDecoration(CommonUtils.girdDivider(getContext()));
     }
 
     /**

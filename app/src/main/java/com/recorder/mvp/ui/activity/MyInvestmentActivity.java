@@ -137,7 +137,9 @@ public class MyInvestmentActivity extends BaseActivity<MyInvestmentPresenter> im
                 } else if (item.getOrder_status() == 4) {
                     holder.setText(R.id.tv_pay_bt, "上传打款凭证");
                     holder.getView(R.id.tv_pay_bt).setOnClickListener(view -> {
-                        ARouter.getInstance().build("/app/UploadActivity").withBoolean(Constants.ORDER_PROOF, true).navigation();
+                        Bundle bundle = new Bundle();
+                        bundle.putString(Constants.UPLOAD_ORDERID, item.getOrderID());
+                        ARouter.getInstance().build("/app/UploadActivity").withBundle(Constants.UPLOAD, bundle).withBoolean(Constants.ORDER_PROOF, true).navigation();
                         position = holder.getAdapterPosition();
                     });
                 }
@@ -153,7 +155,7 @@ public class MyInvestmentActivity extends BaseActivity<MyInvestmentPresenter> im
     }
 
     @Subscriber(tag = Constants.ORDER_PROOF)
-    public void upload() {
+    public void upload(Object object) {
         recyclerView.remove(position);
     }
 
