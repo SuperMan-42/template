@@ -20,5 +20,9 @@ public interface UploadContract {
         Observable<ImageUploadBean> imageUpload(List<MultipartBody.Part> images);
 
         Observable<Object> orderProof(String orderID, String proof);
+
+        Observable<Object> authPerson(int type, String true_name, String id_card, String idcard_imgf, String idcard_imgb, String check, String assets);
+
+        Observable<Object> authOrgan(String organ_name, String legal_person, String contact, String license, String check, String assets);
     }
 }

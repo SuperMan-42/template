@@ -225,16 +225,16 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
         CoreUtils.imgLoaderCircle(getContext(), userInfoBean.getData().getAvatar(), profileImage, R.drawable.ic_person);
         tvUserName.setText(userInfoBean.getData().getUser_name());
         switch (userInfoBean.getData().getAuth_type()) {
-            case "0":
+            case 0:
                 tvAuthType.setText("未认证");
                 break;
-            case "1":
+            case 1:
                 tvAuthType.setText("众筹认证");
                 break;
-            case "2":
+            case 2:
                 tvAuthType.setText("合格认证");
                 break;
-            case "3":
+            case 3:
                 tvAuthType.setText("机构认证");
                 break;
         }

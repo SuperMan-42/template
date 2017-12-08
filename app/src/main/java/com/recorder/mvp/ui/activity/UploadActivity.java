@@ -14,12 +14,14 @@ import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.core.base.BaseActivity;
 import com.core.di.component.AppComponent;
+import com.core.integration.cache.BCache;
 import com.core.utils.Constants;
 import com.core.utils.CoreUtils;
 import com.core.widget.recyclerview.BaseQuickAdapter;
 import com.core.widget.recyclerview.BaseViewHolder;
 import com.core.widget.recyclerview.CoreRecyclerView;
 import com.core.widget.recyclerview.GridSpacingItemDecoration;
+import com.google.gson.Gson;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
@@ -29,17 +31,14 @@ import com.recorder.di.component.DaggerUploadComponent;
 import com.recorder.di.module.UploadModule;
 import com.recorder.mvp.contract.UploadContract;
 import com.recorder.mvp.model.entity.Bean;
+import com.recorder.mvp.model.entity.UserInfoBean;
 import com.recorder.mvp.presenter.UploadPresenter;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import okhttp3.MediaType;
-import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
 
 import static com.core.utils.Preconditions.checkNotNull;
 
@@ -80,7 +79,6 @@ public class UploadActivity extends BaseActivity<UploadPresenter> implements Upl
     public void initView(Bundle savedInstanceState) {
         title("上传凭证");
         ARouter.getInstance().inject(this);
-        toolbarRight.setVisibility(View.VISIBLE);
         imRight.setVisibility(View.INVISIBLE);
         tvRight.setVisibility(View.VISIBLE);
         if (isOrderProof) {
@@ -100,6 +98,7 @@ public class UploadActivity extends BaseActivity<UploadPresenter> implements Upl
         recyclerView.init(layoutManager, new BaseQuickAdapter<Bean<Boolean>, BaseViewHolder>(R.layout.item_upload, list) {
             @Override
             protected void convert(BaseViewHolder holder, Bean<Boolean> item) {
+                toolbarRight.setVisibility(getItemCount() == 1 ? View.INVISIBLE : View.VISIBLE);
                 if (item.getKey()) {
                     holder.setImageResource(R.id.im_upload, R.drawable.ic_upload);
                 } else {
@@ -124,8 +123,10 @@ public class UploadActivity extends BaseActivity<UploadPresenter> implements Upl
                         addData(new Bean<>(true, null, null));
                         notifyItemRangeChanged(holder.getAdapterPosition(), 4);
                     }
-                    if (!item.getKey())
+                    if (!item.getKey()) {
                         recyclerView.remove(holder.getAdapterPosition());
+                        toolbarRight.setVisibility(getItemCount() == 1 ? View.INVISIBLE : View.VISIBLE);
+                    }
                     return true;
                 });
             }
@@ -162,25 +163,14 @@ public class UploadActivity extends BaseActivity<UploadPresenter> implements Upl
 
     @OnClick(R.id.toolbar_right)
     public void onViewClicked() {
-//        MultipartBody.Builder builder = new MultipartBody.Builder().setType(MultipartBody.FORM);//表单类型
-//        for (Object bean : recyclerView.getAdapter().getData()) {
-//            File file = new File(((Bean) bean).getValue());
-//            RequestBody imageBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
-//            builder.addFormDataPart("images", file.getName(), imageBody);
-//        }
-//        List<MultipartBody.Part> parts = builder.build().parts();
-
         List<Bean<Boolean>> data = recyclerView.getAdapter().getData();
-        List<MultipartBody.Part> parts = new ArrayList<>();
-        for (Bean<Boolean> bean : data) {
-            if (!bean.getKey()) {
-                File file = new File(bean.getValue());
-                RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
-                MultipartBody.Part part = MultipartBody.Part.createFormData("images", file.toString(), requestBody);
-                parts.add(part);
-            }
+        if (data.size() > 0 && data.get(data.size() - 1).getKey()) {
+            data.remove(data.size() - 1);
         }
-        mPresenter.imageUpload(upload.getString(Constants.UPLOAD_ORDERID), parts, isOrderProof);
+        if (data.size() > 0) {
+            UserInfoBean userInfoBean = new Gson().fromJson(BCache.getInstance().getString(Constants.USER_INFO), UserInfoBean.class);
+            mPresenter.upload(userInfoBean.getData(), upload == null ? null : upload.getString(Constants.UPLOAD_ORDERID), data, isOrderProof);
+        }
     }
 
     @Override

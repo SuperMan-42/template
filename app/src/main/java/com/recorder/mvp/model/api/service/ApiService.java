@@ -165,4 +165,15 @@ public interface ApiService {
     @FormUrlEncoded
     @POST("order/proof")
     Observable<Object> orderProof(@Header("DIVERSION-VERSION") String version, @Field("orderID") String orderID, @Field("proof") String proof);
+
+    @FormUrlEncoded
+    @POST("auth/person")
+    Observable<Object> authPerson(@Header("DIVERSION-VERSION") String version, @Field("type") int type, @Field("true_name") String true_name,
+                                  @Field("id_card") String id_card, @Field("idcard_imgf") String idcard_imgf, @Field("idcard_imgb") String idcard_imgb,
+                                  @Field("check") String check, @Field("assets") String assets);
+
+    @FormUrlEncoded
+    @POST("auth/organ")
+    Observable<Object> authOrgan(@Header("DIVERSION-VERSION") String version, @Field("organ_name") String organ_name, @Field("legal_person") String legal_person,
+                                 @Field("contact") String contact, @Field("license") String license, @Field("check") String check, @Field("assets") String assets);
 }

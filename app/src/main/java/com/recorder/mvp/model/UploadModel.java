@@ -45,4 +45,14 @@ public class UploadModel extends BaseModel implements UploadContract.Model {
     public Observable<Object> orderProof(String orderID, String proof) {
         return mRepositoryManager.obtainRetrofitService(ApiService.class).orderProof("1", orderID, proof);
     }
+
+    @Override
+    public Observable<Object> authPerson(int type, String true_name, String id_card, String idcard_imgf, String idcard_imgb, String check, String assets) {
+        return mRepositoryManager.obtainRetrofitService(ApiService.class).authPerson("1", type, true_name, id_card, idcard_imgf, idcard_imgb, check, assets);
+    }
+
+    @Override
+    public Observable<Object> authOrgan(String organ_name, String legal_person, String contact, String license, String check, String assets) {
+        return mRepositoryManager.obtainRetrofitService(ApiService.class).authOrgan("1", organ_name, legal_person, contact, license, check, assets);
+    }
 }

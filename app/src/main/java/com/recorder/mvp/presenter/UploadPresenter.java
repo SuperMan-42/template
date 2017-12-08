@@ -12,17 +12,24 @@ import com.core.utils.RxLifecycleUtils;
 import com.google.gson.Gson;
 import com.recorder.R;
 import com.recorder.mvp.contract.UploadContract;
+import com.recorder.mvp.model.entity.Bean;
+import com.recorder.mvp.model.entity.ImageUploadBean;
+import com.recorder.mvp.model.entity.UserInfoBean;
 
 import org.simple.eventbus.EventBus;
 
+import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
 
-import io.reactivex.schedulers.Schedulers;
+import io.reactivex.Observable;
 import me.jessyan.rxerrorhandler.core.RxErrorHandler;
 import me.jessyan.rxerrorhandler.handler.ErrorHandleSubscriber;
+import okhttp3.MediaType;
 import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 
 @ActivityScope
 public class UploadPresenter extends BasePresenter<UploadContract.Model, UploadContract.View> {
@@ -51,20 +58,46 @@ public class UploadPresenter extends BasePresenter<UploadContract.Model, UploadC
         this.mApplication = null;
     }
 
-    public void imageUpload(String orderID, List<MultipartBody.Part> images, boolean isOrderProof) {
-        mModel.imageUpload(images)
+    public void upload(UserInfoBean.DataEntity dataEntity, String orderID, List<Bean<Boolean>> list, boolean isOrderProof) {
+        List<String> stringList = new ArrayList<>();
+        Observable.fromArray(list.toArray())
+                .flatMap(data -> {
+                    Bean<Boolean> bean = (Bean<Boolean>) data;
+                    List<MultipartBody.Part> parts = new ArrayList<>();
+                    File file = new File(bean.getValue());
+                    RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+                    MultipartBody.Part part = MultipartBody.Part.createFormData("images", file.getName(), requestBody);
+                    parts.add(part);
+                    return mModel.imageUpload(parts);
+                })
                 .compose(RxLifecycleUtils.transformer(mRootView))
-                .observeOn(Schedulers.io())
-                .flatMap(imageUploadBean -> mModel.orderProof(orderID, new Gson().toJson(imageUploadBean.getData().getImages())))
-                .compose(RxLifecycleUtils.transformer(mRootView))
-                .subscribe(new ErrorHandleSubscriber<Object>(mErrorHandler) {
-                    @Override
-                    public void onNext(Object object) {
-                        mRootView.showMessage(CoreUtils.getString(mApplication, R.string.text_order_proof_success));
-                        if (isOrderProof) {
-                            EventBus.getDefault().post(object, Constants.ORDER_PROOF);
+                .doOnComplete(() -> {
+                    Observable<Object> observable = null;
+                    if (isOrderProof) {
+                        observable = mModel.orderProof(orderID, new Gson().toJson(stringList));
+                    } else {
+                        if (dataEntity.getAuth_type() == 1 || dataEntity.getAuth_type() == 2) {
+                            observable = mModel.authPerson(dataEntity.getAuth_type(), null, null, null, null, null, new Gson().toJson(stringList));
+                        } else if (dataEntity.getAuth_type() == 3) {
+                            observable = mModel.authOrgan(null, null, null, null, null, new Gson().toJson(stringList));
                         }
-                        mRootView.killMyself();
+                    }
+                    observable.compose(RxLifecycleUtils.transformer(mRootView))
+                            .subscribe(new ErrorHandleSubscriber<Object>(mErrorHandler) {
+                                @Override
+                                public void onNext(Object object) {
+                                    mRootView.showMessage(CoreUtils.getString(mApplication, R.string.text_order_proof_success));
+                                    if (isOrderProof) {
+                                        EventBus.getDefault().post(object, Constants.ORDER_PROOF);
+                                    }
+                                    mRootView.killMyself();
+                                }
+                            });
+                })
+                .subscribe(new ErrorHandleSubscriber<ImageUploadBean>(mErrorHandler) {
+                    @Override
+                    public void onNext(ImageUploadBean imageUploadBean) {
+                        stringList.add(imageUploadBean.getData().getImages().get(0));
                     }
                 });
     }

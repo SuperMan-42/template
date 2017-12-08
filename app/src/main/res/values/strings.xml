@@ -54,4 +54,5 @@
     <string name="text_feedback_content">意见不能能为空</string>
     <string name="text_feedback_success">反馈意见提交成功</string>
     <string name="text_order_proof_success">上传凭证成功</string>
+    <string name="text_upload_null">上传图片不能为空</string>
 </resources>

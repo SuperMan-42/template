@@ -61,7 +61,7 @@ public class UserInfoBean {
         private String user_id;
         private String user_name;
         private String avatar;
-        private String auth_type;
+        private int auth_type;
         private String intro;
         private String email;
         private String address;
@@ -87,7 +87,7 @@ public class UserInfoBean {
             this.avatar = avatar;
         }
 
-        public void setAuth_type(String auth_type) {
+        public void setAuth_type(int auth_type) {
             this.auth_type = auth_type;
         }
 
@@ -139,7 +139,7 @@ public class UserInfoBean {
             return avatar;
         }
 
-        public String getAuth_type() {
+        public int getAuth_type() {
             return auth_type;
         }
 
