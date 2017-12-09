@@ -82,12 +82,14 @@ public class PersonActivity extends BaseActivity<PersonPresenter> implements Per
     protected void onResume() {
         super.onResume();
         userInfoBean = new Gson().fromJson(BCache.getInstance().getString(Constants.USER_INFO), UserInfoBean.class).getData();
-        tvUserName.setText(userInfoBean.getUser_name());
-        tvIntro.setText(userInfoBean.getIntro());
-        tvMobile.setText(userInfoBean.getMobile());
-        tvEmail.setText(userInfoBean.getEmail());
-        tvWeixin.setText(userInfoBean.getWeixin());
-        tvAddress.setText(userInfoBean.getAddress());
+        if (userInfoBean != null) {
+            tvUserName.setText(userInfoBean.getUser_name());
+            tvIntro.setText(userInfoBean.getIntro());
+            tvMobile.setText(userInfoBean.getMobile());
+            tvEmail.setText(userInfoBean.getEmail());
+            tvWeixin.setText(userInfoBean.getWeixin());
+            tvAddress.setText(userInfoBean.getAddress());
+        }
     }
 
     @Override
