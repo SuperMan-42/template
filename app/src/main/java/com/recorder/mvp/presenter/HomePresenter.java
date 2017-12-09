@@ -184,7 +184,7 @@ public class HomePresenter extends BasePresenter<HomeContract.Model, HomeContrac
                                 //（必须）新版本号，
                                 .setNewVersion(versionInfo.getNew_version())
                                 //（必须）下载地
-                                .setApkFileUrl("https://raw.githubusercontent.com/SuperMan42/template/haoxiang/app/app-debug.apk")
+                                .setApkFileUrl("https://raw.githubusercontent.com/SuperMan42/template/haoxiang/app/release/app-release.apk")
                                 //（必须）更新内容
                                 .setUpdateLog(stringBuilder.toString())
                                 //大小，不设置不显示大小，可以不设置
