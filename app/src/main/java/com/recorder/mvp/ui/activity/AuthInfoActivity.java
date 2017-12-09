@@ -218,11 +218,12 @@ public class AuthInfoActivity extends BaseActivity<AuthInfoPresenter> implements
 
     private void doNext() {
         List<Bean<Boolean>> data = recyclerview.getAdapter().getData();
-        if (data.size() > 0 && data.get(data.size() - 1).getKey()) {
+        if (data.size() > 1 && data.get(data.size() - 1).getKey()) {
             data.remove(data.size() - 1);
         }
         if (data.size() > 0) {
             if (authType == 3) {
+                mPresenter.upload(etName.getText().toString(), etId.getText().toString(), etContact.getText().toString(), positive, bean.getData().getUser_auth_prompt().getOrgan_auth(), data);
             } else if (authType == 2) {
                 mPresenter.upload(authType, etName.getText().toString(), etId.getText().toString(), positive, other, bean.getData().getUser_auth_prompt().getConformity_auth(), data);
             } else if (authType == 1) {

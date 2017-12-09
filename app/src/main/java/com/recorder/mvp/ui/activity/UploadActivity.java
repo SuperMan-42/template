@@ -164,7 +164,7 @@ public class UploadActivity extends BaseActivity<UploadPresenter> implements Upl
     @OnClick(R.id.toolbar_right)
     public void onViewClicked() {
         List<Bean<Boolean>> data = recyclerView.getAdapter().getData();
-        if (data.size() > 0 && data.get(data.size() - 1).getKey()) {
+        if (data.size() > 1 && data.get(data.size() - 1).getKey()) {
             data.remove(data.size() - 1);
         }
         if (data.size() > 0) {

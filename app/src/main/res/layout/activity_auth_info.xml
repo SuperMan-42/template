@@ -18,7 +18,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical">
 
             <EditText
@@ -153,6 +153,7 @@
                 android:paddingRight="45px" />
 
             <FrameLayout
+                android:id="@+id/fl"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="#F0F2F5">

@@ -7,6 +7,7 @@ import com.core.integration.IRepositoryManager;
 import com.core.mvp.BaseModel;
 import com.core.utils.DeviceUtils;
 import com.google.gson.Gson;
+import com.orhanobut.logger.Logger;
 import com.recorder.mvp.contract.AuthInfoContract;
 import com.recorder.mvp.model.api.cache.ApiCache;
 import com.recorder.mvp.model.api.service.ApiService;
@@ -51,6 +52,7 @@ public class AuthInfoModel extends BaseModel implements AuthInfoContract.Model {
 
     @Override
     public Observable<Object> authPerson(int type, String true_name, String id_card, String idcard_imgf, String idcard_imgb, String check, String assets) {
+        Logger.d("type=> " + type + " true_name=> " + true_name + " id_card=> " + id_card + " idcard_imgf=> " + idcard_imgf + " idcard_imgb=> " + idcard_imgb + " check=> " + check + " assets=> " + assets);
         return mRepositoryManager.obtainRetrofitService(ApiService.class).authPerson("1", type, true_name, id_card, idcard_imgf, idcard_imgb, check, assets);
     }
 
