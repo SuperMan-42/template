@@ -75,7 +75,7 @@ public class PersonActivity extends BaseActivity<PersonPresenter> implements Per
     public void initView(Bundle savedInstanceState) {
         title("个人资料");
         userInfoBean = new Gson().fromJson(BCache.getInstance().getString(Constants.USER_INFO), UserInfoBean.class).getData();
-        CoreUtils.imgLoaderCircle(this, userInfoBean.getAvatar(), imAvatar, R.drawable.ic_person);
+        CoreUtils.imgLoaderCircle(this, userInfoBean != null ? userInfoBean.getAvatar() : R.drawable.ic_person, imAvatar, R.drawable.ic_person);
     }
 
     @Override

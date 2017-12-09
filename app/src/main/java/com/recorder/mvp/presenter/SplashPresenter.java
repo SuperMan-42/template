@@ -65,6 +65,11 @@ public class SplashPresenter extends BasePresenter<SplashContract.Model, SplashC
                     public void onNext(Object o) {
                         ARouter.getInstance().build("/app/HomeActivity").withTransition(R.anim.fade_in, R.anim.zoom_out).navigation();
                     }
+
+                    @Override
+                    public void onError(Throwable t) {
+                        ARouter.getInstance().build("/app/HomeActivity").withTransition(R.anim.fade_in, R.anim.zoom_out).navigation();
+                    }
                 });
     }
 }
