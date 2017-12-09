@@ -15,6 +15,7 @@ import com.core.utils.DeviceUtils;
 import com.core.utils.RxLifecycleUtils;
 import com.google.gson.Gson;
 import com.liulishuo.filedownloader.BaseDownloadTask;
+import com.orhanobut.logger.Logger;
 import com.recorder.R;
 import com.recorder.mvp.contract.HomeContract;
 import com.recorder.mvp.model.api.Api;
@@ -150,17 +151,18 @@ public class HomePresenter extends BasePresenter<HomeContract.Model, HomeContrac
                                         throw new RuntimeException("no permission");
                                     }
                                 })
-                                .compose(CommonUtils.transformService(mApplication, url, path, false, true))
+                                .compose(CommonUtils.transformService(mApplication, url, path + fileName, false, true, callback))
                                 .compose(RxLifecycleUtils.transformer(mRootView))
                                 .subscribe(new ErrorHandleSubscriber<BaseDownloadTask>(mErrorHandler) {
                                     @Override
                                     public void onNext(BaseDownloadTask baseDownloadTask) {
-                                        callback.onProgress(baseDownloadTask.getSoFarBytes(), baseDownloadTask.getTotalBytes());
+                                        Logger.d("path" + path + fileName + "download=> " + baseDownloadTask.getSoFarBytes() + " " + baseDownloadTask.getTotalBytes() + " progress=> " + ((float) baseDownloadTask.getSoFarBytes()) / baseDownloadTask.getTotalBytes());
                                     }
                                 });
                     }
                 })
                 .setUpdateUrl(Api.APP_DOMAIN + "app/version")
+                .hideDialogOnDownloading(false)
                 .setTopPic(R.mipmap.top_4)
                 .setThemeColor(CoreUtils.getColor(activity, R.color.colorStatus))
                 .setTargetPath(Constants.SDCARD_PATH)
@@ -182,8 +184,8 @@ public class HomePresenter extends BasePresenter<HomeContract.Model, HomeContrac
                                 .setUpdate(!DeviceUtils.getVersionName(activity).equals(versionInfo.getNew_version()) ? "Yes" : "No")
                                 //（必须）新版本号，
                                 .setNewVersion(versionInfo.getNew_version())
-                                //（必须）下载地址
-                                .setApkFileUrl("https://pro-app-tc.fir.im/007a3bb9a50223ecd44c7909e142d0f92a5f7fb5.apk?sign=1b0e2cc6336f72fca6df25173271b705&t=5a2b8ca7")
+                                //（必须）下载地
+                                .setApkFileUrl("https://raw.githubusercontent.com/SuperMan42/template/haoxiang/app/app-debug.apk")
                                 //（必须）更新内容
                                 .setUpdateLog(stringBuilder.toString())
                                 //大小，不设置不显示大小，可以不设置

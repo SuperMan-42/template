@@ -59,7 +59,7 @@ public class PdfPresenter extends BasePresenter<PdfContract.Model, PdfContract.V
                         throw new RuntimeException("no permission");
                     }
                 })
-                .compose(CommonUtils.transformService(mApplication, pdf, path, false, false))
+                .compose(CommonUtils.transformService(mApplication, pdf, path, false, false, null))
                 .compose(RxLifecycleUtils.transformer(mRootView))
                 .subscribe(new ErrorHandleSubscriber<BaseDownloadTask>(mErrorHandler) {
                     @Override

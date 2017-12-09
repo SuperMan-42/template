@@ -39,7 +39,9 @@ import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.media.UMImage;
 import com.umeng.socialize.media.UMWeb;
 import com.umeng.socialize.shareboard.ShareBoardConfig;
+import com.vector.update_app.HttpManager;
 
+import java.io.File;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.List;
@@ -235,7 +237,7 @@ public class CommonUtils {
      * @return Transformer
      */
     public static <Upstream> ObservableTransformer<Upstream, BaseDownloadTask> transformService(
-            Context context, String url, String savePath, boolean isDir, boolean hasNext) {
+            Context context, String url, String savePath, boolean isDir, boolean hasNext, HttpManager.FileCallback fileCallback) {
         return new ObservableTransformer<Upstream, BaseDownloadTask>() {
             @Override
             public ObservableSource<BaseDownloadTask> apply(io.reactivex.Observable<Upstream> upstream) {
@@ -259,18 +261,26 @@ public class CommonUtils {
                                             super.progress(task, soFarBytes, totalBytes);
                                             if (hasNext)
                                                 observableEmitter.onNext(task);
+                                            if (fileCallback != null) {
+                                                float sofar = task.getSoFarBytes();
+                                                fileCallback.onProgress(sofar / totalBytes, totalBytes);
+                                            }
                                         }
 
                                         @Override
                                         protected void error(BaseDownloadTask task, Throwable e) {
                                             super.error(task, e);
                                             observableEmitter.onError(e);
+                                            if (fileCallback != null)
+                                                fileCallback.onError(e.getMessage());
                                         }
 
                                         @Override
                                         protected void connected(BaseDownloadTask task, String etag, boolean isContinue,
                                                                  int soFarBytes, int totalBytes) {
                                             super.connected(task, etag, isContinue, soFarBytes, totalBytes);
+                                            if (fileCallback != null)
+                                                fileCallback.onBefore();
                                         }
 
                                         @Override
@@ -281,11 +291,9 @@ public class CommonUtils {
                                         @Override
                                         protected void completed(BaseDownloadTask task) {
                                             super.completed(task);
-                                            if (hasNext) {
-                                                observableEmitter.onComplete();
-                                            } else {
-                                                observableEmitter.onNext(task);
-                                            }
+                                            observableEmitter.onComplete();
+                                            if (fileCallback != null)
+                                                fileCallback.onResponse(new File(task.getPath()));
                                         }
 
                                         @Override
