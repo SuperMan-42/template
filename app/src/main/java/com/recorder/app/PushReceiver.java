@@ -59,11 +59,16 @@ public class PushReceiver extends PushMessageReceiver {
 
     @Override
     public void onNotificationClicked(Context context, String s, String s1, String s2) {
+        update(context, s, s1);
     }
 
     @Override
     public void onNotificationArrived(Context context, String s, String s1, String s2) {//s=title s1=content
-        Logger.d("push=> " + s + s1);
+        update(context, s, s1);
+    }
+
+    private void update(Context context, String s, String s1) {
+        Logger.d("push=> title " + s + " content=> " + s1);
         Activity activity = CoreUtils.obtainAppComponentFromContext(context).appManager().getCurrentActivity();
         new UpdateAppManager.Builder()
                 .setActivity(activity)
@@ -74,7 +79,7 @@ public class PushReceiver extends PushMessageReceiver {
                     }
 
                     @Override
-                    public void asyncPost(@NonNull String url, @NonNull Map<String, String> params, @NonNull Callback callBack) {
+                    public void asyncPost(@NonNull String url, @NonNull Map<String, String> params, @NonNull HttpManager.Callback callBack) {
 
                     }
 
@@ -109,7 +114,6 @@ public class PushReceiver extends PushMessageReceiver {
                         for (String string : list) {
                             stringBuilder.append(string).append("\r\n");
                         }
-                        stringBuilder.delete(stringBuilder.length() - 5, stringBuilder.length() - 1);
                         UpdateAppBean updateAppBean = new UpdateAppBean();
                         updateAppBean
                                 //（必须）是否更新Yes,No

@@ -177,7 +177,6 @@ public class HomePresenter extends BasePresenter<HomeContract.Model, HomeContrac
                         for (String string : list) {
                             stringBuilder.append(string).append("\r\n");
                         }
-                        stringBuilder.delete(stringBuilder.length() - 5, stringBuilder.length() - 1);
                         UpdateAppBean updateAppBean = new UpdateAppBean();
                         updateAppBean
                                 //（必须）是否更新Yes,No
