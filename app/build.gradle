@@ -118,6 +118,7 @@ dependencies {
     implementation 'com.liulishuo.filedownloader:library:1.6.8'
     implementation 'com.squareup.picasso:picasso:2.5.2'
     implementation 'liji.library.dev:imagezoom:1.2.2'
+    implementation 'com.qianwen:update-app:3.3.8'
     implementation(name: 'AlivcPlayer', ext: "aar")
     implementation(name: 'AliyunVodPlayer', ext: "aar")
     implementation(name: 'AliyunVodPlayerView', ext: "aar")

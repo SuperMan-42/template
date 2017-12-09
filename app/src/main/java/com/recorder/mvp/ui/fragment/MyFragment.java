@@ -86,6 +86,7 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
     public void initData(Bundle savedInstanceState) {
         if (TextUtils.isEmpty(BCache.getInstance().getString(Constants.TOKEN))) {
             tvUserName.setText("您还没登录哦");
+            CoreUtils.imgLoaderCircle(getContext(), R.drawable.ic_person, profileImage, R.drawable.ic_person);
             tvLogin.setVisibility(View.VISIBLE);
             tvMyInvestment.setText("0");
             tvFollowCount.setText("0");
