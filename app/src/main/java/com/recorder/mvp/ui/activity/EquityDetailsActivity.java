@@ -364,7 +364,7 @@ public class EquityDetailsActivity extends BaseActivity<EquityDetailsPresenter> 
                         .setText(R.id.tv_intro, item.getIntro());
             }
         }, false);
-        rvTeam.getRecyclerView().addItemDecoration(CommonUtils.linearDivider(this, 45));
+        rvTeam.getRecyclerView().addItemDecoration(CommonUtils.linearDivider(this, 0));
         //项目动态(可隐藏)
         if (dataEntity.getGrowth() == null || dataEntity.getGrowth().size() == 0) {
             llIsShowGrowth.setVisibility(View.GONE);
@@ -414,7 +414,7 @@ public class EquityDetailsActivity extends BaseActivity<EquityDetailsPresenter> 
                         .setText(R.id.tv_answer, item.getAnswer());
             }
         }, false);
-        rvQa.getRecyclerView().addItemDecoration(CommonUtils.linearDivider(this, 45));
+        rvQa.getRecyclerView().addItemDecoration(CommonUtils.linearDivider(this, 0));
         //投资文件(非组合)
         if (dataEntity.getIs_group().equals("1")) {
             llIsShowPublicFiles.setVisibility(View.GONE);

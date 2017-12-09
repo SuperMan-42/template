@@ -42,7 +42,7 @@
 
 -keep public class * implements com.jess.arms.integration.ConfigModule
 
- #实体类不参与混淆
+##实体类不参与混淆
 -keep class com.core.widget.** { *; } #自定义控件不参与混淆
 -keep class * implements android.os.Parcelable {
   public static final android.os.Parcelable$Creator *;
@@ -417,3 +417,8 @@
 -keep class com.linkedin.** { *; }
 -keep class com.android.dingtalk.share.ddsharemodule.** { *; }
 -keepattributes Signature
+
+##本工程相关
+-keep class com.recorder.app.** { *; }
+-keep class com.recorder.widget.** { *; } #自定义控件不参与混淆
+-keep class com.recorder.mvp.model.entity.** { *; } #实体类

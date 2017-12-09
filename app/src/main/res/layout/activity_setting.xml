@@ -53,11 +53,11 @@
             android:textSize="42px"
             tools:text="eddie0730" />
 
-    </RelativeLayout>
+        <View
+            style="@style/divider"
+            android:layout_alignParentBottom="true" />
 
-    <View
-        style="@style/divider"
-        android:layout_marginLeft="45px" />
+    </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/rl_2"
@@ -86,11 +86,10 @@
             android:textSize="42px"
             tools:text="" />
 
+        <View
+            style="@style/divider"
+            android:layout_alignParentBottom="true" />
     </RelativeLayout>
-
-    <View
-        style="@style/divider"
-        android:layout_marginLeft="45px" />
 
     <RelativeLayout
         android:id="@+id/rl_3"
