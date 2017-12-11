@@ -39,7 +39,7 @@ import static com.core.utils.Preconditions.checkNotNull;
 @Route(path = "/app/PersonActivity")
 public class PersonActivity extends BaseActivity<PersonPresenter> implements PersonContract.View {
     private static final int IM_AVATAR = 0;
-    UserInfoBean.DataEntity userInfoBean;
+    UserInfoBean userInfoBean;
 
     @BindView(R.id.im_avatar)
     CircleImageView imAvatar;
@@ -74,21 +74,21 @@ public class PersonActivity extends BaseActivity<PersonPresenter> implements Per
     @Override
     public void initView(Bundle savedInstanceState) {
         title("个人资料");
-        userInfoBean = new Gson().fromJson(BCache.getInstance().getString(Constants.USER_INFO), UserInfoBean.class).getData();
-        CoreUtils.imgLoaderCircle(this, userInfoBean != null ? userInfoBean.getAvatar() : R.drawable.ic_person, imAvatar, R.drawable.ic_person);
+        userInfoBean = new Gson().fromJson(BCache.getInstance().getString(Constants.USER_INFO), UserInfoBean.class);
+        CoreUtils.imgLoaderCircle(this, userInfoBean != null ? userInfoBean.getData().getAvatar() : R.drawable.ic_person, imAvatar, R.drawable.ic_person);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        userInfoBean = new Gson().fromJson(BCache.getInstance().getString(Constants.USER_INFO), UserInfoBean.class).getData();
+        userInfoBean = new Gson().fromJson(BCache.getInstance().getString(Constants.USER_INFO), UserInfoBean.class);
         if (userInfoBean != null) {
-            tvUserName.setText(userInfoBean.getUser_name());
-            tvIntro.setText(userInfoBean.getIntro());
-            tvMobile.setText(userInfoBean.getMobile());
-            tvEmail.setText(userInfoBean.getEmail());
-            tvWeixin.setText(userInfoBean.getWeixin());
-            tvAddress.setText(userInfoBean.getAddress());
+            tvUserName.setText(userInfoBean.getData().getUser_name());
+            tvIntro.setText(userInfoBean.getData().getIntro());
+            tvMobile.setText(userInfoBean.getData().getMobile());
+            tvEmail.setText(userInfoBean.getData().getEmail());
+            tvWeixin.setText(userInfoBean.getData().getWeixin());
+            tvAddress.setText(userInfoBean.getData().getAddress());
         }
     }
 
