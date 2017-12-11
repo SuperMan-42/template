@@ -32,4 +32,5 @@ public class Constants {
     public static final String UPLOAD_ORDERID = "upload_orderid";
     public static final String APPSTART = "appstart";
     public static final String AUTH_TYPE = "auth_type";
+    public static final String AUTH_INFO_SUCCESS = "auth_info_success";
 }

@@ -15,6 +15,10 @@ public interface AuthInfoContract {
     interface View extends IView {
 
         void showAuthGet(AuthGetBean.DataEntity data);
+
+        void showSuccess(int type);
+
+        void showFail(Throwable t);
     }
 
     //Model层定义接口,外部只需关心Model返回的数据,无需关心内部细节,即是否使用缓存

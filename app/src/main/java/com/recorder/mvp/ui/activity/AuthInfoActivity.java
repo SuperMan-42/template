@@ -2,11 +2,13 @@ package com.recorder.mvp.ui.activity;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.GridLayoutManager;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.animation.AnimationUtils;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -28,15 +30,21 @@ import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
 import com.luck.picture.lib.entity.LocalMedia;
+import com.orhanobut.logger.Logger;
 import com.recorder.R;
 import com.recorder.di.component.DaggerAuthInfoComponent;
 import com.recorder.di.module.AuthInfoModule;
 import com.recorder.mvp.contract.AuthInfoContract;
+import com.recorder.mvp.model.api.Api;
 import com.recorder.mvp.model.entity.AppStartBean;
 import com.recorder.mvp.model.entity.AuthGetBean;
 import com.recorder.mvp.model.entity.Bean;
+import com.recorder.mvp.model.entity.UserInfoBean;
 import com.recorder.mvp.presenter.AuthInfoPresenter;
 import com.recorder.utils.CommonUtils;
+
+import org.simple.eventbus.EventBus;
+import org.simple.eventbus.Subscriber;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -83,6 +91,12 @@ public class AuthInfoActivity extends BaseActivity<AuthInfoPresenter> implements
     TextView tvGoHome;
     @BindView(R.id.fl_dialog)
     View flDialog;
+    @BindView(R.id.im_cover)
+    ImageView imCover;
+    @BindView(R.id.tv_title)
+    TextView tvTitle;
+    @BindView(R.id.tv_content)
+    TextView tvContent;
     @BindView(R.id.ll_root)
     View llRoot;
 
@@ -90,6 +104,7 @@ public class AuthInfoActivity extends BaseActivity<AuthInfoPresenter> implements
     File positive;
     File other;
     AuthGetBean.DataEntity dataEntity = new AuthGetBean.DataEntity();
+    boolean isCheck = false;
 
     @Override
     public void setupActivityComponent(AppComponent appComponent) {
@@ -205,7 +220,7 @@ public class AuthInfoActivity extends BaseActivity<AuthInfoPresenter> implements
         finish();
     }
 
-    @OnClick({R.id.im_positive, R.id.im_other, R.id.im_agree, R.id.tv_next, R.id.tv_go_authentication, R.id.tv_go_home})
+    @OnClick({R.id.im_positive, R.id.im_other, R.id.im_agree, R.id.tv_next, R.id.tv_go_home})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.im_positive:
@@ -215,30 +230,38 @@ public class AuthInfoActivity extends BaseActivity<AuthInfoPresenter> implements
                 CommonUtils.pictureSingle(this, IM_OTHER);
                 break;
             case R.id.im_agree:
+                isCheck = !isCheck;
+                imAgree.setImageResource(isCheck ? R.drawable.ic_item_buy_selector : R.drawable.ic_item_buy);
                 break;
             case R.id.tv_next:
                 doNext();
                 break;
-            case R.id.tv_go_authentication:
-                break;
             case R.id.tv_go_home:
+                EventBus.getDefault().post(0, Constants.HOME_INDEX);
+                ARouter.getInstance().build("/app/HomeActivity").navigation();
                 break;
         }
     }
 
     private void doNext() {
+        if (!isCheck) {
+            CoreUtils.snackbarText(getString(R.string.text_agree));
+            return;
+        }
         List<Bean<Boolean>> data = recyclerview.getAdapter().getData();
         if (data.size() > 1 && data.get(data.size() - 1).getKey()) {
             data.remove(data.size() - 1);
         }
         if (data.size() > 0) {
             if (authType == 3) {
+                Logger.d("upload=> " + positive + " " + data);
                 mPresenter.upload(etName.getText().toString(), etId.getText().toString(), etContact.getText().toString(), positive, bean.getData().getUser_auth_prompt().getOrgan_auth(), data);
             } else if (authType == 2) {
                 mPresenter.upload(authType, etName.getText().toString(), etId.getText().toString(), positive, other, bean.getData().getUser_auth_prompt().getConformity_auth(), data);
             } else if (authType == 1) {
                 mPresenter.upload(authType, etName.getText().toString(), etId.getText().toString(), positive, other, bean.getData().getUser_auth_prompt().getZc_auth(), data);
             }
+            showSuccess(3);//TODO
         }
     }
 
@@ -250,6 +273,7 @@ public class AuthInfoActivity extends BaseActivity<AuthInfoPresenter> implements
                 case IM_POSITIVE:
                     List<LocalMedia> positiveList = PictureSelector.obtainMultipleResult(data);
                     positive = new File(positiveList.get(0).getPath());
+                    Logger.d("upload=> " + positive);
                     CoreUtils.imgLoader(this, positiveList.get(0).getPath(), imPositive);
                     break;
                 case IM_OTHER:
@@ -304,6 +328,54 @@ public class AuthInfoActivity extends BaseActivity<AuthInfoPresenter> implements
         isModify(imAgree, data.getCheck());
     }
 
+    @Override
+    public void showSuccess(int type) {
+        String url;
+        String token = BCache.getInstance().getString(Constants.TOKEN);
+        String uid = new Gson().fromJson(BCache.getInstance().getString(Constants.USER_INFO), UserInfoBean.class).getData().getUserID();
+        if (type == 3) {
+            url = Api.WEB_DOMAIN + "survey/?token=" + token + "&u=" + uid + "&survey={\"1\":\"A\",\"2\":\"B\"}#/agency";
+        } else {
+            url = Api.WEB_DOMAIN + "survey/?token=" + token + "&u=" + uid + "&survey={\"1\":\"A\",\"2\":\"B\"}#/questionnaire";
+        }
+        ARouter.getInstance().build("/app/WebActivity")
+                .withBoolean(Constants.IS_SHOW_RIGHT, false)
+                .withString(Constants.WEB_URL, url).navigation();
+    }
+
+    @Subscriber(tag = Constants.AUTH_INFO_SUCCESS)
+    public void success(Object object) {
+        CoreUtils.imgLoader(this, R.drawable.ic_result_success, imCover);
+        tvTitle.setText(CoreUtils.getString(this, R.string.text_authinfo_title_success));
+        tvContent.setText(R.string.text_authinfo_success);
+        tvContent.setTextColor(Color.parseColor("#333333"));
+        tvGoAuthentication.setText("个人中心");
+        title("提交成功");
+
+        tvGoHome.setText("返回首页");
+        flDialog.setVisibility(View.VISIBLE);
+        flDialog.startAnimation(AnimationUtils.loadAnimation(this, R.anim.fade_in));
+        tvGoAuthentication.setOnClickListener(view -> {
+            EventBus.getDefault().post(4, Constants.HOME_INDEX);
+            ARouter.getInstance().build("/app/HomeActivity").navigation();
+        });
+    }
+
+    @Override
+    public void showFail(Throwable t) {
+        CoreUtils.imgLoader(this, R.drawable.ic_result_fail, imCover);
+        tvTitle.setText(CoreUtils.getString(this, R.string.text_authinfo_title_fail));
+        tvContent.setText(R.string.text_authinfo_fail);
+        tvContent.setTextColor(Color.parseColor("#FF5701"));
+        tvGoAuthentication.setText("重新提交");
+        title("提交失败");
+
+        tvGoHome.setText("返回首页");
+        flDialog.setVisibility(View.VISIBLE);
+        flDialog.startAnimation(AnimationUtils.loadAnimation(this, R.anim.fade_in));
+        tvGoAuthentication.setOnClickListener(view -> doNext());
+    }
+
     private void isModify(EditText editText, String string) {
         if (editText == etName && TextUtils.isEmpty(string)) {
             editText.setFocusable(true);
@@ -318,6 +390,6 @@ public class AuthInfoActivity extends BaseActivity<AuthInfoPresenter> implements
     @SuppressLint("ClickableViewAccessibility")
     private void isModify(ImageView imageView, String string) {
 //        imageView.setOnTouchListener((view, motionEvent) -> !TextUtils.isEmpty(string) && dataEntity.getIs_modify());
-        imageView.setOnTouchListener((view, motionEvent) -> !TextUtils.isEmpty(string));
+//        imageView.setOnTouchListener((view, motionEvent) -> !TextUtils.isEmpty(string));
     }
 }

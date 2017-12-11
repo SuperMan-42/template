@@ -56,4 +56,9 @@
     <string name="text_order_proof_success">上传凭证成功</string>
     <string name="text_upload_null">上传图片不能为空</string>
     <string name="text_auth_success">认证成功</string>
+    <string name="text_authinfo_success">尊敬的用户，您已成功提交合格投资人的认证资料和问卷调查，我们将在2-3个工作日内反馈审核结果，请耐心等候。</string>
+    <string name="text_authinfo_title_success">提交成功</string>
+    <string name="text_authinfo_title_fail">提交失败</string>
+    <string name="text_authinfo_fail">抱歉,提交失败,请重新提交</string>
+    <string name="text_agree">请勾选同意协议</string>
 </resources>

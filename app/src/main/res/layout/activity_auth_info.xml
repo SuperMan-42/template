@@ -135,6 +135,7 @@
                     android:id="@+id/im_agree"
                     android:layout_width="66px"
                     android:layout_height="66px"
+                    android:clickable="true"
                     android:src="@drawable/ic_item_buy" />
 
                 <TextView

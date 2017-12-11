@@ -12,7 +12,6 @@ import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Autowired;
@@ -53,8 +52,6 @@ public class CashierActivity extends BaseActivity<CashierPresenter> implements C
     TextView tvGoAuthentication;
     @BindView(R.id.tv_go_home)
     TextView tvGoHome;
-    @BindView(R.id.ll_dialog)
-    LinearLayout llDialog;
     @BindView(R.id.fl_dialog)
     FrameLayout flDialog;
     @BindView(R.id.im_cover)

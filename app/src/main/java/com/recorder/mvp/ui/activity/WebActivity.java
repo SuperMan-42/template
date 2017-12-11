@@ -3,8 +3,11 @@ package com.recorder.mvp.ui.activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.view.KeyEvent;
 import android.view.View;
+import android.webkit.JsPromptResult;
+import android.webkit.JsResult;
 import android.webkit.WebChromeClient;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
@@ -21,6 +24,7 @@ import com.core.di.component.AppComponent;
 import com.core.utils.Constants;
 import com.just.library.AgentWeb;
 import com.just.library.ChromeClientCallbackManager;
+import com.orhanobut.logger.Logger;
 import com.recorder.R;
 import com.recorder.utils.CommonUtils;
 
@@ -90,6 +94,50 @@ public class WebActivity extends BaseActivity {
         @Override
         public void onProgressChanged(WebView view, int newProgress) {
             //do you work
+        }
+
+        @Override
+        public boolean onJsAlert(WebView view, String url, String message, final JsResult result) {
+            Logger.d("js=> onJsAlert");
+            AlertDialog.Builder b = new AlertDialog.Builder(WebActivity.this);
+            b.setTitle("Alert");
+            b.setMessage(message);
+            b.setPositiveButton(android.R.string.ok, (dialog, which) -> result.confirm());
+            b.setCancelable(false);
+            b.create().show();
+            return true;
+        }
+
+        //设置响应js 的Confirm()函数
+        @Override
+        public boolean onJsConfirm(WebView view, String url, String message, final JsResult result) {
+            Logger.d("js=> onJsConfirm");
+            AlertDialog.Builder b = new AlertDialog.Builder(WebActivity.this);
+            b.setTitle("Confirm");
+            b.setMessage(message);
+            b.setPositiveButton(android.R.string.ok, (dialog, which) -> result.confirm());
+            b.setNegativeButton(android.R.string.cancel, (dialog, which) -> result.cancel());
+            b.create().show();
+            return true;
+        }
+
+        //设置响应js 的Prompt()函数
+        @Override
+        public boolean onJsPrompt(WebView view, String url, String message, String defaultValue, final JsPromptResult result) {
+//            final View v = View.inflate(WebActivity.this, R.layout.prompt_dialog, null);
+//            ((TextView) v.findViewById(R.id.prompt_message_text)).setText(message);
+//            ((EditText) v.findViewById(R.id.prompt_input_field)).setText(defaultValue);
+//            AlertDialog.Builder b = new AlertDialog.Builder(WebActivity.this);
+//            b.setTitle("Prompt");
+//            b.setView(v);
+//            b.setPositiveButton(android.R.string.ok, (dialog, which) -> {
+//                String value = ((EditText) v.findViewById(R.id.prompt_input_field)).getText().toString();
+//                result.confirm(value);
+//            });
+//            b.setNegativeButton(android.R.string.cancel, (dialog, which) -> result.cancel());
+//            b.create().show();
+            Logger.d("js=> onJsPrompt");
+            return true;
         }
     };
 

@@ -6,10 +6,8 @@ import com.core.di.scope.ActivityScope;
 import com.core.http.imageloader.ImageLoader;
 import com.core.integration.AppManager;
 import com.core.mvp.BasePresenter;
-import com.core.utils.CoreUtils;
 import com.core.utils.RxLifecycleUtils;
 import com.google.gson.Gson;
-import com.recorder.R;
 import com.recorder.mvp.contract.AuthInfoContract;
 import com.recorder.mvp.model.entity.AuthGetBean;
 import com.recorder.mvp.model.entity.Bean;
@@ -101,11 +99,14 @@ public class AuthInfoPresenter extends BasePresenter<AuthInfoContract.Model, Aut
                             com.orhanobut.logger.Logger.d("upload=> add " + id_imgb.getData().getImages().get(0));
                             return data;
                         }).flatMap(strings -> mModel.authPerson(type, true_name, id_card, strings.get(0), strings.get(1), check, new Gson().toJson(stringList))).compose(RxLifecycleUtils.transformer(mRootView)).subscribe(new ErrorHandleSubscriber<Object>(mErrorHandler) {
-                            @Override
                             public void onNext(Object o) {
                                 com.orhanobut.logger.Logger.d("upload=> zip " + new Gson().toJson(o));
-                                CoreUtils.snackbarText(CoreUtils.getString(mApplication, R.string.text_auth_success));
-                                mRootView.killMyself();
+                                mRootView.showSuccess(3);
+                            }
+
+                            @Override
+                            public void onError(Throwable t) {
+                                mRootView.showFail(t);
                             }
                         });
                     }
@@ -139,11 +140,14 @@ public class AuthInfoPresenter extends BasePresenter<AuthInfoContract.Model, Aut
                             com.orhanobut.logger.Logger.d("upload=> add " + imageUploadBean.getData().getImages().get(0));
                             return mModel.authOrgan(organ_name, legal_person, contact, imageUploadBean.getData().getImages().get(0), check, new Gson().toJson(stringList));
                         }).compose(RxLifecycleUtils.transformer(mRootView)).subscribe(new ErrorHandleSubscriber<Object>(mErrorHandler) {
-                            @Override
                             public void onNext(Object o) {
                                 com.orhanobut.logger.Logger.d("upload=> zip " + new Gson().toJson(o));
-                                CoreUtils.snackbarText(CoreUtils.getString(mApplication, R.string.text_auth_success));
-                                mRootView.killMyself();
+                                mRootView.showSuccess(3);
+                            }
+
+                            @Override
+                            public void onError(Throwable t) {
+                                mRootView.showFail(t);
                             }
                         });
                     }
