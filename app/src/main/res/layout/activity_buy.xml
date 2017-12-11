@@ -79,6 +79,7 @@
                         android:maxLines="1"
                         android:maxWidth="720px"
                         android:minWidth="180px"
+                        android:singleLine="true"
                         android:textColor="#333333"
                         android:textSize="165px"
                         app:layout_constraintLeft_toRightOf="@id/tv_1"

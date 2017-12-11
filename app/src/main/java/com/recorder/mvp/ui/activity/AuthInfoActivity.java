@@ -1,9 +1,11 @@
 package com.recorder.mvp.ui.activity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.GridLayoutManager;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -81,10 +83,13 @@ public class AuthInfoActivity extends BaseActivity<AuthInfoPresenter> implements
     TextView tvGoHome;
     @BindView(R.id.fl_dialog)
     View flDialog;
+    @BindView(R.id.ll_root)
+    View llRoot;
 
     AppStartBean bean;
     File positive;
     File other;
+    AuthGetBean.DataEntity dataEntity = new AuthGetBean.DataEntity();
 
     @Override
     public void setupActivityComponent(AppComponent appComponent) {
@@ -139,14 +144,18 @@ public class AuthInfoActivity extends BaseActivity<AuthInfoPresenter> implements
                 } else {
                     CoreUtils.imgLoader(getApplicationContext(), item.getValue(), holder.getView(R.id.im_upload));
                 }
-                holder.itemView.setOnClickListener(view -> PictureSelector.create(AuthInfoActivity.this)
-                        .openGallery(PictureMimeType.ofImage())
-                        .selectionMode(item.getKey() ? PictureConfig.MULTIPLE : PictureConfig.SINGLE)
-                        .maxSelectNum(item.getKey() ? 5 - getItemCount() : 1)
-                        .previewImage(true)
-                        .previewEggs(true)
-                        .theme(R.style.picture_hx_style)
-                        .forResult(holder.getAdapterPosition() + (item.getKey() ? 0 : 10)));
+//                if (dataEntity.getIs_modify_file()) {
+                holder.itemView.setOnClickListener(view -> {
+                    etName.clearFocus();//取消焦点
+                    PictureSelector.create(AuthInfoActivity.this)
+                            .openGallery(PictureMimeType.ofImage())
+                            .selectionMode(item.getKey() ? PictureConfig.MULTIPLE : PictureConfig.SINGLE)
+                            .maxSelectNum(item.getKey() ? 5 - getItemCount() : 1)
+                            .previewImage(true)
+                            .previewEggs(true)
+                            .theme(R.style.picture_hx_style)
+                            .forResult(holder.getAdapterPosition() + (item.getKey() ? 0 : 10));
+                });
                 holder.itemView.setOnLongClickListener(view -> {
                     int index = 0;
                     for (Bean<Boolean> bean : getData()) {
@@ -163,6 +172,7 @@ public class AuthInfoActivity extends BaseActivity<AuthInfoPresenter> implements
                     }
                     return true;
                 });
+//                }
             }
         }, false);
         recyclerview.getRecyclerView().addItemDecoration(new GridSpacingItemDecoration(4, 45, false));
@@ -270,17 +280,44 @@ public class AuthInfoActivity extends BaseActivity<AuthInfoPresenter> implements
 
     @Override
     public void showAuthGet(AuthGetBean.DataEntity data) {
+        dataEntity = data;
         if (authType == 3) {
             etName.setText(data.getOrgan_name());
+            isModify(etName, data.getOrgan_name());
             etId.setText(data.getOrgan_legal_person());
+            isModify(etId, data.getOrgan_legal_person());
             etContact.setText(data.getOrgan_contact());
+            isModify(etContact, data.getOrgan_contact());
             CoreUtils.imgLoader(this, data.getOrgan_license(), R.drawable.id_organ, imPositive);
+            isModify(imPositive, data.getOrgan_license());
         } else {
             etName.setText(data.getTrue_name());
+            isModify(etName, data.getTrue_name());
             etId.setText(data.getId_card());
+            isModify(etId, data.getId_card());
             CoreUtils.imgLoader(this, data.getIdcard_imgf(), R.drawable.id_0, imPositive);
+            isModify(imPositive, data.getIdcard_imgf());
             CoreUtils.imgLoader(this, data.getIdcard_imgb(), R.drawable.id_1, imOther);
+            isModify(imOther, data.getIdcard_imgb());
         }
         imAgree.setImageResource(data.getCheck().equals("1") ? R.drawable.ic_item_buy_selector : R.drawable.ic_item_buy);
+        isModify(imAgree, data.getCheck());
+    }
+
+    private void isModify(EditText editText, String string) {
+        if (editText == etName && TextUtils.isEmpty(string)) {
+            editText.setFocusable(true);
+            editText.setFocusableInTouchMode(true);
+            editText.requestFocus();
+            CoreUtils.openSoftInputForced(etName);
+        }
+//        editText.setEnabled(TextUtils.isEmpty(string) && dataEntity.getIs_modify());
+        editText.setEnabled(TextUtils.isEmpty(string));
+    }
+
+    @SuppressLint("ClickableViewAccessibility")
+    private void isModify(ImageView imageView, String string) {
+//        imageView.setOnTouchListener((view, motionEvent) -> !TextUtils.isEmpty(string) && dataEntity.getIs_modify());
+        imageView.setOnTouchListener((view, motionEvent) -> !TextUtils.isEmpty(string));
     }
 }
