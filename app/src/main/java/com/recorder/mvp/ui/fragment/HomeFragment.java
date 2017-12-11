@@ -122,13 +122,13 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
         BGABanner banner = view.findViewById(R.id.banner);
         List<Bean> models = new ArrayList<>();
         List<String> titles = new ArrayList<>();
-        models.add(new Bean<>("", "http://ww4.sinaimg.cn/large/006uZZy8jw1faic259ohaj30ci08c74r.jpg", dataEntity.getDeal_recommend().getUrl()));
+        models.add(new Bean<>("deal", dataEntity.getDeal_recommend().getCover(), dataEntity.getDeal_recommend().getUrl()));
         titles.add(dataEntity.getDeal_recommend().getText());
         for (HomeRecommendBean.DataEntity.NewsRecommendEntity entity : dataEntity.getNews_recommend()) {
             models.add(new Bean<>(entity.getNewsID(), entity.getCover(), entity.getUrl()));
             titles.add(entity.getTitle());
         }
-        banner.setAdapter((banner1, itemView, model, position) -> CoreUtils.imgLoader(getContext(), ((Bean) model).getValue(), (ImageView) itemView));
+        banner.setAdapter((banner1, itemView, model, position) -> CoreUtils.imgLoader(getContext(), ((Bean) model).getValue(), ((Bean) model).getKey().equals("deal") ? R.drawable.ic_deal_recommend : R.drawable.home_banner, (ImageView) itemView));
         banner.setData(models, titles);
         List<HomeRecommendBean.DataEntity.Entity> list = new ArrayList<>();
         list.addAll(dataEntity.getZc());
@@ -136,11 +136,11 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
         recyclerView.init(new BaseQuickAdapter<HomeRecommendBean.DataEntity.Entity, BaseViewHolder>(R.layout.item_home, list) {
             @Override
             protected void convert(BaseViewHolder holder, HomeRecommendBean.DataEntity.Entity item) {
-                CoreUtils.imgLoader(getContext(), "http://ww4.sinaimg.cn/large/006uZZy8jw1faic259ohaj30ci08c74r.jpg", holder.getView(R.id.im_pic));
+                CoreUtils.imgLoader(getContext(), item.getCover(), R.drawable.home_list, holder.getView(R.id.im_pic));
                 holder.setText(R.id.tv_title, item.getDeal_name())
                         .setText(R.id.tv_investment, "起投金额: " + item.getLimit_price() + "万")
                         .setText(R.id.tv_financing, "融资总额: " + item.getTarget_fund() + "万")
-                        .setText(R.id.tv_tag, item instanceof HomeRecommendBean.DataEntity.ZcEntity ? "众筹" : "私募");
+                        .setImageResource(R.id.tv_tag, item instanceof HomeRecommendBean.DataEntity.ZcEntity ? R.drawable.ic_home_equity : R.drawable.ic_home_private);
                 AutoProgressBar progressBar = holder.getView(R.id.numberProgressBar);
                 progressBar.setProgress(item.getProgress());
                 holder.itemView.setOnClickListener(view1 -> ARouter.getInstance().build("/app/EquityDetailsActivity")

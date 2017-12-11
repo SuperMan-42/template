@@ -12,23 +12,17 @@
         android:layout_height="40px"
         android:background="#F5F5F5" />
 
-    <TextView
+    <ImageView
         android:id="@+id/tv_tag"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="30px"
         android:layout_marginTop="30px"
-        android:background="@drawable/bga_textview_blue"
         android:gravity="center"
-        android:paddingBottom="6px"
-        android:paddingLeft="20px"
-        android:paddingRight="20px"
-        android:paddingTop="6px"
-        android:text="私募"
-        android:textColor="@color/white"
         android:textSize="36px"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/view_space" />
+        app:layout_constraintTop_toBottomOf="@id/view_space"
+        tools:src="@drawable/ic_home_equity" />
 
     <TextView
         android:id="@+id/tv_title"
@@ -92,11 +86,11 @@
             android:layout_width="match_parent"
             android:layout_height="51px"
             android:background="#00000000"
-            app:finishColor="#5486DF"
-            app:loadingColor="#5486DF"
+            app:finishColor="#F7CE4D"
+            app:loadingColor="#F7CE4D"
             app:progressTextSize="30px"
             app:radius="24px"
-            app:stopColor="#5486DF" />
+            app:stopColor="#F7CE4D" />
     </FrameLayout>
 
     <TextView

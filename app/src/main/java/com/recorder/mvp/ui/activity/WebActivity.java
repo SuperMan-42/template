@@ -54,7 +54,7 @@ public class WebActivity extends BaseActivity {
     public void initView(Bundle savedInstanceState) {
         ARouter.getInstance().inject(this);
         if (right) {
-            imRight.setImageResource(R.drawable.title_right);
+            imRight.setImageResource(R.drawable.ic_share);
             toolbarRight.setVisibility(View.VISIBLE);
         }
         mLinearLayout = this.findViewById(R.id.container);

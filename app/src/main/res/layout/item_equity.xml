@@ -37,17 +37,14 @@
                     android:scaleType="centerCrop"
                     android:src="@drawable/bga_round" />
 
-                <TextView
+                <ImageView
                     android:id="@+id/tv_is_group"
                     android:layout_width="150px"
                     android:layout_height="54px"
-                    android:layout_marginLeft="15px"
+                    android:layout_marginLeft="5px"
                     android:layout_marginTop="93px"
-                    android:background="@drawable/bga_textview_blue"
                     android:gravity="center"
-                    android:text="组合"
-                    android:textColor="@color/white"
-                    android:textSize="39px"
+                    android:src="@drawable/ic_combination"
                     android:visibility="gone" />
             </FrameLayout>
 

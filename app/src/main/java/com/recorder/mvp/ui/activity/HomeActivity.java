@@ -124,7 +124,7 @@ public class HomeActivity extends BaseActivity<HomePresenter> implements HomeCon
     }
 
     private void initHome() {
-        title("昊翔");
+        title("般若云");
         back.setVisibility(View.INVISIBLE);
         mNavigationController = navigation.custom()
                 .addItem(newItem(R.drawable.bottom_home, R.drawable.bottom_home_selector, CoreUtils.getString(this, R.string.Home)))

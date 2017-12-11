@@ -26,6 +26,12 @@ import com.core.utils.Constants;
 import com.core.utils.CoreUtils;
 import com.core.utils.DataHelper;
 import com.google.gson.Gson;
+import com.google.gson.TypeAdapter;
+import com.google.gson.TypeAdapterFactory;
+import com.google.gson.reflect.TypeToken;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonToken;
+import com.google.gson.stream.JsonWriter;
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.FormatStrategy;
 import com.orhanobut.logger.Logger;
@@ -51,6 +57,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.simple.eventbus.EventBus;
 
+import java.io.IOException;
 import java.net.URLDecoder;
 import java.util.Arrays;
 import java.util.List;
@@ -202,7 +209,7 @@ public class GlobalConfiguration implements ConfigModule {
                         }
                     }
                 })
-                .gsonConfiguration((context12, builder1) -> builder1.serializeNulls().enableComplexMapKeySerialization())
+                .gsonConfiguration((context12, builder1) -> builder1.registerTypeAdapterFactory(new NullStringToEmptyAdapterFactory<>()).serializeNulls().enableComplexMapKeySerialization())
                 .rxCacheConfiguration((context13, builder12) -> builder12.useExpiredDataIfLoaderNotAvailable(true));
     }
 
@@ -424,5 +431,36 @@ public class GlobalConfiguration implements ConfigModule {
             EventBus.getDefault().post(1, Constants.HOME_INDEX);
             ARouter.getInstance().build("/app/HomeActivity").navigation();
         });
+    }
+
+    public static class NullStringToEmptyAdapterFactory<T> implements TypeAdapterFactory {
+        @SuppressWarnings("unchecked")
+        public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
+            Class<T> rawType = (Class<T>) type.getRawType();
+            if (rawType != String.class) {
+                return null;
+            }
+            return (TypeAdapter<T>) new StringNullAdapter();
+        }
+    }
+
+    public static class StringNullAdapter extends TypeAdapter<String> {
+        @Override
+        public String read(JsonReader reader) throws IOException {
+            if (reader.peek() == JsonToken.NULL) {
+                reader.nextNull();
+                return "";
+            }
+            return reader.nextString();
+        }
+
+        @Override
+        public void write(JsonWriter writer, String value) throws IOException {
+            if (value == null) {
+                writer.nullValue();
+                return;
+            }
+            writer.value(value);
+        }
     }
 }
