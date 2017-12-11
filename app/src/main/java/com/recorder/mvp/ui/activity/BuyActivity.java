@@ -118,9 +118,9 @@ public class BuyActivity extends BaseActivity<BuyPresenter> implements BuyContra
         setContent(dataEntity.getOther_fee(), llOtherFee, tvOtherFee);
         setContent(dataEntity.getCustom_fee(), llCustomFee, tvCustomFee);
         List<String> list = new ArrayList<>();
-        list.add("http://ww4.sinaimg.cn/large/006uZZy8jw1faic259ohaj30ci08c74r.jpg");
-        list.add("http://ww4.sinaimg.cn/large/006uZZy8jw1faic2b16zuj30ci08cwf4.jpg");
-        list.add("http://ww4.sinaimg.cn/large/006uZZy8jw1faic2e7vsaj30ci08cglz.jpg");
+        list.add("");
+        list.add("");
+        list.add("");
         LinearLayoutManager manager = new LinearLayoutManager(this) {
             @Override
             public boolean canScrollVertically() {

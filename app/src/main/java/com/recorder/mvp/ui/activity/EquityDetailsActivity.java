@@ -234,7 +234,7 @@ public class EquityDetailsActivity extends BaseActivity<EquityDetailsPresenter> 
                         .backgroundDrawable(new BitmapDrawable())
                         .customListener(contentView -> {
                             DealDetailBean.DataEntity.ManagerEntity manager = dataEntity.getManager();
-                            CoreUtils.imgLoader(this, "http://ww4.sinaimg.cn/large/006uZZy8jw1faic1xjab4j30ci08cjrv.jpg", contentView.findViewById(R.id.im_avatar));
+                            CoreUtils.imgLoader(this, manager.getAvatar(), R.drawable.ic_contact, contentView.findViewById(R.id.im_avatar));
                             ((TextView) contentView.findViewById(R.id.tv_manager_name)).setText(manager.getManager_name());
                             ((TextView) contentView.findViewById(R.id.tv_position)).setText(manager.getPosition());
                             ((TextView) contentView.findViewById(R.id.tv_mobile)).setText(manager.getMobile());
@@ -358,7 +358,7 @@ public class EquityDetailsActivity extends BaseActivity<EquityDetailsPresenter> 
         rvTeam.init(teamManager, new BaseQuickAdapter<DealDetailBean.DataEntity.TeamEntity, BaseViewHolder>(R.layout.item_detail_team, dataEntity.getTeam()) {
             @Override
             protected void convert(BaseViewHolder holder, DealDetailBean.DataEntity.TeamEntity item) {
-                CoreUtils.imgLoader(getApplication(), "http://ww4.sinaimg.cn/large/006uZZy8jw1faic1xjab4j30ci08cjrv.jpg", holder.getView(R.id.im_avator));
+                CoreUtils.imgLoader(getApplication(), item.getAvator(), R.drawable.ic_detail_avator, holder.getView(R.id.im_avator));
                 holder.setText(R.id.tv_name, item.getName())
                         .setText(R.id.tv_position, item.getPosition())
                         .setText(R.id.tv_intro, item.getIntro());

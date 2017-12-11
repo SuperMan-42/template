@@ -92,7 +92,7 @@ public class MyAttentionActivity extends BaseActivity<MyAttentionPresenter> impl
         recyclerView.init(new BaseQuickAdapter<UserFollowListBean.DataEntity.ListEntity, BaseViewHolder>(R.layout.item_equity, data.getList()) {
             @Override
             protected void convert(BaseViewHolder holder, UserFollowListBean.DataEntity.ListEntity item) {
-                CoreUtils.imgLoader(getApplication(), "http://ww4.sinaimg.cn/large/006uZZy8jw1faic1xjab4j30ci08cjrv.jpg", holder.getView(R.id.im_cover));
+                CoreUtils.imgLoader(getApplication(), item.getCover(), R.drawable.ic_list, holder.getView(R.id.im_cover));
                 holder.setText(R.id.tv_deal_name, item.getDeal_name())
                         .setText(R.id.tv_brief, item.getBrief())
                         .setText(R.id.tv_labels, item.getLabels())

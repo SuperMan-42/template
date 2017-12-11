@@ -108,7 +108,7 @@ public class DynamicFragment extends BaseFragment<DynamicPresenter> implements D
         recyclerView.init(new BaseQuickAdapter<NewsListBean.DataEntity.ListEntity, BaseViewHolder>(R.layout.item_dynamic, data.getList()) {
             @Override
             protected void convert(BaseViewHolder holder, NewsListBean.DataEntity.ListEntity item) {
-                CoreUtils.imgLoader(getContext(), "http://ww4.sinaimg.cn/large/006uZZy8jw1faic1xjab4j30ci08cjrv.jpg", holder.getView(R.id.im_cover));
+                CoreUtils.imgLoader(getContext(), item.getCover(), R.drawable.ic_dynamic, holder.getView(R.id.im_cover));
                 holder.setText(R.id.tv_title, item.getTitle());
                 holder.itemView.setOnClickListener(view1 -> ARouter.getInstance().build("/app/WebActivity")
                         .withBoolean(Constants.IS_SHOW_RIGHT, true)

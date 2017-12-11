@@ -137,7 +137,7 @@ public class EquityFragment extends BaseFragment<EquityPresenter> implements Equ
         recyclerView.init(new BaseQuickAdapter<EquityBean.DataEntity.ListEntity, BaseViewHolder>(R.layout.item_equity, equityBean.getData().getList()) {
             @Override
             protected void convert(BaseViewHolder holder, EquityBean.DataEntity.ListEntity item) {
-                CoreUtils.imgLoader(getContext(), "http://ww4.sinaimg.cn/large/006uZZy8jw1faic1xjab4j30ci08cjrv.jpg", holder.getView(R.id.im_cover));
+                CoreUtils.imgLoader(getContext(), item.getCover(), R.drawable.ic_list, holder.getView(R.id.im_cover));
                 holder.setText(R.id.tv_deal_name, item.getDeal_name())
                         .setText(R.id.tv_brief, item.getBrief())
                         .setText(R.id.tv_labels, item.getLabels())
