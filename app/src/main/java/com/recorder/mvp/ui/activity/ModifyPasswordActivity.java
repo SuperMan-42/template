@@ -119,6 +119,7 @@ public class ModifyPasswordActivity extends BaseActivity<ModifyPasswordPresenter
             CoreUtils.snackbarText(CoreUtils.getString(this, R.string.text_password_no_null));
             return;
         }
-        mPresenter.smsCode(new Gson().fromJson(BCache.getInstance().getString(Constants.LOGIN_INFO), LoginBean.class).getData().getMobile(), "3", null);
+        LoginBean loginBean = new Gson().fromJson(BCache.getInstance().getString(Constants.LOGIN_INFO), LoginBean.class);
+        mPresenter.smsCode(loginBean != null ? loginBean.getData().getMobile() : "", "3", null);
     }
 }

@@ -160,12 +160,13 @@
                     android:textSize="42px" />
 
                 <TextView
+                    android:id="@+id/tv_phone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
-                    android:text="@string/recommend_phone"
                     android:textColor="#303BD3"
-                    android:textSize="42px" />
+                    android:textSize="42px"
+                    tools:text="@string/recommend_phone" />
             </LinearLayout>
 
             <LinearLayout
@@ -183,12 +184,13 @@
                     android:textSize="42px" />
 
                 <TextView
+                    android:id="@+id/tv_email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
-                    android:text="@string/recommend_email"
                     android:textColor="#303BD3"
-                    android:textSize="42px" />
+                    android:textSize="42px"
+                    tools:text="@string/recommend_email" />
             </LinearLayout>
 
             <TextView

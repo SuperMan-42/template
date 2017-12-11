@@ -5,16 +5,21 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.core.base.BaseActivity;
 import com.core.di.component.AppComponent;
+import com.core.integration.cache.BCache;
+import com.core.utils.Constants;
 import com.core.utils.CoreUtils;
 import com.core.widget.AndroidBug5497Workaround;
+import com.google.gson.Gson;
 import com.recorder.R;
 import com.recorder.di.component.DaggerDealRecommendComponent;
 import com.recorder.di.module.DealRecommendModule;
 import com.recorder.mvp.contract.DealRecommendContract;
+import com.recorder.mvp.model.entity.AppStartBean;
 import com.recorder.mvp.presenter.DealRecommendPresenter;
 
 import butterknife.BindView;
@@ -39,6 +44,10 @@ public class DealRecommendActivity extends BaseActivity<DealRecommendPresenter> 
     EditText etBusiness;
     @BindView(R.id.et_team)
     EditText etTeam;
+    @BindView(R.id.tv_phone)
+    TextView tvPhone;
+    @BindView(R.id.tv_email)
+    TextView tvEmail;
 
     @Override
     public void setupActivityComponent(AppComponent appComponent) {
@@ -59,6 +68,11 @@ public class DealRecommendActivity extends BaseActivity<DealRecommendPresenter> 
     public void initView(Bundle savedInstanceState) {
         AndroidBug5497Workaround.assistActivity(this);
         title("推荐项目");
+        AppStartBean bean = new Gson().fromJson(BCache.getInstance().getString(Constants.APPSTART), AppStartBean.class);
+        if (bean != null) {
+            tvPhone.setText(bean.getData().getService_tel());
+            tvEmail.setText(bean.getData().getEmail());
+        }
     }
 
     @Override

@@ -36,7 +36,9 @@ public class ServiceCenterActivity extends BaseActivity {
     public void initView(Bundle savedInstanceState) {
         title("客服中心");
         AppStartBean bean = new Gson().fromJson(BCache.getInstance().getString(Constants.APPSTART), AppStartBean.class);
-        tvPhone.setText(bean.getData().getService_tel());
-        tvEmail.setText(bean.getData().getEmail());
+        if (bean != null) {
+            tvPhone.setText(bean.getData().getService_tel());
+            tvEmail.setText(bean.getData().getEmail());
+        }
     }
 }
