@@ -33,5 +33,6 @@ public class Constants {
     public static final String APPSTART = "appstart";
     public static final String AUTH_TYPE = "auth_type";
     public static final String AUTH_INFO_SUCCESS = "auth_info_success";
-    public static final int PAGE_SIZE = 20;
+    public static final String PAGE_SIZE = "20";
+    public static final int PAGE_SIZE_INT = 20;
 }

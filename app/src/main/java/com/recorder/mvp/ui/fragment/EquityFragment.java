@@ -65,13 +65,37 @@ public class EquityFragment extends BaseFragment<EquityPresenter> implements Equ
 
     @Override
     public void initData(Bundle savedInstanceState) {
-        mPresenter.dealList("1", null, null, null, null, null);
+        mPresenter.dealList("1", null, null, null, "1", Constants.PAGE_SIZE);
+        recyclerView.init(new BaseQuickAdapter<EquityBean.DataEntity.ListEntity, BaseViewHolder>(R.layout.item_equity) {
+            @Override
+            protected void convert(BaseViewHolder holder, EquityBean.DataEntity.ListEntity item) {
+                CoreUtils.imgLoader(getContext(), item.getCover(), R.drawable.ic_list, holder.getView(R.id.im_cover));
+                holder.setText(R.id.tv_deal_name, item.getDeal_name())
+                        .setText(R.id.tv_brief, item.getBrief())
+                        .setText(R.id.tv_labels, item.getLabels())
+                        .setText(R.id.tv_round, item.getRound())
+                        .setText(R.id.tv_online_str, item.getOnline_str())
+                        .setVisible(R.id.tv_is_group, item.getIs_group().equals("1"));
+                EquityBean.DataEntity.ListEntity.ViewFooterEntity viewFooterEntity = item.getView_footer();
+                if (viewFooterEntity != null) {
+                    holder.setText(R.id.tv_view, String.valueOf(viewFooterEntity.getView()))
+                            .setText(R.id.tv_focus, String.valueOf(viewFooterEntity.getFocus()))
+                            .setText(R.id.tv_consult, String.valueOf(viewFooterEntity.getConsult()))
+                            .setVisible(R.id.ll_view_footer, true);
+                } else {
+                    holder.setVisible(R.id.ll_view_footer, false);
+                }
+                holder.itemView.setOnClickListener(view1 -> ARouter.getInstance().build("/app/EquityDetailsActivity")
+                        .withBoolean(Constants.IS_EQUITY, true).withString(Constants.DEAL_ID, item.getDealID()).navigation());
+            }
+        }).openRefresh(page -> mPresenter.dealList("1", null, null, null, "1", Constants.PAGE_SIZE))
+                .openLoadMore(Constants.PAGE_SIZE_INT, page -> mPresenter.dealList("1", null, null, null, String.valueOf(page), Constants.PAGE_SIZE)).reStart();
     }
 
     @Subscriber(tag = Constants.RETRY_FRAGMENT)
     private void retry(LoginBean loginBean) {
         getActivity().findViewById(R.id.view_empty).setVisibility(View.GONE);
-        mPresenter.dealList("1", null, null, null, null, null);
+        mPresenter.dealList("1", null, null, null, "1", Constants.PAGE_SIZE);
     }
 
     /**
@@ -102,7 +126,7 @@ public class EquityFragment extends BaseFragment<EquityPresenter> implements Equ
         }
         tvTag.setVisibility(TextUtils.isEmpty(bundle.getString("lablesName")) && TextUtils.isEmpty(bundle.getString("roundName")) ? View.GONE : View.VISIBLE);
         mPresenter.dealList("1", TextUtils.isEmpty(bundle.getString("lables")) ? null : bundle.getString("lables"),
-                TextUtils.isEmpty(bundle.getString("round")) ? null : bundle.getString("round"), null, null, null);
+                TextUtils.isEmpty(bundle.getString("round")) ? null : bundle.getString("round"), null, "1", Constants.PAGE_SIZE);
     }
 
     @Override
@@ -134,28 +158,6 @@ public class EquityFragment extends BaseFragment<EquityPresenter> implements Equ
 
     @Override
     public void showEquity(EquityBean equityBean) {
-        recyclerView.init(new BaseQuickAdapter<EquityBean.DataEntity.ListEntity, BaseViewHolder>(R.layout.item_equity, equityBean.getData().getList()) {
-            @Override
-            protected void convert(BaseViewHolder holder, EquityBean.DataEntity.ListEntity item) {
-                CoreUtils.imgLoader(getContext(), item.getCover(), R.drawable.ic_list, holder.getView(R.id.im_cover));
-                holder.setText(R.id.tv_deal_name, item.getDeal_name())
-                        .setText(R.id.tv_brief, item.getBrief())
-                        .setText(R.id.tv_labels, item.getLabels())
-                        .setText(R.id.tv_round, item.getRound())
-                        .setText(R.id.tv_online_str, item.getOnline_str())
-                        .setVisible(R.id.tv_is_group, item.getIs_group().equals("1"));
-                EquityBean.DataEntity.ListEntity.ViewFooterEntity viewFooterEntity = item.getView_footer();
-                if (viewFooterEntity != null) {
-                    holder.setText(R.id.tv_view, String.valueOf(viewFooterEntity.getView()))
-                            .setText(R.id.tv_focus, String.valueOf(viewFooterEntity.getFocus()))
-                            .setText(R.id.tv_consult, String.valueOf(viewFooterEntity.getConsult()))
-                            .setVisible(R.id.ll_view_footer, true);
-                } else {
-                    holder.setVisible(R.id.ll_view_footer, false);
-                }
-                holder.itemView.setOnClickListener(view1 -> ARouter.getInstance().build("/app/EquityDetailsActivity")
-                        .withBoolean(Constants.IS_EQUITY, true).withString(Constants.DEAL_ID, item.getDealID()).navigation());
-            }
-        }, false);
+        recyclerView.getAdapter().addData(equityBean.getData().getList());
     }
 }

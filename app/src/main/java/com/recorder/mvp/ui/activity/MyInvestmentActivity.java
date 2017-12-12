@@ -81,14 +81,47 @@ public class MyInvestmentActivity extends BaseActivity<MyInvestmentPresenter> im
     @Override
     public void initView(Bundle savedInstanceState) {
         title("我的投资");
-        mPresenter.orderList(null, null);
+        mPresenter.orderList("1", Constants.PAGE_SIZE);
         recyclerView.getRecyclerView().addItemDecoration(new SpacesItemDecoration(0, 36));
+        recyclerView.init(new BaseQuickAdapter<OrderListBean.DataEntity.ListEntity, BaseViewHolder>(R.layout.item_my_investment) {
+            @Override
+            protected void convert(BaseViewHolder holder, OrderListBean.DataEntity.ListEntity item) {
+                CoreUtils.imgLoader(holder.itemView.getContext(), item.getCover(), holder.getView(R.id.im_cover));
+                holder.setText(R.id.tv_deal_name, item.getDeal_name())
+                        .setText(R.id.tv_amount, item.getAmount())
+                        .setText(R.id.tv_actual_amount, item.getActual_amount())
+                        .setText(R.id.tv_order_status_name, item.getOrder_status_name());
+                if (item.getOrder_status() == 0 || item.getOrder_status() == 1) {
+                    holder.setText(R.id.tv_pay_bt, "支付");
+                    holder.getView(R.id.tv_pay_bt).setOnClickListener(view -> {
+                        mPresenter.orderPay(item.getOrderID(), item, "2");
+                        position = holder.getAdapterPosition();
+                    });
+                } else if (item.getOrder_status() == 4) {
+                    holder.setText(R.id.tv_pay_bt, "上传打款凭证");
+                    holder.getView(R.id.tv_pay_bt).setOnClickListener(view -> {
+                        Bundle bundle = new Bundle();
+                        bundle.putString(Constants.UPLOAD_ORDERID, item.getOrderID());
+                        ARouter.getInstance().build("/app/UploadActivity").withBundle(Constants.UPLOAD, bundle).withBoolean(Constants.ORDER_PROOF, true).navigation();
+                        position = holder.getAdapterPosition();
+                    });
+                }
+                setContent(holder, item, item.getManager_amount(), R.id.ll_manager_amount, R.id.tv_manager_amount);
+                setContent(holder, item, item.getConsult_amount(), R.id.ll_consult_amount, R.id.tv_consult_amount);
+                setContent(holder, item, item.getSubscription_amount(), R.id.ll_subscription_amount, R.id.tv_subscription_amount);
+                setContent(holder, item, item.getPartner_amount(), R.id.ll_partner_amount, R.id.tv_partner_amount);
+                setContent(holder, item, item.getPlat_manage_amount(), R.id.ll_plat_manage_amount, R.id.tv_plat_manage_amount);
+                setContent(holder, item, item.getOther_amount(), R.id.ll_other_amount, R.id.tv_other_amount);
+                setContent(holder, item, item.getCustom_amount(), R.id.ll_custom_amount, R.id.tv_custom_amount);
+            }
+        }).openRefresh(page -> mPresenter.orderList("1", Constants.PAGE_SIZE))
+                .openLoadMore(Constants.PAGE_SIZE_INT, page -> mPresenter.orderList(String.valueOf(page), Constants.PAGE_SIZE)).reStart();
     }
 
     @Subscriber(tag = Constants.RETRY_MYINVESTMENT)
     private void retry(LoginBean loginBean) {
         findViewById(R.id.view_empty).setVisibility(View.GONE);
-        mPresenter.orderList(null, null);
+        mPresenter.orderList("1", Constants.PAGE_SIZE);
     }
 
     @Override
@@ -120,38 +153,7 @@ public class MyInvestmentActivity extends BaseActivity<MyInvestmentPresenter> im
 
     @Override
     public void showOrderList(OrderListBean.DataEntity data) {
-        recyclerView.init(new BaseQuickAdapter<OrderListBean.DataEntity.ListEntity, BaseViewHolder>(R.layout.item_my_investment, data.getList()) {
-            @Override
-            protected void convert(BaseViewHolder holder, OrderListBean.DataEntity.ListEntity item) {
-                CoreUtils.imgLoader(holder.itemView.getContext(), item.getCover(), holder.getView(R.id.im_cover));
-                holder.setText(R.id.tv_deal_name, item.getDeal_name())
-                        .setText(R.id.tv_amount, item.getAmount())
-                        .setText(R.id.tv_actual_amount, item.getActual_amount())
-                        .setText(R.id.tv_order_status_name, item.getOrder_status_name());
-                if (item.getOrder_status() == 0 || item.getOrder_status() == 1) {
-                    holder.setText(R.id.tv_pay_bt, "支付");
-                    holder.getView(R.id.tv_pay_bt).setOnClickListener(view -> {
-                        mPresenter.orderPay(item.getOrderID(), item, "2");
-                        position = holder.getAdapterPosition();
-                    });
-                } else if (item.getOrder_status() == 4) {
-                    holder.setText(R.id.tv_pay_bt, "上传打款凭证");
-                    holder.getView(R.id.tv_pay_bt).setOnClickListener(view -> {
-                        Bundle bundle = new Bundle();
-                        bundle.putString(Constants.UPLOAD_ORDERID, item.getOrderID());
-                        ARouter.getInstance().build("/app/UploadActivity").withBundle(Constants.UPLOAD, bundle).withBoolean(Constants.ORDER_PROOF, true).navigation();
-                        position = holder.getAdapterPosition();
-                    });
-                }
-                setContent(holder, item, item.getManager_amount(), R.id.ll_manager_amount, R.id.tv_manager_amount);
-                setContent(holder, item, item.getConsult_amount(), R.id.ll_consult_amount, R.id.tv_consult_amount);
-                setContent(holder, item, item.getSubscription_amount(), R.id.ll_subscription_amount, R.id.tv_subscription_amount);
-                setContent(holder, item, item.getPartner_amount(), R.id.ll_partner_amount, R.id.tv_partner_amount);
-                setContent(holder, item, item.getPlat_manage_amount(), R.id.ll_plat_manage_amount, R.id.tv_plat_manage_amount);
-                setContent(holder, item, item.getOther_amount(), R.id.ll_other_amount, R.id.tv_other_amount);
-                setContent(holder, item, item.getCustom_amount(), R.id.ll_custom_amount, R.id.tv_custom_amount);
-            }
-        }, false);
+        recyclerView.getAdapter().addData(data.getList());
     }
 
     @Subscriber(tag = Constants.ORDER_PROOF)

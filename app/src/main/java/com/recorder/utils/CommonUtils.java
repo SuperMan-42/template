@@ -17,6 +17,7 @@ import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.arjinmc.recyclerviewdecoration.RecyclerViewItemDecoration;
+import com.arjinmc.recyclerviewdecoration.RecyclerViewSpaceItemDecoration;
 import com.core.integration.cache.BCache;
 import com.core.utils.CoreUtils;
 import com.google.gson.Gson;
@@ -399,6 +400,12 @@ public class CommonUtils {
                 })
                 .withMedia(web)
                 .open(config);
+    }
+
+    public static RecyclerView.ItemDecoration linearOffsets(Context context, int size) {
+        return new RecyclerViewSpaceItemDecoration.Builder(context)
+                .margin(size)
+                .create();
     }
 
     public static RecyclerView.ItemDecoration linearDivider(Context context, int padding) {

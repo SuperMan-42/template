@@ -411,7 +411,7 @@ public class EquityDetailsActivity extends BaseActivity<EquityDetailsPresenter> 
             @Override
             protected void convert(BaseViewHolder holder, DealDetailBean.DataEntity.QaEntity item) {
                 holder.setText(R.id.tv_question, (holder.getAdapterPosition() + 1) + "、" + item.getQuestion())
-                        .setText(R.id.tv_answer, item.getAnswer());
+                        .setText(R.id.tv_answer, Html.fromHtml(item.getAnswer()));
             }
         }, false);
         rvQa.getRecyclerView().addItemDecoration(CommonUtils.linearDivider(this, 0));

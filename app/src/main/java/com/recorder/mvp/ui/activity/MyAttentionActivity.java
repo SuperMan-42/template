@@ -51,13 +51,37 @@ public class MyAttentionActivity extends BaseActivity<MyAttentionPresenter> impl
     @Override
     public void initView(Bundle savedInstanceState) {
         title("我的关注");
-        mPresenter.userFollowlist(null, null);
+        mPresenter.userFollowlist("1", Constants.PAGE_SIZE);
+        recyclerView.init(new BaseQuickAdapter<UserFollowListBean.DataEntity.ListEntity, BaseViewHolder>(R.layout.item_equity) {
+            @Override
+            protected void convert(BaseViewHolder holder, UserFollowListBean.DataEntity.ListEntity item) {
+                CoreUtils.imgLoader(getApplication(), item.getCover(), R.drawable.ic_list, holder.getView(R.id.im_cover));
+                holder.setText(R.id.tv_deal_name, item.getDeal_name())
+                        .setText(R.id.tv_brief, item.getBrief())
+                        .setText(R.id.tv_labels, item.getLabels())
+                        .setText(R.id.tv_round, item.getRound())
+                        .setText(R.id.tv_online_str, item.getOnline_str())
+                        .setVisible(R.id.tv_is_group, item.getIs_group().equals("1"));
+                UserFollowListBean.DataEntity.ListEntity.ViewFooterEntity viewFooterEntity = item.getView_footer();
+                if (viewFooterEntity != null) {
+                    holder.setText(R.id.tv_view, String.valueOf(viewFooterEntity.getView()))
+                            .setText(R.id.tv_focus, String.valueOf(viewFooterEntity.getFocus()))
+                            .setText(R.id.tv_consult, String.valueOf(viewFooterEntity.getConsult()))
+                            .setVisible(R.id.ll_view_footer, true);
+                } else {
+                    holder.setVisible(R.id.ll_view_footer, false);
+                }
+                holder.itemView.setOnClickListener(view1 -> ARouter.getInstance().build("/app/EquityDetailsActivity")
+                        .withBoolean(Constants.IS_EQUITY, true).withString(Constants.DEAL_ID, item.getDealID()).navigation());//TODO 少一个字段
+            }
+        }).openRefresh(page -> mPresenter.userFollowlist("1", Constants.PAGE_SIZE))
+                .openLoadMore(Constants.PAGE_SIZE_INT, page -> mPresenter.userFollowlist(String.valueOf(page), Constants.PAGE_SIZE)).reStart();
     }
 
     @Subscriber(tag = Constants.RETRY_MYATTENTION)
     private void retry(LoginBean loginBean) {
         findViewById(R.id.view_empty).setVisibility(View.GONE);
-        mPresenter.userFollowlist(null, null);
+        mPresenter.userFollowlist("1", Constants.PAGE_SIZE);
     }
 
     @Override
@@ -89,28 +113,6 @@ public class MyAttentionActivity extends BaseActivity<MyAttentionPresenter> impl
 
     @Override
     public void showUserFollowList(UserFollowListBean.DataEntity data) {
-        recyclerView.init(new BaseQuickAdapter<UserFollowListBean.DataEntity.ListEntity, BaseViewHolder>(R.layout.item_equity, data.getList()) {
-            @Override
-            protected void convert(BaseViewHolder holder, UserFollowListBean.DataEntity.ListEntity item) {
-                CoreUtils.imgLoader(getApplication(), item.getCover(), R.drawable.ic_list, holder.getView(R.id.im_cover));
-                holder.setText(R.id.tv_deal_name, item.getDeal_name())
-                        .setText(R.id.tv_brief, item.getBrief())
-                        .setText(R.id.tv_labels, item.getLabels())
-                        .setText(R.id.tv_round, item.getRound())
-                        .setText(R.id.tv_online_str, item.getOnline_str())
-                        .setVisible(R.id.tv_is_group, item.getIs_group().equals("1"));
-                UserFollowListBean.DataEntity.ListEntity.ViewFooterEntity viewFooterEntity = item.getView_footer();
-                if (viewFooterEntity != null) {
-                    holder.setText(R.id.tv_view, String.valueOf(viewFooterEntity.getView()))
-                            .setText(R.id.tv_focus, String.valueOf(viewFooterEntity.getFocus()))
-                            .setText(R.id.tv_consult, String.valueOf(viewFooterEntity.getConsult()))
-                            .setVisible(R.id.ll_view_footer, true);
-                } else {
-                    holder.setVisible(R.id.ll_view_footer, false);
-                }
-                holder.itemView.setOnClickListener(view1 -> ARouter.getInstance().build("/app/EquityDetailsActivity")
-                        .withBoolean(Constants.IS_EQUITY, true).withString(Constants.DEAL_ID, item.getDealID()).navigation());//TODO 少一个字段
-            }
-        }, false);
+        recyclerView.getAdapter().addData(data.getList());
     }
 }

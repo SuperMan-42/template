@@ -148,8 +148,5 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
                         .withString(Constants.DEAL_ID, item.getDealID()).navigation());
             }
         }).openRefresh(page -> mPresenter.homeRecommend()).addHeaderView(view);
-        //        }).openRefresh(page -> mPresenter.getData(1, PAGESIZE))
-        //        .openLoadMore(PAGESIZE, page -> mPresenter.getData(page, PAGESIZE));
-        //        coreRecyclerView.reStart();
     }
 }
