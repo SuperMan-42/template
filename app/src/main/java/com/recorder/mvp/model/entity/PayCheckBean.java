@@ -1,5 +1,7 @@
 package com.recorder.mvp.model.entity;
 
+import java.util.List;
+
 /**
  * Created by hpw on 17-12-4.
  */
@@ -9,7 +11,7 @@ public class PayCheckBean {
     /**
      * errno : 0
      * error : 成功
-     * data : {"dealID":"a37adb060e54843880d00da9","deal_name":"网络电影《人间大炮3》2","limit_price":"0.1","shakes":"0","manager_fee":"5","manager_fee_year":"2","consult_fee":"0","consult_fee_year":"0","subscription_fee":"0","subscription_fee_year":"0","partner_fee":"0","partner_fee_year":"0","plat_manage_fee":"0","plat_manage_fee_year":"0","other_fee":"0","other_fee_year":"0","custom_fee_name":"","custom_fee":"0","custom_fee_year":"0"}
+     * data : {"dealID":"6f10e0b2e9070c5484380ca9","deal_name":"长篇史诗电视剧<<利顺德传奇>>","limit_price":"5","shakes":"0.006","manager_fee":"1","manager_fee_year":"2","consult_fee":"0","consult_fee_year":"0","subscription_fee":"0","subscription_fee_year":"0","partner_fee":"0","partner_fee_year":"0","plat_manage_fee":"0","plat_manage_fee_year":"0","other_fee":"0","other_fee_year":"0","custom_fee_name":"","custom_fee":"0","custom_fee_year":"0","purchse_agreement":[{"file_name":"投资顾问协议协议协议","file":"http://ustatic-test.dreamflyc.com//attachment/201712/11/15/5a2e3ac9f2337.pdf"}]}
      */
 
     private int errno;
@@ -42,11 +44,11 @@ public class PayCheckBean {
 
     public static class DataEntity {
         /**
-         * dealID : a37adb060e54843880d00da9
-         * deal_name : 网络电影《人间大炮3》2
-         * limit_price : 0.1
-         * shakes : 0
-         * manager_fee : 5
+         * dealID : 6f10e0b2e9070c5484380ca9
+         * deal_name : 长篇史诗电视剧<<利顺德传奇>>
+         * limit_price : 5
+         * shakes : 0.006
+         * manager_fee : 1
          * manager_fee_year : 2
          * consult_fee : 0
          * consult_fee_year : 0
@@ -61,6 +63,7 @@ public class PayCheckBean {
          * custom_fee_name :
          * custom_fee : 0
          * custom_fee_year : 0
+         * purchse_agreement : [{"file_name":"投资顾问协议协议协议","file":"http://ustatic-test.dreamflyc.com//attachment/201712/11/15/5a2e3ac9f2337.pdf"}]
          */
 
         private String dealID;
@@ -82,6 +85,7 @@ public class PayCheckBean {
         private String custom_fee_name;
         private String custom_fee;
         private String custom_fee_year;
+        private List<PurchseAgreementEntity> purchse_agreement;
 
         public void setDealID(String dealID) {
             this.dealID = dealID;
@@ -159,6 +163,10 @@ public class PayCheckBean {
             this.custom_fee_year = custom_fee_year;
         }
 
+        public void setPurchse_agreement(List<PurchseAgreementEntity> purchse_agreement) {
+            this.purchse_agreement = purchse_agreement;
+        }
+
         public String getDealID() {
             return dealID;
         }
@@ -233,6 +241,45 @@ public class PayCheckBean {
 
         public String getCustom_fee_year() {
             return custom_fee_year;
+        }
+
+        public List<PurchseAgreementEntity> getPurchse_agreement() {
+            return purchse_agreement;
+        }
+
+        public static class PurchseAgreementEntity {
+            /**
+             * file_name : 投资顾问协议协议协议
+             * file : http://ustatic-test.dreamflyc.com//attachment/201712/11/15/5a2e3ac9f2337.pdf
+             */
+
+            private String file_name;
+            private String file;
+            private boolean isCheck = false;
+
+            public void setFile_name(String file_name) {
+                this.file_name = file_name;
+            }
+
+            public void setFile(String file) {
+                this.file = file;
+            }
+
+            public String getFile_name() {
+                return file_name;
+            }
+
+            public String getFile() {
+                return file;
+            }
+
+            public boolean getCheck() {
+                return isCheck;
+            }
+
+            public void setCheck(boolean check) {
+                isCheck = check;
+            }
         }
     }
 }

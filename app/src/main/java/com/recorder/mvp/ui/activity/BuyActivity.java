@@ -29,8 +29,6 @@ import com.recorder.mvp.model.entity.PayCheckBean;
 import com.recorder.mvp.presenter.BuyPresenter;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -117,10 +115,6 @@ public class BuyActivity extends BaseActivity<BuyPresenter> implements BuyContra
         setContent(dataEntity.getPlat_manage_fee(), llPlatManageFee, tvPlatManageFee);
         setContent(dataEntity.getOther_fee(), llOtherFee, tvOtherFee);
         setContent(dataEntity.getCustom_fee(), llCustomFee, tvCustomFee);
-        List<String> list = new ArrayList<>();
-        list.add("");
-        list.add("");
-        list.add("");
         LinearLayoutManager manager = new LinearLayoutManager(this) {
             @Override
             public boolean canScrollVertically() {
@@ -128,9 +122,17 @@ public class BuyActivity extends BaseActivity<BuyPresenter> implements BuyContra
             }
         };
         manager.setAutoMeasureEnabled(true);
-        recyclerview.init(manager, new BaseQuickAdapter<String, BaseViewHolder>(R.layout.item_buy, list) {
+        recyclerview.init(manager, new BaseQuickAdapter<PayCheckBean.DataEntity.PurchseAgreementEntity, BaseViewHolder>(R.layout.item_buy, dataEntity.getPurchse_agreement()) {
             @Override
-            protected void convert(BaseViewHolder holder, String item) {
+            protected void convert(BaseViewHolder holder, PayCheckBean.DataEntity.PurchseAgreementEntity item) {
+                holder.setText(R.id.tv_agree, item.getFile_name())
+                        .setImageResource(R.id.im_agree, item.getCheck() ? R.drawable.ic_item_buy_selector : R.drawable.ic_item_buy);
+                holder.getView(R.id.tv_agree).setOnClickListener(view -> ARouter.getInstance().build("/app/PdfActivity")
+                        .withString(Constants.PDF_HTTP, item.getFile()).withString(Constants.PDF_NAME, item.getFile_name()).navigation());
+                holder.getView(R.id.im_agree).setOnClickListener(view -> {
+                    item.setCheck(!item.getCheck());
+                    holder.setImageResource(R.id.im_agree, item.getCheck() ? R.drawable.ic_item_buy_selector : R.drawable.ic_item_buy);
+                });
             }
         }, false);
     }
@@ -182,6 +184,12 @@ public class BuyActivity extends BaseActivity<BuyPresenter> implements BuyContra
                 if (TextUtils.isEmpty(value)) {
                     CoreUtils.snackbarText("金额不能为空");
                     return;
+                }
+                for (Object entity : recyclerview.getAdapter().getData()) {
+                    if (!((PayCheckBean.DataEntity.PurchseAgreementEntity) entity).getCheck()) {
+                        CoreUtils.snackbarText(getString(R.string.text_agree));
+                        return;
+                    }
                 }
                 BigDecimal bigDecimal = new BigDecimal(value);
                 ARouter.getInstance().build("/app/CashierActivity")

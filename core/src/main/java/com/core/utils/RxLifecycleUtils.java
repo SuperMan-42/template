@@ -111,7 +111,7 @@ public class RxLifecycleUtils {
     }
 
     public static <T> ObservableTransformer<T, T> transformer(@NonNull IView view) {
-        return upstream -> upstream.retryWhen(new RetryWithToken(3, 2))
+        return upstream -> upstream.retryWhen(new RetryWithToken(1, 2))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .compose(bindToLifecycle(view));
