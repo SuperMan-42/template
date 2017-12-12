@@ -519,6 +519,14 @@ public class CoreUtils {
         GlideArms.with(context).load(o).transition(DrawableTransitionOptions.withCrossFade().crossFade(200)).fallback(replace).error(replace).apply(requestOptions).into(image);
     }
 
+    public static void imgLoaderRound(Context context, Object o, int replace, ImageView image) {
+        GlideArms.with(context).load(o).fallback(replace).error(replace).into(image);
+    }
+
+    public static void imgLoaderRound(Context context, Object o, RequestOptions requestOptions, int replace, ImageView image) {
+        GlideArms.with(context).load(o).fallback(replace).error(replace).apply(requestOptions).into(image);
+    }
+
     public static void imgLoaderCircle(Context context, Object o, ImageView image, Drawable res) {
         GlideArms.with(context).load(o).dontAnimate().placeholder(image.getDrawable()).fallback(res).error(res).into(image);
     }

@@ -33,7 +33,9 @@ import java.util.List;
 
 import butterknife.BindView;
 import cn.bingoogolapple.bgabanner.BGABanner;
+import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
+import static com.bumptech.glide.request.RequestOptions.bitmapTransform;
 import static com.core.utils.Preconditions.checkNotNull;
 
 @Route(path = "/app/HomeFragment")
@@ -128,15 +130,27 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
             models.add(new Bean<>(entity.getNewsID(), entity.getCover(), entity.getUrl()));
             titles.add(entity.getTitle());
         }
-        banner.setAdapter((banner1, itemView, model, position) -> CoreUtils.imgLoader(getContext(), ((Bean) model).getValue(), ((Bean) model).getKey().equals("deal") ? R.drawable.ic_deal_recommend : R.drawable.home_banner, (ImageView) itemView));
+        banner.setAdapter((banner1, itemView, model, position) -> {
+            CoreUtils.imgLoader(getContext(), ((Bean) model).getValue(), ((Bean) model).getKey().equals("deal") ? R.drawable.ic_deal_recommend : R.drawable.home_banner, (ImageView) itemView);
+            itemView.setOnClickListener(view12 -> {
+                if (((Bean) model).getKey().equals("deal")) {
+                    ARouter.getInstance().build("/app/EquityDetailsActivity")
+                            .withBoolean(Constants.IS_EQUITY, true).withString(Constants.DEAL_ID, ((Bean) model).getOther()).navigation();
+                } else {
+                    ARouter.getInstance().build("/app/WebActivity")
+                            .withBoolean(Constants.IS_SHOW_RIGHT, true).withString(Constants.WEB_URL, ((Bean) model).getOther()).navigation();
+                }
+            });
+        });
         banner.setData(models, titles);
+        banner.setAutoPlayInterval(5000);
         List<HomeRecommendBean.DataEntity.Entity> list = new ArrayList<>();
         list.addAll(dataEntity.getZc());
         list.addAll(dataEntity.getSm());
         recyclerView.init(new BaseQuickAdapter<HomeRecommendBean.DataEntity.Entity, BaseViewHolder>(R.layout.item_home, list) {
             @Override
             protected void convert(BaseViewHolder holder, HomeRecommendBean.DataEntity.Entity item) {
-                CoreUtils.imgLoader(getContext(), item.getCover(), R.drawable.home_list, holder.getView(R.id.im_pic));
+                CoreUtils.imgLoaderRound(getContext(), item.getCover(), bitmapTransform(new RoundedCornersTransformation(24, 0, RoundedCornersTransformation.CornerType.ALL)), R.drawable.home_list, holder.getView(R.id.im_pic));
                 holder.setText(R.id.tv_title, item.getDeal_name())
                         .setText(R.id.tv_investment, "起投金额: " + item.getLimit_price() + "万")
                         .setText(R.id.tv_financing, "融资总额: " + item.getTarget_fund() + "万")

@@ -46,7 +46,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_tag"
-        tools:src="@color/colorAccent" />
+        tools:src="@color/white" />
 
     <!--<com.recorder.widget.AutoNumberProgressBar-->
     <!--android:id="@+id/numberProgressBar"-->
