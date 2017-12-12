@@ -91,6 +91,6 @@ public class SplashActivity extends BaseActivity<SplashPresenter> implements Spl
 
     @Override
     public void showAppStart(AppStartBean.DataEntity data) {
-        CoreUtils.imgLoader(this, data.getSp_img(), imSplash);
+        CoreUtils.imgLoader(this, data.getSp_img(), R.drawable.ic_splash, imSplash);
     }
 }

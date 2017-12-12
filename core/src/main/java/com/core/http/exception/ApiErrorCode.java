@@ -11,6 +11,7 @@ public interface ApiErrorCode {
     int ERROR_USER_AUTHORIZED = 301;
     int ERROR_USER_INFO_NOT_ALL = 113;
     int ERROR_USER_INFO_AUDIT = 114;
+    int ERROR_PARAMETER = 1000;
 
     /**
      * 账户或密码错误

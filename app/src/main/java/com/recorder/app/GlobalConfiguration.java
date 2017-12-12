@@ -71,6 +71,7 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 import okio.Buffer;
 
+import static com.core.http.exception.ApiErrorCode.ERROR_PARAMETER;
 import static com.core.http.exception.ApiErrorCode.ERROR_USER_INFO_AUDIT;
 import static com.core.http.exception.ApiErrorCode.ERROR_USER_INFO_NOT_ALL;
 
@@ -117,6 +118,9 @@ public class GlobalConfiguration implements ConfigModule {
                                     CoreUtils.snackbarText(jsonObject.optString("error"));
                                     break;
                                 case ERROR_USER_INFO_AUDIT:
+                                    CoreUtils.snackbarText(jsonObject.optString("error"));
+                                    break;
+                                case ERROR_PARAMETER:
                                     CoreUtils.snackbarText(jsonObject.optString("error"));
                                     break;
                                 default:

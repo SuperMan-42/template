@@ -158,44 +158,44 @@ public class AuthInfoActivity extends BaseActivity<AuthInfoPresenter> implements
                 } else {
                     CoreUtils.imgLoader(getApplicationContext(), item.getValue(), holder.getView(R.id.im_upload));
                 }
-//                if (dataEntity.getIs_modify_file()) {
-                holder.itemView.setOnClickListener(view -> {
-                    if (etName.hasFocus()) {
-                        etName.clearFocus();
-                    }
-                    if (etId.hasFocus()) {
-                        etId.clearFocus();
-                    }
-                    if (etContact.hasFocus()) {
-                        etContact.clearFocus();
-                    }
-                    CoreUtils.hideSoftInput(AuthInfoActivity.this);
-                    PictureSelector.create(AuthInfoActivity.this)
-                            .openGallery(PictureMimeType.ofImage())
-                            .selectionMode(item.getKey() ? PictureConfig.MULTIPLE : PictureConfig.SINGLE)
-                            .maxSelectNum(item.getKey() ? 5 - getItemCount() : 1)
-                            .previewImage(true)
-                            .previewEggs(true)
-                            .theme(R.style.picture_hx_style)
-                            .forResult(holder.getAdapterPosition() + (item.getKey() ? 0 : 10));
-                });
-                holder.itemView.setOnLongClickListener(view -> {
-                    int index = 0;
-                    for (Bean<Boolean> bean : getData()) {
-                        if (!bean.getKey()) {
-                            index++;
+                if (dataEntity.getIs_modify_file()) {
+                    holder.itemView.setOnClickListener(view -> {
+                        if (etName.hasFocus()) {
+                            etName.clearFocus();
                         }
-                    }
-                    if (index == 4) {
-                        addData(new Bean<>(true, null, null));
-                        notifyItemRangeChanged(holder.getAdapterPosition(), 4);
-                    }
-                    if (!item.getKey()) {
-                        recyclerview.remove(holder.getAdapterPosition());
-                    }
-                    return true;
-                });
-//                }
+                        if (etId.hasFocus()) {
+                            etId.clearFocus();
+                        }
+                        if (etContact.hasFocus()) {
+                            etContact.clearFocus();
+                        }
+                        CoreUtils.hideSoftInput(AuthInfoActivity.this);
+                        PictureSelector.create(AuthInfoActivity.this)
+                                .openGallery(PictureMimeType.ofImage())
+                                .selectionMode(item.getKey() ? PictureConfig.MULTIPLE : PictureConfig.SINGLE)
+                                .maxSelectNum(item.getKey() ? 5 - getItemCount() : 1)
+                                .previewImage(true)
+                                .previewEggs(true)
+                                .theme(R.style.picture_hx_style)
+                                .forResult(holder.getAdapterPosition() + (item.getKey() ? 0 : 10));
+                    });
+                    holder.itemView.setOnLongClickListener(view -> {
+                        int index = 0;
+                        for (Bean<Boolean> bean : getData()) {
+                            if (!bean.getKey()) {
+                                index++;
+                            }
+                        }
+                        if (index == 4) {
+                            addData(new Bean<>(true, null, null));
+                            notifyItemRangeChanged(holder.getAdapterPosition(), 4);
+                        }
+                        if (!item.getKey()) {
+                            recyclerview.remove(holder.getAdapterPosition());
+                        }
+                        return true;
+                    });
+                }
             }
         }, false);
         recyclerview.getRecyclerView().addItemDecoration(new GridSpacingItemDecoration(4, 45, false));
@@ -254,10 +254,6 @@ public class AuthInfoActivity extends BaseActivity<AuthInfoPresenter> implements
     }
 
     private void doNext() {
-        if (dataEntity.getIs_modify_survey()) {
-            showSuccess(authType);
-            return;
-        }
         if (!isCheck) {
             CoreUtils.snackbarText(getString(R.string.text_agree));
             return;
@@ -268,11 +264,11 @@ public class AuthInfoActivity extends BaseActivity<AuthInfoPresenter> implements
         }
         if (data.size() > 0) {
             if (authType == 3) {
-                mPresenter.upload(etName.getText().toString(), etId.getText().toString(), etContact.getText().toString(), positive, bean.getData().getUser_auth_prompt().getOrgan_auth(), data);
+                mPresenter.upload(value(etName, dataEntity.getTrue_name()), value(etId, dataEntity.getId_card()), value(etContact, dataEntity.getOrgan_contact()), positive, bean.getData().getUser_auth_prompt().getOrgan_auth(), data);
             } else if (authType == 2) {
-                mPresenter.upload(authType, etName.getText().toString(), etId.getText().toString(), positive, other, bean.getData().getUser_auth_prompt().getConformity_auth(), data);
+                mPresenter.upload(authType, value(etName, dataEntity.getTrue_name()), value(etId, dataEntity.getId_card()), positive, other, bean.getData().getUser_auth_prompt().getConformity_auth(), data);
             } else if (authType == 1) {
-                mPresenter.upload(authType, etName.getText().toString(), etId.getText().toString(), positive, other, bean.getData().getUser_auth_prompt().getZc_auth(), data);
+                mPresenter.upload(authType, value(etName, dataEntity.getTrue_name()), value(etId, dataEntity.getId_card()), positive, other, bean.getData().getUser_auth_prompt().getZc_auth(), data);
             }
         }
     }
@@ -337,7 +333,7 @@ public class AuthInfoActivity extends BaseActivity<AuthInfoPresenter> implements
             isModify(imOther, data.getIdcard_imgb());
         }
         imAgree.setImageResource(data.getCheck().equals("1") ? R.drawable.ic_item_buy_selector : R.drawable.ic_item_buy);
-        isModify(imAgree, data.getCheck());
+        isModify(imAgree, isCheck ? "1" : "");
         List<Bean<Boolean>> list = new ArrayList<>();
         for (String url : data.getAssets()) {
             list.add(new Bean<>(false, url, null));
@@ -350,17 +346,19 @@ public class AuthInfoActivity extends BaseActivity<AuthInfoPresenter> implements
 
     @Override
     public void showSuccess(int type) {
-        String url;
-        String token = BCache.getInstance().getString(Constants.TOKEN);
-        String uid = new Gson().fromJson(BCache.getInstance().getString(Constants.USER_INFO), UserInfoBean.class).getData().getUserID();
-        if (type == 3) {
-            url = Api.WEB_DOMAIN + "survey/?token=" + token + "&u=" + uid + "&type=" + authType + "&survey={\"1\":\"A\",\"2\":\"B\"}#/agency";
-        } else {
-            url = Api.WEB_DOMAIN + "survey/?token=" + token + "&u=" + uid + "&type=" + authType + "&survey={\"1\":\"A\",\"2\":\"B\"}#/questionnaire";
+        if (dataEntity.getIs_modify_survey()) {
+            String url;
+            String token = BCache.getInstance().getString(Constants.TOKEN);
+            String uid = new Gson().fromJson(BCache.getInstance().getString(Constants.USER_INFO), UserInfoBean.class).getData().getUserID();
+            if (type == 3) {
+                url = Api.WEB_DOMAIN + "survey/?token=" + token + "&u=" + uid + "&type=" + authType + "&survey={\"1\":\"A\",\"2\":\"B\"}#/agency";
+            } else {
+                url = Api.WEB_DOMAIN + "survey/?token=" + token + "&u=" + uid + "&type=" + authType + "&survey={\"1\":\"A\",\"2\":\"B\"}#/questionnaire";
+            }
+            ARouter.getInstance().build("/app/WebActivity")
+                    .withBoolean(Constants.IS_SHOW_RIGHT, false)
+                    .withString(Constants.WEB_URL, url).navigation();
         }
-        ARouter.getInstance().build("/app/WebActivity")
-                .withBoolean(Constants.IS_SHOW_RIGHT, false)
-                .withString(Constants.WEB_URL, url).navigation();
     }
 
     @Subscriber(tag = Constants.AUTH_INFO_SUCCESS)
@@ -383,10 +381,10 @@ public class AuthInfoActivity extends BaseActivity<AuthInfoPresenter> implements
 
     @SuppressLint("SetTextI18n")
     @Override
-    public void showFail(Throwable t) {
+    public void showFail(String msg) {
         CoreUtils.imgLoader(this, R.drawable.ic_result_fail, imCover);
         tvTitle.setText(CoreUtils.getString(this, R.string.text_authinfo_title_fail));
-        tvContent.setText(R.string.text_authinfo_fail + t.getMessage());
+        tvContent.setText(getString(R.string.text_authinfo_fail) + msg);
         tvContent.setTextColor(Color.parseColor("#FF5701"));
         tvGoAuthentication.setText("重新提交");
         title("提交失败");
@@ -394,7 +392,10 @@ public class AuthInfoActivity extends BaseActivity<AuthInfoPresenter> implements
         tvGoHome.setText("返回首页");
         flDialog.setVisibility(View.VISIBLE);
         flDialog.startAnimation(AnimationUtils.loadAnimation(this, R.anim.fade_in));
-        tvGoAuthentication.setOnClickListener(view -> doNext());
+        tvGoAuthentication.setOnClickListener(view -> {
+            flDialog.setVisibility(View.GONE);
+            flDialog.startAnimation(AnimationUtils.loadAnimation(this, R.anim.fade_out));
+        });
     }
 
     private void isModify(EditText editText, String string) {
@@ -404,13 +405,19 @@ public class AuthInfoActivity extends BaseActivity<AuthInfoPresenter> implements
             editText.requestFocus();
             CoreUtils.openSoftInputForced(etName);
         }
-//        editText.setEnabled(TextUtils.isEmpty(string) && dataEntity.getIs_modify());
-        editText.setEnabled(TextUtils.isEmpty(string));
+        editText.setEnabled(TextUtils.isEmpty(string) && dataEntity.getIs_modify());
     }
 
     @SuppressLint("ClickableViewAccessibility")
     private void isModify(ImageView imageView, String string) {
-//        imageView.setOnTouchListener((view, motionEvent) -> !TextUtils.isEmpty(string) && dataEntity.getIs_modify());
-//        imageView.setOnTouchListener((view, motionEvent) -> !TextUtils.isEmpty(string));
+        imageView.setOnTouchListener((view, motionEvent) -> !TextUtils.isEmpty(string) && dataEntity.getIs_modify());
+    }
+
+    private String value(EditText editText, String string) {
+        if (TextUtils.isEmpty(string)) {
+            return editText.getText().toString();
+        } else {
+            return null;
+        }
     }
 }

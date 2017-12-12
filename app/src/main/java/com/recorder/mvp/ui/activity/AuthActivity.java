@@ -21,6 +21,8 @@ import com.recorder.mvp.contract.AuthContract;
 import com.recorder.mvp.model.entity.UserAuthInfoBean;
 import com.recorder.mvp.presenter.AuthPresenter;
 
+import org.simple.eventbus.Subscriber;
+
 import butterknife.BindView;
 
 import static com.core.utils.Preconditions.checkNotNull;
@@ -100,6 +102,11 @@ public class AuthActivity extends BaseActivity<AuthPresenter> implements AuthCon
         finish();
     }
 
+    @Subscriber(tag = Constants.AUTH_TYPE)
+    private void upload(Object object) {
+        mPresenter.userAuthInfo();
+    }
+
     @Override
     public void showUserAuthInfo(UserAuthInfoBean.DataEntity data) {
         UserAuthInfoBean.DataEntity.ZcAuthEntity zcAuthEntity = data.getZc_auth();
@@ -121,7 +128,7 @@ public class AuthActivity extends BaseActivity<AuthPresenter> implements AuthCon
             tagLeft.setImageResource(R.drawable.auth_zc_1);
             tagRight.setImageResource(R.drawable.auth_right_0);
             imAuth.setImageResource(R.drawable.auth_cn_status_2);
-            cl1.setOnClickListener(view -> ARouter.getInstance().build("/app/UploadActivity").withBoolean(Constants.ORDER_PROOF, false).navigation());
+            cl1.setOnClickListener(view -> ARouter.getInstance().build("/app/UploadActivity").withInt(Constants.AUTH_TYPE, zcAuthEntity.getType()).withBoolean(Constants.ORDER_PROOF, false).navigation());
         } else if (zcAuthEntity.getStatus() == 4 && zcAuthEntity.getFile_status() == 2) {
             //不能点击过去 显示已认证成功图标
             tagLeft.setImageResource(R.drawable.auth_zc_1);
@@ -148,7 +155,7 @@ public class AuthActivity extends BaseActivity<AuthPresenter> implements AuthCon
             tagLeft2.setImageResource(R.drawable.auth_conformity_1);
             tagRight2.setImageResource(R.drawable.auth_right_0);
             imAuth2.setImageResource(R.drawable.auth_cn_status_2);
-            cl2.setOnClickListener(view -> ARouter.getInstance().build("/app/UploadActivity").withBoolean(Constants.ORDER_PROOF, false).navigation());
+            cl2.setOnClickListener(view -> ARouter.getInstance().build("/app/UploadActivity").withInt(Constants.AUTH_TYPE, conformityAuthEntity.getType()).withBoolean(Constants.ORDER_PROOF, false).navigation());
         } else if (conformityAuthEntity.getStatus() == 4 && conformityAuthEntity.getFile_status() == 2) {
             //不能点击过去 显示已认证成功图标
             tagLeft2.setImageResource(R.drawable.auth_conformity_1);
@@ -175,7 +182,7 @@ public class AuthActivity extends BaseActivity<AuthPresenter> implements AuthCon
             tagLeft3.setImageResource(R.drawable.auth_organ_1);
             tagRight3.setImageResource(R.drawable.auth_right_0);
             imAuth3.setImageResource(R.drawable.auth_cn_status_2);
-            cl3.setOnClickListener(view -> ARouter.getInstance().build("/app/UploadActivity").withBoolean(Constants.ORDER_PROOF, false).navigation());
+            cl3.setOnClickListener(view -> ARouter.getInstance().build("/app/UploadActivity").withInt(Constants.AUTH_TYPE, organAuthEntity.getType()).withBoolean(Constants.ORDER_PROOF, false).navigation());
         } else if (organAuthEntity.getStatus() == 4 && organAuthEntity.getFile_status() == 2) {
             //不能点击过去 显示已认证成功图标
             tagLeft3.setImageResource(R.drawable.auth_organ_1);
@@ -189,6 +196,7 @@ public class AuthActivity extends BaseActivity<AuthPresenter> implements AuthCon
                 .customListener(contentView -> {
                     ((TextView) contentView.findViewById(R.id.tv_title)).setText("提示");
                     ((TextView) contentView.findViewById(R.id.tv_content)).setText("用户审核中");
+                    ((TextView) contentView.findViewById(R.id.tv_sure)).setText("确定");
                     contentView.findViewById(R.id.tv_sure).setOnClickListener(view -> CustomPopupWindow.killMySelf());
                 }).build().show();
     }

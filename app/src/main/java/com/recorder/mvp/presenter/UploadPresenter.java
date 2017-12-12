@@ -14,7 +14,6 @@ import com.recorder.R;
 import com.recorder.mvp.contract.UploadContract;
 import com.recorder.mvp.model.entity.Bean;
 import com.recorder.mvp.model.entity.ImageUploadBean;
-import com.recorder.mvp.model.entity.UserInfoBean;
 
 import org.simple.eventbus.EventBus;
 
@@ -58,7 +57,7 @@ public class UploadPresenter extends BasePresenter<UploadContract.Model, UploadC
         this.mApplication = null;
     }
 
-    public void upload(UserInfoBean.DataEntity dataEntity, String orderID, List<Bean<Boolean>> list, boolean isOrderProof) {
+    public void upload(int type, String orderID, List<Bean<Boolean>> list, boolean isOrderProof) {
         List<String> stringList = new ArrayList<>();
         Observable.fromArray(list.toArray())
                 .flatMap(data -> {
@@ -76,9 +75,9 @@ public class UploadPresenter extends BasePresenter<UploadContract.Model, UploadC
                     if (isOrderProof) {
                         observable = mModel.orderProof(orderID, new Gson().toJson(stringList));
                     } else {
-                        if (dataEntity.getAuth_type() == 1 || dataEntity.getAuth_type() == 2) {
-                            observable = mModel.authPerson(dataEntity.getAuth_type(), null, null, null, null, null, new Gson().toJson(stringList));
-                        } else if (dataEntity.getAuth_type() == 3) {
+                        if (type == 1 || type == 2) {
+                            observable = mModel.authPerson(type, null, null, null, null, null, new Gson().toJson(stringList));
+                        } else if (type == 3) {
                             observable = mModel.authOrgan(null, null, null, null, null, new Gson().toJson(stringList));
                         }
                     }
@@ -89,6 +88,8 @@ public class UploadPresenter extends BasePresenter<UploadContract.Model, UploadC
                                     CoreUtils.snackbarText(CoreUtils.getString(mApplication, R.string.text_order_proof_success));
                                     if (isOrderProof) {
                                         EventBus.getDefault().post(object, Constants.ORDER_PROOF);
+                                    } else {
+                                        EventBus.getDefault().post(object, Constants.AUTH_TYPE);
                                     }
                                     mRootView.killMyself();
                                 }

@@ -48,6 +48,8 @@ public class UploadActivity extends BaseActivity<UploadPresenter> implements Upl
     boolean isOrderProof;//如果是上传打款凭证需要Eventbus.post否则不用
     @Autowired(name = Constants.UPLOAD)
     Bundle upload;
+    @Autowired(name = Constants.AUTH_TYPE)
+    int type = 0;
 
     @BindView(R.id.im_right)
     ImageView imRight;
@@ -169,7 +171,7 @@ public class UploadActivity extends BaseActivity<UploadPresenter> implements Upl
         }
         if (data.size() > 0) {
             UserInfoBean userInfoBean = new Gson().fromJson(BCache.getInstance().getString(Constants.USER_INFO), UserInfoBean.class);
-            mPresenter.upload(userInfoBean.getData(), upload == null ? null : upload.getString(Constants.UPLOAD_ORDERID), data, isOrderProof);
+            mPresenter.upload(type == 0 ? userInfoBean.getData().getAuth_type() : type, upload == null ? null : upload.getString(Constants.UPLOAD_ORDERID), data, isOrderProof);
         }
     }
 
