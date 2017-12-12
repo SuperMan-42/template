@@ -65,6 +65,7 @@ public class AuthInfoPresenter extends BasePresenter<AuthInfoContract.Model, Aut
     }
 
     public void upload(int type, String true_name, String id_card, File idcard_imgf, File idcard_imgb, String check, List<Bean<Boolean>> assets) {
+        com.orhanobut.logger.Logger.d("upload=> " + "idcard_imgf " + (idcard_imgf == null) + "idcard_imgb " + (idcard_imgb == null) + " assets " + (assets == null));
         List<String> stringList = new ArrayList<>();
         List<MultipartBody.Part> imgf = new ArrayList<>();
         if (idcard_imgf != null)
@@ -85,7 +86,7 @@ public class AuthInfoPresenter extends BasePresenter<AuthInfoContract.Model, Aut
                 .subscribe(new ErrorHandleSubscriber<ImageUploadBean>(mErrorHandler) {
                     @Override
                     public void onNext(ImageUploadBean imageUploadBean) {
-                        com.orhanobut.logger.Logger.d("upload=> add " + imageUploadBean.getData().getImages().get(0));
+                        com.orhanobut.logger.Logger.d("upload=> add onNext " + imageUploadBean.getData().getImages().get(0));
                         stringList.add(imageUploadBean.getData().getImages().get(0));
                     }
 
@@ -94,14 +95,14 @@ public class AuthInfoPresenter extends BasePresenter<AuthInfoContract.Model, Aut
                         Observable.zip(mModel.imageUpload(imgf), mModel.imageUpload(imgb), (id_imgf, id_imgb) -> {
                             List<String> data = new ArrayList<>();
                             data.add(id_imgf.getData().getImages().get(0));
-                            com.orhanobut.logger.Logger.d("upload=> add " + id_imgf.getData().getImages().get(0));
+                            com.orhanobut.logger.Logger.d("upload=> add imgf " + id_imgf.getData().getImages().get(0));
                             data.add(id_imgb.getData().getImages().get(0));
-                            com.orhanobut.logger.Logger.d("upload=> add " + id_imgb.getData().getImages().get(0));
+                            com.orhanobut.logger.Logger.d("upload=> add imgb " + id_imgb.getData().getImages().get(0));
                             return data;
                         }).flatMap(strings -> mModel.authPerson(type, true_name, id_card, strings.get(0), strings.get(1), check, new Gson().toJson(stringList))).compose(RxLifecycleUtils.transformer(mRootView)).subscribe(new ErrorHandleSubscriber<Object>(mErrorHandler) {
                             public void onNext(Object o) {
-                                com.orhanobut.logger.Logger.d("upload=> zip " + new Gson().toJson(o));
-                                mRootView.showSuccess(3);
+                                com.orhanobut.logger.Logger.d("upload=> zip onNext " + new Gson().toJson(o));
+                                mRootView.showSuccess(type);
                             }
 
                             @Override
@@ -114,6 +115,7 @@ public class AuthInfoPresenter extends BasePresenter<AuthInfoContract.Model, Aut
     }
 
     public void upload(String organ_name, String legal_person, String contact, File license, String check, List<Bean<Boolean>> assets) {
+        com.orhanobut.logger.Logger.d("upload=> " + "license " + (license == null) + " assets " + (assets == null));
         List<String> stringList = new ArrayList<>();
         List<MultipartBody.Part> licenseParts = new ArrayList<>();
         if (license != null)
@@ -130,18 +132,18 @@ public class AuthInfoPresenter extends BasePresenter<AuthInfoContract.Model, Aut
                 .subscribe(new ErrorHandleSubscriber<ImageUploadBean>(mErrorHandler) {
                     @Override
                     public void onNext(ImageUploadBean imageUploadBean) {
-                        com.orhanobut.logger.Logger.d("upload=> add " + imageUploadBean.getData().getImages().get(0));
+                        com.orhanobut.logger.Logger.d("upload=> add onNext " + imageUploadBean.getData().getImages().get(0));
                         stringList.add(imageUploadBean.getData().getImages().get(0));
                     }
 
                     @Override
                     public void onComplete() {
                         mModel.imageUpload(licenseParts).flatMap(imageUploadBean -> {
-                            com.orhanobut.logger.Logger.d("upload=> add " + imageUploadBean.getData().getImages().get(0));
+                            com.orhanobut.logger.Logger.d("upload=> add image " + imageUploadBean.getData().getImages().get(0));
                             return mModel.authOrgan(organ_name, legal_person, contact, imageUploadBean.getData().getImages().get(0), check, new Gson().toJson(stringList));
                         }).compose(RxLifecycleUtils.transformer(mRootView)).subscribe(new ErrorHandleSubscriber<Object>(mErrorHandler) {
                             public void onNext(Object o) {
-                                com.orhanobut.logger.Logger.d("upload=> zip " + new Gson().toJson(o));
+                                com.orhanobut.logger.Logger.d("upload=> zip onNext " + new Gson().toJson(o));
                                 mRootView.showSuccess(3);
                             }
 

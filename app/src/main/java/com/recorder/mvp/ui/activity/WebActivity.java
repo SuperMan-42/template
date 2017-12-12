@@ -1,13 +1,14 @@
 package com.recorder.mvp.ui.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.KeyEvent;
 import android.view.View;
-import android.webkit.JsPromptResult;
-import android.webkit.JsResult;
+import android.webkit.JavascriptInterface;
 import android.webkit.WebChromeClient;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
@@ -15,6 +16,7 @@ import android.webkit.WebViewClient;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
@@ -27,6 +29,8 @@ import com.just.library.ChromeClientCallbackManager;
 import com.orhanobut.logger.Logger;
 import com.recorder.R;
 import com.recorder.utils.CommonUtils;
+
+import org.simple.eventbus.EventBus;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -63,22 +67,40 @@ public class WebActivity extends BaseActivity {
         }
         mLinearLayout = this.findViewById(R.id.container);
         mAgentWeb = AgentWeb.with(this)
-                .setAgentWebParent(mLinearLayout, new LinearLayout.LayoutParams(-1, -1))//
-                .useDefaultIndicator()//
+                .setAgentWebParent(mLinearLayout, new LinearLayout.LayoutParams(-1, -1))
+                .useDefaultIndicator()
                 .defaultProgressBarColor()
                 .setReceivedTitleCallback(mCallback)
-                .setWebChromeClient(mWebChromeClient)
                 .setWebViewClient(mWebViewClient)
+                .setWebChromeClient(mWebChromeClient)
                 .setSecutityType(AgentWeb.SecurityType.strict)
                 .createAgentWeb()
                 .ready()
                 .go(getUrl());
+        mAgentWeb.getJsInterfaceHolder().addJavaObject("android", new AndroidInterface(mAgentWeb, this));
         if (!getUrl().startsWith("http")) {
             mAgentWeb.getWebCreator().get().loadData(getUrl(), "text/html; charset=UTF-8", null);
         }
     }
 
     private WebViewClient mWebViewClient = new WebViewClient() {
+        @Override
+        public boolean shouldOverrideUrlLoading(WebView view, String url) {
+            Logger.d("js=> shouldOverrideUrlLoading url " + url);
+            switch (url) {
+                case "hx://outh-commit":
+                    new Handler().post(() -> {
+                        finish();
+                        EventBus.getDefault().post("hx://outh-commit", Constants.AUTH_INFO_SUCCESS);
+                    });
+                    break;
+                case "hx://outh-list":
+                    new Handler().post(() -> ARouter.getInstance().build("/app/AuthActivity").navigation());
+                    break;
+            }
+            return super.shouldOverrideUrlLoading(view, url);
+        }
+
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
             return super.shouldOverrideUrlLoading(view, request);
@@ -91,53 +113,10 @@ public class WebActivity extends BaseActivity {
     };
 
     private WebChromeClient mWebChromeClient = new WebChromeClient() {
+
         @Override
         public void onProgressChanged(WebView view, int newProgress) {
             //do you work
-        }
-
-        @Override
-        public boolean onJsAlert(WebView view, String url, String message, final JsResult result) {
-            Logger.d("js=> onJsAlert");
-            AlertDialog.Builder b = new AlertDialog.Builder(WebActivity.this);
-            b.setTitle("Alert");
-            b.setMessage(message);
-            b.setPositiveButton(android.R.string.ok, (dialog, which) -> result.confirm());
-            b.setCancelable(false);
-            b.create().show();
-            return true;
-        }
-
-        //设置响应js 的Confirm()函数
-        @Override
-        public boolean onJsConfirm(WebView view, String url, String message, final JsResult result) {
-            Logger.d("js=> onJsConfirm");
-            AlertDialog.Builder b = new AlertDialog.Builder(WebActivity.this);
-            b.setTitle("Confirm");
-            b.setMessage(message);
-            b.setPositiveButton(android.R.string.ok, (dialog, which) -> result.confirm());
-            b.setNegativeButton(android.R.string.cancel, (dialog, which) -> result.cancel());
-            b.create().show();
-            return true;
-        }
-
-        //设置响应js 的Prompt()函数
-        @Override
-        public boolean onJsPrompt(WebView view, String url, String message, String defaultValue, final JsPromptResult result) {
-//            final View v = View.inflate(WebActivity.this, R.layout.prompt_dialog, null);
-//            ((TextView) v.findViewById(R.id.prompt_message_text)).setText(message);
-//            ((EditText) v.findViewById(R.id.prompt_input_field)).setText(defaultValue);
-//            AlertDialog.Builder b = new AlertDialog.Builder(WebActivity.this);
-//            b.setTitle("Prompt");
-//            b.setView(v);
-//            b.setPositiveButton(android.R.string.ok, (dialog, which) -> {
-//                String value = ((EditText) v.findViewById(R.id.prompt_input_field)).getText().toString();
-//                result.confirm(value);
-//            });
-//            b.setNegativeButton(android.R.string.cancel, (dialog, which) -> result.cancel());
-//            b.create().show();
-            Logger.d("js=> onJsPrompt");
-            return true;
         }
     };
 
@@ -182,5 +161,25 @@ public class WebActivity extends BaseActivity {
     @OnClick(R.id.toolbar_right)
     public void onViewClicked() {
         CommonUtils.share(this, "", "昊翔分享测试", "昊翔分享测试", "http://bpic.588ku.com/element_origin_min_pic/00/00/05/115732f19cc0079.jpg");
+    }
+
+    public static class AndroidInterface {
+
+        private Handler deliver = new Handler(Looper.getMainLooper());
+        private AgentWeb agent;
+        private Context context;
+
+        public AndroidInterface(AgentWeb agent, Context context) {
+            this.agent = agent;
+            this.context = context;
+        }
+
+        @JavascriptInterface
+        public void callAndroid(final String msg) {
+            deliver.post(() -> {
+                Logger.d("js=> " + Thread.currentThread());
+                Toast.makeText(context.getApplicationContext(), "" + msg, Toast.LENGTH_LONG).show();
+            });
+        }
     }
 }

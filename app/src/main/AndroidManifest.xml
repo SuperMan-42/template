@@ -183,6 +183,7 @@
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".mvp.ui.activity.AuthActivity"
+            android:launchMode="singleTask"
             android:theme="@style/CoreAppTheme.Transparent" />
         <activity
             android:name=".mvp.ui.activity.AuthInfoActivity"

@@ -122,7 +122,7 @@ public class AuthActivity extends BaseActivity<AuthPresenter> implements AuthCon
             tagRight.setImageResource(R.drawable.auth_right_0);
             imAuth.setImageResource(R.drawable.auth_cn_status_2);
             cl1.setOnClickListener(view -> ARouter.getInstance().build("/app/UploadActivity").withBoolean(Constants.ORDER_PROOF, false).navigation());
-        } else if (zcAuthEntity.getStatus() == 4 && zcAuthEntity.getFile_status() == 4) {
+        } else if (zcAuthEntity.getStatus() == 4 && zcAuthEntity.getFile_status() == 2) {
             //不能点击过去 显示已认证成功图标
             tagLeft.setImageResource(R.drawable.auth_zc_1);
             tagRight.setImageResource(R.drawable.auth_right_1);
@@ -149,7 +149,7 @@ public class AuthActivity extends BaseActivity<AuthPresenter> implements AuthCon
             tagRight2.setImageResource(R.drawable.auth_right_0);
             imAuth2.setImageResource(R.drawable.auth_cn_status_2);
             cl2.setOnClickListener(view -> ARouter.getInstance().build("/app/UploadActivity").withBoolean(Constants.ORDER_PROOF, false).navigation());
-        } else if (conformityAuthEntity.getStatus() == 4 && conformityAuthEntity.getFile_status() == 4) {
+        } else if (conformityAuthEntity.getStatus() == 4 && conformityAuthEntity.getFile_status() == 2) {
             //不能点击过去 显示已认证成功图标
             tagLeft2.setImageResource(R.drawable.auth_conformity_1);
             tagRight2.setImageResource(R.drawable.auth_right_1);
@@ -176,7 +176,7 @@ public class AuthActivity extends BaseActivity<AuthPresenter> implements AuthCon
             tagRight3.setImageResource(R.drawable.auth_right_0);
             imAuth3.setImageResource(R.drawable.auth_cn_status_2);
             cl3.setOnClickListener(view -> ARouter.getInstance().build("/app/UploadActivity").withBoolean(Constants.ORDER_PROOF, false).navigation());
-        } else if (organAuthEntity.getStatus() == 4 && organAuthEntity.getFile_status() == 4) {
+        } else if (organAuthEntity.getStatus() == 4 && organAuthEntity.getFile_status() == 2) {
             //不能点击过去 显示已认证成功图标
             tagLeft3.setImageResource(R.drawable.auth_organ_1);
             tagRight3.setImageResource(R.drawable.auth_right_1);

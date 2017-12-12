@@ -30,7 +30,6 @@ import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
 import com.luck.picture.lib.entity.LocalMedia;
-import com.orhanobut.logger.Logger;
 import com.recorder.R;
 import com.recorder.di.component.DaggerAuthInfoComponent;
 import com.recorder.di.module.AuthInfoModule;
@@ -161,7 +160,16 @@ public class AuthInfoActivity extends BaseActivity<AuthInfoPresenter> implements
                 }
 //                if (dataEntity.getIs_modify_file()) {
                 holder.itemView.setOnClickListener(view -> {
-                    etName.clearFocus();//取消焦点
+                    if (etName.hasFocus()) {
+                        etName.clearFocus();
+                    }
+                    if (etId.hasFocus()) {
+                        etId.clearFocus();
+                    }
+                    if (etContact.hasFocus()) {
+                        etContact.clearFocus();
+                    }
+                    CoreUtils.hideSoftInput(AuthInfoActivity.this);
                     PictureSelector.create(AuthInfoActivity.this)
                             .openGallery(PictureMimeType.ofImage())
                             .selectionMode(item.getKey() ? PictureConfig.MULTIPLE : PictureConfig.SINGLE)
@@ -224,9 +232,11 @@ public class AuthInfoActivity extends BaseActivity<AuthInfoPresenter> implements
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.im_positive:
+                CoreUtils.hideSoftInput(this);
                 CommonUtils.pictureSingle(this, IM_POSITIVE);
                 break;
             case R.id.im_other:
+                CoreUtils.hideSoftInput(this);
                 CommonUtils.pictureSingle(this, IM_OTHER);
                 break;
             case R.id.im_agree:
@@ -244,6 +254,10 @@ public class AuthInfoActivity extends BaseActivity<AuthInfoPresenter> implements
     }
 
     private void doNext() {
+        if (dataEntity.getIs_modify_survey()) {
+            showSuccess(authType);
+            return;
+        }
         if (!isCheck) {
             CoreUtils.snackbarText(getString(R.string.text_agree));
             return;
@@ -254,14 +268,12 @@ public class AuthInfoActivity extends BaseActivity<AuthInfoPresenter> implements
         }
         if (data.size() > 0) {
             if (authType == 3) {
-                Logger.d("upload=> " + positive + " " + data);
                 mPresenter.upload(etName.getText().toString(), etId.getText().toString(), etContact.getText().toString(), positive, bean.getData().getUser_auth_prompt().getOrgan_auth(), data);
             } else if (authType == 2) {
                 mPresenter.upload(authType, etName.getText().toString(), etId.getText().toString(), positive, other, bean.getData().getUser_auth_prompt().getConformity_auth(), data);
             } else if (authType == 1) {
                 mPresenter.upload(authType, etName.getText().toString(), etId.getText().toString(), positive, other, bean.getData().getUser_auth_prompt().getZc_auth(), data);
             }
-            showSuccess(3);//TODO
         }
     }
 
@@ -273,7 +285,6 @@ public class AuthInfoActivity extends BaseActivity<AuthInfoPresenter> implements
                 case IM_POSITIVE:
                     List<LocalMedia> positiveList = PictureSelector.obtainMultipleResult(data);
                     positive = new File(positiveList.get(0).getPath());
-                    Logger.d("upload=> " + positive);
                     CoreUtils.imgLoader(this, positiveList.get(0).getPath(), imPositive);
                     break;
                 case IM_OTHER:
@@ -304,6 +315,7 @@ public class AuthInfoActivity extends BaseActivity<AuthInfoPresenter> implements
 
     @Override
     public void showAuthGet(AuthGetBean.DataEntity data) {
+        isCheck = data.getCheck().equals("1");
         dataEntity = data;
         if (authType == 3) {
             etName.setText(data.getOrgan_name());
@@ -326,6 +338,14 @@ public class AuthInfoActivity extends BaseActivity<AuthInfoPresenter> implements
         }
         imAgree.setImageResource(data.getCheck().equals("1") ? R.drawable.ic_item_buy_selector : R.drawable.ic_item_buy);
         isModify(imAgree, data.getCheck());
+        List<Bean<Boolean>> list = new ArrayList<>();
+        for (String url : data.getAssets()) {
+            list.add(new Bean<>(false, url, null));
+        }
+        recyclerview.getAdapter().setNewData(list);
+        if (list.size() < 4) {
+            recyclerview.getAdapter().addData(new Bean<>(true, null, null));
+        }
     }
 
     @Override
@@ -334,9 +354,9 @@ public class AuthInfoActivity extends BaseActivity<AuthInfoPresenter> implements
         String token = BCache.getInstance().getString(Constants.TOKEN);
         String uid = new Gson().fromJson(BCache.getInstance().getString(Constants.USER_INFO), UserInfoBean.class).getData().getUserID();
         if (type == 3) {
-            url = Api.WEB_DOMAIN + "survey/?token=" + token + "&u=" + uid + "&survey={\"1\":\"A\",\"2\":\"B\"}#/agency";
+            url = Api.WEB_DOMAIN + "survey/?token=" + token + "&u=" + uid + "&type=" + authType + "&survey={\"1\":\"A\",\"2\":\"B\"}#/agency";
         } else {
-            url = Api.WEB_DOMAIN + "survey/?token=" + token + "&u=" + uid + "&survey={\"1\":\"A\",\"2\":\"B\"}#/questionnaire";
+            url = Api.WEB_DOMAIN + "survey/?token=" + token + "&u=" + uid + "&type=" + authType + "&survey={\"1\":\"A\",\"2\":\"B\"}#/questionnaire";
         }
         ARouter.getInstance().build("/app/WebActivity")
                 .withBoolean(Constants.IS_SHOW_RIGHT, false)
@@ -344,7 +364,7 @@ public class AuthInfoActivity extends BaseActivity<AuthInfoPresenter> implements
     }
 
     @Subscriber(tag = Constants.AUTH_INFO_SUCCESS)
-    public void success(Object object) {
+    public void success(String string) {
         CoreUtils.imgLoader(this, R.drawable.ic_result_success, imCover);
         tvTitle.setText(CoreUtils.getString(this, R.string.text_authinfo_title_success));
         tvContent.setText(R.string.text_authinfo_success);
@@ -361,11 +381,12 @@ public class AuthInfoActivity extends BaseActivity<AuthInfoPresenter> implements
         });
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void showFail(Throwable t) {
         CoreUtils.imgLoader(this, R.drawable.ic_result_fail, imCover);
         tvTitle.setText(CoreUtils.getString(this, R.string.text_authinfo_title_fail));
-        tvContent.setText(R.string.text_authinfo_fail);
+        tvContent.setText(R.string.text_authinfo_fail + t.getMessage());
         tvContent.setTextColor(Color.parseColor("#FF5701"));
         tvGoAuthentication.setText("重新提交");
         title("提交失败");

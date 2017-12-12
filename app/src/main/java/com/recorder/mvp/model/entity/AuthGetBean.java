@@ -1,5 +1,7 @@
 package com.recorder.mvp.model.entity;
 
+import java.util.List;
+
 /**
  * Created by hpw on 17-12-8.
  */
@@ -9,7 +11,7 @@ public class AuthGetBean {
     /**
      * errno : 0
      * error : 成功
-     * data : {"true_name":"","id_card":"","idcard_imgf":"","idcard_imgb":"","organ_name":"","organ_legal_person":"","organ_contact":"","organ_license":"","check":"0","survey":"","is_modify":false,"is_modify_file":false,"is_modify_survey":false,"is_hint":"success"}
+     * data : {"true_name":"","id_card":"","idcard_imgf":"","idcard_imgb":"","organ_name":"安卓","organ_legal_person":"程序员","organ_contact":"13312361236","organ_license":"http://ustatic-test.dreamflyc.com/group1/M00/5E/CA/ChRYqlovPcOAGu9aAARMufEUSZ0161.jpg","check":"1","assets":["http://ustatic-test.dreamflyc.com/group1/M00/5E/CA/ChRYqlovPcOAaOjiAAVuR_06_ik521.jpg","http://ustatic-test.dreamflyc.com/group1/M00/5E/CA/ChRYqlovPcOAY8NMAAb8TDA3KnM116.jpg","http://ustatic-test.dreamflyc.com/group1/M00/5E/CA/ChRYqlovPcOAPT0eAAbTTpUCq10764.jpg","http://ustatic-test.dreamflyc.com/group1/M00/5E/CA/ChRYqlovPcOAWoxKAANzFnj3Czs375.jpg"],"survey":"","is_modify":false,"is_modify_file":true,"is_modify_survey":true,"is_hint":"unsuccess"}
      */
 
     private int errno;
@@ -46,16 +48,17 @@ public class AuthGetBean {
          * id_card :
          * idcard_imgf :
          * idcard_imgb :
-         * organ_name :
-         * organ_legal_person :
-         * organ_contact :
-         * organ_license :
-         * check : 0
+         * organ_name : 安卓
+         * organ_legal_person : 程序员
+         * organ_contact : 13312361236
+         * organ_license : http://ustatic-test.dreamflyc.com/group1/M00/5E/CA/ChRYqlovPcOAGu9aAARMufEUSZ0161.jpg
+         * check : 1
+         * assets : ["http://ustatic-test.dreamflyc.com/group1/M00/5E/CA/ChRYqlovPcOAaOjiAAVuR_06_ik521.jpg","http://ustatic-test.dreamflyc.com/group1/M00/5E/CA/ChRYqlovPcOAY8NMAAb8TDA3KnM116.jpg","http://ustatic-test.dreamflyc.com/group1/M00/5E/CA/ChRYqlovPcOAPT0eAAbTTpUCq10764.jpg","http://ustatic-test.dreamflyc.com/group1/M00/5E/CA/ChRYqlovPcOAWoxKAANzFnj3Czs375.jpg"]
          * survey :
          * is_modify : false
-         * is_modify_file : false
-         * is_modify_survey : false
-         * is_hint : success
+         * is_modify_file : true
+         * is_modify_survey : true
+         * is_hint : unsuccess
          */
 
         private String true_name;
@@ -72,6 +75,7 @@ public class AuthGetBean {
         private boolean is_modify_file;
         private boolean is_modify_survey;
         private String is_hint;
+        private List<String> assets;
 
         public void setTrue_name(String true_name) {
             this.true_name = true_name;
@@ -129,6 +133,10 @@ public class AuthGetBean {
             this.is_hint = is_hint;
         }
 
+        public void setAssets(List<String> assets) {
+            this.assets = assets;
+        }
+
         public String getTrue_name() {
             return true_name;
         }
@@ -183,6 +191,10 @@ public class AuthGetBean {
 
         public String getIs_hint() {
             return is_hint;
+        }
+
+        public List<String> getAssets() {
+            return assets;
         }
     }
 }
