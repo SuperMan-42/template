@@ -24,7 +24,6 @@
         android:id="@+id/recyclerview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/tv_tag"
-        android:background="@color/white" />
+        android:layout_below="@id/tv_tag" />
 
 </RelativeLayout>
