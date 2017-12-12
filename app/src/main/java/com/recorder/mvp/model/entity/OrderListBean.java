@@ -133,6 +133,7 @@ public class OrderListBean {
             private String actual_amount;
             private int order_status;
             private String order_status_name;
+            private boolean is_publish;
 
             public void setOrderID(String orderID) {
                 this.orderID = orderID;
@@ -260,6 +261,14 @@ public class OrderListBean {
 
             public String getOrder_status_name() {
                 return order_status_name;
+            }
+
+            public boolean getIs_publish() {
+                return is_publish;
+            }
+
+            public void setIs_publish(boolean is_publish) {
+                this.is_publish = is_publish;
             }
         }
     }

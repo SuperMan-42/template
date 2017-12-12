@@ -280,16 +280,18 @@
             android:textColor="#FC3F08"
             android:textSize="39px"
             app:layout_constraintBaseline_toBaselineOf="@+id/tv_pay_bt"
-            app:layout_constraintRight_toLeftOf="@id/tv_pay_bt" />
+            app:layout_constraintLeft_toRightOf="@id/tv_1" />
 
         <TextView
+            android:id="@+id/tv_1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="45px"
             android:layout_marginRight="20px"
             android:text="支付金额: "
             android:textColor="#919191"
             android:textSize="42px"
-            app:layout_constraintRight_toLeftOf="@id/tv_actual_amount"
+            app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="@id/tv_actual_amount" />
     </com.core.widget.autolayout.AutoConstraintLayout>
 

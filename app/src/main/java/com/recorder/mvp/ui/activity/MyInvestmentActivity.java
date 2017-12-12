@@ -91,20 +91,25 @@ public class MyInvestmentActivity extends BaseActivity<MyInvestmentPresenter> im
                         .setText(R.id.tv_amount, item.getAmount())
                         .setText(R.id.tv_actual_amount, item.getActual_amount())
                         .setText(R.id.tv_order_status_name, item.getOrder_status_name());
-                if (item.getOrder_status() == 0 || item.getOrder_status() == 1) {
-                    holder.setText(R.id.tv_pay_bt, "支付");
-                    holder.getView(R.id.tv_pay_bt).setOnClickListener(view -> {
-                        mPresenter.orderPay(item.getOrderID(), item, "2");
-                        position = holder.getAdapterPosition();
-                    });
-                } else if (item.getOrder_status() == 4) {
-                    holder.setText(R.id.tv_pay_bt, "上传打款凭证");
-                    holder.getView(R.id.tv_pay_bt).setOnClickListener(view -> {
-                        Bundle bundle = new Bundle();
-                        bundle.putString(Constants.UPLOAD_ORDERID, item.getOrderID());
-                        ARouter.getInstance().build("/app/UploadActivity").withBundle(Constants.UPLOAD, bundle).withBoolean(Constants.ORDER_PROOF, true).navigation();
-                        position = holder.getAdapterPosition();
-                    });
+                if (item.getIs_publish()) {
+                    holder.getView(R.id.tv_pay_bt).setVisibility(View.VISIBLE);
+                    if (item.getOrder_status() == 0 || item.getOrder_status() == 1) {
+                        holder.setText(R.id.tv_pay_bt, "支付");
+                        holder.getView(R.id.tv_pay_bt).setOnClickListener(view -> {
+                            mPresenter.orderPay(item.getOrderID(), item, "2");
+                            position = holder.getAdapterPosition();
+                        });
+                    } else if (item.getOrder_status() == 4) {
+                        holder.setText(R.id.tv_pay_bt, "上传打款凭证");
+                        holder.getView(R.id.tv_pay_bt).setOnClickListener(view -> {
+                            Bundle bundle = new Bundle();
+                            bundle.putString(Constants.UPLOAD_ORDERID, item.getOrderID());
+                            ARouter.getInstance().build("/app/UploadActivity").withBundle(Constants.UPLOAD, bundle).withBoolean(Constants.ORDER_PROOF, true).navigation();
+                            position = holder.getAdapterPosition();
+                        });
+                    }
+                } else {
+                    holder.getView(R.id.tv_pay_bt).setVisibility(View.INVISIBLE);
                 }
                 setContent(holder, item, item.getManager_amount(), R.id.ll_manager_amount, R.id.tv_manager_amount);
                 setContent(holder, item, item.getConsult_amount(), R.id.ll_consult_amount, R.id.tv_consult_amount);
