@@ -12,6 +12,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
+import android.text.Html;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -310,7 +311,6 @@ public class EquityDetailsActivity extends BaseActivity<EquityDetailsPresenter> 
             llBuy.setEnabled(dataEntity.getButton().getClick().equals("1"));//1-可点击
             tvBuyContent.setText(dataEntity.getButton().getButton_name());
         }
-
         //顶部变色bar
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
             translucentBar();
@@ -377,28 +377,28 @@ public class EquityDetailsActivity extends BaseActivity<EquityDetailsPresenter> 
             llIsShowOverview.setVisibility(View.GONE);
         } else {
             llIsShowOverview.setVisibility(View.VISIBLE);
-            tvOverview.setText(dataEntity.getOverview());
+            tvOverview.setText(Html.fromHtml(dataEntity.getOverview()));
         }
         //融资历史(非组合)
         if (dataEntity.getIs_group().equals("1")) {
             llIsShowFinanceHistory.setVisibility(View.GONE);
         } else {
             llIsShowFinanceHistory.setVisibility(View.VISIBLE);
-            tvFinanceHistory.setText(dataEntity.getFinance_history());
+            tvFinanceHistory.setText(Html.fromHtml(dataEntity.getFinance_history()));
         }
         //项目风险(可隐藏)
         if (TextUtils.isEmpty(dataEntity.getRisk())) {
             llIsShowRisk.setVisibility(View.GONE);
         } else {
             llIsShowRisk.setVisibility(View.VISIBLE);
-            tvRisk.setText(dataEntity.getRisk());
+            tvRisk.setText(Html.fromHtml(dataEntity.getRisk()));
         }
         //专家及管理团队意见
-        tvOpinion.setText(dataEntity.getOpinion());
+        tvOpinion.setText(Html.fromHtml(dataEntity.getOpinion()));
         //投资方案
-        tvPlan.setText(dataEntity.getPlan());
+        tvPlan.setText(Html.fromHtml(dataEntity.getPlan()));
         //退出渠道
-        tvWithdrawal.setText(dataEntity.getWithdrawal());
+        tvWithdrawal.setText(Html.fromHtml(dataEntity.getWithdrawal()));
         //QA
         LinearLayoutManager qaManager = new LinearLayoutManager(this) {
             @Override

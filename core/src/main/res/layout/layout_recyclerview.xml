@@ -8,9 +8,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <!--<include-->
-        <!--android:id="@id/swipe_refresh_header"-->
-        <!--layout="@layout/layout_refresh_header" />-->
+        <include
+            android:id="@id/swipe_refresh_header"
+            layout="@layout/layout_refresh_header" />
 
         <android.support.v7.widget.RecyclerView
             android:id="@id/swipe_target"
