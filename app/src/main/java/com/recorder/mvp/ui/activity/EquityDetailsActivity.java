@@ -50,6 +50,7 @@ import com.recorder.widget.AutoHeightViewPager;
 import com.recorder.widget.AutoProgressBar;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
@@ -173,6 +174,10 @@ public class EquityDetailsActivity extends BaseActivity<EquityDetailsPresenter> 
     TextView lastTimeTv;
     @BindView(R.id.visible)
     LinearLayout visible;
+    @BindView(R.id.tv_time)
+    TextView tvTime;
+    @BindView(R.id.im_video)
+    ImageView imVideo;
     private float alpha = 0;
 
     @Override
@@ -311,6 +316,13 @@ public class EquityDetailsActivity extends BaseActivity<EquityDetailsPresenter> 
             llBuy.setEnabled(dataEntity.getButton().getClick().equals("1"));//1-可点击
             tvBuyContent.setText(dataEntity.getButton().getButton_name());
         }
+        //认购时间
+        if (dataEntity.getBegin_time().compareTo(DateUtil.DateToString(new Date(System.currentTimeMillis()), DateUtil.DateStyle.YYYY_MM_DD_HH_MM_SS)) == 1) {//1 > -2< 0=
+            tvTime.setVisibility(View.VISIBLE);
+            tvTime.setText("项目于: " + dataEntity.getBegin_time() + "开始认购");
+        } else {
+            tvTime.setVisibility(View.GONE);
+        }
         //顶部变色bar
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
             translucentBar();
@@ -441,6 +453,7 @@ public class EquityDetailsActivity extends BaseActivity<EquityDetailsPresenter> 
             llIsShowVideo.setVisibility(View.GONE);
         } else {
             llIsShowVideo.setVisibility(View.VISIBLE);
+            CoreUtils.imgLoader(this, dataEntity.getVideo().getCover_url(), R.drawable.detail_video_bg, imVideo);
             llIsShowVideo.setOnClickListener(view -> ARouter.getInstance().build("/app/VideoActivity").withString("vid", dataEntity.getVideo().getVideo_id())
                     .withString("auth", dataEntity.getVideo().getPlay_auth()).navigation());
         }

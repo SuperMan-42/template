@@ -11,7 +11,7 @@ public class DealDetailBean {
     /**
      * errno : 0
      * error : 成功
-     * data : {"dealID":"6f10e0b2e9070c5484380ca9","deal_name":"网络电影《人间大炮3》","cover":"http://ustatic-test.dreamflyc.com/group1/M00/02/37/ChIGqldLyNuATr6zAADXlrJMiTY036.jpg","brief":"当红主播与本山弟子打造东北风格爆笑喜剧电影","labels":"金融/教育培训/电子商务/社交/硬件设备","round":"不明确+尚未获投+种子轮+天使轮+Pre-A轮","progress":"0","finish_day":"0","limit_price":"10","target_fund":"150","shakes":"0","intro":"《人间大炮1》优酷上线1个月总点击量3100万，首日播放量问鼎全网第一。\r\n当红网络主播与本山传媒多位明星弟子打造东北风格爆笑喜剧电影。","team":[{"name":"李春明","avator":"","intro":"百万星光文化发展有限公司董事长","position":"出品人"},{"name":"马野","avator":"","intro":"先后担任《人间大炮》第一部、第二部的制片人以及电视剧《绿水青山好日子》的出品人及制片人，从业十余年","position":"制片人"},{"name":"柳亦乐","avator":"","intro":"1984年生人，从业十余年，曾担任《擒狼》、《温暖的日子》、《煮妇的春天》等电视剧执行导演","position":"导演"}],"growth":[{"occ_time":"2017-11-21 18:15:17","title":"微信二维码已更新","content":"该项目微信群二维码已经更新，请大家在有效期前扫描，感谢大家关注","images":[""]},{"occ_time":"2017-11-24 18:16:28","title":"项目已上线","content":"项目已上线","images":[""]}],"overview":"sdfsdfa","finance_history":"圣大非省的","risk":"事地方","opinion":"圣大非省的事地方是","plan":"发斯蒂芬斯蒂芬速度","withdrawal":"上帝发誓地方","qa":[{"question":"项目信息变更","answer":"A:2017年7月24日变更信息如下：项目估值由3000万调整为5000万；融资目标额由180万调整为100万，出让股份由6%调整为2%。"},{"question":"付款方式","answer":"A:项目发行期为2017年7月31日 10:00至2017年8月15日 10:00。本次项目发行付款共分为投资款和管理费两个阶段。所有费用均需在付款截至时间内缴纳完成。 投资款: 付款开放日期：2017年7月31日 10:00至2017年8月15日 10:00 投资款按预约金额进行付款，保证金自动转入，本次只需缴纳剩余投资款（实际缴纳金额＝预约金额－保证金），项目进入发行阶段后您可以在原始会app及官网的项目页面直接进行付款。 管理费： 付款开放日期：2017年7月31日 10:00至2017年8月15日 10:00 1、 银河汇富在融资收取的管理费：投资人认购额的1%，为注册费用和第二年的工商维护费用； 2、 第三年以后，每二年仍需收取认购额1%作为管理费，但是银河汇富会先行垫付，后期从退出carry里收取； 3、所有成功缴纳投资金的用户将在投资金额确认后收到首次管理费付款说明邮件，投资人可通过邮件内付款链接直接进行支付，管理费目前只支持官网pc端支付。 注意事项： 1、投资款及管理费支付请使用相同账户及相同银行卡。 2、如只缴纳投资款而未缴纳管理费导致投资行为失败责任由投资人自行承担。 3、所有协议为模板协议，最终以实际签署为准。 4、发行阶段如有其他问题可联系本项目投资经理：邹经理18911254563；客服电话 400-010-6818。"}],"public_files":[{"file_name":"投资顾问协议","file":"http://ustatic-test.dreamflyc.com/group1/M00/02/62/ChRYqlhY3wqATFESAERJa-O_DjA496.pdf"},{"file_name":"增资扩股协议","file":"http://ustatic-test.dreamflyc.com/group1/M00/02/62/ChRYqlhY3wqATFESAERJa-O_DjA496.pdf"},{"file_name":"投资管理报告","file":"http://ustatic-test.dreamflyc.com/group1/M00/02/62/ChRYqlhY3wqATFESAERJa-O_DjA496.pdf"}],"video":{"video_id":"6cc6873c74554e1ca423550014cefbe0","play_auth":"eyJTZWN1cml0eVRva2VuIjoiQ0FJUzN3SjFxNkZ0NUIyeWZTaklwWXYzSC8zZ3U1cE04WXFPTVVIZ2lUWVpUclpKM0svQWx6ejJJSHBLZVhkdUFlQVhzL28wbW1oWjcvWVlsck1xR3NJWkZSV2NQWkloc000UG9WUHhKcExGc3QySjZyOEpqc1Ztekx4Zm5GMnBzdlhKYXNEVkVma3VFNVhFTWlJNS8wMGU2TC8rY2lyWVhEN0JHSmFWaUpsaFE4MEtWdzJqRjFSdkQ4dFhJUTBRazYxOUszemRaOW1nTGlidWkzdnhDa1J2MkhCaWptOHR4cW1qL015UTV4MzFpMXYweStCM3dZSHRPY3FjYThCOU1ZMVdUc3Uxdm9oemFyR1Q2Q3BaK2psTStxQVU2cWxZNG1YcnM5cUhFa0ZOd0JpWFNaMjJsT2RpTndoa2ZLTTNOcmRacGZ6bjc1MUN0L2ZVaXA3OHhtUW1YNGdYY1Z5R0ZOLzducFNVUmJ2M2I0eGxMZXVrQVJtWGpJRFRiS3VTbWhnL2ZIY1dPRGxOZjljY01YSnFBWFF1TUdxQWRQTDVwZ2lhTTFyOUVQYmRnZmhtaTRBSjVsSHA3TWVNR1YrRGVMeVF5aDBFSWFVN2EwNDR4ckRoRzVnS3NNUWFnQUVJYksxVjZZWHdISEQzOThWY2RZdjBWcndsQXdZaUJBMUZ4eTA5UE02ekRTZUhNZmNPKzh4Y3pmaUY5eEUvVFlkcVdXTVJGTjV2bzdqQmprQU50dGtERy8rOThSVUxQOFo0bGV3OTdEU0M1SDBYUkpOUms4eVhkS0t6K3ZUQzRQMFBTSVJTaWtRUGV6dDA0MU4xS1kzam9MTndwRERLR0l1cnQxc1JIRWpNOXc9PSIsIkF1dGhJbmZvIjoie1wiQ2FsbGVyXCI6XCJHT01hNHNvbW9KUllCNWV5NUpKVVc1VmQzZTViaGliWnJ2YzFMYUVTWG5NPVxcclxcblwiLFwiRXhwaXJlVGltZVwiOlwiMjAxNy0xMS0yNVQxOTowNjo0NVpcIixcIk1lZGlhSWRcIjpcIjZjYzY4NzNjNzQ1NTRlMWNhNDIzNTUwMDE0Y2VmYmUwXCIsXCJTaWduYXR1cmVcIjpcImxBc1c1bmhXWlhXM3BVaFBUZ0QxbTZVQUpCdz1cIn0iLCJWaWRlb01ldGEiOnsiU3RhdHVzIjoiTm9ybWFsIiwiVmlkZW9JZCI6IjZjYzY4NzNjNzQ1NTRlMWNhNDIzNTUwMDE0Y2VmYmUwIiwiVGl0bGUiOiJ0ZXN0IiwiQ292ZXJVUkwiOiJodHRwOi8vZWlkb3YuZHJlYW1mbHljLmNvbS9zbmFwc2hvdC82Y2M2ODczYzc0NTU0ZTFjYTQyMzU1MDAxNGNlZmJlMDAwMDAxLmpwZyIsIkR1cmF0aW9uIjoxNjYuMTM0fSwiQWNjZXNzS2V5SWQiOiJTVFMuREhCVEdUVkVtRkhlM2dRbTZMQjllM2prdSIsIlBsYXlEb21haW4iOiJlaWRvdi5kcmVhbWZseWMuY29tIiwiQWNjZXNzS2V5U2VjcmV0IjoiSEYzTGNZeFd1UjJuYzV5TnZRcWR0Y1N4UUFkOVQyanlCcHJ0TE54NExFaWQiLCJSZWdpb24iOiJjbi1zaGFuZ2hhaSIsIkN1c3RvbWVySWQiOjE5NTQ4MTA4MTk2MjA4ODh9"},"bp_file":"","is_follow":"0","is_group":"0","type":"1","number":"1","button":{"button_name":"我要认购","click":"1"},"manager":{"manager_name":"高圆圆","position":"高级合伙人","avatar":"","mobile":"13111111111","wechat":"13111111111","email":"luweijun@ucfgroup.com"}}
+     * data : {"dealID":"6f10e0b2e9070c5484380ca9","deal_name":"网络电影《人间大炮3》","cover":"http://ustatic-test.dreamflyc.com/group1/M00/02/37/ChIGqldLyNuATr6zAADXlrJMiTY036.jpg","brief":"当红主播与本山弟子打造东北风格爆笑喜剧电影","labels":"金融/教育培训/电子商务/社交/硬件设备","round":"不明确+尚未获投+种子轮+天使轮+Pre-A轮","progress":"0","finish_day":"0","limit_price":"10","target_fund":"150","shakes":"0","intro":"《人间大炮1》优酷上线1个月总点击量3100万，首日播放量问鼎全网第一。\r\n当红网络主播与本山传媒多位明星弟子打造东北风格爆笑喜剧电影。","team":[{"name":"李春明","avator":"","intro":"百万星光文化发展有限公司董事长","position":"出品人"},{"name":"马野","avator":"","intro":"先后担任《人间大炮》第一部、第二部的制片人以及电视剧《绿水青山好日子》的出品人及制片人，从业十余年","position":"制片人"},{"name":"柳亦乐","avator":"","intro":"1984年生人，从业十余年，曾担任《擒狼》、《温暖的日子》、《煮妇的春天》等电视剧执行导演","position":"导演"}],"growth":[{"occ_time":"2017-11-21 18:15:17","title":"微信二维码已更新","content":"该项目微信群二维码已经更新，请大家在有效期前扫描，感谢大家关注","images":[""]},{"occ_time":"2017-11-24 18:16:28","title":"项目已上线","content":"项目已上线","images":[""]}],"overview":"sdfsdfa","finance_history":"圣大非省的","risk":"事地方","opinion":"圣大非省的事地方是","plan":"发斯蒂芬斯蒂芬速度","withdrawal":"上帝发誓地方","qa":[{"question":"项目信息变更","answer":"A:2017年7月24日变更信息如下：项目估值由3000万调整为5000万；融资目标额由180万调整为100万，出让股份由6%调整为2%。"},{"question":"付款方式","answer":"A:项目发行期为2017年7月31日 10:00至2017年8月15日 10:00。本次项目发行付款共分为投资款和管理费两个阶段。所有费用均需在付款截至时间内缴纳完成。 投资款: 付款开放日期：2017年7月31日 10:00至2017年8月15日 10:00 投资款按预约金额进行付款，保证金自动转入，本次只需缴纳剩余投资款（实际缴纳金额＝预约金额－保证金），项目进入发行阶段后您可以在原始会app及官网的项目页面直接进行付款。 管理费： 付款开放日期：2017年7月31日 10:00至2017年8月15日 10:00 1、 银河汇富在融资收取的管理费：投资人认购额的1%，为注册费用和第二年的工商维护费用； 2、 第三年以后，每二年仍需收取认购额1%作为管理费，但是银河汇富会先行垫付，后期从退出carry里收取； 3、所有成功缴纳投资金的用户将在投资金额确认后收到首次管理费付款说明邮件，投资人可通过邮件内付款链接直接进行支付，管理费目前只支持官网pc端支付。 注意事项： 1、投资款及管理费支付请使用相同账户及相同银行卡。 2、如只缴纳投资款而未缴纳管理费导致投资行为失败责任由投资人自行承担。 3、所有协议为模板协议，最终以实际签署为准。 4、发行阶段如有其他问题可联系本项目投资经理：邹经理18911254563；客服电话 400-010-6818。"}],"public_files":[{"file_name":"投资顾问协议","file":"http://ustatic-test.dreamflyc.com/group1/M00/02/62/ChRYqlhY3wqATFESAERJa-O_DjA496.pdf"},{"file_name":"增资扩股协议","file":"http://ustatic-test.dreamflyc.com/group1/M00/02/62/ChRYqlhY3wqATFESAERJa-O_DjA496.pdf"},{"file_name":"投资管理报告","file":"http://ustatic-test.dreamflyc.com/group1/M00/02/62/ChRYqlhY3wqATFESAERJa-O_DjA496.pdf"}],"video":{"video_id":"6cc6873c74554e1ca423550014cefbe0","play_auth":"eyJTZWN1cml0eVRva2VuIjoiQ0FJUzN3SjFxNkZ0NUIyeWZTaklwWXYzSC8zZ3U1cE04WXFPTVVIZ2lUWVpUclpKM0svQWx6ejJJSHBLZVhkdUFlQVhzL28wbW1oWjcvWVlsck1xR3NJWkZSV2NQWkloc000UG9WUHhKcExGc3QySjZyOEpqc1Ztekx4Zm5GMnBzdlhKYXNEVkVma3VFNVhFTWlJNS8wMGU2TC8rY2lyWVhEN0JHSmFWaUpsaFE4MEtWdzJqRjFSdkQ4dFhJUTBRazYxOUszemRaOW1nTGlidWkzdnhDa1J2MkhCaWptOHR4cW1qL015UTV4MzFpMXYweStCM3dZSHRPY3FjYThCOU1ZMVdUc3Uxdm9oemFyR1Q2Q3BaK2psTStxQVU2cWxZNG1YcnM5cUhFa0ZOd0JpWFNaMjJsT2RpTndoa2ZLTTNOcmRacGZ6bjc1MUN0L2ZVaXA3OHhtUW1YNGdYY1Z5R0ZOLzducFNVUmJ2M2I0eGxMZXVrQVJtWGpJRFRiS3VTbWhnL2ZIY1dPRGxOZjljY01YSnFBWFF1TUdxQWRQTDVwZ2lhTTFyOUVQYmRnZmhtaTRBSjVsSHA3TWVNR1YrRGVMeVF5aDBFSWFVN2EwNDR4ckRoRzVnS3NNUWFnQUVJYksxVjZZWHdISEQzOThWY2RZdjBWcndsQXdZaUJBMUZ4eTA5UE02ekRTZUhNZmNPKzh4Y3pmaUY5eEUvVFlkcVdXTVJGTjV2bzdqQmprQU50dGtERy8rOThSVUxQOFo0bGV3OTdEU0M1SDBYUkpOUms4eVhkS0t6K3ZUQzRQMFBTSVJTaWtRUGV6dDA0MU4xS1kzam9MTndwRERLR0l1cnQxc1JIRWpNOXc9PSIsIkF1dGhJbmZvIjoie1wiQ2FsbGVyXCI6XCJHT01hNHNvbW9KUllCNWV5NUpKVVc1VmQzZTViaGliWnJ2YzFMYUVTWG5NPVxcclxcblwiLFwiRXhwaXJlVGltZVwiOlwiMjAxNy0xMS0yNVQxOTowNjo0NVpcIixcIk1lZGlhSWRcIjpcIjZjYzY4NzNjNzQ1NTRlMWNhNDIzNTUwMDE0Y2VmYmUwXCIsXCJTaWduYXR1cmVcIjpcImxBc1c1bmhXWlhXM3BVaFBUZ0QxbTZVQUpCdz1cIn0iLCJWaWRlb01ldGEiOnsiU3RhdHVzIjoiTm9ybWFsIiwiVmlkZW9JZCI6IjZjYzY4NzNjNzQ1NTRlMWNhNDIzNTUwMDE0Y2VmYmUwIiwiVGl0bGUiOiJ0ZXN0IiwiQ292ZXJVUkwiOiJodHRwOi8vZWlkb3YuZHJlYW1mbHljLmNvbS9zbmFwc2hvdC82Y2M2ODczYzc0NTU0ZTFjYTQyMzU1MDAxNGNlZmJlMDAwMDAxLmpwZyIsIkR1cmF0aW9uIjoxNjYuMTM0fSwiQWNjZXNzS2V5SWQiOiJTVFMuREhCVEdUVkVtRkhlM2dRbTZMQjllM2prdSIsIlBsYXlEb21haW4iOiJlaWRvdi5kcmVhbWZseWMuY29tIiwiQWNjZXNzS2V5U2VjcmV0IjoiSEYzTGNZeFd1UjJuYzV5TnZRcWR0Y1N4UUFkOVQyanlCcHJ0TE54NExFaWQiLCJSZWdpb24iOiJjbi1zaGFuZ2hhaSIsIkN1c3RvbWVySWQiOjE5NTQ4MTA4MTk2MjA4ODh9","cover_url":"http://eidov.dreamflyc.com/snapshot/6cc6873c74554e1ca423550014cefbe000001.jpg"},"bp_file":"","is_follow":"0","is_group":"0","type":"1","number":"1","button":{"button_name":"我要认购","click":"1"},"manager":{"manager_name":"高圆圆","position":"高级合伙人","avatar":"","mobile":"13111111111","wechat":"13111111111","email":"luweijun@ucfgroup.com"},"begin_time":"2017-11-21 18:47:45","end_time":"2017-12-01 18:47:50"}
      */
 
     private int errno;
@@ -69,6 +69,8 @@ public class DealDetailBean {
         private String number;
         private ButtonEntity button;
         private ManagerEntity manager;
+        private String begin_time;
+        private String end_time;
         private List<TeamEntity> team;
         private List<GrowthEntity> growth;
         private List<QaEntity> qa;
@@ -180,6 +182,14 @@ public class DealDetailBean {
 
         public void setManager(ManagerEntity manager) {
             this.manager = manager;
+        }
+
+        public void setBegin_time(String begin_time) {
+            this.begin_time = begin_time;
+        }
+
+        public void setEnd_time(String end_time) {
+            this.end_time = end_time;
         }
 
         public void setTeam(List<TeamEntity> team) {
@@ -298,6 +308,14 @@ public class DealDetailBean {
             return manager;
         }
 
+        public String getBegin_time() {
+            return begin_time;
+        }
+
+        public String getEnd_time() {
+            return end_time;
+        }
+
         public List<TeamEntity> getTeam() {
             return team;
         }
@@ -318,10 +336,12 @@ public class DealDetailBean {
             /**
              * video_id : 6cc6873c74554e1ca423550014cefbe0
              * play_auth : eyJTZWN1cml0eVRva2VuIjoiQ0FJUzN3SjFxNkZ0NUIyeWZTaklwWXYzSC8zZ3U1cE04WXFPTVVIZ2lUWVpUclpKM0svQWx6ejJJSHBLZVhkdUFlQVhzL28wbW1oWjcvWVlsck1xR3NJWkZSV2NQWkloc000UG9WUHhKcExGc3QySjZyOEpqc1Ztekx4Zm5GMnBzdlhKYXNEVkVma3VFNVhFTWlJNS8wMGU2TC8rY2lyWVhEN0JHSmFWaUpsaFE4MEtWdzJqRjFSdkQ4dFhJUTBRazYxOUszemRaOW1nTGlidWkzdnhDa1J2MkhCaWptOHR4cW1qL015UTV4MzFpMXYweStCM3dZSHRPY3FjYThCOU1ZMVdUc3Uxdm9oemFyR1Q2Q3BaK2psTStxQVU2cWxZNG1YcnM5cUhFa0ZOd0JpWFNaMjJsT2RpTndoa2ZLTTNOcmRacGZ6bjc1MUN0L2ZVaXA3OHhtUW1YNGdYY1Z5R0ZOLzducFNVUmJ2M2I0eGxMZXVrQVJtWGpJRFRiS3VTbWhnL2ZIY1dPRGxOZjljY01YSnFBWFF1TUdxQWRQTDVwZ2lhTTFyOUVQYmRnZmhtaTRBSjVsSHA3TWVNR1YrRGVMeVF5aDBFSWFVN2EwNDR4ckRoRzVnS3NNUWFnQUVJYksxVjZZWHdISEQzOThWY2RZdjBWcndsQXdZaUJBMUZ4eTA5UE02ekRTZUhNZmNPKzh4Y3pmaUY5eEUvVFlkcVdXTVJGTjV2bzdqQmprQU50dGtERy8rOThSVUxQOFo0bGV3OTdEU0M1SDBYUkpOUms4eVhkS0t6K3ZUQzRQMFBTSVJTaWtRUGV6dDA0MU4xS1kzam9MTndwRERLR0l1cnQxc1JIRWpNOXc9PSIsIkF1dGhJbmZvIjoie1wiQ2FsbGVyXCI6XCJHT01hNHNvbW9KUllCNWV5NUpKVVc1VmQzZTViaGliWnJ2YzFMYUVTWG5NPVxcclxcblwiLFwiRXhwaXJlVGltZVwiOlwiMjAxNy0xMS0yNVQxOTowNjo0NVpcIixcIk1lZGlhSWRcIjpcIjZjYzY4NzNjNzQ1NTRlMWNhNDIzNTUwMDE0Y2VmYmUwXCIsXCJTaWduYXR1cmVcIjpcImxBc1c1bmhXWlhXM3BVaFBUZ0QxbTZVQUpCdz1cIn0iLCJWaWRlb01ldGEiOnsiU3RhdHVzIjoiTm9ybWFsIiwiVmlkZW9JZCI6IjZjYzY4NzNjNzQ1NTRlMWNhNDIzNTUwMDE0Y2VmYmUwIiwiVGl0bGUiOiJ0ZXN0IiwiQ292ZXJVUkwiOiJodHRwOi8vZWlkb3YuZHJlYW1mbHljLmNvbS9zbmFwc2hvdC82Y2M2ODczYzc0NTU0ZTFjYTQyMzU1MDAxNGNlZmJlMDAwMDAxLmpwZyIsIkR1cmF0aW9uIjoxNjYuMTM0fSwiQWNjZXNzS2V5SWQiOiJTVFMuREhCVEdUVkVtRkhlM2dRbTZMQjllM2prdSIsIlBsYXlEb21haW4iOiJlaWRvdi5kcmVhbWZseWMuY29tIiwiQWNjZXNzS2V5U2VjcmV0IjoiSEYzTGNZeFd1UjJuYzV5TnZRcWR0Y1N4UUFkOVQyanlCcHJ0TE54NExFaWQiLCJSZWdpb24iOiJjbi1zaGFuZ2hhaSIsIkN1c3RvbWVySWQiOjE5NTQ4MTA4MTk2MjA4ODh9
+             * cover_url : http://eidov.dreamflyc.com/snapshot/6cc6873c74554e1ca423550014cefbe000001.jpg
              */
 
             private String video_id;
             private String play_auth;
+            private String cover_url;
 
             public void setVideo_id(String video_id) {
                 this.video_id = video_id;
@@ -331,12 +351,20 @@ public class DealDetailBean {
                 this.play_auth = play_auth;
             }
 
+            public void setCover_url(String cover_url) {
+                this.cover_url = cover_url;
+            }
+
             public String getVideo_id() {
                 return video_id;
             }
 
             public String getPlay_auth() {
                 return play_auth;
+            }
+
+            public String getCover_url() {
+                return cover_url;
             }
         }
 

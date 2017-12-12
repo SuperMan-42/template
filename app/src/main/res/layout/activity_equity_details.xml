@@ -107,9 +107,9 @@
                     android:background="#00000000"
                     app:finishColor="#F7CE4D"
                     app:loadingColor="#F7CE4D"
+                    app:progressTextSize="0px"
                     app:radius="15px"
-                    app:stopColor="#F7CE4D"
-                    app:progressTextSize="0px" />
+                    app:stopColor="#F7CE4D" />
             </LinearLayout>
 
             <LinearLayout
@@ -660,6 +660,7 @@
                     android:background="@color/white">
 
                     <ImageView
+                        android:id="@+id/im_video"
                         android:layout_width="match_parent"
                         android:layout_height="606px"
                         android:layout_margin="45px"
@@ -756,6 +757,22 @@
                 android:textSize="45px" />
         </LinearLayout>
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/ll_bottom"
+        android:alpha="0.9"
+        android:background="#70718A"
+        android:paddingBottom="20px"
+        android:paddingLeft="45px"
+        android:paddingRight="45px"
+        android:paddingTop="20px"
+        android:textColor="@color/white"
+        android:textSize="42px"
+        android:visibility="gone"
+        tools:text="项目于：2017-12-10 00:00:00开始认购" />
 
     <include layout="@layout/view_toolbar_alpha" />
 
