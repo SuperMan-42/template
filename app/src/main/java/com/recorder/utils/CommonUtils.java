@@ -291,7 +291,11 @@ public class CommonUtils {
                                         @Override
                                         protected void completed(BaseDownloadTask task) {
                                             super.completed(task);
-                                            observableEmitter.onComplete();
+                                            if (hasNext) {
+                                                observableEmitter.onComplete();
+                                            } else {
+                                                observableEmitter.onNext(task);
+                                            }
                                             if (fileCallback != null)
                                                 fileCallback.onResponse(new File(task.getPath()));
                                         }
