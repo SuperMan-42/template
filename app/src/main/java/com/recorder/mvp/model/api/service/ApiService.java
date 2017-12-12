@@ -1,5 +1,6 @@
 package com.recorder.mvp.model.api.service;
 
+import com.recorder.mvp.model.entity.AppMsgsBean;
 import com.recorder.mvp.model.entity.AppStartBean;
 import com.recorder.mvp.model.entity.AppVersionBean;
 import com.recorder.mvp.model.entity.AuthGetBean;
@@ -188,4 +189,7 @@ public interface ApiService {
 
     @GET("app/version")
     Observable<AppVersionBean> appVersion(@Header("DIVERSION-VERSION") String version);
+
+    @GET("app/msgs")
+    Observable<AppMsgsBean> appMsgs(@Header("DIVERSION-VERSION") String version, @Query("page") String page, @Query("page_size") String page_size);
 }

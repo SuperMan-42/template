@@ -18,10 +18,8 @@ import com.recorder.R;
 import com.recorder.di.component.DaggerMyMessageComponent;
 import com.recorder.di.module.MyMessageModule;
 import com.recorder.mvp.contract.MyMessageContract;
+import com.recorder.mvp.model.entity.AppMsgsBean;
 import com.recorder.mvp.presenter.MyMessagePresenter;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 
@@ -50,24 +48,20 @@ public class MyMessageActivity extends BaseActivity<MyMessagePresenter> implemen
     @Override
     public void initView(Bundle savedInstanceState) {
         title("消息");
-        List<String> list = new ArrayList<>();
-        list.add("");
-        list.add("");
-        list.add("");
-        list.add("");
-        list.add("");
-        recyclerView.init(new BaseQuickAdapter<String, BaseViewHolder>(R.layout.item_message, list) {
+        mPresenter.appMsgs("1", Constants.PAGE_SIZE);
+        recyclerView.getRecyclerView().addItemDecoration(new SpacesItemDecoration(30, 45));
+        recyclerView.init(new BaseQuickAdapter<AppMsgsBean.DataEntity.ListEntity, BaseViewHolder>(R.layout.item_message) {
             @Override
-            protected void convert(BaseViewHolder holder, String item) {
-                holder.setText(R.id.tv_title, "股权类产品有了新的项目")
-                        .setText(R.id.tv_content, "上线了共享单车、健康饮品等项目，快去查看吧;上线了共享单车、健康饮品等项目，快去查看吧")
+            protected void convert(BaseViewHolder holder, AppMsgsBean.DataEntity.ListEntity item) {
+                holder.setText(R.id.tv_title, "昊翔")
+                        .setText(R.id.tv_content, item.getContent())
                         .setText(R.id.tv_time, "1小时前");
                 holder.itemView.setOnClickListener(view1 -> ARouter.getInstance().build("/app/WebActivity")
                         .withBoolean(Constants.IS_SHOW_RIGHT, false)
-                        .withString(Constants.WEB_URL, "上线了共享单车、健康饮品等项目，快去查看吧").navigation());
+                        .withString(Constants.WEB_URL, item.getContent()).navigation());
             }
-        }, false);
-        recyclerView.getRecyclerView().addItemDecoration(new SpacesItemDecoration(30, 45));
+        }).openRefresh(page -> mPresenter.appMsgs("1", Constants.PAGE_SIZE))
+                .openLoadMore(Constants.PAGE_SIZE_INT, page -> mPresenter.appMsgs(String.valueOf(page), Constants.PAGE_SIZE)).reStart();
     }
 
     @Override
@@ -95,5 +89,10 @@ public class MyMessageActivity extends BaseActivity<MyMessagePresenter> implemen
     @Override
     public void killMyself() {
         finish();
+    }
+
+    @Override
+    public void showAppMsgs(AppMsgsBean.DataEntity data) {
+        recyclerView.getAdapter().addData(data.getList());
     }
 }

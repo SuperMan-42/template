@@ -1,5 +1,6 @@
 package com.recorder.mvp.model.api.cache;
 
+import com.recorder.mvp.model.entity.AppMsgsBean;
 import com.recorder.mvp.model.entity.AppStartBean;
 import com.recorder.mvp.model.entity.AuthGetBean;
 import com.recorder.mvp.model.entity.DealDetailBean;
@@ -53,4 +54,6 @@ public interface ApiCache {
     Observable<Reply<UserAuthInfoBean>> userAuthInfo(Observable<UserAuthInfoBean> resultObservable, EvictProvider evictProvider);
 
     Observable<Reply<AuthGetBean>> authGet(Observable<AuthGetBean> resultObservable, EvictProvider evictProvider);
+
+    Observable<Reply<AppMsgsBean>> appMsgs(Observable<AppMsgsBean> resultObservable, EvictProvider evictProvider);
 }
