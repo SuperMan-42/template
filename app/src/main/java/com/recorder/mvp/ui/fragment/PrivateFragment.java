@@ -7,6 +7,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
@@ -75,7 +76,9 @@ public class PrivateFragment extends BaseFragment<PrivatePresenter> implements P
                         .setText(R.id.tv_labels, item.getLabels())
                         .setText(R.id.tv_round, item.getRound())
                         .setText(R.id.tv_online_str, item.getOnline_str())
-                        .setVisible(R.id.tv_is_group, item.getIs_group().equals("1"));
+                        .setVisible(R.id.tv_is_group, item.getIs_group().equals("1"))
+                        .setVisible(R.id.tv_brief, !item.getIs_group().equals("1"));
+                ((LinearLayout) holder.getView(R.id.ll_tag)).setOrientation(item.getIs_group().equals("1") ? LinearLayout.VERTICAL : LinearLayout.HORIZONTAL);
                 EquityBean.DataEntity.ListEntity.ViewFooterEntity viewFooterEntity = item.getView_footer();
                 if (viewFooterEntity != null) {
                     holder.setText(R.id.tv_view, String.valueOf(viewFooterEntity.getView()))

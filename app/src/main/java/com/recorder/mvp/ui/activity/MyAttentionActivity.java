@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.View;
+import android.widget.LinearLayout;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
@@ -65,7 +66,9 @@ public class MyAttentionActivity extends BaseActivity<MyAttentionPresenter> impl
                         .setText(R.id.tv_labels, item.getLabels())
                         .setText(R.id.tv_round, item.getRound())
                         .setText(R.id.tv_online_str, item.getOnline_str())
-                        .setVisible(R.id.tv_is_group, item.getIs_group().equals("1"));
+                        .setVisible(R.id.tv_is_group, item.getIs_group().equals("1"))
+                        .setVisible(R.id.tv_brief, !item.getIs_group().equals("1"));
+                ((LinearLayout) holder.getView(R.id.ll_tag)).setOrientation(item.getIs_group().equals("1") ? LinearLayout.VERTICAL : LinearLayout.HORIZONTAL);
                 UserFollowListBean.DataEntity.ListEntity.ViewFooterEntity viewFooterEntity = item.getView_footer();
                 if (viewFooterEntity != null) {
                     holder.setText(R.id.tv_view, String.valueOf(viewFooterEntity.getView()))

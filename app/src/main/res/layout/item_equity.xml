@@ -19,7 +19,7 @@
             android:id="@+id/item_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_vertical"
+            android:layout_marginTop="75px"
             android:orientation="horizontal">
 
             <FrameLayout
@@ -33,7 +33,6 @@
                     android:layout_marginBottom="75px"
                     android:layout_marginLeft="36px"
                     android:layout_marginRight="36px"
-                    android:layout_marginTop="75px"
                     android:scaleType="centerCrop"
                     android:src="@drawable/bga_round" />
 
@@ -53,7 +52,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="45px"
                 android:layout_marginRight="36px"
-                android:layout_marginTop="45px"
                 android:layout_weight="1.0"
                 android:orientation="vertical">
 
@@ -93,6 +91,7 @@
                     tools:text="快速测量婴儿体温,同步到app,智能家居生活,从这里开始" />
 
                 <LinearLayout
+                    android:id="@+id/ll_tag"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
@@ -107,6 +106,7 @@
                         android:ellipsize="end"
                         android:gravity="center"
                         android:maxLines="1"
+                        android:paddingBottom="18px"
                         android:textColor="#666666"
                         android:textSize="36px"
                         tools:text="智能生活" />
@@ -133,7 +133,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_marginRight="36px"
-            android:layout_marginTop="18px"
+            android:layout_marginTop="33px"
             android:textColor="#999999"
             android:textSize="33px"
             tools:text="一天前" />

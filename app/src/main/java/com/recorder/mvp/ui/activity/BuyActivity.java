@@ -108,13 +108,13 @@ public class BuyActivity extends BaseActivity<BuyPresenter> implements BuyContra
         tvDealName.setText(dataEntity.getDeal_name());
         tvLimitPrice.setText("起投金额" + dataEntity.getLimit_price() + "万元");
         setContent(dataEntity.getShakes(), llShakes, tvShakes);
-        setContent(dataEntity.getManager_fee(), llManagerFee, tvManagerFee);
-        setContent(dataEntity.getConsult_fee(), llConsultFee, tvConsultFee);
-        setContent(dataEntity.getSubscription_fee(), llSubscriptionFee, tvSubscriptionFee);
-        setContent(dataEntity.getPartner_fee(), llPartnerFee, tvPartnerFee);
-        setContent(dataEntity.getPlat_manage_fee(), llPlatManageFee, tvPlatManageFee);
-        setContent(dataEntity.getOther_fee(), llOtherFee, tvOtherFee);
-        setContent(dataEntity.getCustom_fee(), llCustomFee, tvCustomFee);
+        setContent(dataEntity.getManager_fee(), dataEntity.getManager_fee_year(), llManagerFee, tvManagerFee);
+        setContent(dataEntity.getConsult_fee(), dataEntity.getConsult_fee_year(), llConsultFee, tvConsultFee);
+        setContent(dataEntity.getSubscription_fee(), dataEntity.getSubscription_fee_year(), llSubscriptionFee, tvSubscriptionFee);
+        setContent(dataEntity.getPartner_fee(), dataEntity.getPartner_fee_year(), llPartnerFee, tvPartnerFee);
+        setContent(dataEntity.getPlat_manage_fee(), dataEntity.getPlat_manage_fee_year(), llPlatManageFee, tvPlatManageFee);
+        setContent(dataEntity.getOther_fee(), dataEntity.getOther_fee_year(), llOtherFee, tvOtherFee);
+        setContent(dataEntity.getCustom_fee(), dataEntity.getCustom_fee_year(), llCustomFee, tvCustomFee);
         LinearLayoutManager manager = new LinearLayoutManager(this) {
             @Override
             public boolean canScrollVertically() {
@@ -125,7 +125,7 @@ public class BuyActivity extends BaseActivity<BuyPresenter> implements BuyContra
         recyclerview.init(manager, new BaseQuickAdapter<PayCheckBean.DataEntity.PurchseAgreementEntity, BaseViewHolder>(R.layout.item_buy, dataEntity.getPurchse_agreement()) {
             @Override
             protected void convert(BaseViewHolder holder, PayCheckBean.DataEntity.PurchseAgreementEntity item) {
-                holder.setText(R.id.tv_agree, item.getFile_name())
+                holder.setText(R.id.tv_agree, "阅读并同意《" + item.getFile_name() + "》")
                         .setImageResource(R.id.im_agree, item.getCheck() ? R.drawable.ic_item_buy_selector : R.drawable.ic_item_buy);
                 holder.getView(R.id.tv_agree).setOnClickListener(view -> ARouter.getInstance().build("/app/PdfActivity")
                         .withString(Constants.PDF_HTTP, item.getFile()).withString(Constants.PDF_NAME, item.getFile_name()).navigation());
@@ -137,12 +137,26 @@ public class BuyActivity extends BaseActivity<BuyPresenter> implements BuyContra
         }, false);
     }
 
+    private void setContent(String value, String year, LinearLayout ll, TextView tv) {
+        if (TextUtils.isEmpty(value) || Float.parseFloat(value) <= 0) {
+            ll.setVisibility(View.GONE);
+        } else {
+            ll.setVisibility(View.VISIBLE);
+            int yearInt = Integer.parseInt(year);
+            int valueInt = Integer.parseInt(value);
+            tv.setText((valueInt * yearInt) + "%  (" + valueInt + "% * " + yearInt + "年)");
+            if (value.equals(dataEntity.getCustom_fee())) {
+                tvCustomFeeName.setText(dataEntity.getCustom_fee_name());
+            }
+        }
+    }
+
     private void setContent(String value, LinearLayout ll, TextView tv) {
         if (TextUtils.isEmpty(value) || Float.parseFloat(value) <= 0) {
             ll.setVisibility(View.GONE);
         } else {
             ll.setVisibility(View.VISIBLE);
-            tv.setText(value);
+            tv.setText(value + "%");
             if (value.equals(dataEntity.getCustom_fee())) {
                 tvCustomFeeName.setText(dataEntity.getCustom_fee_name());
             }
