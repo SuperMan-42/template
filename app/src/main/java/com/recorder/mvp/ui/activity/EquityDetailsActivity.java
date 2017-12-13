@@ -36,7 +36,6 @@ import com.core.widget.recyclerview.BaseQuickAdapter;
 import com.core.widget.recyclerview.BaseViewHolder;
 import com.core.widget.recyclerview.CoreRecyclerView;
 import com.jaeger.library.StatusBarUtil;
-import com.orhanobut.logger.Logger;
 import com.recorder.R;
 import com.recorder.di.component.DaggerEquityDetailsComponent;
 import com.recorder.di.module.EquityDetailsModule;
@@ -307,6 +306,20 @@ public class EquityDetailsActivity extends BaseActivity<EquityDetailsPresenter> 
     @Override
     public void showDealDetail(DealDetailBean.DataEntity dataEntity) {
         this.dataEntity = dataEntity;
+        //显示关注情况
+        if (alpha <= 0.5 && alpha >= 0) {
+            if (dataEntity.getIs_follow().equals("1")) {
+                imRight.setImageResource(R.drawable.collection_icon_choose_black);
+            } else {
+                imRight.setImageResource(R.drawable.collection_icon_black);
+            }
+        } else if (alpha > 0.5 && alpha <= 1) {
+            if (dataEntity.getIs_follow().equals("1")) {
+                imRight.setImageResource(R.drawable.collection_icon_choose_white);
+            } else {
+                imRight.setImageResource(R.drawable.collection_icon_white);
+            }
+        }
         //处理底部bottom的各种情况
         if (dataEntity.getButton() == null || TextUtils.isEmpty(dataEntity.getButton().getButton_name())) {
             llBuy.setVisibility(View.GONE);
@@ -529,7 +542,6 @@ public class EquityDetailsActivity extends BaseActivity<EquityDetailsPresenter> 
     public void translucentBar() {
         scrollview.setTranslucentListener((alpha, t) -> {
             this.alpha = alpha;
-            Logger.d("alpha=> " + alpha);
             toolbar.setAlpha(1);
             toolbar.getBackground().setAlpha((int) (alpha * 255));
             viewToolbar.getBackground().setAlpha((int) (alpha * 255));
@@ -541,24 +553,22 @@ public class EquityDetailsActivity extends BaseActivity<EquityDetailsPresenter> 
                 tvDealName.setVisibility(View.VISIBLE);
             }
             if (alpha <= 0.5 && alpha >= 0) {
-                if ("1".equals(dataEntity.getIs_follow())) {
+                if (dataEntity.getIs_follow().equals("1")) {
                     imRight.setImageResource(R.drawable.collection_icon_choose_black);
                 } else {
                     imRight.setImageResource(R.drawable.collection_icon_black);
                 }
                 imLeft.setImageResource(R.drawable.back_icon_black);
-                imRight.setImageResource(R.drawable.collection_icon_black);
                 toolbarTitle.setTextColor(Color.argb(0, 0, 0, 0));
                 imLeft.setImageAlpha((int) ((1 - alpha * 2) * 255));
                 imRight.setImageAlpha((int) ((1 - alpha * 2) * 255));
             } else if (alpha > 0.5 && alpha <= 1) {
-                if ("1".equals(dataEntity.getIs_follow())) {
+                if (dataEntity.getIs_follow().equals("1")) {
                     imRight.setImageResource(R.drawable.collection_icon_choose_white);
                 } else {
                     imRight.setImageResource(R.drawable.collection_icon_white);
                 }
                 imLeft.setImageResource(R.drawable.title_back);
-                imRight.setImageResource(R.drawable.collection_icon_white);
                 toolbarTitle.setTextColor(Color.argb((int) (((alpha - 0.5) * 2) * 255), 0, 0, 0));
                 imLeft.setImageAlpha((int) (((alpha - 0.5) * 2) * 255));
                 imRight.setImageAlpha((int) (((alpha - 0.5) * 2) * 255));
