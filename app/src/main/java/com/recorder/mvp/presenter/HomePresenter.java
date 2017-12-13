@@ -32,6 +32,7 @@ import com.vector.update_app.UpdateCallback;
 
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.inject.Inject;
 
@@ -151,12 +152,12 @@ public class HomePresenter extends BasePresenter<HomeContract.Model, HomeContrac
                                         throw new RuntimeException("no permission");
                                     }
                                 })
-                                .compose(CommonUtils.transformService(mApplication, url, path + fileName, false, true, callback))
+                                .compose(CommonUtils.transformService(mApplication, url, path + UUID.randomUUID() + fileName, false, true, callback))
                                 .compose(RxLifecycleUtils.transformer(mRootView))
                                 .subscribe(new ErrorHandleSubscriber<BaseDownloadTask>(mErrorHandler) {
                                     @Override
                                     public void onNext(BaseDownloadTask baseDownloadTask) {
-                                        Logger.d("path" + path + fileName + "download=> " + baseDownloadTask.getSoFarBytes() + " " + baseDownloadTask.getTotalBytes() + " progress=> " + ((float) baseDownloadTask.getSoFarBytes()) / baseDownloadTask.getTotalBytes());
+                                        Logger.d("path" + baseDownloadTask.getFilename() + "download=> " + baseDownloadTask.getSoFarBytes() + " " + baseDownloadTask.getTotalBytes() + " progress=> " + ((float) baseDownloadTask.getSoFarBytes()) / baseDownloadTask.getTotalBytes());
                                     }
                                 });
                     }

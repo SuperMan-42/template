@@ -22,6 +22,7 @@ import com.vector.update_app.UpdateCallback;
 
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
@@ -92,10 +93,10 @@ public class PushReceiver extends PushMessageReceiver {
                                         throw new RuntimeException("no permission");
                                     }
                                 })
-                                .compose(CommonUtils.transformService(context, url, path + fileName, false, true, callback))
+                                .compose(CommonUtils.transformService(context, url, path + UUID.randomUUID() + fileName, false, true, callback))
                                 .subscribeOn(Schedulers.io())
                                 .observeOn(AndroidSchedulers.mainThread())
-                                .subscribe(baseDownloadTask -> Logger.d("path" + path + fileName + "download=> " + baseDownloadTask.getSoFarBytes() + " " + baseDownloadTask.getTotalBytes() + " progress=> " + ((float) baseDownloadTask.getSoFarBytes()) / baseDownloadTask.getTotalBytes()));
+                                .subscribe(baseDownloadTask -> Logger.d("path" + path + " name=> " + baseDownloadTask.getFilename() + "download=> " + baseDownloadTask.getSoFarBytes() + " " + baseDownloadTask.getTotalBytes() + " progress=> " + ((float) baseDownloadTask.getSoFarBytes()) / baseDownloadTask.getTotalBytes()));
                     }
                 })
                 .setUpdateUrl(Api.APP_DOMAIN + "app/version")
