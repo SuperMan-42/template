@@ -42,7 +42,7 @@ import retrofit2.http.Query;
 public interface ApiService {
     @FormUrlEncoded
     @POST("user/register")
-    Observable<Object> registerUser(@Header("DIVERSION-VERSION") String version, @Field("mobile") String mobile,
+    Observable<LoginBean> registerUser(@Header("DIVERSION-VERSION") String version, @Field("mobile") String mobile,
                                     @Field("password") String password, @Field("code") String code);
 
     //type  1-众筹 2-私募 不必须 默认为1-众筹

@@ -8,6 +8,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
@@ -61,6 +62,8 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
     TextView tvAuthType;
     @BindView(R.id.tv_login)
     TextView tvLogin;
+    @BindView(R.id.fl_isLogin)
+    FrameLayout flIsLogin;
 
     public static MyFragment newInstance() {
         MyFragment fragment = new MyFragment();
@@ -88,6 +91,7 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
             tvUserName.setText("您还没登录哦");
             CoreUtils.imgLoaderCircle(getContext(), R.drawable.ic_person, profileImage, R.drawable.ic_person);
             tvLogin.setVisibility(View.VISIBLE);
+            flIsLogin.setVisibility(View.VISIBLE);
             tvMyInvestment.setText("0");
             tvFollowCount.setText("0");
             tvPostInvestment.setText("0");
@@ -182,6 +186,7 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
         tvUserName.setText("您还没登录哦");
         CoreUtils.imgLoaderCircle(getContext(), R.drawable.ic_person, profileImage, R.drawable.ic_person);
         tvLogin.setVisibility(View.VISIBLE);
+        flIsLogin.setVisibility(View.VISIBLE);
         tvAuthType.setVisibility(View.GONE);
         tvMyInvestment.setText("0");
         tvFollowCount.setText("0");
@@ -223,6 +228,7 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
     public void showUserInfo(ImageLoader imageLoader, UserInfoBean userInfoBean) {
         BCache.getInstance().put(Constants.USER_INFO, new Gson().toJson(userInfoBean));
         tvLogin.setVisibility(View.GONE);
+        flIsLogin.setVisibility(View.GONE);
         CoreUtils.imgLoaderCircle(getContext(), userInfoBean.getData().getAvatar(), profileImage, R.drawable.ic_person);
         tvUserName.setText(userInfoBean.getData().getUser_name());
         switch (userInfoBean.getData().getAuth_type()) {

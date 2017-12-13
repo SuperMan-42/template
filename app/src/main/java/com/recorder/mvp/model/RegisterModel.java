@@ -8,6 +8,7 @@ import com.core.mvp.BaseModel;
 import com.google.gson.Gson;
 import com.recorder.mvp.contract.RegisterContract;
 import com.recorder.mvp.model.api.service.ApiService;
+import com.recorder.mvp.model.entity.LoginBean;
 
 import javax.inject.Inject;
 
@@ -33,7 +34,7 @@ public class RegisterModel extends BaseModel implements RegisterContract.Model {
     }
 
     @Override
-    public Observable<Object> registerUser(String mobile, String password, String code) {
+    public Observable<LoginBean> registerUser(String mobile, String password, String code) {
         return mRepositoryManager.obtainRetrofitService(ApiService.class).registerUser("1", mobile, password, code);
     }
 

@@ -5,11 +5,15 @@ import android.app.Application;
 import com.core.di.scope.ActivityScope;
 import com.core.http.imageloader.ImageLoader;
 import com.core.integration.AppManager;
+import com.core.integration.cache.BCache;
 import com.core.mvp.BasePresenter;
+import com.core.utils.Constants;
 import com.core.utils.CoreUtils;
 import com.core.utils.RxLifecycleUtils;
+import com.google.gson.Gson;
 import com.recorder.R;
 import com.recorder.mvp.contract.RegisterContract;
+import com.recorder.mvp.model.entity.LoginBean;
 
 import javax.inject.Inject;
 
@@ -46,10 +50,11 @@ public class RegisterPresenter extends BasePresenter<RegisterContract.Model, Reg
     public void registerUser(String mobile, String password, String code) {
         mModel.registerUser(mobile, password, code)
                 .compose(RxLifecycleUtils.transformer(mRootView))
-                .subscribe(new ErrorHandleSubscriber<Object>(mErrorHandler) {
+                .subscribe(new ErrorHandleSubscriber<LoginBean>(mErrorHandler) {
                     @Override
-                    public void onNext(Object object) {
-                        mRootView.showRegisterSuccess(mImageLoader, object);
+                    public void onNext(LoginBean loginBean) {
+                        BCache.getInstance().put(Constants.LOGIN_INFO, new Gson().toJson(loginBean));
+                        mRootView.showRegisterSuccess(mImageLoader, loginBean);
                     }
                 });
     }

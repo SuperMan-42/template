@@ -446,10 +446,12 @@ public class CommonUtils {
     }
 
     public static void show(AVLoadingIndicatorView avi) {
-        avi.show();
+        if (avi != null)
+            avi.show();
     }
 
     public static void hide(AVLoadingIndicatorView avi) {
-        avi.hide();
+        if (avi != null)
+            avi.hide();
     }
 }

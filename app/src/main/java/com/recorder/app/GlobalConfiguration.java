@@ -103,7 +103,7 @@ public class GlobalConfiguration implements ConfigModule {
                             switch (code) {
                                 case 0:
                                     isConnection = true;
-                                    if (chain.request().url().toString().contains("/user/login")) {
+                                    if (chain.request().url().toString().contains("/user/login") || chain.request().url().toString().contains("/user/register")) {
                                         CoreUtils.obtainRxCache(context).remove("isClear");
                                         BCache.getInstance().put(Constants.TOKEN, response.header("SESSION-TOKEN"));
                                     }
@@ -192,7 +192,8 @@ public class GlobalConfiguration implements ConfigModule {
                             } else {
                                 if (chain.request().url().toString().contains("/deal/list")
                                         || chain.request().url().toString().contains("/user/followlist")
-                                        || chain.request().url().toString().contains("/order/list")) {
+                                        || chain.request().url().toString().contains("/order/list")
+                                        || chain.request().url().toString().contains("/order/pimanage")) {
                                     CoreUtils.showEmpty(Constants.NO_LOGIN, R.drawable.ic_no_login, R.string.empty_no_login, "去登录");
                                     isConnection = false;
                                     return null;

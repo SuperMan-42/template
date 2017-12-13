@@ -22,6 +22,7 @@ import com.recorder.di.component.DaggerRegisterComponent;
 import com.recorder.di.module.RegisterModule;
 import com.recorder.mvp.contract.ForgetPasswordContract;
 import com.recorder.mvp.contract.RegisterContract;
+import com.recorder.mvp.model.entity.LoginBean;
 import com.recorder.mvp.presenter.RegisterPresenter;
 import com.recorder.utils.CommonUtils;
 
@@ -132,7 +133,7 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter> implements
     }
 
     @Override
-    public void showRegisterSuccess(ImageLoader imageLoader, Object object) {
+    public void showRegisterSuccess(ImageLoader imageLoader, LoginBean loginBean) {
         title("提交成功");
         flDialog.setVisibility(View.VISIBLE);
         flDialog.startAnimation(AnimationUtils.loadAnimation(this, R.anim.fade_in));

@@ -8,6 +8,7 @@ public interface ApiErrorCode {
     /**
      * 用户授权失败
      */
+    int ERROR_OUT_TIME = 101;
     int ERROR_USER_AUTHORIZED = 301;
     int ERROR_USER_INFO_NOT_ALL = 113;
     int ERROR_USER_INFO_AUDIT = 114;

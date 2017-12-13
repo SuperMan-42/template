@@ -233,7 +233,7 @@ public class EquityDetailsActivity extends BaseActivity<EquityDetailsPresenter> 
     @Override
     public void showMessage(@NonNull String message) {
         checkNotNull(message);
-        CoreUtils.snackbarText(message);
+//        CoreUtils.snackbarText(message);
         switch (message) {
             case "统计电话联系数成功":
                 CustomPopupWindow.builder().contentView(CoreUtils.inflate(this, R.layout.detail_bottom))
