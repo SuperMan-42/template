@@ -8,7 +8,6 @@
     <com.core.widget.autolayout.AutoConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="552px"
-        android:layout_alignParentBottom="true"
         android:background="@color/white">
 
         <ImageView

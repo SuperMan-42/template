@@ -25,6 +25,8 @@ import com.recorder.mvp.contract.EquityContract;
 import com.recorder.mvp.model.entity.EquityBean;
 import com.recorder.mvp.model.entity.LoginBean;
 import com.recorder.mvp.presenter.EquityPresenter;
+import com.recorder.utils.CommonUtils;
+import com.wang.avi.AVLoadingIndicatorView;
 
 import org.simple.eventbus.Subscriber;
 
@@ -38,6 +40,8 @@ public class EquityFragment extends BaseFragment<EquityPresenter> implements Equ
     CoreRecyclerView recyclerView;
     @BindView(R.id.tv_tag)
     TextView tvTag;
+    @BindView(R.id.avi)
+    AVLoadingIndicatorView avi;
 
     public static EquityFragment newInstance() {
         EquityFragment fragment = new EquityFragment();
@@ -131,12 +135,12 @@ public class EquityFragment extends BaseFragment<EquityPresenter> implements Equ
 
     @Override
     public void showLoading() {
-
+        CommonUtils.show(avi);
     }
 
     @Override
     public void hideLoading() {
-
+        CommonUtils.hide(avi);
     }
 
     @Override

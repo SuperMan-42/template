@@ -239,7 +239,7 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
                 tvAuthType.setText("机构认证");
                 break;
         }
-        tvAuthType.setVisibility(View.VISIBLE);
+//        tvAuthType.setVisibility(View.VISIBLE);
         tvMyInvestment.setText(userInfoBean.getData().getMy_investment());
         tvFollowCount.setText(userInfoBean.getData().getMy_follow_count());
         tvPostInvestment.setText(userInfoBean.getData().getPost_investment());

@@ -20,6 +20,8 @@ import com.recorder.di.module.MyMessageModule;
 import com.recorder.mvp.contract.MyMessageContract;
 import com.recorder.mvp.model.entity.AppMsgsBean;
 import com.recorder.mvp.presenter.MyMessagePresenter;
+import com.recorder.utils.CommonUtils;
+import com.wang.avi.AVLoadingIndicatorView;
 
 import butterknife.BindView;
 
@@ -29,6 +31,8 @@ import static com.core.utils.Preconditions.checkNotNull;
 public class MyMessageActivity extends BaseActivity<MyMessagePresenter> implements MyMessageContract.View {
     @BindView(R.id.recyclerview)
     CoreRecyclerView recyclerView;
+    @BindView(R.id.avi)
+    AVLoadingIndicatorView avi;
 
     @Override
     public void setupActivityComponent(AppComponent appComponent) {
@@ -53,9 +57,9 @@ public class MyMessageActivity extends BaseActivity<MyMessagePresenter> implemen
         recyclerView.init(new BaseQuickAdapter<AppMsgsBean.DataEntity.ListEntity, BaseViewHolder>(R.layout.item_message) {
             @Override
             protected void convert(BaseViewHolder holder, AppMsgsBean.DataEntity.ListEntity item) {
-                holder.setText(R.id.tv_title, "昊翔")
+                holder.setText(R.id.tv_title, "般若云消息")
                         .setText(R.id.tv_content, item.getContent())
-                        .setText(R.id.tv_time, "1小时前");
+                        .setText(R.id.tv_time, item.getCtime());
                 holder.itemView.setOnClickListener(view1 -> ARouter.getInstance().build("/app/WebActivity")
                         .withBoolean(Constants.IS_SHOW_RIGHT, false)
                         .withString(Constants.WEB_URL, item.getContent()).navigation());
@@ -66,12 +70,12 @@ public class MyMessageActivity extends BaseActivity<MyMessagePresenter> implemen
 
     @Override
     public void showLoading() {
-
+        CommonUtils.show(avi);
     }
 
     @Override
     public void hideLoading() {
-
+        CommonUtils.hide(avi);
     }
 
     @Override

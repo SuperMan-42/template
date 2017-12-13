@@ -23,6 +23,8 @@ import com.recorder.di.module.DynamicModule;
 import com.recorder.mvp.contract.DynamicContract;
 import com.recorder.mvp.model.entity.NewsListBean;
 import com.recorder.mvp.presenter.DynamicPresenter;
+import com.recorder.utils.CommonUtils;
+import com.wang.avi.AVLoadingIndicatorView;
 
 import butterknife.BindView;
 
@@ -32,6 +34,8 @@ import static com.core.utils.Preconditions.checkNotNull;
 public class DynamicFragment extends BaseFragment<DynamicPresenter> implements DynamicContract.View {
     @BindView(R.id.recyclerview)
     CoreRecyclerView recyclerView;
+    @BindView(R.id.avi)
+    AVLoadingIndicatorView avi;
 
     public static DynamicFragment newInstance() {
         DynamicFragment fragment = new DynamicFragment();
@@ -89,12 +93,12 @@ public class DynamicFragment extends BaseFragment<DynamicPresenter> implements D
 
     @Override
     public void showLoading() {
-
+        CommonUtils.show(avi);
     }
 
     @Override
     public void hideLoading() {
-
+        CommonUtils.hide(avi);
     }
 
     @Override

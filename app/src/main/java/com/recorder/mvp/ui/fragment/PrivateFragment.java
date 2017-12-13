@@ -25,6 +25,8 @@ import com.recorder.mvp.contract.PrivateContract;
 import com.recorder.mvp.model.entity.EquityBean;
 import com.recorder.mvp.model.entity.LoginBean;
 import com.recorder.mvp.presenter.PrivatePresenter;
+import com.recorder.utils.CommonUtils;
+import com.wang.avi.AVLoadingIndicatorView;
 
 import org.simple.eventbus.Subscriber;
 
@@ -38,6 +40,8 @@ public class PrivateFragment extends BaseFragment<PrivatePresenter> implements P
     CoreRecyclerView recyclerView;
     @BindView(R.id.tv_tag)
     TextView tvTag;
+    @BindView(R.id.avi)
+    AVLoadingIndicatorView avi;
 
     public static PrivateFragment newInstance() {
         PrivateFragment fragment = new PrivateFragment();
@@ -127,12 +131,12 @@ public class PrivateFragment extends BaseFragment<PrivatePresenter> implements P
 
     @Override
     public void showLoading() {
-
+        CommonUtils.show(avi);
     }
 
     @Override
     public void hideLoading() {
-
+        CommonUtils.hide(avi);
     }
 
     @Override

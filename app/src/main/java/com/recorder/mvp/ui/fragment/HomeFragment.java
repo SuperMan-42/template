@@ -3,6 +3,7 @@ package com.recorder.mvp.ui.fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,7 +27,9 @@ import com.recorder.mvp.model.entity.Bean;
 import com.recorder.mvp.model.entity.DealFilter;
 import com.recorder.mvp.model.entity.HomeRecommendBean;
 import com.recorder.mvp.presenter.HomePresenter;
+import com.recorder.utils.CommonUtils;
 import com.recorder.widget.AutoProgressBar;
+import com.wang.avi.AVLoadingIndicatorView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,6 +46,8 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
 
     @BindView(R.id.recyclerview)
     CoreRecyclerView recyclerView;
+    @BindView(R.id.avi)
+    AVLoadingIndicatorView avi;
 
     public static HomeFragment newInstance() {
         HomeFragment fragment = new HomeFragment();
@@ -88,12 +93,12 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
 
     @Override
     public void showLoading() {
-
+        CommonUtils.show(avi);
     }
 
     @Override
     public void hideLoading() {
-
+        CommonUtils.hide(avi);
     }
 
     @Override
@@ -124,8 +129,6 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
         BGABanner banner = view.findViewById(R.id.banner);
         List<Bean> models = new ArrayList<>();
         List<String> titles = new ArrayList<>();
-        models.add(new Bean<>("deal", dataEntity.getDeal_recommend().getCover(), dataEntity.getDeal_recommend().getUrl()));
-        titles.add(dataEntity.getDeal_recommend().getText());
         for (HomeRecommendBean.DataEntity.NewsRecommendEntity entity : dataEntity.getNews_recommend()) {
             models.add(new Bean<>(entity.getNewsID(), entity.getCover(), entity.getUrl()));
             titles.add(entity.getTitle());
@@ -133,9 +136,8 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
         banner.setAdapter((banner1, itemView, model, position) -> {
             CoreUtils.imgLoader(getContext(), ((Bean) model).getValue(), ((Bean) model).getKey().equals("deal") ? R.drawable.ic_deal_recommend : R.drawable.home_banner, (ImageView) itemView);
             itemView.setOnClickListener(view12 -> {
-                if (((Bean) model).getKey().equals("deal")) {
-                    ARouter.getInstance().build("/app/EquityDetailsActivity")
-                            .withBoolean(Constants.IS_EQUITY, true).withString(Constants.DEAL_ID, ((Bean) model).getOther()).navigation();
+                if (((Bean) model).getOther().equals("hx://deal-recommend")) {
+                    ARouter.getInstance().build("/app/DealRecommendActivity").navigation();
                 } else {
                     ARouter.getInstance().build("/app/WebActivity")
                             .withBoolean(Constants.IS_SHOW_RIGHT, true).withString(Constants.WEB_URL, ((Bean) model).getOther()).navigation();
@@ -150,7 +152,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
         recyclerView.init(new BaseQuickAdapter<HomeRecommendBean.DataEntity.Entity, BaseViewHolder>(R.layout.item_home, list) {
             @Override
             protected void convert(BaseViewHolder holder, HomeRecommendBean.DataEntity.Entity item) {
-                CoreUtils.imgLoaderRound(getContext(), item.getCover(), bitmapTransform(new RoundedCornersTransformation(24, 0, RoundedCornersTransformation.CornerType.ALL)), R.drawable.home_list, holder.getView(R.id.im_pic));
+                CoreUtils.imgLoaderRound(getContext(), TextUtils.isEmpty(item.getCover()) ? R.drawable.home_list : item.getCover(), bitmapTransform(new RoundedCornersTransformation(24, 0, RoundedCornersTransformation.CornerType.ALL)), R.drawable.home_list, holder.getView(R.id.im_pic));
                 holder.setText(R.id.tv_title, item.getDeal_name())
                         .setText(R.id.tv_investment, "起投金额: " + item.getLimit_price() + "万")
                         .setText(R.id.tv_financing, "融资总额: " + item.getTarget_fund() + "万")

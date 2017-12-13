@@ -50,14 +50,9 @@ public class HomeRecommendBean {
          * sm : [{"dealID":"32892cd8d3b3e8070c540ba9","deal_name":"","cover":"http://ustatic-test.dreamflyc.com//attachment/201711/27/181511777573.jpg","limit_price":0,"target_fund":0,"progress":0},{"dealID":"32892cd8d3b3e8070c540ba9","deal_name":"","cover":"http://ustatic-test.dreamflyc.com//attachment/201711/27/181511777580.jpg","limit_price":0,"target_fund":0,"progress":0},{"dealID":"abfcdcf7f8d510afd43407a9","deal_name":"","cover":"http://ustatic-test.dreamflyc.com//attachment/201711/27/181511779723.jpg","limit_price":0,"target_fund":0,"progress":0}]
          */
 
-        private DealRecommendEntity deal_recommend;
         private List<NewsRecommendEntity> news_recommend;
         private List<ZcEntity> zc;
         private List<SmEntity> sm;
-
-        public void setDeal_recommend(DealRecommendEntity deal_recommend) {
-            this.deal_recommend = deal_recommend;
-        }
 
         public void setNews_recommend(List<NewsRecommendEntity> news_recommend) {
             this.news_recommend = news_recommend;
@@ -71,10 +66,6 @@ public class HomeRecommendBean {
             this.sm = sm;
         }
 
-        public DealRecommendEntity getDeal_recommend() {
-            return deal_recommend;
-        }
-
         public List<NewsRecommendEntity> getNews_recommend() {
             return news_recommend;
         }
@@ -85,42 +76,6 @@ public class HomeRecommendBean {
 
         public List<SmEntity> getSm() {
             return sm;
-        }
-
-        public static class DealRecommendEntity {
-            /**
-             * cover : http://ustatic-test.dreamflyc.com//attachment/201711/27/181511779800.jpg
-             * url :
-             * text : 1212
-             */
-
-            private String cover;
-            private String url;
-            private String text;
-
-            public void setCover(String cover) {
-                this.cover = cover;
-            }
-
-            public void setUrl(String url) {
-                this.url = url;
-            }
-
-            public void setText(String text) {
-                this.text = text;
-            }
-
-            public String getCover() {
-                return cover;
-            }
-
-            public String getUrl() {
-                return url;
-            }
-
-            public String getText() {
-                return text;
-            }
         }
 
         public static class NewsRecommendEntity {

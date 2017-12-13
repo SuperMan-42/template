@@ -33,6 +33,8 @@ import com.recorder.mvp.contract.MyInvestmentContract;
 import com.recorder.mvp.model.entity.LoginBean;
 import com.recorder.mvp.model.entity.OrderListBean;
 import com.recorder.mvp.presenter.MyInvestmentPresenter;
+import com.recorder.utils.CommonUtils;
+import com.wang.avi.AVLoadingIndicatorView;
 
 import org.simple.eventbus.Subscriber;
 
@@ -62,6 +64,8 @@ public class MyInvestmentActivity extends BaseActivity<MyInvestmentPresenter> im
     TextView tvTitle;
     @BindView(R.id.tv_content)
     TextView tvContent;
+    @BindView(R.id.avi)
+    AVLoadingIndicatorView avi;
 
     @Override
     public void setupActivityComponent(AppComponent appComponent) {
@@ -131,12 +135,12 @@ public class MyInvestmentActivity extends BaseActivity<MyInvestmentPresenter> im
 
     @Override
     public void showLoading() {
-
+        CommonUtils.show(avi);
     }
 
     @Override
     public void hideLoading() {
-
+        CommonUtils.hide(avi);
     }
 
     @Override

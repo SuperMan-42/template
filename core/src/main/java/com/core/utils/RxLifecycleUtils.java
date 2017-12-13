@@ -114,13 +114,19 @@ public class RxLifecycleUtils {
         return upstream -> upstream.retryWhen(new RetryWithToken(1, 2))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .compose(bindToLifecycle(view));
+                .compose(bindToLifecycle(view))
+                .doOnSubscribe(disposable -> view.showLoading())
+                .doOnNext(t -> view.hideLoading())
+                .doFinally(view::hideLoading);
     }
 
     public static <T> ObservableTransformer<T, T> transformer(@NonNull IView view, int maxRetries, int retryDelaySecond) {
         return upstream -> upstream.retryWhen(new RetryWithToken(maxRetries, retryDelaySecond))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .compose(bindToLifecycle(view));
+                .compose(bindToLifecycle(view))
+                .doOnSubscribe(disposable -> view.showLoading())
+                .doOnNext(t -> view.hideLoading())
+                .doFinally(view::hideLoading);
     }
 }

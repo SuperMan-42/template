@@ -128,8 +128,12 @@ public class GlobalConfiguration implements ConfigModule {
                                     CoreUtils.snackbarText(jsonObject.optString("error"));
                             }
                             Object data = jsonObject.optJSONObject("data").opt("total_count");
-                            if (response.request().method().equals("GET") && data != null && (Integer) data == 0) {
-                                CoreUtils.showEmpty(Constants.NO_DATA, R.drawable.ic_list_empty, R.string.empty_list_empty, "去看项目");
+                            if (response.request().method().equals("GET")) {
+                                if (data != null && (Integer) data == 0) {
+                                    CoreUtils.showEmpty(Constants.NO_DATA, R.drawable.ic_list_empty, R.string.empty_list_empty, "去看项目");
+                                } else if (response.request().url().toString().contains("pimanage") && jsonObject.optJSONObject("data").optString("pi_files").contains("[]")) {
+                                    CoreUtils.showEmpty(Constants.NO_DATA, R.drawable.ic_list_empty, R.string.empty_list_empty, "去看项目");
+                                }
                             }
                         }
                         return response;
@@ -137,7 +141,7 @@ public class GlobalConfiguration implements ConfigModule {
 
                     @Override
                     public Request onHttpRequestBefore(Interceptor.Chain chain, Request request) {
-                        Request.Builder requestBuilder = null;
+                        Request.Builder requestBuilder;
                         try {
                             String content;
                             if (request.method().equals("POST")) {
@@ -194,10 +198,11 @@ public class GlobalConfiguration implements ConfigModule {
                                     return null;
                                 }
                             }
+                            return requestBuilder.build();
                         } catch (Exception e) {
                             Logger.d("AUTH-INFO生成错误: " + e);
+                            return request;
                         }
-                        return requestBuilder.build();
                     }
                 })
                 .responseErrorListener((context1, t) -> {
@@ -334,11 +339,7 @@ public class GlobalConfiguration implements ConfigModule {
                                     button.setOnClickListener(view -> ARouter.getInstance().build("/app/AuthActivity").navigation());
                                     break;
                                 case Constants.NO_DATA:
-                                    if (currentActivity instanceof HomeActivity) {
-                                        button.setVisibility(View.GONE);
-                                        currentActivity.findViewById(R.id.im_empty).setBackgroundResource(R.drawable.ic_list_empty);
-                                        ((TextView) currentActivity.findViewById(R.id.tv_empty)).setText(CoreUtils.getString(context, R.string.empty_list_empty));
-                                    } else if (currentActivity instanceof SearchActivity) {
+                                    if (currentActivity instanceof SearchActivity) {
                                         button.setVisibility(View.GONE);
                                         currentActivity.findViewById(R.id.im_empty).setBackgroundResource(R.drawable.ic_search_emtpy);
                                         ((TextView) currentActivity.findViewById(R.id.tv_empty)).setText(CoreUtils.getString(activity, R.string.ic_search_emtpy));
@@ -348,6 +349,10 @@ public class GlobalConfiguration implements ConfigModule {
                                         setEmpty(currentActivity, button, R.drawable.ic_attention_emtyp, R.string.ic_attention_emtyp);
                                     } else if (currentActivity instanceof BackStageManagerActivity) {
                                         setEmpty(currentActivity, button, R.drawable.ic_manager_empty, R.string.ic_manager_empty);
+                                    } else {
+                                        button.setVisibility(View.GONE);
+                                        currentActivity.findViewById(R.id.im_empty).setBackgroundResource(R.drawable.ic_list_empty);
+                                        ((TextView) currentActivity.findViewById(R.id.tv_empty)).setText(CoreUtils.getString(context, R.string.empty_list_empty));
                                     }
                                     break;
                             }

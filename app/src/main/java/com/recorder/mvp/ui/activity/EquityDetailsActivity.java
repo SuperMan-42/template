@@ -47,6 +47,7 @@ import com.recorder.utils.CommonUtils;
 import com.recorder.utils.DateUtil;
 import com.recorder.widget.AutoHeightViewPager;
 import com.recorder.widget.AutoProgressBar;
+import com.wang.avi.AVLoadingIndicatorView;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -178,6 +179,8 @@ public class EquityDetailsActivity extends BaseActivity<EquityDetailsPresenter> 
     @BindView(R.id.im_video)
     ImageView imVideo;
     private float alpha = 0;
+    @BindView(R.id.avi)
+    AVLoadingIndicatorView avi;
 
     @Override
     protected void onPause() {
@@ -219,12 +222,12 @@ public class EquityDetailsActivity extends BaseActivity<EquityDetailsPresenter> 
 
     @Override
     public void showLoading() {
-
+        CommonUtils.show(avi);
     }
 
     @Override
     public void hideLoading() {
-
+        CommonUtils.hide(avi);
     }
 
     @Override

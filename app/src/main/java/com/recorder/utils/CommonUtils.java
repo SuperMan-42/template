@@ -41,6 +41,7 @@ import com.umeng.socialize.media.UMImage;
 import com.umeng.socialize.media.UMWeb;
 import com.umeng.socialize.shareboard.ShareBoardConfig;
 import com.vector.update_app.HttpManager;
+import com.wang.avi.AVLoadingIndicatorView;
 
 import java.io.File;
 import java.lang.reflect.Field;
@@ -442,5 +443,13 @@ public class CommonUtils {
                 .scaleEnabled(true)
                 .theme(R.style.picture_hx_style)
                 .forResult(resultCode);
+    }
+
+    public static void show(AVLoadingIndicatorView avi) {
+        avi.show();
+    }
+
+    public static void hide(AVLoadingIndicatorView avi) {
+        avi.hide();
     }
 }

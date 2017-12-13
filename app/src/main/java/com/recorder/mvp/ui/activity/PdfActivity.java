@@ -30,6 +30,8 @@ import com.recorder.di.component.DaggerPdfComponent;
 import com.recorder.di.module.PdfModule;
 import com.recorder.mvp.contract.PdfContract;
 import com.recorder.mvp.presenter.PdfPresenter;
+import com.recorder.utils.CommonUtils;
+import com.wang.avi.AVLoadingIndicatorView;
 
 import java.io.File;
 
@@ -47,6 +49,8 @@ public class PdfActivity extends BaseActivity<PdfPresenter> implements PdfContra
     String pdf_name;
     @BindView(R.id.pdfView)
     PDFView pdfView;
+    @BindView(R.id.avi)
+    AVLoadingIndicatorView avi;
 
     @Override
     public void setupActivityComponent(AppComponent appComponent) {
@@ -71,18 +75,18 @@ public class PdfActivity extends BaseActivity<PdfPresenter> implements PdfContra
 
     @Override
     public void showLoading() {
-
+        CommonUtils.show(avi);
     }
 
     @Override
     public void hideLoading() {
-
+        CommonUtils.hide(avi);
     }
 
     @Override
     public void showMessage(@NonNull String message) {
         checkNotNull(message);
-        CoreUtils.snackbarText(CoreUtils.getString(this, R.string.text_download));
+//        CoreUtils.snackbarText(CoreUtils.getString(this, R.string.text_download));
         pdfView.fromFile(new File(message))
                 .pages(0, 2, 1, 3, 3, 3) // all pages are displayed by default
                 .enableSwipe(true) // allows to block changing pages using swipe

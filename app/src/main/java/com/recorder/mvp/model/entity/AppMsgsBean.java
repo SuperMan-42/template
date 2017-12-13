@@ -103,6 +103,7 @@ public class AppMsgsBean {
              */
 
             private String content;
+            private String ctime;
 
             public void setContent(String content) {
                 this.content = content;
@@ -110,6 +111,14 @@ public class AppMsgsBean {
 
             public String getContent() {
                 return content;
+            }
+
+            public String getCtime() {
+                return ctime;
+            }
+
+            public void setCtime(String ctime) {
+                this.ctime = ctime;
             }
         }
     }

@@ -21,6 +21,8 @@ import com.recorder.mvp.contract.MyAttentionContract;
 import com.recorder.mvp.model.entity.LoginBean;
 import com.recorder.mvp.model.entity.UserFollowListBean;
 import com.recorder.mvp.presenter.MyAttentionPresenter;
+import com.recorder.utils.CommonUtils;
+import com.wang.avi.AVLoadingIndicatorView;
 
 import org.simple.eventbus.Subscriber;
 
@@ -32,6 +34,8 @@ import static com.core.utils.Preconditions.checkNotNull;
 public class MyAttentionActivity extends BaseActivity<MyAttentionPresenter> implements MyAttentionContract.View {
     @BindView(R.id.recyclerview)
     CoreRecyclerView recyclerView;
+    @BindView(R.id.avi)
+    AVLoadingIndicatorView avi;
 
     @Override
     public void setupActivityComponent(AppComponent appComponent) {
@@ -86,12 +90,12 @@ public class MyAttentionActivity extends BaseActivity<MyAttentionPresenter> impl
 
     @Override
     public void showLoading() {
-
+        CommonUtils.show(avi);
     }
 
     @Override
     public void hideLoading() {
-
+        CommonUtils.hide(avi);
     }
 
     @Override

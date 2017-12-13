@@ -26,4 +26,6 @@
         android:layout_height="match_parent"
         android:layout_below="@id/tv_tag" />
 
+    <include layout="@layout/layout_loading" />
+
 </RelativeLayout>

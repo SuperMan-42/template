@@ -25,6 +25,8 @@ import com.recorder.mvp.contract.BackStageManagerContract;
 import com.recorder.mvp.model.entity.LoginBean;
 import com.recorder.mvp.model.entity.OrderPimanageBean;
 import com.recorder.mvp.presenter.BackStageManagerPresenter;
+import com.recorder.utils.CommonUtils;
+import com.wang.avi.AVLoadingIndicatorView;
 
 import org.simple.eventbus.Subscriber;
 
@@ -40,6 +42,8 @@ public class BackStageManagerActivity extends BaseActivity<BackStageManagerPrese
 
     @BindView(R.id.recyclerview)
     CoreRecyclerView recyclerView;
+    @BindView(R.id.avi)
+    AVLoadingIndicatorView avi;
 
     private ArrayList<MultiItemEntity> res = new ArrayList<>();
 
@@ -72,12 +76,12 @@ public class BackStageManagerActivity extends BaseActivity<BackStageManagerPrese
 
     @Override
     public void showLoading() {
-
+        CommonUtils.show(avi);
     }
 
     @Override
     public void hideLoading() {
-
+        CommonUtils.hide(avi);
     }
 
     @Override
