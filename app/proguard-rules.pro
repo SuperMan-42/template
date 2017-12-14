@@ -325,7 +325,7 @@
 ##百度推送
 -libraryjars libs/pushservice-6.0.0.64.jar
 -dontwarn com.baidu.**
--keep class com.baidu.**{*; }
+-keep class com.baidu.** {*; }
 ##分享
 -dontshrink
 -dontoptimize
@@ -406,9 +406,7 @@
 -keep class com.umeng.socialize.impl.ImageImpl {*;}
 -keep class com.sina.** {*;}
 -dontwarn com.sina.**
--keep class  com.alipay.share.sdk.** {
-   *;
-}
+-keep class  com.alipay.share.sdk.** {*;}
 
 -keepnames class * implements android.os.Parcelable {
     public static final ** CREATOR;

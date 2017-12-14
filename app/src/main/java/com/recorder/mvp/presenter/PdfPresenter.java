@@ -1,5 +1,6 @@
 package com.recorder.mvp.presenter;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.Application;
 
@@ -7,22 +8,24 @@ import com.core.di.scope.ActivityScope;
 import com.core.http.imageloader.ImageLoader;
 import com.core.integration.AppManager;
 import com.core.mvp.BasePresenter;
+import com.core.utils.CoreUtils;
 import com.core.utils.RxLifecycleUtils;
 import com.liulishuo.filedownloader.BaseDownloadTask;
+import com.recorder.R;
 import com.recorder.mvp.contract.PdfContract;
 import com.recorder.utils.CommonUtils;
+import com.tbruyelle.rxpermissions2.Permission;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
 
 import me.jessyan.rxerrorhandler.core.RxErrorHandler;
 import me.jessyan.rxerrorhandler.handler.ErrorHandleSubscriber;
-
-import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 
 @ActivityScope
 public class PdfPresenter extends BasePresenter<PdfContract.Model, PdfContract.View> {
@@ -53,18 +56,24 @@ public class PdfPresenter extends BasePresenter<PdfContract.Model, PdfContract.V
 
     public void download(String pdf, String path) {
         new RxPermissions((Activity) mRootView)
-                .request(WRITE_EXTERNAL_STORAGE)
-                .doOnNext(granted -> {
-                    if (!granted) {
-                        throw new RuntimeException("no permission");
-                    }
-                })
-                .compose(CommonUtils.transformService(mApplication, pdf, path, false, false, null))
-                .compose(RxLifecycleUtils.transformer(mRootView))
-                .subscribe(new ErrorHandleSubscriber<BaseDownloadTask>(mErrorHandler) {
+                .requestEach(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                .subscribe(new ErrorHandleSubscriber<Permission>(mErrorHandler) {
                     @Override
-                    public void onNext(BaseDownloadTask baseDownloadTask) {
-                        mRootView.showMessage(baseDownloadTask.getTargetFilePath());
+                    public void onNext(Permission permission) {
+                        if (permission.granted) {
+                            io.reactivex.Observable.empty()
+                                    .compose(CommonUtils.transformService(mApplication, pdf, path, false, false, null))
+                                    .compose(RxLifecycleUtils.transformer(mRootView))
+                                    .subscribe(new ErrorHandleSubscriber<BaseDownloadTask>(mErrorHandler) {
+                                        @Override
+                                        public void onNext(BaseDownloadTask baseDownloadTask) {
+                                            mRootView.showMessage(baseDownloadTask.getTargetFilePath());
+                                        }
+                                    });
+                        } else {
+                            CoreUtils.snackbarText(CoreUtils.getString(mApplication, R.string.text_permission));
+                            io.reactivex.Observable.timer(1, TimeUnit.SECONDS).subscribe(aLong -> mRootView.killMyself());
+                        }
                     }
                 });
     }

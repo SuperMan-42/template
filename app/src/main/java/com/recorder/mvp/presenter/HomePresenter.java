@@ -39,8 +39,6 @@ import javax.inject.Inject;
 import me.jessyan.rxerrorhandler.core.RxErrorHandler;
 import me.jessyan.rxerrorhandler.handler.ErrorHandleSubscriber;
 
-import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
-
 @ActivityScope
 public class HomePresenter extends BasePresenter<HomeContract.Model, HomeContract.View> {
     private RxErrorHandler mErrorHandler;
@@ -113,11 +111,13 @@ public class HomePresenter extends BasePresenter<HomeContract.Model, HomeContrac
                 .subscribe(new ErrorHandleSubscriber<Permission>(mErrorHandler) {
                     @Override
                     public void onNext(Permission permission) {
-//                        if (permission.granted) {
-//                            mRootView.showMessage(CoreUtils.getString(mApplication, R.string.text_permission_success));
-//                        } else {
-//                            mRootView.showMessage(CoreUtils.getString(mApplication, R.string.text_permission_fail));
-//                        }
+                        if (permission.granted) {
+                            if (permission.name.equals("android.permission.WRITE_EXTERNAL_STORAGE"))
+                                updateApp((Activity) mRootView);
+                        } else {
+                            if (permission.name.equals("android.permission.WRITE_EXTERNAL_STORAGE"))
+                                mRootView.showMessage(CoreUtils.getString(mApplication, R.string.text_permission_fail));
+                        }
                     }
                 });
     }
@@ -145,19 +145,21 @@ public class HomePresenter extends BasePresenter<HomeContract.Model, HomeContrac
 
                     @Override
                     public void download(@NonNull String url, @NonNull String path, @NonNull String fileName, @NonNull FileCallback callback) {
-                        new RxPermissions((Activity) mRootView)
-                                .request(WRITE_EXTERNAL_STORAGE)
-                                .doOnNext(granted -> {
-                                    if (!granted) {
-                                        throw new RuntimeException("no permission");
-                                    }
-                                })
-                                .compose(CommonUtils.transformService(mApplication, url, path + UUID.randomUUID() + fileName, false, true, callback))
-                                .compose(RxLifecycleUtils.transformer(mRootView))
-                                .subscribe(new ErrorHandleSubscriber<BaseDownloadTask>(mErrorHandler) {
-                                    @Override
-                                    public void onNext(BaseDownloadTask baseDownloadTask) {
-                                        Logger.d("path" + baseDownloadTask.getFilename() + "download=> " + baseDownloadTask.getSoFarBytes() + " " + baseDownloadTask.getTotalBytes() + " progress=> " + ((float) baseDownloadTask.getSoFarBytes()) / baseDownloadTask.getTotalBytes());
+                        new RxPermissions(activity)
+                                .requestEach(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                                .subscribe(permission -> {
+                                    if (permission.granted) {
+                                        io.reactivex.Observable.empty()
+                                                .compose(CommonUtils.transformService(mApplication, url, path + UUID.randomUUID() + fileName, false, true, callback))
+                                                .compose(RxLifecycleUtils.transformer(mRootView))
+                                                .subscribe(new ErrorHandleSubscriber<BaseDownloadTask>(mErrorHandler) {
+                                                    @Override
+                                                    public void onNext(BaseDownloadTask baseDownloadTask) {
+                                                        Logger.d("path" + baseDownloadTask.getFilename() + "download=> " + baseDownloadTask.getSoFarBytes() + " " + baseDownloadTask.getTotalBytes() + " progress=> " + ((float) baseDownloadTask.getSoFarBytes()) / baseDownloadTask.getTotalBytes());
+                                                    }
+                                                });
+                                    } else {
+                                        CoreUtils.snackbarText(CoreUtils.getString(activity, R.string.text_permission));
                                     }
                                 });
                     }

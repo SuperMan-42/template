@@ -109,7 +109,6 @@ public class HomeActivity extends BaseActivity<HomePresenter> implements HomeCon
         imLeft.setImageResource(R.drawable.title_fliter);
         mPresenter.getPermissons();
         mPresenter.dealFilter();
-        mPresenter.updateApp(this);
         initHome();
     }
 

@@ -1,5 +1,6 @@
 package com.recorder.app;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -26,8 +27,6 @@ import java.util.UUID;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
-
-import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 
 /**
  * Created by hpw on 17-12-6.
@@ -71,67 +70,77 @@ public class PushReceiver extends PushMessageReceiver {
     private void update(Context context, String s, String s1) {
         Logger.d("push=> title " + s + " content=> " + s1);
         Activity activity = CoreUtils.obtainAppComponentFromContext(context).appManager().getCurrentActivity();
-        new UpdateAppManager.Builder()
-                .setActivity(activity)
-                .setHttpManager(new HttpManager() {
-                    @Override
-                    public void asyncGet(@NonNull String url, @NonNull Map<String, String> params, @NonNull HttpManager.Callback callBack) {
-                        callBack.onResponse(s1);
-                    }
+        new RxPermissions(activity)
+                .requestEach(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                .subscribe(permission -> {
+                    if (permission.granted) {
+                        new UpdateAppManager.Builder()
+                                .setActivity(activity)
+                                .setHttpManager(new HttpManager() {
+                                    @Override
+                                    public void asyncGet(@NonNull String url, @NonNull Map<String, String> params, @NonNull Callback callBack) {
+                                        callBack.onResponse(s1);
+                                    }
 
-                    @Override
-                    public void asyncPost(@NonNull String url, @NonNull Map<String, String> params, @NonNull HttpManager.Callback callBack) {
+                                    @Override
+                                    public void asyncPost(@NonNull String url, @NonNull Map<String, String> params, @NonNull Callback callBack) {
 
-                    }
+                                    }
 
-                    @Override
-                    public void download(@NonNull String url, @NonNull String path, @NonNull String fileName, @NonNull FileCallback callback) {
-                        new RxPermissions(activity)
-                                .request(WRITE_EXTERNAL_STORAGE)
-                                .doOnNext(granted -> {
-                                    if (!granted) {
-                                        throw new RuntimeException("no permission");
+                                    @Override
+                                    public void download(@NonNull String url, @NonNull String path, @NonNull String fileName, @NonNull FileCallback callback) {
+                                        new RxPermissions(activity)
+                                                .requestEach(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                                                .subscribe(permission -> {
+                                                    if (permission.granted) {
+                                                        io.reactivex.Observable.empty()
+                                                                .compose(CommonUtils.transformService(context, url, path + UUID.randomUUID() + fileName, false, true, callback))
+                                                                .subscribeOn(Schedulers.io())
+                                                                .observeOn(AndroidSchedulers.mainThread())
+                                                                .subscribe(baseDownloadTask -> Logger.d("path" + path + " name=> " + baseDownloadTask.getFilename() + "download=> " + baseDownloadTask.getSoFarBytes() + " " + baseDownloadTask.getTotalBytes() + " progress=> " + ((float) baseDownloadTask.getSoFarBytes()) / baseDownloadTask.getTotalBytes()));
+                                                    } else {
+                                                        CoreUtils.snackbarText(CoreUtils.getString(activity, R.string.text_permission));
+                                                    }
+                                                });
                                     }
                                 })
-                                .compose(CommonUtils.transformService(context, url, path + UUID.randomUUID() + fileName, false, true, callback))
-                                .subscribeOn(Schedulers.io())
-                                .observeOn(AndroidSchedulers.mainThread())
-                                .subscribe(baseDownloadTask -> Logger.d("path" + path + " name=> " + baseDownloadTask.getFilename() + "download=> " + baseDownloadTask.getSoFarBytes() + " " + baseDownloadTask.getTotalBytes() + " progress=> " + ((float) baseDownloadTask.getSoFarBytes()) / baseDownloadTask.getTotalBytes()));
-                    }
-                })
-                .setUpdateUrl(Api.APP_DOMAIN + "app/version")
-                .hideDialogOnDownloading(false)
-                .setTopPic(R.mipmap.top_4)
-                .setThemeColor(CoreUtils.getColor(activity, R.color.colorStatus))
-                .setTargetPath(Constants.SDCARD_PATH)
-                .showIgnoreVersion()
-                .build()
-                .checkNewApp(new UpdateCallback() {
-                    @Override
-                    protected UpdateAppBean parseJson(String json) {
-                        AppVersionBean.DataEntity.VersionInfoEntity versionInfo = new Gson().fromJson(json, AppVersionBean.class).getData().getVersion_info();
-                        List<String> list = versionInfo.getDes();
-                        StringBuilder stringBuilder = new StringBuilder();
-                        for (String string : list) {
-                            stringBuilder.append(string).append("\r\n");
-                        }
-                        UpdateAppBean updateAppBean = new UpdateAppBean();
-                        updateAppBean
-                                //（必须）是否更新Yes,No
-                                .setUpdate(!DeviceUtils.getVersionName(activity).equals(versionInfo.getNew_version()) ? "Yes" : "No")
-                                //（必须）新版本号，
-                                .setNewVersion(versionInfo.getNew_version())
-                                //（必须）下载地
-                                .setApkFileUrl(versionInfo.getDownload().equals("1") ? "https://raw.githubusercontent.com/SuperMan42/template/haoxiang/app/release/app-release.apk" : versionInfo.getDownload())
-                                //（必须）更新内容
-                                .setUpdateLog(stringBuilder.toString())
-                                //大小，不设置不显示大小，可以不设置
+                                .setUpdateUrl(Api.APP_DOMAIN + "app/version")
+                                .hideDialogOnDownloading(false)
+                                .setTopPic(R.mipmap.top_4)
+                                .setThemeColor(CoreUtils.getColor(activity, R.color.colorStatus))
+                                .setTargetPath(Constants.SDCARD_PATH)
+                                .showIgnoreVersion()
+                                .build()
+                                .checkNewApp(new UpdateCallback() {
+                                    @Override
+                                    protected UpdateAppBean parseJson(String json) {
+                                        AppVersionBean.DataEntity.VersionInfoEntity versionInfo = new Gson().fromJson(json, AppVersionBean.class).getData().getVersion_info();
+                                        List<String> list = versionInfo.getDes();
+                                        StringBuilder stringBuilder = new StringBuilder();
+                                        for (String string : list) {
+                                            stringBuilder.append(string).append("\r\n");
+                                        }
+                                        UpdateAppBean updateAppBean = new UpdateAppBean();
+                                        updateAppBean
+                                                //（必须）是否更新Yes,No
+                                                .setUpdate(!DeviceUtils.getVersionName(activity).equals(versionInfo.getNew_version()) ? "Yes" : "No")
+                                                //（必须）新版本号，
+                                                .setNewVersion(versionInfo.getNew_version())
+                                                //（必须）下载地
+                                                .setApkFileUrl(versionInfo.getDownload().equals("1") ? "https://raw.githubusercontent.com/SuperMan42/template/haoxiang/app/release/app-release.apk" : versionInfo.getDownload())
+                                                //（必须）更新内容
+                                                .setUpdateLog(stringBuilder.toString())
+                                                //大小，不设置不显示大小，可以不设置
 //                                .setTargetSize(String.valueOf(size))
-                                //是否强制更新，可以不设置
-                                .setConstraint(versionInfo.getIs_force() == 1);
-                        //设置md5，可以不设置
+                                                //是否强制更新，可以不设置
+                                                .setConstraint(versionInfo.getIs_force() == 1);
+                                        //设置md5，可以不设置
 //                                .setNewMd5(jsonObject.optString("new_md51"));
-                        return updateAppBean;
+                                        return updateAppBean;
+                                    }
+                                });
+                    } else {
+                        CoreUtils.snackbarText(CoreUtils.getString(context, R.string.text_permission));
                     }
                 });
     }
