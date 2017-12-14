@@ -97,6 +97,11 @@ public class AuthActivity extends BaseActivity<AuthPresenter> implements AuthCon
         CoreUtils.startActivity(intent);
     }
 
+    @Subscriber(tag = Constants.FINISH)
+    private void kill(Object object) {
+        killMyself();
+    }
+
     @Override
     public void killMyself() {
         finish();

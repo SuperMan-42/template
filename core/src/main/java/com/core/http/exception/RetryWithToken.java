@@ -1,19 +1,11 @@
 package com.core.http.exception;
 
-import com.core.base.BaseApplication;
-import com.core.integration.cache.BCache;
-import com.core.utils.CoreUtils;
-import com.orhanobut.logger.Logger;
-
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
 import io.reactivex.ObservableSource;
 import io.reactivex.annotations.NonNull;
-import io.reactivex.exceptions.CompositeException;
 import io.reactivex.functions.Function;
-
-import static android.os.SystemClock.sleep;
 
 /**
  * Created by hpw on 17-11-23.
@@ -35,36 +27,36 @@ public class RetryWithToken implements Function<Observable<Throwable>, Observabl
     public ObservableSource<?> apply(@NonNull Observable<Throwable> throwableObservable) throws Exception {
         return throwableObservable
                 .flatMap((Function<Throwable, ObservableSource<?>>) throwable -> {
-                    if (throwable instanceof ApiException) {
-                        switch (((ApiException) throwable).getErrorCode()) {
-                            case ApiErrorCode.ERROR_USER_AUTHORIZED:
-                                for (int i = 0; i < 60; i++) {
-                                    if (BCache.getInstance().getString("token") != null || CoreUtils.obtainRxCache(BaseApplication.getContext()).get("isClear") == null) {
-                                        break;
-                                    } else {
-                                        Logger.d("apiexception, retrywithtoken=> sleep");
-                                        sleep(1000);
-                                    }
-                                }
-                                Logger.d("apiexception, retrywithtoken=> break");
-                                return Observable.timer(100, TimeUnit.MILLISECONDS);
-                        }
-                    } else if (throwable instanceof CompositeException && ((CompositeException) throwable).getExceptions().toString().contains("ApiException")) {
-                        for (int i = 0; i < 60; i++) {
-                            if (BCache.getInstance().getString("token") != null || CoreUtils.obtainRxCache(BaseApplication.getContext()).get("isClear") == null) {
-                                break;
-                            } else {
-                                Logger.d("CompositeException, retrywithtoken=> sleep");
-                                sleep(1000);
-                            }
-                        }
-                        Logger.d("CompositeException, retrywithtoken=> break");
-                        return Observable.timer(100, TimeUnit.MILLISECONDS);
-                    } else {
-                        if (++retryCount <= maxRetries) {
-                            return Observable.timer(retryDelaySecond, TimeUnit.SECONDS);
-                        }
+//                    if (throwable instanceof ApiException) {
+//                        switch (((ApiException) throwable).getErrorCode()) {
+//                            case ApiErrorCode.ERROR_USER_AUTHORIZED:
+//                                for (int i = 0; i < 60; i++) {
+//                                    if (BCache.getInstance().getString("token") != null || CoreUtils.obtainRxCache(BaseApplication.getContext()).get("isClear") == null) {
+//                                        break;
+//                                    } else {
+//                                        Logger.d("apiexception, retrywithtoken=> sleep");
+//                                        sleep(1000);
+//                                    }
+//                                }
+//                                Logger.d("apiexception, retrywithtoken=> break");
+//                                return Observable.timer(100, TimeUnit.MILLISECONDS);
+//                        }
+//                    } else if (throwable instanceof CompositeException && ((CompositeException) throwable).getExceptions().toString().contains("ApiException")) {
+//                        for (int i = 0; i < 60; i++) {
+//                            if (BCache.getInstance().getString("token") != null || CoreUtils.obtainRxCache(BaseApplication.getContext()).get("isClear") == null) {
+//                                break;
+//                            } else {
+//                                Logger.d("CompositeException, retrywithtoken=> sleep");
+//                                sleep(1000);
+//                            }
+//                        }
+//                        Logger.d("CompositeException, retrywithtoken=> break");
+//                        return Observable.timer(100, TimeUnit.MILLISECONDS);
+//                    } else {
+                    if (++retryCount <= maxRetries) {
+                        return Observable.timer(retryDelaySecond, TimeUnit.SECONDS);
                     }
+//                    }
                     return Observable.error(throwable);
                 });
     }

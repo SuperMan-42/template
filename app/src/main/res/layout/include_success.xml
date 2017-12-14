@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="0dp"
     android:background="#F0F2F5"
-    android:visibility="gone"
+    android:visibility="v"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintTop_toBottomOf="@id/toolbar"
     tools:showIn="@layout/activity_register">
@@ -79,7 +79,7 @@
                 android:layout_weight="1"
                 android:background="@drawable/bga_button_gray"
                 android:gravity="center"
-                android:text="前往首页"
+                android:text="返  回"
                 android:textColor="@color/white"
                 android:textSize="45px" />
         </LinearLayout>

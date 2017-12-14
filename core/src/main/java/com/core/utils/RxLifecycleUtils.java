@@ -110,6 +110,10 @@ public class RxLifecycleUtils {
         }
     }
 
+    public static <T> ObservableTransformer<T, T> transformer() {
+        return upstream -> upstream.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
+    }
+
     public static <T> ObservableTransformer<T, T> transformer(@NonNull IView view) {
         return upstream -> upstream.retryWhen(new RetryWithToken(1, 2))
                 .subscribeOn(Schedulers.io())

@@ -253,8 +253,10 @@ public class AuthInfoActivity extends BaseActivity<AuthInfoPresenter> implements
                 doNext();
                 break;
             case R.id.tv_go_home:
-                EventBus.getDefault().post(0, Constants.HOME_INDEX);
-                ARouter.getInstance().build("/app/HomeActivity").navigation();
+//                EventBus.getDefault().post(0, Constants.HOME_INDEX);
+//                ARouter.getInstance().build("/app/HomeActivity").navigation();
+                EventBus.getDefault().post(new Object(), Constants.FINISH);
+                killMyself();
                 break;
         }
     }
@@ -372,7 +374,7 @@ public class AuthInfoActivity extends BaseActivity<AuthInfoPresenter> implements
         tvGoAuthentication.setText("个人中心");
         title("提交成功");
 
-        tvGoHome.setText("返回首页");
+        tvGoHome.setText("返  回");
         flDialog.setVisibility(View.VISIBLE);
         flDialog.startAnimation(AnimationUtils.loadAnimation(this, R.anim.fade_in));
         tvGoAuthentication.setOnClickListener(view -> {
@@ -391,7 +393,7 @@ public class AuthInfoActivity extends BaseActivity<AuthInfoPresenter> implements
         tvGoAuthentication.setText("重新提交");
         title("提交失败");
 
-        tvGoHome.setText("返回首页");
+        tvGoHome.setText("返  回");
         flDialog.setVisibility(View.VISIBLE);
         flDialog.startAnimation(AnimationUtils.loadAnimation(this, R.anim.fade_in));
         tvGoAuthentication.setOnClickListener(view -> {

@@ -3,6 +3,7 @@ package com.recorder.mvp.ui.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.os.Bundle;
@@ -355,11 +356,13 @@ public class HomeActivity extends BaseActivity<HomePresenter> implements HomeCon
                 case TYPE_CONTENT:
                     final ContentItem lv1 = (ContentItem) item;
                     holder.setText(R.id.tv_filter_content, lv1.title)
+                            .setTextColor(R.id.tv_filter_content, Color.parseColor(lv1.isSelector ? "#3F56DC" : "#333333"))
                             .setVisible(R.id.view_space, lv1.is);
                     holder.getView(R.id.tv_filter_content).setSelected(lv1.isSelector);
                     holder.itemView.setOnClickListener(view -> {
                         lv1.isSelector = !lv1.isSelector;
                         holder.getView(R.id.tv_filter_content).setSelected(lv1.isSelector);
+                        holder.setTextColor(R.id.tv_filter_content, Color.parseColor(lv1.isSelector ? "#3F56DC" : "#333333"));
                     });
                     break;
             }

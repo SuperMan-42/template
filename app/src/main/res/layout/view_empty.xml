@@ -17,7 +17,10 @@
         android:id="@+id/tv_empty"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="90px"
+        android:layout_marginRight="90px"
         android:layout_marginTop="60px"
+        android:gravity="center"
         android:textColor="#999999"
         android:textSize="45px"
         tools:text="网络出问题了" />

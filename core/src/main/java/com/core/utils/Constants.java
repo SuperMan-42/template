@@ -35,4 +35,5 @@ public class Constants {
     public static final String AUTH_INFO_SUCCESS = "auth_info_success";
     public static final String PAGE_SIZE = "20";
     public static final int PAGE_SIZE_INT = 20;
+    public static final String FINISH = "finish";
 }

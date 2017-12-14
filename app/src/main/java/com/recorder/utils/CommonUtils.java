@@ -20,6 +20,7 @@ import com.arjinmc.recyclerviewdecoration.RecyclerViewItemDecoration;
 import com.arjinmc.recyclerviewdecoration.RecyclerViewSpaceItemDecoration;
 import com.core.integration.cache.BCache;
 import com.core.utils.CoreUtils;
+import com.core.utils.RxLifecycleUtils;
 import com.google.gson.Gson;
 import com.jaeger.library.StatusBarUtil;
 import com.liulishuo.filedownloader.BaseDownloadTask;
@@ -446,8 +447,10 @@ public class CommonUtils {
     }
 
     public static void show(AVLoadingIndicatorView avi) {
-        if (avi != null)
+        if (avi != null) {
             avi.show();
+            Observable.timer(2, TimeUnit.SECONDS).compose(RxLifecycleUtils.transformer()).subscribe(aLong -> avi.hide());
+        }
     }
 
     public static void hide(AVLoadingIndicatorView avi) {

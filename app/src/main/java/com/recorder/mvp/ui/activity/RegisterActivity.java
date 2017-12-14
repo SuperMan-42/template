@@ -14,7 +14,6 @@ import com.alibaba.android.arouter.launcher.ARouter;
 import com.core.base.BaseActivity;
 import com.core.di.component.AppComponent;
 import com.core.http.imageloader.ImageLoader;
-import com.core.utils.Constants;
 import com.core.utils.CoreUtils;
 import com.core.widget.CustomPopupWindow;
 import com.recorder.R;
@@ -25,8 +24,6 @@ import com.recorder.mvp.contract.RegisterContract;
 import com.recorder.mvp.model.entity.LoginBean;
 import com.recorder.mvp.presenter.RegisterPresenter;
 import com.recorder.utils.CommonUtils;
-
-import org.simple.eventbus.EventBus;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -112,8 +109,9 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter> implements
                 ARouter.getInstance().build("/app/AuthActivity").navigation();
                 break;
             case R.id.tv_go_home:
-                EventBus.getDefault().post(0, Constants.HOME_INDEX);
-                ARouter.getInstance().build("/app/HomeActivity").navigation();
+//                EventBus.getDefault().post(0, Constants.HOME_INDEX);
+//                ARouter.getInstance().build("/app/HomeActivity").navigation();
+                killMyself();
                 break;
         }
     }
