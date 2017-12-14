@@ -67,31 +67,40 @@ public class AuthInfoPresenter extends BasePresenter<AuthInfoContract.Model, Aut
                 });
     }
 
-    public void upload(int type, String true_name, String id_card, File idcard_imgf, File idcard_imgb, String check, List<Bean<Boolean>> assets) {
+    public void upload(int type, String true_name, String id_card, Object idcard_imgf, Object idcard_imgb, String check, List<Bean<Boolean>> assets) {
         com.orhanobut.logger.Logger.d("upload=> " + "idcard_imgf " + (idcard_imgf == null) + "idcard_imgb " + (idcard_imgb == null) + " assets " + (assets == null) + " " + assets);
         List<String> stringList = new ArrayList<>();
         List<MultipartBody.Part> imgf = new ArrayList<>();
-        if (idcard_imgf != null)
-            imgf.add(MultipartBody.Part.createFormData("images", idcard_imgf.getName(), RequestBody.create(MediaType.parse("multipart/form-data"), idcard_imgf)));
+        if (idcard_imgf != null && idcard_imgf instanceof File)
+            imgf.add(MultipartBody.Part.createFormData("images", ((File) idcard_imgf).getName(), RequestBody.create(MediaType.parse("multipart/form-data"), ((File) idcard_imgf))));
 
         List<MultipartBody.Part> imgb = new ArrayList<>();
-        if (idcard_imgb != null)
-            imgb.add(MultipartBody.Part.createFormData("images", idcard_imgb.getName(), RequestBody.create(MediaType.parse("multipart/form-data"), idcard_imgb)));
+        if (idcard_imgb != null && idcard_imgb instanceof File)
+            imgb.add(MultipartBody.Part.createFormData("images", ((File) idcard_imgb).getName(), RequestBody.create(MediaType.parse("multipart/form-data"), ((File) idcard_imgb))));
 
         if (assets.size() > 1) {
             Observable.fromIterable(assets)
                     .flatMap(data -> {
-                        List<MultipartBody.Part> parts = new ArrayList<>();
-                        File file = new File(data.getValue());
-                        parts.add(MultipartBody.Part.createFormData("images", file.getName(), RequestBody.create(MediaType.parse("multipart/form-data"), file)));
-                        return mModel.imageUpload(parts);
+                        if (data.getValue().contains("com/")) {
+                            return Observable.just(data.getValue().split("com/")[1]);
+                        } else {
+                            List<MultipartBody.Part> parts = new ArrayList<>();
+                            File file = new File(data.getValue());
+                            parts.add(MultipartBody.Part.createFormData("images", file.getName(), RequestBody.create(MediaType.parse("multipart/form-data"), file)));
+                            return mModel.imageUpload(parts);
+                        }
                     })
                     .compose(RxLifecycleUtils.transformer(mRootView))
-                    .subscribe(new ErrorHandleSubscriber<ImageUploadBean>(mErrorHandler) {
+                    .subscribe(new ErrorHandleSubscriber<Object>(mErrorHandler) {
                         @Override
-                        public void onNext(ImageUploadBean imageUploadBean) {
-                            com.orhanobut.logger.Logger.d("upload=> add onNext " + imageUploadBean.getData().getImages().get(0));
-                            stringList.add(imageUploadBean.getData().getImages().get(0));
+                        public void onNext(Object object) {
+                            if (object instanceof ImageUploadBean) {
+                                com.orhanobut.logger.Logger.d("upload=> add onNext " + ((ImageUploadBean) object).getData().getImages().get(0));
+                                stringList.add(((ImageUploadBean) object).getData().getImages().get(0));
+                            } else {
+                                com.orhanobut.logger.Logger.d("upload=> add onNext " + object);
+                                stringList.add(object.toString());
+                            }
                         }
 
                         @Override
@@ -104,27 +113,36 @@ public class AuthInfoPresenter extends BasePresenter<AuthInfoContract.Model, Aut
         }
     }
 
-    public void upload(String organ_name, String legal_person, String contact, File license, String check, List<Bean<Boolean>> assets) {
+    public void upload(String organ_name, String legal_person, String contact, Object license, String check, List<Bean<Boolean>> assets) {
         com.orhanobut.logger.Logger.d("upload=> " + "license " + (license == null) + " assets " + (assets == null) + " " + assets);
         List<String> stringList = new ArrayList<>();
         List<MultipartBody.Part> licenseParts = new ArrayList<>();
-        if (license != null)
-            licenseParts.add(MultipartBody.Part.createFormData("images", license.getName(), RequestBody.create(MediaType.parse("multipart/form-data"), license)));
+        if (license != null && license instanceof File)
+            licenseParts.add(MultipartBody.Part.createFormData("images", ((File) license).getName(), RequestBody.create(MediaType.parse("multipart/form-data"), ((File) license))));
 
         if (assets.size() > 1) {
             Observable.fromIterable(assets)
                     .flatMap(data -> {
-                        List<MultipartBody.Part> parts = new ArrayList<>();
-                        File file = new File(data.getValue());
-                        parts.add(MultipartBody.Part.createFormData("images", file.getName(), RequestBody.create(MediaType.parse("multipart/form-data"), file)));
-                        return mModel.imageUpload(parts);
+                        if (data.getValue().contains("com/")) {
+                            return Observable.just(data.getValue().split("com/")[1]);
+                        } else {
+                            List<MultipartBody.Part> parts = new ArrayList<>();
+                            File file = new File(data.getValue());
+                            parts.add(MultipartBody.Part.createFormData("images", file.getName(), RequestBody.create(MediaType.parse("multipart/form-data"), file)));
+                            return mModel.imageUpload(parts);
+                        }
                     })
                     .compose(RxLifecycleUtils.transformer(mRootView))
-                    .subscribe(new ErrorHandleSubscriber<ImageUploadBean>(mErrorHandler) {
+                    .subscribe(new ErrorHandleSubscriber<Object>(mErrorHandler) {
                         @Override
-                        public void onNext(ImageUploadBean imageUploadBean) {
-                            com.orhanobut.logger.Logger.d("upload=> add onNext " + imageUploadBean.getData().getImages().get(0));
-                            stringList.add(imageUploadBean.getData().getImages().get(0));
+                        public void onNext(Object object) {
+                            if (object instanceof ImageUploadBean) {
+                                com.orhanobut.logger.Logger.d("upload=> add onNext " + ((ImageUploadBean) object).getData().getImages().get(0));
+                                stringList.add(((ImageUploadBean) object).getData().getImages().get(0));
+                            } else {
+                                com.orhanobut.logger.Logger.d("upload=> add onNext " + object);
+                                stringList.add(object.toString());
+                            }
                         }
 
                         @Override
@@ -137,19 +155,19 @@ public class AuthInfoPresenter extends BasePresenter<AuthInfoContract.Model, Aut
         }
     }
 
-    private void person(List<String> stringList, List<MultipartBody.Part> imgf, List<MultipartBody.Part> imgb, int type, String true_name, String id_card, File idcard_imgf, File idcard_imgb, String check) {
+    private void person(List<String> stringList, List<MultipartBody.Part> imgf, List<MultipartBody.Part> imgb, int type, String true_name, String id_card, Object idcard_imgf, Object idcard_imgb, String check) {
         Observable<Object> observable;
-        if (idcard_imgf == null && idcard_imgb == null) {
-            observable = mModel.authPerson(type, true_name, id_card, null, null, check, stringList == null ? null : new Gson().toJson(stringList));
-        } else if (idcard_imgf == null) {
+        if (idcard_imgf instanceof String && idcard_imgb instanceof String) {
+            observable = mModel.authPerson(type, true_name, id_card, (String) idcard_imgf, (String) idcard_imgb, check, stringList == null ? null : new Gson().toJson(stringList));
+        } else if (idcard_imgf instanceof String) {
             observable = mModel.imageUpload(imgb).flatMap(imageUploadBean -> {
                 com.orhanobut.logger.Logger.d("upload=> add image " + imageUploadBean.getData().getImages().get(0));
-                return mModel.authPerson(type, true_name, id_card, null, imageUploadBean.getData().getImages().get(1), check, stringList == null ? null : new Gson().toJson(stringList));
+                return mModel.authPerson(type, true_name, id_card, (String) idcard_imgf, imageUploadBean.getData().getImages().get(1), check, stringList == null ? null : new Gson().toJson(stringList));
             });
-        } else if (idcard_imgb == null) {
+        } else if (idcard_imgb instanceof String) {
             observable = mModel.imageUpload(imgf).flatMap(imageUploadBean -> {
                 com.orhanobut.logger.Logger.d("upload=> add image " + imageUploadBean.getData().getImages().get(0));
-                return mModel.authPerson(type, true_name, id_card, imageUploadBean.getData().getImages().get(1), null, check, stringList == null ? null : new Gson().toJson(stringList));
+                return mModel.authPerson(type, true_name, id_card, imageUploadBean.getData().getImages().get(1), (String) idcard_imgb, check, stringList == null ? null : new Gson().toJson(stringList));
             });
         } else {
             observable = Observable.zip(mModel.imageUpload(imgf), mModel.imageUpload(imgb), (id_imgf, id_imgb) -> {
@@ -178,15 +196,15 @@ public class AuthInfoPresenter extends BasePresenter<AuthInfoContract.Model, Aut
         });
     }
 
-    private void organ(List<String> stringList, List<MultipartBody.Part> licenseParts, String organ_name, String legal_person, String contact, File license, String check) {
+    private void organ(List<String> stringList, List<MultipartBody.Part> licenseParts, String organ_name, String legal_person, String contact, Object license, String check) {
         Observable<Object> observable;
-        if (license == null) {
-            observable = mModel.authOrgan(organ_name, legal_person, contact, null, check, stringList == null ? null : new Gson().toJson(stringList));
-        } else {
+        if (license instanceof File) {
             observable = mModel.imageUpload(licenseParts).flatMap(imageUploadBean -> {
                 com.orhanobut.logger.Logger.d("upload=> add image " + imageUploadBean.getData().getImages().get(0));
                 return mModel.authOrgan(organ_name, legal_person, contact, imageUploadBean.getData().getImages().get(0), check, stringList == null ? null : new Gson().toJson(stringList));
             });
+        } else {
+            observable = mModel.authOrgan(organ_name, legal_person, contact, (String) license, check, stringList == null ? null : new Gson().toJson(stringList));
         }
         observable.compose(RxLifecycleUtils.transformer(mRootView)).subscribe(new ErrorHandleSubscriber<Object>(mErrorHandler) {
             public void onNext(Object o) {

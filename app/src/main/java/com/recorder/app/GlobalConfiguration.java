@@ -112,7 +112,7 @@ public class GlobalConfiguration implements ConfigModule {
                                     isConnection = false;
                                     response.body().close();
                                     CoreUtils.obtainRxCache(context).put("isClear", "false");
-                                    CoreUtils.showEmpty(Constants.NO_AUTH, R.drawable.ic_no_auth, R.string.empty_no_auth, "去认证");
+                                    CoreUtils.showEmpty(Constants.NO_AUTH, R.drawable.ic_no_auth, R.string.empty_no_auth, "投资人认证");
                                     throw new ApiException(code, jsonObject.optString("error"));
                                 case ERROR_USER_INFO_NOT_ALL:
                                     CoreUtils.snackbarText(jsonObject.optString("error"));

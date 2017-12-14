@@ -233,15 +233,21 @@ public class AuthInfoActivity extends BaseActivity<AuthInfoPresenter> implements
         switch (view.getId()) {
             case R.id.im_positive:
                 CoreUtils.hideSoftInput(this);
-                CommonUtils.pictureSingle(this, IM_POSITIVE);
+                if (dataEntity.getIs_modify()) {
+                    CommonUtils.pictureSingle(this, IM_POSITIVE);
+                }
                 break;
             case R.id.im_other:
                 CoreUtils.hideSoftInput(this);
-                CommonUtils.pictureSingle(this, IM_OTHER);
+                if (dataEntity.getIs_modify()) {
+                    CommonUtils.pictureSingle(this, IM_OTHER);
+                }
                 break;
             case R.id.im_agree:
-                isCheck = !isCheck;
-                imAgree.setImageResource(isCheck ? R.drawable.ic_item_buy_selector : R.drawable.ic_item_buy);
+                if (dataEntity.getIs_modify()) {
+                    isCheck = !isCheck;
+                    imAgree.setImageResource(isCheck ? R.drawable.ic_item_buy_selector : R.drawable.ic_item_buy);
+                }
                 break;
             case R.id.tv_next:
                 doNext();
@@ -264,11 +270,11 @@ public class AuthInfoActivity extends BaseActivity<AuthInfoPresenter> implements
         }
         if (data.size() > 0) {
             if (authType == 3) {
-                mPresenter.upload(value(etName, dataEntity.getTrue_name()), value(etId, dataEntity.getId_card()), value(etContact, dataEntity.getOrgan_contact()), positive, bean.getData().getUser_auth_prompt().getOrgan_auth(), data);
+                mPresenter.upload(value(etName, dataEntity.getTrue_name()), value(etId, dataEntity.getId_card()), value(etContact, dataEntity.getOrgan_contact()), value(positive, dataEntity.getOrgan_license()), bean.getData().getUser_auth_prompt().getOrgan_auth(), data);
             } else if (authType == 2) {
-                mPresenter.upload(authType, value(etName, dataEntity.getTrue_name()), value(etId, dataEntity.getId_card()), positive, other, bean.getData().getUser_auth_prompt().getConformity_auth(), data);
+                mPresenter.upload(authType, value(etName, dataEntity.getTrue_name()), value(etId, dataEntity.getId_card()), value(positive, dataEntity.getIdcard_imgf()), value(other, dataEntity.getIdcard_imgb()), bean.getData().getUser_auth_prompt().getConformity_auth(), data);
             } else if (authType == 1) {
-                mPresenter.upload(authType, value(etName, dataEntity.getTrue_name()), value(etId, dataEntity.getId_card()), positive, other, bean.getData().getUser_auth_prompt().getZc_auth(), data);
+                mPresenter.upload(authType, value(etName, dataEntity.getTrue_name()), value(etId, dataEntity.getId_card()), value(positive, dataEntity.getIdcard_imgf()), value(other, dataEntity.getIdcard_imgb()), bean.getData().getUser_auth_prompt().getZc_auth(), data);
             }
         }
     }
@@ -321,19 +327,15 @@ public class AuthInfoActivity extends BaseActivity<AuthInfoPresenter> implements
             etContact.setText(data.getOrgan_contact());
             isModify(etContact, data.getOrgan_contact());
             CoreUtils.imgLoader(this, data.getOrgan_license(), R.drawable.id_organ, imPositive);
-            isModify(imPositive, data.getOrgan_license());
         } else {
             etName.setText(data.getTrue_name());
             isModify(etName, data.getTrue_name());
             etId.setText(data.getId_card());
             isModify(etId, data.getId_card());
             CoreUtils.imgLoader(this, data.getIdcard_imgf(), R.drawable.id_0, imPositive);
-            isModify(imPositive, data.getIdcard_imgf());
             CoreUtils.imgLoader(this, data.getIdcard_imgb(), R.drawable.id_1, imOther);
-            isModify(imOther, data.getIdcard_imgb());
         }
         imAgree.setImageResource(data.getCheck().equals("1") ? R.drawable.ic_item_buy_selector : R.drawable.ic_item_buy);
-        isModify(imAgree, isCheck ? "1" : "");
         List<Bean<Boolean>> list = new ArrayList<>();
         for (String url : data.getAssets()) {
             list.add(new Bean<>(false, url, null));
@@ -405,19 +407,26 @@ public class AuthInfoActivity extends BaseActivity<AuthInfoPresenter> implements
             editText.requestFocus();
             CoreUtils.openSoftInputForced(etName);
         }
-        editText.setEnabled(TextUtils.isEmpty(string) && dataEntity.getIs_modify());
-    }
-
-    @SuppressLint("ClickableViewAccessibility")
-    private void isModify(ImageView imageView, String string) {
-        imageView.setOnTouchListener((view, motionEvent) -> !TextUtils.isEmpty(string) && dataEntity.getIs_modify());
+        editText.setEnabled(TextUtils.isEmpty(string) || dataEntity.getIs_modify());
     }
 
     private String value(EditText editText, String string) {
         if (TextUtils.isEmpty(string)) {
             return editText.getText().toString();
         } else {
-            return null;
+            if (!dataEntity.getIs_hint().equals("success")) {
+                return editText.getText().toString();
+            } else {
+                return null;
+            }
+        }
+    }
+
+    private Object value(File file, String string) {
+        if (file != null) {
+            return file;
+        } else {
+            return string.split("com/")[1];
         }
     }
 }
