@@ -96,14 +96,15 @@ public class MyInvestmentActivity extends BaseActivity<MyInvestmentPresenter> im
                         .setText(R.id.tv_actual_amount, item.getActual_amount())
                         .setText(R.id.tv_order_status_name, item.getOrder_status_name());
                 if (item.getIs_publish()) {
-                    holder.getView(R.id.tv_pay_bt).setVisibility(View.VISIBLE);
                     if (item.getOrder_status() == 0 || item.getOrder_status() == 1) {
+                        holder.getView(R.id.tv_pay_bt).setVisibility(View.VISIBLE);
                         holder.setText(R.id.tv_pay_bt, "支付");
                         holder.getView(R.id.tv_pay_bt).setOnClickListener(view -> {
                             mPresenter.orderPay(item.getOrderID(), item, "2");
                             position = holder.getAdapterPosition();
                         });
                     } else if (item.getOrder_status() == 4) {
+                        holder.getView(R.id.tv_pay_bt).setVisibility(View.VISIBLE);
                         holder.setText(R.id.tv_pay_bt, "上传打款凭证");
                         holder.getView(R.id.tv_pay_bt).setOnClickListener(view -> {
                             Bundle bundle = new Bundle();
@@ -111,6 +112,8 @@ public class MyInvestmentActivity extends BaseActivity<MyInvestmentPresenter> im
                             ARouter.getInstance().build("/app/UploadActivity").withBundle(Constants.UPLOAD, bundle).withBoolean(Constants.ORDER_PROOF, true).navigation();
                             position = holder.getAdapterPosition();
                         });
+                    } else {
+                        holder.getView(R.id.tv_pay_bt).setVisibility(View.INVISIBLE);
                     }
                 } else {
                     holder.getView(R.id.tv_pay_bt).setVisibility(View.INVISIBLE);
@@ -167,7 +170,7 @@ public class MyInvestmentActivity extends BaseActivity<MyInvestmentPresenter> im
 
     @Subscriber(tag = Constants.ORDER_PROOF)
     public void upload(Object object) {
-        recyclerView.remove(position);
+        uploadItem(5, "确认打款中");
     }
 
     @Override
@@ -238,12 +241,20 @@ public class MyInvestmentActivity extends BaseActivity<MyInvestmentPresenter> im
         if (flDialog.getVisibility() == 0) {
             title("我的投资");
             if (isSuccess) {
-                recyclerView.remove(position);
+                uploadItem(2, "支付成功");
             }
             flDialog.setVisibility(View.GONE);
             flDialog.startAnimation(AnimationUtils.loadAnimation(this, R.anim.fade_out));
         } else {
             killMyself();
         }
+    }
+
+    private void uploadItem(int status, String status_name) {
+        OrderListBean.DataEntity.ListEntity entity = (OrderListBean.DataEntity.ListEntity) recyclerView.getAdapter().getData().get(position);
+        entity.setOrder_status(status);
+        entity.setOrder_status_name(status_name);
+        recyclerView.getAdapter().getData().set(position, entity);
+        recyclerView.getAdapter().notifyItemChanged(position);
     }
 }

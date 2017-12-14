@@ -8,7 +8,6 @@ import com.core.di.scope.ActivityScope;
 import com.core.http.imageloader.ImageLoader;
 import com.core.integration.AppManager;
 import com.core.mvp.BasePresenter;
-import com.core.utils.Constants;
 import com.core.utils.CoreUtils;
 import com.core.utils.RxLifecycleUtils;
 import com.core.widget.CustomPopupWindow;
@@ -127,7 +126,8 @@ public class EquityDetailsPresenter extends BasePresenter<EquityDetailsContract.
                 .customListener(contentView -> {
                     ((TextView) contentView.findViewById(R.id.tv_content)).setText(content);
                     contentView.findViewById(R.id.tv_sure).setOnClickListener(view -> {
-                        ARouter.getInstance().build("/app/UploadActivity").withBoolean(Constants.ORDER_PROOF, false).navigation();
+//                        ARouter.getInstance().build("/app/UploadActivity").withBoolean(Constants.ORDER_PROOF, false).navigation();
+                        ARouter.getInstance().build("/app/AuthActivity").navigation();
                         CustomPopupWindow.killMySelf();
                     });
                     contentView.findViewById(R.id.tv_cancel).setOnClickListener(view -> CustomPopupWindow.killMySelf());
