@@ -5,18 +5,20 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.core.base.BaseActivity;
 import com.core.di.component.AppComponent;
-import com.recorder.utils.CommonUtils;
 import com.core.utils.CoreUtils;
 import com.recorder.R;
 import com.recorder.di.component.DaggerForgetPasswordComponent;
 import com.recorder.di.module.ForgetPasswordModule;
 import com.recorder.mvp.contract.ForgetPasswordContract;
 import com.recorder.mvp.presenter.ForgetPasswordPresenter;
+import com.recorder.utils.CommonUtils;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -32,6 +34,12 @@ public class ForgetPasswordActivity extends BaseActivity<ForgetPasswordPresenter
     EditText etCode;
     @BindView(R.id.tv_get_code)
     TextView tvGetCode;
+    @BindView(R.id.et_pic_code)
+    EditText etPicCode;
+    @BindView(R.id.im_pic_code)
+    ImageView imPicCode;
+    @BindView(R.id.ll_pic_code)
+    LinearLayout llPicCode;
 
     @Override
     public void setupActivityComponent(AppComponent appComponent) {
@@ -84,7 +92,7 @@ public class ForgetPasswordActivity extends BaseActivity<ForgetPasswordPresenter
         overridePendingTransition(R.anim.slide_in_right, R.anim.empty);
     }
 
-    @OnClick({R.id.tv_get_code, R.id.tv_next})
+    @OnClick({R.id.tv_get_code, R.id.tv_next, R.id.im_pic_code})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_get_code:
@@ -93,12 +101,14 @@ public class ForgetPasswordActivity extends BaseActivity<ForgetPasswordPresenter
                     CoreUtils.snackbarText(CoreUtils.getString(this, R.string.text_phone));
                     return;
                 }
-                CommonUtils.getCode(tvGetCode);
-                mPresenter.smsCode(etPhone.getText().toString(), "2", null);
+                mPresenter.smsCode(etPhone.getText().toString(), "2", null, imPicCode, llPicCode);
                 break;
             case R.id.tv_next:
                 CoreUtils.hideSoftInput(this);
                 mPresenter.smsVerify(etPhone.getText().toString(), etCode.getText().toString(), "2");
+                break;
+            case R.id.im_pic_code:
+//                verify();
                 break;
         }
     }

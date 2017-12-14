@@ -26,6 +26,7 @@ import java.util.List;
 
 import io.reactivex.Observable;
 import okhttp3.MultipartBody;
+import okhttp3.ResponseBody;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -43,7 +44,7 @@ public interface ApiService {
     @FormUrlEncoded
     @POST("user/register")
     Observable<LoginBean> registerUser(@Header("DIVERSION-VERSION") String version, @Field("mobile") String mobile,
-                                    @Field("password") String password, @Field("code") String code);
+                                       @Field("password") String password, @Field("code") String code);
 
     //type  1-众筹 2-私募 不必须 默认为1-众筹
     @GET("deal/list")
@@ -192,4 +193,7 @@ public interface ApiService {
 
     @GET("app/msgs")
     Observable<AppMsgsBean> appMsgs(@Header("DIVERSION-VERSION") String version, @Query("page") String page, @Query("page_size") String page_size);
+
+    @GET("verify.php")
+    Observable<ResponseBody> verify(@Header("DIVERSION-VERSION") String version, @Query("token") String token);
 }

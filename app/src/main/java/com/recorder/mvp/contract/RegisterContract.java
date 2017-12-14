@@ -6,6 +6,7 @@ import com.core.mvp.IView;
 import com.recorder.mvp.model.entity.LoginBean;
 
 import io.reactivex.Observable;
+import okhttp3.ResponseBody;
 
 public interface RegisterContract {
     //对于经常使用的关于UI的方法可以定义到IView中,如显示隐藏进度条,和显示文字消息
@@ -18,5 +19,7 @@ public interface RegisterContract {
         Observable<LoginBean> registerUser(String mobile, String password, String code);
 
         Observable<Object> smsCode(String mobile, String type, String captcha);
+
+        Observable<ResponseBody> verify(String token);
     }
 }

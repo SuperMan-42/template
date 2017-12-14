@@ -12,6 +12,7 @@ import com.recorder.mvp.model.api.service.ApiService;
 import javax.inject.Inject;
 
 import io.reactivex.Observable;
+import okhttp3.ResponseBody;
 
 @ActivityScope
 public class ForgetPasswordModel extends BaseModel implements ForgetPasswordContract.Model {
@@ -40,5 +41,10 @@ public class ForgetPasswordModel extends BaseModel implements ForgetPasswordCont
     @Override
     public Observable<Object> smsVerify(String mobile, String code, String type) {
         return mRepositoryManager.obtainRetrofitService(ApiService.class).smsVerify("1", mobile, code, type);
+    }
+
+    @Override
+    public Observable<ResponseBody> verify(String token) {
+        return mRepositoryManager.obtainRetrofitService(ApiService.class).verify("1", token);
     }
 }

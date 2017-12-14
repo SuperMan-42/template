@@ -6,6 +6,8 @@ import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
@@ -40,6 +42,12 @@ public class ModifyPasswordActivity extends BaseActivity<ModifyPasswordPresenter
     TextView tvGetCode;
     @BindView(R.id.et_new_password)
     EditText etNewPassword;
+    @BindView(R.id.et_pic_code)
+    EditText etPicCode;
+    @BindView(R.id.im_pic_code)
+    ImageView imPicCode;
+    @BindView(R.id.ll_pic_code)
+    LinearLayout llPicCode;
 
     @Override
     public void setupActivityComponent(AppComponent appComponent) {
@@ -92,7 +100,7 @@ public class ModifyPasswordActivity extends BaseActivity<ModifyPasswordPresenter
         finish();
     }
 
-    @OnClick({R.id.tv_get_code, R.id.tv_next})
+    @OnClick({R.id.tv_get_code, R.id.tv_next, R.id.im_pic_code})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_get_code:
@@ -100,6 +108,9 @@ public class ModifyPasswordActivity extends BaseActivity<ModifyPasswordPresenter
                 break;
             case R.id.tv_next:
                 userModifypwd();
+                break;
+            case R.id.im_pic_code:
+//                verify();
                 break;
         }
     }
@@ -120,6 +131,6 @@ public class ModifyPasswordActivity extends BaseActivity<ModifyPasswordPresenter
             return;
         }
         LoginBean loginBean = new Gson().fromJson(BCache.getInstance().getString(Constants.LOGIN_INFO), LoginBean.class);
-        mPresenter.smsCode(loginBean != null ? loginBean.getData().getMobile() : "", "3", null);
+        mPresenter.smsCode(loginBean != null ? loginBean.getData().getMobile() : "", "3", null, imPicCode, llPicCode);
     }
 }

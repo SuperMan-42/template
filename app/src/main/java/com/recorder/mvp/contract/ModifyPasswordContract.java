@@ -4,6 +4,7 @@ import com.core.mvp.IModel;
 import com.core.mvp.IView;
 
 import io.reactivex.Observable;
+import okhttp3.ResponseBody;
 
 public interface ModifyPasswordContract {
     //对于经常使用的关于UI的方法可以定义到IView中,如显示隐藏进度条,和显示文字消息
@@ -17,5 +18,7 @@ public interface ModifyPasswordContract {
         Observable<Object> smsCode(String mobile, String type, String captcha);
 
         Observable<Object> userModifypwd(String old_password, String password, String code);
+
+        Observable<ResponseBody> verify(String token);
     }
 }

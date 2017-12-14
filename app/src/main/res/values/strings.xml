@@ -15,7 +15,7 @@
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
     <string name="text_phone">请输入正确的手机号</string>
-    <string name="text_smsCode">\"发送短信验证码成功\"</string>
+    <string name="text_smsCode">"发送短信验证码成功"</string>
     <string name="text_password_no_null">密码不能为空</string>
     <string name="text_password_no">输入密码不一致请重新输入</string>
     <string name="text_forgetpwd">密码修改成功</string>
@@ -62,4 +62,5 @@
     <string name="text_authinfo_fail">失败原因:</string>
     <string name="text_agree">请勾选同意协议</string>
     <string name="text_permission">6.0以上系统请开启相关权限</string>
+    <string name="text_smsCode_fail">验证码发送失败</string>
 </resources>

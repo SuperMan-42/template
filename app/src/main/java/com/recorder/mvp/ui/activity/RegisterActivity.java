@@ -7,6 +7,8 @@ import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
@@ -45,6 +47,12 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter> implements
     FrameLayout flDialog;
     @BindView(R.id.tv_get_code)
     TextView tvGetCode;
+    @BindView(R.id.et_pic_code)
+    EditText etPicCode;
+    @BindView(R.id.im_pic_code)
+    ImageView imPicCode;
+    @BindView(R.id.ll_pic_code)
+    LinearLayout llPicCode;
 
     @Override
     public void setupActivityComponent(AppComponent appComponent) {
@@ -96,7 +104,7 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter> implements
         finish();
     }
 
-    @OnClick({R.id.tv_get_code, R.id.tv_next, R.id.tv_go_authentication, R.id.tv_go_home})
+    @OnClick({R.id.tv_get_code, R.id.tv_next, R.id.tv_go_authentication, R.id.tv_go_home, R.id.im_pic_code})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_get_code:
@@ -112,6 +120,9 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter> implements
 //                EventBus.getDefault().post(0, Constants.HOME_INDEX);
 //                ARouter.getInstance().build("/app/HomeActivity").navigation();
                 killMyself();
+                break;
+            case R.id.im_pic_code:
+                mPresenter.verify(etPhone.getText().toString(), imPicCode, llPicCode);
                 break;
         }
     }
@@ -143,7 +154,6 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter> implements
             CoreUtils.snackbarText(CoreUtils.getString(this, R.string.text_phone));
             return;
         }
-        CommonUtils.getCode(tvGetCode);
-        mPresenter.smsCode(etPhone.getText().toString(), "1", null);
+        mPresenter.smsCode(etPhone.getText().toString(), "1", null, imPicCode, llPicCode);
     }
 }

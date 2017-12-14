@@ -13,6 +13,7 @@ import com.recorder.mvp.model.entity.LoginBean;
 import javax.inject.Inject;
 
 import io.reactivex.Observable;
+import okhttp3.ResponseBody;
 
 @ActivityScope
 public class RegisterModel extends BaseModel implements RegisterContract.Model {
@@ -41,5 +42,10 @@ public class RegisterModel extends BaseModel implements RegisterContract.Model {
     @Override
     public Observable<Object> smsCode(String mobile, String type, String captcha) {
         return mRepositoryManager.obtainRetrofitService(ApiService.class).smsCode("1", mobile, type, captcha);
+    }
+
+    @Override
+    public Observable<ResponseBody> verify(String token) {
+        return mRepositoryManager.obtainRetrofitService(ApiService.class).verify("1", token);
     }
 }

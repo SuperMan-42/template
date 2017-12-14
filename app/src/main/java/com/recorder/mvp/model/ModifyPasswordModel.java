@@ -12,6 +12,7 @@ import com.recorder.mvp.model.api.service.ApiService;
 import javax.inject.Inject;
 
 import io.reactivex.Observable;
+import okhttp3.ResponseBody;
 
 @ActivityScope
 public class ModifyPasswordModel extends BaseModel implements ModifyPasswordContract.Model {
@@ -40,5 +41,10 @@ public class ModifyPasswordModel extends BaseModel implements ModifyPasswordCont
     @Override
     public Observable<Object> userModifypwd(String old_password, String password, String code) {
         return mRepositoryManager.obtainRetrofitService(ApiService.class).userModifypwd("1", old_password, password, code);
+    }
+
+    @Override
+    public Observable<ResponseBody> verify(String token) {
+        return mRepositoryManager.obtainRetrofitService(ApiService.class).verify("1", token);
     }
 }
