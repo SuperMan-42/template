@@ -26,6 +26,7 @@ import com.zhy.autolayout.utils.AutoLayoutHelper;
  */
 public class AutoProgressBar extends ViewGroup implements Runnable {
     private PorterDuffXfermode xfermode = new PorterDuffXfermode(PorterDuff.Mode.SRC_ATOP);
+    private AutoLayoutHelper mHelper = new AutoLayoutHelper(this);
 
     private int DEFAULT_HEIGHT_DP = 35;
 
@@ -181,6 +182,8 @@ public class AutoProgressBar extends ViewGroup implements Runnable {
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+        if (!isInEditMode())
+            mHelper.adjustChildren();
         int widthSpecSize = MeasureSpec.getSize(widthMeasureSpec);
         int heightSpecMode = MeasureSpec.getMode(heightMeasureSpec);
         int heightSpecSize = MeasureSpec.getSize(heightMeasureSpec);
