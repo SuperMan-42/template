@@ -157,6 +157,9 @@ public class HomeActivity extends BaseActivity<HomePresenter> implements HomeCon
                 if (index == 4) {
                     findViewById(R.id.view_empty).setVisibility(View.GONE);
                 }
+                if (index == 1 || index == 2) {
+                    resetFilter();
+                }
             }
 
             @Override
@@ -219,12 +222,7 @@ public class HomeActivity extends BaseActivity<HomePresenter> implements HomeCon
                 }
                 break;
             case R.id.tv_filter_reset:
-                for (Object entity : recyclerView.getAdapter().getData()) {
-                    if (entity instanceof ContentItem) {
-                        ((ContentItem) entity).isSelector = false;
-                    }
-                    recyclerView.getAdapter().notifyDataSetChanged();
-                }
+                resetFilter();
                 break;
             case R.id.tv_filter_do:
                 lablesList.clear();
@@ -257,7 +255,17 @@ public class HomeActivity extends BaseActivity<HomePresenter> implements HomeCon
                         EventBus.getDefault().post(bundle, "privatefragment");
                         break;
                 }
+                viewEmpty.setVisibility(View.GONE);
                 break;
+        }
+    }
+
+    private void resetFilter() {
+        for (Object entity : recyclerView.getAdapter().getData()) {
+            if (entity instanceof ContentItem) {
+                ((ContentItem) entity).isSelector = false;
+            }
+            recyclerView.getAdapter().notifyDataSetChanged();
         }
     }
 

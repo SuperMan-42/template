@@ -102,6 +102,7 @@ public class EquityFragment extends BaseFragment<EquityPresenter> implements Equ
     @Subscriber(tag = Constants.RETRY_FRAGMENT)
     private void retry(LoginBean loginBean) {
         getActivity().findViewById(R.id.view_empty).setVisibility(View.GONE);
+        recyclerView.reStart();
         mPresenter.dealList("1", null, null, null, "1", Constants.PAGE_SIZE);
     }
 
@@ -132,6 +133,7 @@ public class EquityFragment extends BaseFragment<EquityPresenter> implements Equ
             tvTag.setText("已选: " + bundle.getString("lablesName") + "," + bundle.getString("roundName"));
         }
         tvTag.setVisibility(TextUtils.isEmpty(bundle.getString("lablesName")) && TextUtils.isEmpty(bundle.getString("roundName")) ? View.GONE : View.VISIBLE);
+        recyclerView.reStart();
         mPresenter.dealList("1", TextUtils.isEmpty(bundle.getString("lables")) ? null : bundle.getString("lables"),
                 TextUtils.isEmpty(bundle.getString("round")) ? null : bundle.getString("round"), null, "1", Constants.PAGE_SIZE);
     }

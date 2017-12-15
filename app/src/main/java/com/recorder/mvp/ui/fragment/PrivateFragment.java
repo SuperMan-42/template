@@ -98,6 +98,7 @@ public class PrivateFragment extends BaseFragment<PrivatePresenter> implements P
     @Subscriber(tag = Constants.RETRY_FRAGMENT)
     private void retry(LoginBean loginBean) {
         getActivity().findViewById(R.id.view_empty).setVisibility(View.GONE);
+        recyclerView.reStart();
         mPresenter.dealList("2", null, null, null, "1", Constants.PAGE_SIZE);
     }
 
@@ -128,6 +129,7 @@ public class PrivateFragment extends BaseFragment<PrivatePresenter> implements P
             tvTag.setText("已选: " + bundle.getString("lablesName") + "," + bundle.getString("roundName"));
         }
         tvTag.setVisibility(TextUtils.isEmpty(bundle.getString("lablesName")) && TextUtils.isEmpty(bundle.getString("roundName")) ? View.GONE : View.VISIBLE);
+        recyclerView.reStart();
         mPresenter.dealList("2", TextUtils.isEmpty(bundle.getString("lables")) ? null : bundle.getString("lables"),
                 TextUtils.isEmpty(bundle.getString("round")) ? null : bundle.getString("round"), null, "1", Constants.PAGE_SIZE);
     }
