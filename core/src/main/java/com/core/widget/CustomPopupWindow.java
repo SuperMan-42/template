@@ -172,7 +172,7 @@ public class CustomPopupWindow extends PopupWindow {
     }
 
     public static void killMySelf() {
-        if (window != null & window.isShowing()) {
+        if (window != null && window.isShowing()) {
             window.dismiss();
         }
     }

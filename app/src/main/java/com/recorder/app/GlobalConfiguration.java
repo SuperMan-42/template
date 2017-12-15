@@ -124,7 +124,6 @@ public class GlobalConfiguration implements ConfigModule {
                                     CoreUtils.snackbarText(jsonObject.optString("error"));
                                     break;
                                 case 102:
-                                    CoreUtils.snackbarText(jsonObject.optString("error"));
                                     break;
                                 case 108:
                                     CoreUtils.snackbarText(jsonObject.optString("error"));

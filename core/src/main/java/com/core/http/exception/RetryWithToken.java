@@ -1,5 +1,7 @@
 package com.core.http.exception;
 
+import com.google.gson.Gson;
+
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
@@ -53,6 +55,7 @@ public class RetryWithToken implements Function<Observable<Throwable>, Observabl
 //                        Logger.d("CompositeException, retrywithtoken=> break");
 //                        return Observable.timer(100, TimeUnit.MILLISECONDS);
 //                    } else {
+                    com.orhanobut.logger.Logger.d("retry=> " + throwable.toString() + " " + new Gson().toJson(throwable));
                     if (++retryCount <= maxRetries) {
                         return Observable.timer(retryDelaySecond, TimeUnit.SECONDS);
                     }

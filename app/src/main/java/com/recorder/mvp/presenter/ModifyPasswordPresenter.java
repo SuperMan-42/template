@@ -1,9 +1,12 @@
 package com.recorder.mvp.presenter;
 
+import android.app.Activity;
 import android.app.Application;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.text.TextUtils;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
@@ -13,6 +16,7 @@ import com.core.integration.AppManager;
 import com.core.mvp.BasePresenter;
 import com.core.utils.CoreUtils;
 import com.core.utils.RxLifecycleUtils;
+import com.core.widget.CustomPopupWindow;
 import com.recorder.R;
 import com.recorder.mvp.contract.ModifyPasswordContract;
 
@@ -31,6 +35,8 @@ public class ModifyPasswordPresenter extends BasePresenter<ModifyPasswordContrac
     private Application mApplication;
     private ImageLoader mImageLoader;
     private AppManager mAppManager;
+    private ImageView image;
+    private EditText code;
 
     @Inject
     public ModifyPasswordPresenter(ModifyPasswordContract.Model model, ModifyPasswordContract.View rootView
@@ -62,12 +68,29 @@ public class ModifyPasswordPresenter extends BasePresenter<ModifyPasswordContrac
                             JSONObject jsonObject = new JSONObject(o.toString());
                             switch (jsonObject.optInt("errno")) {
                                 case 102:
-                                    verify(mobile, imageView, llPicCode);
+//                                    verify(mobile, imageView, llPicCode);
+                                    CustomPopupWindow.builder().contentView(CoreUtils.inflate((Activity) mRootView, R.layout.layout_pic_code)).isOutsideTouch(false)
+                                            .customListener(contentView -> {
+                                                image = contentView.findViewById(R.id.im_pic_code);
+                                                code = contentView.findViewById(R.id.et_content);
+                                                verify(mobile, image, null);
+                                                image.setOnClickListener(view -> verify(mobile, image, null));
+                                                contentView.findViewById(R.id.tv_sure).setOnClickListener(view -> {
+                                                    CoreUtils.hideSoftInput(code);
+                                                    if (TextUtils.isEmpty(code.getText().toString())) {
+                                                        CoreUtils.snackbarText(mApplication.getString(R.string.text_pic_code_null));
+                                                        return;
+                                                    }
+                                                    smsCode(mobile, type, code.getText().toString(), imageView, llPicCode);
+                                                });
+                                            }).build().show();
                                     break;
                                 case 108:
-                                    verify(mobile, imageView, llPicCode);
+//                                    verify(mobile, imageView, llPicCode);
+                                    verify(mobile, image, null);
                                     break;
                                 case 0:
+                                    CustomPopupWindow.killMySelf();
                                     mRootView.showMessage(mApplication.getString(R.string.text_smsCode));
                                     break;
                             }
@@ -98,8 +121,10 @@ public class ModifyPasswordPresenter extends BasePresenter<ModifyPasswordContrac
                 .subscribe(new ErrorHandleSubscriber<Bitmap>(mErrorHandler) {
                     @Override
                     public void onNext(Bitmap bitmap) {
-                        llPicCode.setVisibility(View.VISIBLE);
+                        if (llPicCode != null)
+                            llPicCode.setVisibility(View.VISIBLE);
                         imageView.setImageBitmap(bitmap);
+                        code.setText(null);
                     }
                 });
     }
