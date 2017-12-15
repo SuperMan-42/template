@@ -1,6 +1,7 @@
 package com.recorder.utils;
 
 import android.app.Activity;
+import android.app.Application;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Build;
@@ -449,12 +450,16 @@ public class CommonUtils {
     public static void show(AVLoadingIndicatorView avi) {
         if (avi != null) {
             avi.show();
-            Observable.timer(2, TimeUnit.SECONDS).compose(RxLifecycleUtils.transformer()).subscribe(aLong -> avi.hide());
+            Observable.timer(10, TimeUnit.SECONDS).compose(RxLifecycleUtils.transformer()).subscribe(aLong -> avi.hide());
         }
     }
 
     public static void hide(AVLoadingIndicatorView avi) {
         if (avi != null)
             avi.hide();
+    }
+
+    public static boolean isEvict(Application mApplication) {
+        return !(!NetUtils.isConnected() || !NetUtils.isAvailableByPing("10.20.88.170"));
     }
 }

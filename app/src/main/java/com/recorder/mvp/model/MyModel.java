@@ -5,12 +5,12 @@ import android.app.Application;
 import com.core.di.scope.ActivityScope;
 import com.core.integration.IRepositoryManager;
 import com.core.mvp.BaseModel;
-import com.core.utils.DeviceUtils;
 import com.google.gson.Gson;
 import com.recorder.mvp.contract.MyContract;
 import com.recorder.mvp.model.api.cache.ApiCache;
 import com.recorder.mvp.model.api.service.ApiService;
 import com.recorder.mvp.model.entity.UserInfoBean;
+import com.recorder.utils.CommonUtils;
 
 import javax.inject.Inject;
 
@@ -41,7 +41,7 @@ public class MyModel extends BaseModel implements MyContract.Model {
     public Observable<UserInfoBean> userInfo() {
         return Observable.just(mRepositoryManager.obtainRetrofitService(ApiService.class).userInfo("1"))
                 .flatMap(resultObservable -> mRepositoryManager.obtainCacheService(ApiCache.class)
-                        .userInfo(resultObservable, new EvictProvider(DeviceUtils.netIsConnected(mApplication)))
+                        .userInfo(resultObservable, new EvictProvider(CommonUtils.isEvict(mApplication)))
                         .map(Reply::getData));
     }
 }

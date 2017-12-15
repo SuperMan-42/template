@@ -5,12 +5,12 @@ import android.app.Application;
 import com.core.di.scope.ActivityScope;
 import com.core.integration.IRepositoryManager;
 import com.core.mvp.BaseModel;
-import com.core.utils.DeviceUtils;
 import com.google.gson.Gson;
 import com.recorder.mvp.contract.DynamicContract;
 import com.recorder.mvp.model.api.cache.ApiCache;
 import com.recorder.mvp.model.api.service.ApiService;
 import com.recorder.mvp.model.entity.NewsListBean;
+import com.recorder.utils.CommonUtils;
 
 import javax.inject.Inject;
 
@@ -41,7 +41,7 @@ public class DynamicModel extends BaseModel implements DynamicContract.Model {
     public Observable<NewsListBean> newsList(String page, String page_size) {
         return Observable.just(mRepositoryManager.obtainRetrofitService(ApiService.class).newsList("1", page, page_size))
                 .flatMap(resultObservable -> mRepositoryManager.obtainCacheService(ApiCache.class)
-                        .newsList(resultObservable, new EvictProvider(DeviceUtils.netIsConnected(mApplication)))
+                        .newsList(resultObservable, new EvictProvider(CommonUtils.isEvict(mApplication)))
                         .map(Reply::getData));
     }
 }

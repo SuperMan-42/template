@@ -12,6 +12,7 @@ import com.recorder.mvp.model.api.cache.ApiCache;
 import com.recorder.mvp.model.api.service.ApiService;
 import com.recorder.mvp.model.entity.DealDetailBean;
 import com.recorder.mvp.model.entity.PayCheckBean;
+import com.recorder.utils.CommonUtils;
 
 import javax.inject.Inject;
 
@@ -42,7 +43,7 @@ public class EquityDetailsModel extends BaseModel implements EquityDetailsContra
     public Observable<DealDetailBean> dealDetail(String dealID) {
         return Observable.just(mRepositoryManager.obtainRetrofitService(ApiService.class).dealDetail("1", dealID))
                 .flatMap(resultObservable -> mRepositoryManager.obtainCacheService(ApiCache.class)
-                        .dealDetail(resultObservable, new EvictProvider(DeviceUtils.netIsConnected(mApplication)))
+                        .dealDetail(resultObservable, new EvictProvider(CommonUtils.isEvict(mApplication)))
                         .map(Reply::getData));
     }
 

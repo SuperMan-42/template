@@ -5,12 +5,12 @@ import android.app.Application;
 import com.core.di.scope.ActivityScope;
 import com.core.integration.IRepositoryManager;
 import com.core.mvp.BaseModel;
-import com.core.utils.DeviceUtils;
 import com.google.gson.Gson;
 import com.recorder.mvp.contract.MyMessageContract;
 import com.recorder.mvp.model.api.cache.ApiCache;
 import com.recorder.mvp.model.api.service.ApiService;
 import com.recorder.mvp.model.entity.AppMsgsBean;
+import com.recorder.utils.CommonUtils;
 
 import javax.inject.Inject;
 
@@ -41,7 +41,7 @@ public class MyMessageModel extends BaseModel implements MyMessageContract.Model
     public Observable<AppMsgsBean> appMsgs(String page, String page_size) {
         return Observable.just(mRepositoryManager.obtainRetrofitService(ApiService.class).appMsgs("1", page, page_size))
                 .flatMap(resultObservable -> mRepositoryManager.obtainCacheService(ApiCache.class)
-                        .appMsgs(resultObservable, new EvictProvider(DeviceUtils.netIsConnected(mApplication)))
+                        .appMsgs(resultObservable, new EvictProvider(CommonUtils.isEvict(mApplication)))
                         .map(Reply::getData));
     }
 }

@@ -5,12 +5,12 @@ import android.app.Application;
 import com.core.di.scope.ActivityScope;
 import com.core.integration.IRepositoryManager;
 import com.core.mvp.BaseModel;
-import com.core.utils.DeviceUtils;
 import com.google.gson.Gson;
 import com.recorder.mvp.contract.BackStageManagerContract;
 import com.recorder.mvp.model.api.cache.ApiCache;
 import com.recorder.mvp.model.api.service.ApiService;
 import com.recorder.mvp.model.entity.OrderPimanageBean;
+import com.recorder.utils.CommonUtils;
 
 import javax.inject.Inject;
 
@@ -41,7 +41,7 @@ public class BackStageManagerModel extends BaseModel implements BackStageManager
     public Observable<OrderPimanageBean> orderPimanage() {
         return Observable.just(mRepositoryManager.obtainRetrofitService(ApiService.class).orderPimanage("1"))
                 .flatMap(resultObservable -> mRepositoryManager.obtainCacheService(ApiCache.class)
-                        .orderPimanage(resultObservable, new EvictProvider(DeviceUtils.netIsConnected(mApplication)))
+                        .orderPimanage(resultObservable, new EvictProvider(CommonUtils.isEvict(mApplication)))
                         .map(Reply::getData));
     }
 }

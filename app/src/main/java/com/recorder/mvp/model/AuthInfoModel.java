@@ -5,7 +5,6 @@ import android.app.Application;
 import com.core.di.scope.ActivityScope;
 import com.core.integration.IRepositoryManager;
 import com.core.mvp.BaseModel;
-import com.core.utils.DeviceUtils;
 import com.google.gson.Gson;
 import com.orhanobut.logger.Logger;
 import com.recorder.mvp.contract.AuthInfoContract;
@@ -13,6 +12,7 @@ import com.recorder.mvp.model.api.cache.ApiCache;
 import com.recorder.mvp.model.api.service.ApiService;
 import com.recorder.mvp.model.entity.AuthGetBean;
 import com.recorder.mvp.model.entity.ImageUploadBean;
+import com.recorder.utils.CommonUtils;
 
 import java.util.List;
 
@@ -46,7 +46,7 @@ public class AuthInfoModel extends BaseModel implements AuthInfoContract.Model {
     public Observable<AuthGetBean> authGet(int type) {
         return Observable.just(mRepositoryManager.obtainRetrofitService(ApiService.class).authGet("1", type))
                 .flatMap(resultObservable -> mRepositoryManager.obtainCacheService(ApiCache.class)
-                        .authGet(resultObservable, new EvictProvider(DeviceUtils.netIsConnected(mApplication)))
+                        .authGet(resultObservable, new EvictProvider(CommonUtils.isEvict(mApplication)))
                         .map(Reply::getData));
     }
 

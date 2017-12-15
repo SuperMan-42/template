@@ -37,7 +37,7 @@ public class SplashModel extends BaseModel implements SplashContract.Model {
     public Observable<AppStartBean> appStart() {
 //        return Observable.just(mRepositoryManager.obtainRetrofitService(ApiService.class).appStart("1"))
 //                .flatMap(resultObservable -> mRepositoryManager.obtainCacheService(ApiCache.class)
-//                        .appStart(resultObservable, new EvictProvider(DeviceUtils.netIsConnected(mApplication)))
+//                        .appStart(resultObservable, new EvictProvider(CommonUtils.isEvict(mApplication)))
 //                        .map(Reply::getData));
         return mRepositoryManager.obtainRetrofitService(ApiService.class).appStart("1");
     }
