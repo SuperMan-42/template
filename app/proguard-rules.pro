@@ -430,3 +430,6 @@
 
 -keep class com.wang.avi.** { *; }
 -keep class com.wang.avi.indicators.** { *; }
+
+#update-apk
+-keep class com.vector.update_app.** { *; }
