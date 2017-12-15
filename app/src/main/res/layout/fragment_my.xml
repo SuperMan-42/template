@@ -1,167 +1,176 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F0F2F5">
+    android:background="#F0F2F5"
+    android:orientation="vertical">
 
-    <LinearLayout
+    <com.core.widget.autolayout.AutoScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="match_parent"
+        android:fadingEdge="none"
+        android:overScrollMode="never"
+        android:scrollbars="none">
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="660px"
-            android:background="@drawable/ic_my_bg"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/profile_image"
-                android:layout_width="210px"
-                android:layout_height="210px"
-                app:civ_border_color="@color/white"
-                app:civ_border_width="2dp"
-                tools:src="@drawable/ic_person" />
-
-            <TextView
-                android:id="@+id/tv_user_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="36px"
-                android:textColor="@color/white"
-                android:textSize="42px"
-                android:textStyle="bold"
-                tools:text="eddie0730" />
-
-            <FrameLayout
-                android:id="@+id/fl_isLogin"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:id="@+id/tv_auth_type"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="15px"
-                    android:textColor="@color/white"
-                    android:textSize="39px"
-                    android:visibility="invisible"
-                    tools:text="昊翔投资经理" />
-
-                <TextView
-                    android:id="@+id/tv_login"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="24px"
-                    android:background="@drawable/ic_login_button"
-                    android:gravity="center"
-                    android:text="登录"
-                    android:textColor="@color/white"
-                    android:textSize="45px"
-                    android:visibility="invisible" />
-            </FrameLayout>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="180px"
-            android:background="@color/white"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <LinearLayout
-                android:id="@+id/ll_investment"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/tv_my_investment"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="#333333"
-                    android:textSize="54px"
-                    tools:text="0" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="我的投资"
-                    android:textColor="#666666"
-                    android:textSize="42px" />
-            </LinearLayout>
-
-            <View
-                android:layout_width="1.5px"
-                android:layout_height="60px"
-                android:background="#BFBFBF" />
-
-            <LinearLayout
-                android:id="@+id/ll_attention"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/tv_follow_count"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="#333333"
-                    android:textSize="54px"
-                    tools:text="0" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="我的关注"
-                    android:textColor="#666666"
-                    android:textSize="42px" />
-            </LinearLayout>
-
-            <View
-                android:layout_width="1.5px"
-                android:layout_height="60px"
-                android:background="#BFBFBF" />
-
-            <LinearLayout
-                android:id="@+id/ll_manager"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/tv_post_investment"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="#333333"
-                    android:textSize="54px"
-                    tools:text="0" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="投后管理"
-                    android:textColor="#666666"
-                    android:textSize="42px" />
-            </LinearLayout>
-
-        </LinearLayout>
-
-        <com.core.widget.recyclerview.CoreRecyclerView
-            android:id="@+id/recyclerview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="36px"
-            android:background="@color/white" />
-    </LinearLayout>
-</ScrollView>
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="660px"
+                android:background="@drawable/ic_my_bg"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/profile_image"
+                    android:layout_width="210px"
+                    android:layout_height="210px"
+                    app:civ_border_color="@color/white"
+                    app:civ_border_width="2dp"
+                    tools:src="@drawable/ic_person" />
+
+                <TextView
+                    android:id="@+id/tv_user_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="36px"
+                    android:textColor="@color/white"
+                    android:textSize="42px"
+                    android:textStyle="bold"
+                    tools:text="eddie0730" />
+
+                <FrameLayout
+                    android:id="@+id/fl_isLogin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/tv_auth_type"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="15px"
+                        android:textColor="@color/white"
+                        android:textSize="39px"
+                        android:visibility="invisible"
+                        tools:text="昊翔投资经理" />
+
+                    <TextView
+                        android:id="@+id/tv_login"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="24px"
+                        android:background="@drawable/ic_login_button"
+                        android:gravity="center"
+                        android:text="登录"
+                        android:textColor="@color/white"
+                        android:textSize="45px"
+                        android:visibility="invisible" />
+                </FrameLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="180px"
+                android:background="@color/white"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:id="@+id/ll_investment"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_my_investment"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#333333"
+                        android:textSize="54px"
+                        tools:text="0" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="我的投资"
+                        android:textColor="#666666"
+                        android:textSize="42px" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="1.5px"
+                    android:layout_height="60px"
+                    android:background="#BFBFBF" />
+
+                <LinearLayout
+                    android:id="@+id/ll_attention"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_follow_count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#333333"
+                        android:textSize="54px"
+                        tools:text="0" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="我的关注"
+                        android:textColor="#666666"
+                        android:textSize="42px" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="1.5px"
+                    android:layout_height="60px"
+                    android:background="#BFBFBF" />
+
+                <LinearLayout
+                    android:id="@+id/ll_manager"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_post_investment"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#333333"
+                        android:textSize="54px"
+                        tools:text="0" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="投后管理"
+                        android:textColor="#666666"
+                        android:textSize="42px" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <com.core.widget.recyclerview.CoreRecyclerView
+                android:id="@+id/recyclerview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="36px"
+                android:background="@color/white" />
+        </LinearLayout>
+    </com.core.widget.autolayout.AutoScrollView>
+</RelativeLayout>
