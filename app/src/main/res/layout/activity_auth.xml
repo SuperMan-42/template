@@ -82,9 +82,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="30px"
+            android:src="@drawable/auth_cn_status_1"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:src="@drawable/auth_cn_status_0" />
+            app:layout_constraintTop_toTopOf="parent" />
     </com.core.widget.autolayout.AutoConstraintLayout>
 
     <com.core.widget.autolayout.AutoConstraintLayout
@@ -159,9 +159,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="30px"
+            android:src="@drawable/auth_cn_status_1"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:src="@drawable/auth_cn_status_0" />
+            app:layout_constraintTop_toTopOf="parent" />
     </com.core.widget.autolayout.AutoConstraintLayout>
 
     <com.core.widget.autolayout.AutoConstraintLayout
@@ -236,9 +236,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="30px"
+            android:src="@drawable/auth_cn_status_1"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:src="@drawable/auth_cn_status_0" />
+            app:layout_constraintTop_toTopOf="parent" />
     </com.core.widget.autolayout.AutoConstraintLayout>
 
 </LinearLayout>

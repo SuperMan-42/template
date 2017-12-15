@@ -89,6 +89,7 @@ public class UserAuthInfoBean {
             private int file_status;
             private String cn_status;
             private String cn_file_status;
+            private boolean is_auditing;
 
             public void setType(int type) {
                 this.type = type;
@@ -128,6 +129,14 @@ public class UserAuthInfoBean {
 
             public String getCn_file_status() {
                 return cn_file_status;
+            }
+
+            public boolean getIs_auditing() {
+                return is_auditing;
+            }
+
+            public void setIs_auditing(boolean is_auditing) {
+                this.is_auditing = is_auditing;
             }
         }
 
@@ -145,6 +154,7 @@ public class UserAuthInfoBean {
             private int file_status;
             private String cn_status;
             private String cn_file_status;
+            private boolean is_auditing;
 
             public void setType(int type) {
                 this.type = type;
@@ -184,6 +194,14 @@ public class UserAuthInfoBean {
 
             public String getCn_file_status() {
                 return cn_file_status;
+            }
+
+            public boolean getIs_auditing() {
+                return is_auditing;
+            }
+
+            public void setIs_auditing(boolean is_auditing) {
+                this.is_auditing = is_auditing;
             }
         }
 
@@ -201,6 +219,7 @@ public class UserAuthInfoBean {
             private int file_status;
             private String cn_status;
             private String cn_file_status;
+            private boolean is_auditing;
 
             public void setType(int type) {
                 this.type = type;
@@ -240,6 +259,14 @@ public class UserAuthInfoBean {
 
             public String getCn_file_status() {
                 return cn_file_status;
+            }
+
+            public boolean getIs_auditing() {
+                return is_auditing;
+            }
+
+            public void setIs_auditing(boolean is_auditing) {
+                this.is_auditing = is_auditing;
             }
         }
     }

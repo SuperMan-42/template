@@ -115,81 +115,48 @@ public class AuthActivity extends BaseActivity<AuthPresenter> implements AuthCon
     @Override
     public void showUserAuthInfo(UserAuthInfoBean.DataEntity data) {
         UserAuthInfoBean.DataEntity.ZcAuthEntity zcAuthEntity = data.getZc_auth();
+        imAuth.setVisibility(data.getZc_auth().getIs_auditing() ? View.VISIBLE : View.GONE);
+        tagLeft.setImageResource(data.getZc_auth().getStatus() == 4 ? R.drawable.auth_zc_1 : R.drawable.auth_zc_0);
+        tagRight.setImageResource(data.getZc_auth().getFile_status() == 2 ? R.drawable.auth_right_1 : R.drawable.auth_right_0);
         if (zcAuthEntity.getStatus() == 0 || zcAuthEntity.getStatus() == 3 || zcAuthEntity.getStatus() == 5) {
             //跳至认证页面(需输入详细信息的认证页面)
-            tagLeft.setImageResource(R.drawable.auth_zc_0);
-            tagRight.setImageResource(R.drawable.auth_right_0);
-            imAuth.setImageResource(R.drawable.auth_cn_status_0);
             cl1.setOnClickListener(view -> ARouter.getInstance().build("/app/AuthInfoActivity").withInt(Constants.AUTH_TYPE, zcAuthEntity.getType()).navigation());
         } else if (zcAuthEntity.getStatus() == 1 || zcAuthEntity.getStatus() == 2 || (zcAuthEntity.getStatus() == 4 && zcAuthEntity.getFile_status() == 1)) {
             //提示用户审核中
-            tagLeft.setImageResource(zcAuthEntity.getStatus() == 4 && zcAuthEntity.getFile_status() == 1 ? R.drawable.auth_zc_1 : R.drawable.auth_zc_0);
-            tagRight.setImageResource(R.drawable.auth_right_0);
-            imAuth.setImageResource(R.drawable.auth_cn_status_1);
             cl1.setOnClickListener(view -> showDialog());
         } else if (zcAuthEntity.getStatus() == 4 && (zcAuthEntity.getFile_status() == 0 || zcAuthEntity.getFile_status() == 3)) {
             //跳至只有上传资产认证界面
-            tagLeft.setImageResource(R.drawable.auth_zc_1);
-            tagRight.setImageResource(R.drawable.auth_right_0);
-            imAuth.setImageResource(R.drawable.auth_cn_status_2);
             cl1.setOnClickListener(view -> ARouter.getInstance().build("/app/UploadActivity").withInt(Constants.AUTH_TYPE, zcAuthEntity.getType()).withBoolean(Constants.ORDER_PROOF, false).navigation());
-        } else if (zcAuthEntity.getStatus() == 4 && zcAuthEntity.getFile_status() == 2) {
-            //不能点击过去 显示已认证成功图标
-            tagLeft.setImageResource(R.drawable.auth_zc_1);
-            tagRight.setImageResource(R.drawable.auth_right_1);
-            imAuth.setImageResource(R.drawable.auth_cn_status_2);
         }
 
         UserAuthInfoBean.DataEntity.ConformityAuthEntity conformityAuthEntity = data.getConformity_auth();
+        imAuth2.setVisibility(data.getConformity_auth().getIs_auditing() ? View.VISIBLE : View.GONE);
+        tagLeft2.setImageResource(data.getConformity_auth().getStatus() == 4 ? R.drawable.auth_conformity_1 : R.drawable.auth_conformity_0);
+        tagRight2.setImageResource(data.getConformity_auth().getFile_status() == 2 ? R.drawable.auth_right_1 : R.drawable.auth_right_0);
         if (conformityAuthEntity.getStatus() == 0 || conformityAuthEntity.getStatus() == 3 || conformityAuthEntity.getStatus() == 5) {
             //跳至认证页面(需输入详细信息的认证页面)
-            tagLeft2.setImageResource(R.drawable.auth_conformity_0);
-            tagRight2.setImageResource(R.drawable.auth_right_0);
-            imAuth2.setImageResource(R.drawable.auth_cn_status_0);
             cl2.setOnClickListener(view -> ARouter.getInstance().build("/app/AuthInfoActivity").withInt(Constants.AUTH_TYPE, conformityAuthEntity.getType()).navigation());
         } else if (conformityAuthEntity.getStatus() == 1 || conformityAuthEntity.getStatus() == 2 || (conformityAuthEntity.getStatus() == 4 && conformityAuthEntity.getFile_status() == 1)) {
             //提示用户审核中
-            tagLeft2.setImageResource(conformityAuthEntity.getStatus() == 4 && conformityAuthEntity.getFile_status() == 1 ? R.drawable.auth_conformity_1 : R.drawable.auth_conformity_0);
-            tagRight2.setImageResource(R.drawable.auth_right_0);
-            imAuth2.setImageResource(R.drawable.auth_cn_status_1);
             cl2.setOnClickListener(view -> showDialog());
         } else if (conformityAuthEntity.getStatus() == 4 && (conformityAuthEntity.getFile_status() == 0 || conformityAuthEntity.getFile_status() == 3)) {
             //跳至只有上传资产认证界面
-            tagLeft2.setImageResource(R.drawable.auth_conformity_1);
-            tagRight2.setImageResource(R.drawable.auth_right_0);
-            imAuth2.setImageResource(R.drawable.auth_cn_status_2);
             cl2.setOnClickListener(view -> ARouter.getInstance().build("/app/UploadActivity").withInt(Constants.AUTH_TYPE, conformityAuthEntity.getType()).withBoolean(Constants.ORDER_PROOF, false).navigation());
-        } else if (conformityAuthEntity.getStatus() == 4 && conformityAuthEntity.getFile_status() == 2) {
-            //不能点击过去 显示已认证成功图标
-            tagLeft2.setImageResource(R.drawable.auth_conformity_1);
-            tagRight2.setImageResource(R.drawable.auth_right_1);
-            imAuth2.setImageResource(R.drawable.auth_cn_status_2);
         }
 
         UserAuthInfoBean.DataEntity.OrganAuthEntity organAuthEntity = data.getOrgan_auth();
+        imAuth3.setVisibility(data.getOrgan_auth().getIs_auditing() ? View.VISIBLE : View.GONE);
+        tagLeft3.setImageResource(data.getOrgan_auth().getStatus() == 4 ? R.drawable.auth_organ_1 : R.drawable.auth_organ_0);
+        tagRight3.setImageResource(data.getOrgan_auth().getFile_status() == 2 ? R.drawable.auth_right_1 : R.drawable.auth_right_0);
         if (organAuthEntity.getStatus() == 0 || organAuthEntity.getStatus() == 3 || organAuthEntity.getStatus() == 5) {
             //跳至认证页面(需输入详细信息的认证页面)
-            tagLeft3.setImageResource(R.drawable.auth_organ_0);
-            tagRight3.setImageResource(R.drawable.auth_right_0);
-            imAuth3.setImageResource(R.drawable.auth_cn_status_0);
             cl3.setOnClickListener(view -> ARouter.getInstance().build("/app/AuthInfoActivity").withInt(Constants.AUTH_TYPE, organAuthEntity.getType()).navigation());
         } else if (organAuthEntity.getStatus() == 1 || organAuthEntity.getStatus() == 2 || (organAuthEntity.getStatus() == 4 && organAuthEntity.getFile_status() == 1)) {
             //提示用户审核中
-            tagLeft3.setImageResource(organAuthEntity.getStatus() == 4 && organAuthEntity.getFile_status() == 1 ? R.drawable.auth_organ_1 : R.drawable.auth_organ_0);
-            tagRight3.setImageResource(R.drawable.auth_right_0);
-            imAuth3.setImageResource(R.drawable.auth_cn_status_1);
             cl3.setOnClickListener(view -> showDialog());
         } else if (organAuthEntity.getStatus() == 4 && (organAuthEntity.getFile_status() == 0 || organAuthEntity.getFile_status() == 3)) {
             //跳至只有上传资产认证界面
-            tagLeft3.setImageResource(R.drawable.auth_organ_1);
-            tagRight3.setImageResource(R.drawable.auth_right_0);
-            imAuth3.setImageResource(R.drawable.auth_cn_status_2);
             cl3.setOnClickListener(view -> ARouter.getInstance().build("/app/UploadActivity").withInt(Constants.AUTH_TYPE, organAuthEntity.getType()).withBoolean(Constants.ORDER_PROOF, false).navigation());
-        } else if (organAuthEntity.getStatus() == 4 && organAuthEntity.getFile_status() == 2) {
-            //不能点击过去 显示已认证成功图标
-            tagLeft3.setImageResource(R.drawable.auth_organ_1);
-            tagRight3.setImageResource(R.drawable.auth_right_1);
-            imAuth3.setImageResource(R.drawable.auth_cn_status_2);
         }
     }
 
