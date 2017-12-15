@@ -95,12 +95,10 @@ public class CustomPopupWindow extends PopupWindow {
     }
 
     public void show(Activity activity) {//默认显示到中间
-        setWidth(LayoutParams.MATCH_PARENT);
-        setHeight(LayoutParams.WRAP_CONTENT);
         if (mParentView == null) {
-            showAtLocation(mContentView, Gravity.BOTTOM, 0, -getNavigationBarHeight(activity));
+            showAtLocation(mContentView, Gravity.CENTER | Gravity.CENTER_HORIZONTAL, 0, -getNavigationBarHeight(activity));
         } else {
-            showAtLocation(mParentView, Gravity.BOTTOM, 0, -getNavigationBarHeight(activity));
+            showAtLocation(mParentView, Gravity.CENTER | Gravity.CENTER_HORIZONTAL, 0, -getNavigationBarHeight(activity));
         }
         AnimUtil animUtil = new AnimUtil();
         toggleBright(activity, animUtil);

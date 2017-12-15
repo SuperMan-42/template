@@ -248,6 +248,7 @@ public class EquityDetailsActivity extends BaseActivity<EquityDetailsPresenter> 
                             ((TextView) contentView.findViewById(R.id.tv_mobile)).setText(manager.getMobile());
                             ((TextView) contentView.findViewById(R.id.tv_weixin)).setText(manager.getWechat());
                             ((TextView) contentView.findViewById(R.id.tv_email)).setText(manager.getEmail());
+                            contentView.findViewById(R.id.view).setOnClickListener(view -> CustomPopupWindow.killMySelf());
                         }).build().show(this);
                 break;
             case "项目取消关注成功":

@@ -128,9 +128,9 @@ public class SettingActivity extends BaseActivity<SettingPresenter> implements S
                         .isOutsideTouch(true)
                         .backgroundDrawable(new BitmapDrawable())
                         .customListener(contentView -> {
-                            ((TextView) contentView.findViewById(R.id.tv_title)).setText("是否退出登录");
+                            ((TextView) contentView.findViewById(R.id.tv_title)).setText("您确定要注销吗");
                             TextView button = contentView.findViewById(R.id.tv_button);
-                            button.setText("退出登录");
+                            button.setText("确定");
                             button.setOnClickListener(view12 -> {
                                 BCache.getInstance().remove(Constants.TOKEN);
                                 BCache.getInstance().remove(Constants.LOGIN_INFO);
@@ -140,6 +140,7 @@ public class SettingActivity extends BaseActivity<SettingPresenter> implements S
                                 tvLoginOut.setVisibility(View.GONE);
                             });
                             contentView.findViewById(R.id.tv_cancel).setOnClickListener(view1 -> CustomPopupWindow.killMySelf());
+                            contentView.findViewById(R.id.view).setOnClickListener(view1 -> CustomPopupWindow.killMySelf());
                         }).build().show(this);
                 break;
         }
