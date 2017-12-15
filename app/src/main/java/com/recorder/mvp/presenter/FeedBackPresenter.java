@@ -50,6 +50,7 @@ public class FeedBackPresenter extends BasePresenter<FeedBackContract.Model, Fee
                     @Override
                     public void onNext(Object o) {
                         mRootView.showMessage(CoreUtils.getString(mApplication, R.string.text_feedback_success));
+                        mRootView.killMyself();
                     }
                 });
     }

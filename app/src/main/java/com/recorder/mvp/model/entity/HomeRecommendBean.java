@@ -137,8 +137,8 @@ public class HomeRecommendBean {
             private String dealID;
             private String deal_name;
             private String cover;
-            private float limit_price;
-            private float target_fund;
+            private String limit_price;
+            private String target_fund;
             private float progress;
 
             public void setDealID(String dealID) {
@@ -153,11 +153,11 @@ public class HomeRecommendBean {
                 this.cover = cover;
             }
 
-            public void setLimit_price(float limit_price) {
+            public void setLimit_price(String limit_price) {
                 this.limit_price = limit_price;
             }
 
-            public void setTarget_fund(float target_fund) {
+            public void setTarget_fund(String target_fund) {
                 this.target_fund = target_fund;
             }
 
@@ -177,11 +177,11 @@ public class HomeRecommendBean {
                 return cover;
             }
 
-            public float getLimit_price() {
+            public String getLimit_price() {
                 return limit_price;
             }
 
-            public float getTarget_fund() {
+            public String getTarget_fund() {
                 return target_fund;
             }
 

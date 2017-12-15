@@ -300,8 +300,10 @@ public class CommonUtils {
                                             } else {
                                                 observableEmitter.onNext(task);
                                             }
-                                            if (fileCallback != null)
+                                            if (fileCallback != null) {
                                                 fileCallback.onResponse(new File(task.getPath()));
+                                                CoreUtils.exitApp();
+                                            }
                                         }
 
                                         @Override

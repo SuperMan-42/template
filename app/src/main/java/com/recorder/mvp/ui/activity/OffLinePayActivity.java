@@ -65,5 +65,6 @@ public class OffLinePayActivity extends BaseActivity {
     @OnClick(R.id.tv_submit)
     public void onViewClicked() {
         finish();
+        ARouter.getInstance().build("/app/MyInvestmentActivity").navigation();
     }
 }

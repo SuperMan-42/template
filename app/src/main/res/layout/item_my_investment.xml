@@ -276,11 +276,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="75px"
-            android:text="￥10万元"
             android:textColor="#FC3F08"
             android:textSize="39px"
             app:layout_constraintBaseline_toBaselineOf="@+id/tv_pay_bt"
-            app:layout_constraintLeft_toRightOf="@id/tv_1" />
+            app:layout_constraintLeft_toRightOf="@id/tv_1"
+            tools:text="￥10万元" />
 
         <TextView
             android:id="@+id/tv_1"

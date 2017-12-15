@@ -33,6 +33,8 @@ public class UserModifyActivity extends BaseActivity<UserModifyPresenter> implem
     String key;
     @Autowired
     boolean isIntro;
+    @Autowired
+    String content;
 
     @BindView(R.id.et_info)
     EditText etInfo;
@@ -68,11 +70,15 @@ public class UserModifyActivity extends BaseActivity<UserModifyPresenter> implem
             etIntro.setFocusable(true);
             etIntro.setFocusableInTouchMode(true);
             etIntro.requestFocus();
+            etIntro.setText(content);
+            etIntro.setSelection(content.length());
             CoreUtils.openSoftInputForced(etIntro);
         } else {
             etInfo.setFocusable(true);
             etInfo.setFocusableInTouchMode(true);
             etInfo.requestFocus();
+            etInfo.setText(content);
+            etInfo.setSelection(content.length());
             CoreUtils.openSoftInputForced(etInfo);
         }
 

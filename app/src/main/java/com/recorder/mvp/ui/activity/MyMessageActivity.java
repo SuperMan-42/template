@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
-import com.alibaba.android.arouter.launcher.ARouter;
 import com.core.base.BaseActivity;
 import com.core.di.component.AppComponent;
 import com.core.utils.Constants;
@@ -60,9 +59,9 @@ public class MyMessageActivity extends BaseActivity<MyMessagePresenter> implemen
                 holder.setText(R.id.tv_title, "般若云消息")
                         .setText(R.id.tv_content, item.getContent())
                         .setText(R.id.tv_time, item.getCtime());
-                holder.itemView.setOnClickListener(view1 -> ARouter.getInstance().build("/app/WebActivity")
-                        .withBoolean(Constants.IS_SHOW_RIGHT, false)
-                        .withString(Constants.WEB_URL, item.getContent()).navigation());
+//                holder.itemView.setOnClickListener(view1 -> ARouter.getInstance().build("/app/WebActivity")
+//                        .withBoolean(Constants.IS_SHOW_RIGHT, false)
+//                        .withString(Constants.WEB_URL, item.getContent()).navigation());
             }
         }).openRefresh(page -> mPresenter.appMsgs("1", Constants.PAGE_SIZE))
                 .openLoadMore(Constants.PAGE_SIZE_INT, page -> mPresenter.appMsgs(String.valueOf(page), Constants.PAGE_SIZE)).reStart();

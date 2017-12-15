@@ -134,19 +134,19 @@ public class PersonActivity extends BaseActivity<PersonPresenter> implements Per
                         .forResult(IM_AVATAR);
                 break;
             case R.id.rl_user_name:
-                ARouter.getInstance().build("/app/UserModifyActivity").withString("key", "用户名").withBoolean("isIntro", false).navigation();
+                ARouter.getInstance().build("/app/UserModifyActivity").withString("content", userInfoBean.getData().getUser_name()).withString("key", "用户名").withBoolean("isIntro", false).navigation();
                 break;
             case R.id.rl_intro:
-                ARouter.getInstance().build("/app/UserModifyActivity").withString("key", "个人介绍").withBoolean("isIntro", true).navigation();
+                ARouter.getInstance().build("/app/UserModifyActivity").withString("content", userInfoBean.getData().getIntro()).withString("key", "个人介绍").withBoolean("isIntro", true).navigation();
                 break;
             case R.id.rl_email:
-                ARouter.getInstance().build("/app/UserModifyActivity").withString("key", "邮箱").withBoolean("isIntro", false).navigation();
+                ARouter.getInstance().build("/app/UserModifyActivity").withString("content", userInfoBean.getData().getEmail()).withString("key", "邮箱").withBoolean("isIntro", false).navigation();
                 break;
             case R.id.rl_weixin:
-                ARouter.getInstance().build("/app/UserModifyActivity").withString("key", "微信").withBoolean("isIntro", false).navigation();
+                ARouter.getInstance().build("/app/UserModifyActivity").withString("content", userInfoBean.getData().getWeixin()).withString("key", "微信").withBoolean("isIntro", false).navigation();
                 break;
             case R.id.rl_address:
-                ARouter.getInstance().build("/app/UserModifyActivity").withString("key", "邮寄地址").withBoolean("isIntro", false).navigation();
+                ARouter.getInstance().build("/app/UserModifyActivity").withString("content", userInfoBean.getData().getAddress()).withString("key", "邮寄地址").withBoolean("isIntro", false).navigation();
                 break;
             case R.id.rl_password:
                 ARouter.getInstance().build("/app/ModifyPasswordActivity").navigation();

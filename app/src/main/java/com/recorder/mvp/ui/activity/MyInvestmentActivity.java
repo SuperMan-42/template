@@ -93,7 +93,7 @@ public class MyInvestmentActivity extends BaseActivity<MyInvestmentPresenter> im
                 CoreUtils.imgLoader(holder.itemView.getContext(), item.getCover(), holder.getView(R.id.im_cover));
                 holder.setText(R.id.tv_deal_name, item.getDeal_name())
                         .setText(R.id.tv_amount, item.getAmount())
-                        .setText(R.id.tv_actual_amount, item.getActual_amount())
+                        .setText(R.id.tv_actual_amount, item.getActual_amount() + "元")
                         .setText(R.id.tv_order_status_name, item.getOrder_status_name());
                 if (item.getIs_publish()) {
                     if (item.getOrder_status() == 0 || item.getOrder_status() == 1) {

@@ -41,7 +41,7 @@
                     android:layout_width="150px"
                     android:layout_height="54px"
                     android:layout_marginLeft="5px"
-                    android:layout_marginTop="93px"
+                    android:layout_marginTop="15px"
                     android:gravity="center"
                     android:src="@drawable/ic_combination"
                     android:visibility="gone" />
