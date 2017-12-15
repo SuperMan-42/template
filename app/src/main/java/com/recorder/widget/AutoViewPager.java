@@ -2,7 +2,6 @@ package com.recorder.widget;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
-import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 
@@ -53,7 +52,7 @@ public class AutoViewPager extends NoPreloadViewPager {
         return new LayoutParams(getContext(), attrs);
     }
 
-    public static class LayoutParams extends ViewPager.LayoutParams
+    public static class LayoutParams extends NoPreloadViewPager.LayoutParams
             implements AutoLayoutHelper.AutoLayoutParams {
         private AutoLayoutInfo mAutoLayoutInfo;
 

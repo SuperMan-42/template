@@ -7,4 +7,5 @@ package com.recorder.mvp.model.api;
 public interface Api {
     String APP_DOMAIN = "http://api-test.dreamflyc.com/";
     String WEB_DOMAIN = "http://wap-test.dreamflyc.com/";
+    String APP_HOST = "10.20.88.170";
 }

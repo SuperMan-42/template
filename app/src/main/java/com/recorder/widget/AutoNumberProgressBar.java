@@ -15,8 +15,6 @@ import com.recorder.R;
 import com.zhy.autolayout.AutoLayoutInfo;
 import com.zhy.autolayout.utils.AutoLayoutHelper;
 
-import me.majiajie.pagerbottomtabstrip.PageNavigationView;
-
 import static com.recorder.widget.AutoNumberProgressBar.ProgressTextVisibility.Invisible;
 import static com.recorder.widget.AutoNumberProgressBar.ProgressTextVisibility.Visible;
 
@@ -541,7 +539,7 @@ public class AutoNumberProgressBar extends ViewGroup {
         mListener = listener;
     }
 
-    public static class LayoutParams extends PageNavigationView.LayoutParams
+    public static class LayoutParams extends ViewGroup.LayoutParams
             implements AutoLayoutHelper.AutoLayoutParams {
         private AutoLayoutInfo mAutoLayoutInfo;
 

@@ -33,6 +33,7 @@ import com.luck.picture.lib.config.PictureMimeType;
 import com.orhanobut.logger.Logger;
 import com.recorder.BuildConfig;
 import com.recorder.R;
+import com.recorder.mvp.model.api.Api;
 import com.recorder.mvp.model.entity.PayPayBean;
 import com.recorder.mvp.model.entity.UserInfoBean;
 import com.ucfpay.plugin.certification.utils.UcfpayInterface;
@@ -462,6 +463,6 @@ public class CommonUtils {
     }
 
     public static boolean isEvict(Application mApplication) {
-        return !(!NetUtils.isConnected() || !NetUtils.isAvailableByPing("10.20.88.170"));
+        return !(!NetUtils.isConnected() || !NetUtils.isAvailableByPing(Api.APP_HOST));
     }
 }

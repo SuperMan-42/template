@@ -21,14 +21,11 @@ import com.recorder.R;
 import com.zhy.autolayout.AutoLayoutInfo;
 import com.zhy.autolayout.utils.AutoLayoutHelper;
 
-import me.majiajie.pagerbottomtabstrip.PageNavigationView;
-
 /**
  * Created by hpw on 17-11-21.
  */
 public class AutoProgressBar extends ViewGroup implements Runnable {
     private PorterDuffXfermode xfermode = new PorterDuffXfermode(PorterDuff.Mode.SRC_ATOP);
-    private AutoLayoutHelper mHelper = new AutoLayoutHelper(this);
 
     private int DEFAULT_HEIGHT_DP = 35;
 
@@ -175,7 +172,7 @@ public class AutoProgressBar extends ViewGroup implements Runnable {
     }
 
     private void initPgBimap() {
-        pgBitmap = Bitmap.createBitmap(getMeasuredWidth() - borderWidth, getMeasuredHeight() - borderWidth, Bitmap.Config.ARGB_8888);
+        pgBitmap = Bitmap.createBitmap(getMeasuredWidth() - borderWidth, getMeasuredHeight() - borderWidth, Bitmap.Config.ARGB_4444);
         pgCanvas = new Canvas(pgBitmap);
         thread = new Thread(this);
         thread.start();
@@ -183,8 +180,6 @@ public class AutoProgressBar extends ViewGroup implements Runnable {
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        if (!isInEditMode())
-            mHelper.adjustChildren();
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         int widthSpecSize = MeasureSpec.getSize(widthMeasureSpec);
         int heightSpecMode = MeasureSpec.getMode(heightMeasureSpec);
@@ -221,6 +216,13 @@ public class AutoProgressBar extends ViewGroup implements Runnable {
 
         //变色处理
         drawColorProgressText(canvas);
+    }
+
+    @Override
+    protected void onDetachedFromWindow() {
+        super.onDetachedFromWindow();
+        if (pgBitmap != null)
+            pgBitmap.recycle();
     }
 
     /**
@@ -415,11 +417,11 @@ public class AutoProgressBar extends ViewGroup implements Runnable {
     }
 
     @Override
-    public AutoNumberProgressBar.LayoutParams generateLayoutParams(AttributeSet attrs) {
-        return new AutoNumberProgressBar.LayoutParams(getContext(), attrs);
+    public LayoutParams generateLayoutParams(AttributeSet attrs) {
+        return new AutoProgressBar.LayoutParams(getContext(), attrs);
     }
 
-    public static class LayoutParams extends PageNavigationView.LayoutParams
+    public static class LayoutParams extends ViewGroup.LayoutParams
             implements AutoLayoutHelper.AutoLayoutParams {
         private AutoLayoutInfo mAutoLayoutInfo;
 
