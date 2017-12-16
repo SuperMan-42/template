@@ -72,6 +72,7 @@ public class AuthActivity extends BaseActivity<AuthPresenter> implements AuthCon
 
     @Override
     public void initView(Bundle savedInstanceState) {
+        title("投资人认证");
         mPresenter.userAuthInfo();
     }
 

@@ -1,5 +1,6 @@
 package com.recorder.mvp.ui.activity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -60,6 +61,7 @@ public class UserModifyActivity extends BaseActivity<UserModifyPresenter> implem
         return R.layout.activity_user_modify; //如果你不需要框架帮你设置 setContentView(id) 需要自行设置,请返回 0
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void initView(Bundle savedInstanceState) {
         ARouter.getInstance().inject(this);
@@ -72,6 +74,7 @@ public class UserModifyActivity extends BaseActivity<UserModifyPresenter> implem
             etIntro.requestFocus();
             etIntro.setText(content);
             etIntro.setSelection(content.length());
+            tvNum.setText(content.length() + "/20");
             CoreUtils.openSoftInputForced(etIntro);
         } else {
             etInfo.setFocusable(true);
