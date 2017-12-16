@@ -7,12 +7,16 @@ import com.core.integration.IRepositoryManager;
 import com.core.mvp.BaseModel;
 import com.google.gson.Gson;
 import com.recorder.mvp.contract.SplashContract;
+import com.recorder.mvp.model.api.cache.ApiCache;
 import com.recorder.mvp.model.api.service.ApiService;
 import com.recorder.mvp.model.entity.AppStartBean;
+import com.recorder.utils.CommonUtils;
 
 import javax.inject.Inject;
 
 import io.reactivex.Observable;
+import io.rx_cache2.EvictProvider;
+import io.rx_cache2.Reply;
 
 @ActivityScope
 public class SplashModel extends BaseModel implements SplashContract.Model {
@@ -35,10 +39,9 @@ public class SplashModel extends BaseModel implements SplashContract.Model {
 
     @Override
     public Observable<AppStartBean> appStart() {
-//        return Observable.just(mRepositoryManager.obtainRetrofitService(ApiService.class).appStart("1"))
-//                .flatMap(resultObservable -> mRepositoryManager.obtainCacheService(ApiCache.class)
-//                        .appStart(resultObservable, new EvictProvider(CommonUtils.isEvict(mApplication)))
-//                        .map(Reply::getData));
-        return mRepositoryManager.obtainRetrofitService(ApiService.class).appStart("1");
+        return Observable.just(mRepositoryManager.obtainRetrofitService(ApiService.class).appStart("1"))
+                .flatMap(resultObservable -> mRepositoryManager.obtainCacheService(ApiCache.class)
+                        .appStart(resultObservable, new EvictProvider(CommonUtils.isEvict(mApplication)))
+                        .map(Reply::getData));
     }
 }
