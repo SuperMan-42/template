@@ -10,6 +10,7 @@ import com.recorder.mvp.model.entity.HelpContentBean;
 import com.recorder.mvp.model.entity.HelpListBean;
 import com.recorder.mvp.model.entity.HomeRecommendBean;
 import com.recorder.mvp.model.entity.NewsListBean;
+import com.recorder.mvp.model.entity.OrderListBean;
 import com.recorder.mvp.model.entity.OrderPimanageBean;
 import com.recorder.mvp.model.entity.UserAuthInfoBean;
 import com.recorder.mvp.model.entity.UserFollowListBean;
@@ -27,6 +28,8 @@ import io.rx_cache2.Reply;
  */
 
 public interface ApiCache {
+
+    Observable<Reply<EquityBean>> dealEquityList(Observable<EquityBean> resultObservable, EvictProvider evictProvider);
 
     Observable<Reply<EquityBean>> dealList(Observable<EquityBean> resultObservable, EvictProvider evictProvider);
 
@@ -56,4 +59,6 @@ public interface ApiCache {
     Observable<Reply<AuthGetBean>> authGet(Observable<AuthGetBean> resultObservable, EvictProvider evictProvider);
 
     Observable<Reply<AppMsgsBean>> appMsgs(Observable<AppMsgsBean> resultObservable, EvictProvider evictProvider);
+
+    Observable<Reply<OrderListBean>> orderList(Observable<OrderListBean> resultObservable, EvictProvider evictProvider);
 }
