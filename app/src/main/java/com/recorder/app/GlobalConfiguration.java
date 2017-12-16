@@ -41,6 +41,7 @@ import com.recorder.R;
 import com.recorder.mvp.model.api.Api;
 import com.recorder.mvp.model.entity.LoginBean;
 import com.recorder.mvp.ui.activity.BackStageManagerActivity;
+import com.recorder.mvp.ui.activity.EquityDetailsActivity;
 import com.recorder.mvp.ui.activity.HomeActivity;
 import com.recorder.mvp.ui.activity.MyAttentionActivity;
 import com.recorder.mvp.ui.activity.MyInvestmentActivity;
@@ -71,6 +72,7 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 import okio.Buffer;
 
+import static com.core.http.exception.ApiErrorCode.ERROR_OUT_TIME;
 import static com.core.http.exception.ApiErrorCode.ERROR_PARAMETER;
 import static com.core.http.exception.ApiErrorCode.ERROR_USER_INFO_AUDIT;
 import static com.core.http.exception.ApiErrorCode.ERROR_USER_INFO_NOT_ALL;
@@ -107,6 +109,11 @@ public class GlobalConfiguration implements ConfigModule {
                                         CoreUtils.obtainRxCache(context).remove("isClear");
                                         BCache.getInstance().put(Constants.TOKEN, response.header("SESSION-TOKEN"));
                                     }
+                                    break;
+                                case ERROR_OUT_TIME:
+                                    isConnection = false;
+                                    response.body().close();
+                                    CoreUtils.showEmpty(Constants.NO_LOGIN, R.drawable.ic_no_login, R.string.empty_no_login, "去登录");
                                     break;
                                 case ApiErrorCode.ERROR_USER_AUTHORIZED:
                                     isConnection = false;
@@ -333,6 +340,8 @@ public class GlobalConfiguration implements ConfigModule {
                                             retry = Constants.RETRY_MYINVESTMENT;
                                         } else if (currentActivity instanceof BackStageManagerActivity) {
                                             retry = Constants.RETRY_BACKSTAGEMANAGER;
+                                        } else if (currentActivity instanceof EquityDetailsActivity) {
+                                            retry = Constants.RETRY_EQUITYDETAILS;
                                         }
                                         ARouter.getInstance().build("/app/LoginActivity").withString(Constants.RETRY_WHEN_LOGIN_OR_AUTH, retry).navigation();
                                     });

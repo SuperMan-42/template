@@ -41,6 +41,7 @@ import com.recorder.di.component.DaggerEquityDetailsComponent;
 import com.recorder.di.module.EquityDetailsModule;
 import com.recorder.mvp.contract.EquityDetailsContract;
 import com.recorder.mvp.model.entity.DealDetailBean;
+import com.recorder.mvp.model.entity.LoginBean;
 import com.recorder.mvp.presenter.EquityDetailsPresenter;
 import com.recorder.mvp.ui.fragment.DetailDynamicFragment;
 import com.recorder.utils.CommonUtils;
@@ -48,6 +49,8 @@ import com.recorder.utils.DateUtil;
 import com.recorder.widget.AutoHeightViewPager;
 import com.recorder.widget.AutoProgressBar;
 import com.wang.avi.AVLoadingIndicatorView;
+
+import org.simple.eventbus.Subscriber;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -217,6 +220,12 @@ public class EquityDetailsActivity extends BaseActivity<EquityDetailsPresenter> 
         imRight.setImageResource(R.drawable.collection_icon_black);
         toolbar.getBackground().setAlpha(0);
         ARouter.getInstance().inject(this);
+        mPresenter.dealDetail(dealId);
+    }
+
+    @Subscriber(tag = Constants.RETRY_EQUITYDETAILS)
+    private void retry(LoginBean loginBean) {
+        findViewById(R.id.view_empty).setVisibility(View.GONE);
         mPresenter.dealDetail(dealId);
     }
 

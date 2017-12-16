@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
-    tools:showIn="@layout/activity_pdf">
+    android:gravity="center">
 
     <com.wang.avi.AVLoadingIndicatorView
         android:id="@+id/avi"

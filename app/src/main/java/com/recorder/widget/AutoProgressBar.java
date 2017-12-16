@@ -221,13 +221,6 @@ public class AutoProgressBar extends ViewGroup implements Runnable {
         drawColorProgressText(canvas);
     }
 
-    @Override
-    protected void onDetachedFromWindow() {
-        super.onDetachedFromWindow();
-        if (pgBitmap != null)
-            pgBitmap.recycle();
-    }
-
     /**
      * 边框
      *

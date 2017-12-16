@@ -261,6 +261,8 @@ public class HomeActivity extends BaseActivity<HomePresenter> implements HomeCon
     }
 
     private void resetFilter() {
+        if (recyclerView.getAdapter() == null)
+            return;
         for (Object entity : recyclerView.getAdapter().getData()) {
             if (entity instanceof ContentItem) {
                 ((ContentItem) entity).isSelector = false;
