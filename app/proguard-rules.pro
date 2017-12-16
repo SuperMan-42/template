@@ -49,7 +49,7 @@
 }
 -keepnames class * implements java.io.Serializable
 -keepattributes Signature
--keep class **.R$* {*;}
+-keep class **.R$* { *; }
 -ignorewarnings
 -keepclassmembers class **.R$* {
     public static <fields>;
@@ -412,24 +412,29 @@
     public static final ** CREATOR;
 }
 
--keep class com.linkedin.** { *; }
--keep class com.android.dingtalk.share.ddsharemodule.** { *; }
+-keep class com.linkedin.** {*;}
+-keep class com.android.dingtalk.share.ddsharemodule.** {*;}
 -keepattributes Signature
 
 ##本工程相关
--keep class com.recorder.app.** { *; }
--keep class com.recorder.widget.** { *; } #自定义控件不参与混淆
--keep class com.recorder.mvp.model.entity.** { *; } #实体类
+-keep class com.recorder.app.** {*;}
+-keep class com.recorder.widget.** {*;} #自定义控件不参与混淆
+-keep class com.recorder.mvp.model.entity.** {*;} #实体类
+-keep class com.core.widget.** {*;}
 
 #PictureSelector 2.0
--keep class com.luck.picture.lib.** { *; }
+-keep class com.luck.picture.lib.** {*;}
 
 -dontwarn com.yalantis.ucrop**
--keep class com.yalantis.ucrop** { *; }
--keep interface com.yalantis.ucrop** { *; }
+-keep class com.yalantis.ucrop** {*;}
+-keep interface com.yalantis.ucrop** {*;}
 
--keep class com.wang.avi.** { *; }
--keep class com.wang.avi.indicators.** { *; }
+-keep class com.wang.avi.** {*;}
+-keep class com.wang.avi.indicators.** {*;}
 
 #update-apk
--keep class com.vector.update_app.** { *; }
+-keep class com.vector.update_app.** {*;}
+
+#pdf
+-keep class com.github.barteksc.pdfviewer.** {*;}
+-keep class com.shockwave.pdfium.** {*;}
