@@ -49,6 +49,8 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
     @BindView(R.id.avi)
     AVLoadingIndicatorView avi;
 
+    private BGABanner banner;
+
     public static HomeFragment newInstance() {
         HomeFragment fragment = new HomeFragment();
         return fragment;
@@ -72,6 +74,36 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
     @Override
     public void initData(Bundle savedInstanceState) {
         mPresenter.homeRecommend();
+        View view = CoreUtils.inflate(getContext(), R.layout.item_home_header);
+        banner = view.findViewById(R.id.banner);
+        banner.setAdapter((banner1, itemView, model, position) -> {
+            CoreUtils.imgLoader(getContext(), ((Bean) model).getValue(), ((Bean) model).getKey().equals("deal") ? R.drawable.ic_deal_recommend : R.drawable.home_banner, (ImageView) itemView);
+            itemView.setOnClickListener(view12 -> {
+                if (((Bean) model).getOther().equals("hx://deal-recommend")) {
+                    ARouter.getInstance().build("/app/DealRecommendActivity").navigation();
+                } else {
+                    ARouter.getInstance().build("/app/WebActivity")
+                            .withBoolean(Constants.IS_SHOW_RIGHT, true).withString(Constants.WEB_URL, ((Bean) model).getOther()).navigation();
+                }
+            });
+        });
+        banner.setAutoPlayInterval(5000);
+
+        recyclerView.init(new BaseQuickAdapter<HomeRecommendBean.DataEntity.Entity, BaseViewHolder>(R.layout.item_home) {
+            @Override
+            protected void convert(BaseViewHolder holder, HomeRecommendBean.DataEntity.Entity item) {
+                CoreUtils.imgLoaderRound(getContext(), TextUtils.isEmpty(item.getCover()) ? R.drawable.home_list : item.getCover(), bitmapTransform(new RoundedCornersTransformation(24, 0, RoundedCornersTransformation.CornerType.ALL)), R.drawable.home_list, holder.getView(R.id.im_pic));
+                holder.setText(R.id.tv_title, item.getDeal_name())
+                        .setText(R.id.tv_investment, "起投金额: " + item.getLimit_price() + "万")
+                        .setText(R.id.tv_financing, "融资总额: " + item.getTarget_fund() + "万")
+                        .setImageResource(R.id.tv_tag, item instanceof HomeRecommendBean.DataEntity.ZcEntity ? R.drawable.ic_home_equity : R.drawable.ic_home_private);
+                AutoProgressBar progressBar = holder.getView(R.id.numberProgressBar);
+                progressBar.setProgress(item.getProgress());
+                holder.itemView.setOnClickListener(view1 -> ARouter.getInstance().build("/app/EquityDetailsActivity")
+                        .withBoolean(Constants.IS_EQUITY, item instanceof HomeRecommendBean.DataEntity.ZcEntity)
+                        .withString(Constants.DEAL_ID, item.getDealID()).navigation());
+            }
+        }).openRefresh(page -> mPresenter.homeRecommend()).addHeaderView(view);
     }
 
     /**
@@ -125,44 +157,16 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
 
     @Override
     public void showHomeRecomment(HomeRecommendBean.DataEntity dataEntity) {
-        View view = CoreUtils.inflate(getContext(), R.layout.item_home_header);
-        BGABanner banner = view.findViewById(R.id.banner);
         List<Bean> models = new ArrayList<>();
         List<String> titles = new ArrayList<>();
         for (HomeRecommendBean.DataEntity.NewsRecommendEntity entity : dataEntity.getNews_recommend()) {
             models.add(new Bean<>(entity.getNewsID(), entity.getCover(), entity.getUrl()));
             titles.add(entity.getTitle());
         }
-        banner.setAdapter((banner1, itemView, model, position) -> {
-            CoreUtils.imgLoader(getContext(), ((Bean) model).getValue(), ((Bean) model).getKey().equals("deal") ? R.drawable.ic_deal_recommend : R.drawable.home_banner, (ImageView) itemView);
-            itemView.setOnClickListener(view12 -> {
-                if (((Bean) model).getOther().equals("hx://deal-recommend")) {
-                    ARouter.getInstance().build("/app/DealRecommendActivity").navigation();
-                } else {
-                    ARouter.getInstance().build("/app/WebActivity")
-                            .withBoolean(Constants.IS_SHOW_RIGHT, true).withString(Constants.WEB_URL, ((Bean) model).getOther()).navigation();
-                }
-            });
-        });
         banner.setData(models, titles);
-        banner.setAutoPlayInterval(5000);
         List<HomeRecommendBean.DataEntity.Entity> list = new ArrayList<>();
         list.addAll(dataEntity.getZc());
         list.addAll(dataEntity.getSm());
-        recyclerView.init(new BaseQuickAdapter<HomeRecommendBean.DataEntity.Entity, BaseViewHolder>(R.layout.item_home, list) {
-            @Override
-            protected void convert(BaseViewHolder holder, HomeRecommendBean.DataEntity.Entity item) {
-                CoreUtils.imgLoaderRound(getContext(), TextUtils.isEmpty(item.getCover()) ? R.drawable.home_list : item.getCover(), bitmapTransform(new RoundedCornersTransformation(24, 0, RoundedCornersTransformation.CornerType.ALL)), R.drawable.home_list, holder.getView(R.id.im_pic));
-                holder.setText(R.id.tv_title, item.getDeal_name())
-                        .setText(R.id.tv_investment, "起投金额: " + item.getLimit_price() + "万")
-                        .setText(R.id.tv_financing, "融资总额: " + item.getTarget_fund() + "万")
-                        .setImageResource(R.id.tv_tag, item instanceof HomeRecommendBean.DataEntity.ZcEntity ? R.drawable.ic_home_equity : R.drawable.ic_home_private);
-                AutoProgressBar progressBar = holder.getView(R.id.numberProgressBar);
-                progressBar.setProgress(item.getProgress());
-                holder.itemView.setOnClickListener(view1 -> ARouter.getInstance().build("/app/EquityDetailsActivity")
-                        .withBoolean(Constants.IS_EQUITY, item instanceof HomeRecommendBean.DataEntity.ZcEntity)
-                        .withString(Constants.DEAL_ID, item.getDealID()).navigation());
-            }
-        }).openRefresh(page -> mPresenter.homeRecommend()).addHeaderView(view);
+        recyclerView.getAdapter().setNewData(list);
     }
 }
