@@ -123,7 +123,6 @@ public class BackStageManagerActivity extends BaseActivity<BackStageManagerPrese
                 }
             }
         }, adapter, false);
-        adapter.expandAll();
     }
 
     private static class HeaderItem extends AbstractExpandableItem<MultiItemEntity> implements MultiItemEntity {

@@ -161,10 +161,11 @@
 
         <activity
             android:name=".mvp.ui.activity.HomeActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             android:launchMode="singleTask" />
         <activity
             android:name=".mvp.ui.activity.LoginActivity"
-            android:launchMode="singleTop"
+            android:launchMode="singleTask"
             android:theme="@style/CoreAppTheme.Transparent"
             android:windowSoftInputMode="adjustResize" />
         <activity
@@ -191,8 +192,8 @@
             android:theme="@style/CoreAppTheme.Transparent" />
         <activity
             android:name=".mvp.ui.activity.EquityDetailsActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait"
             android:theme="@style/CoreAppTheme.Transparent" />
         <activity
             android:name=".mvp.ui.activity.BuyActivity"
@@ -227,6 +228,7 @@
             android:theme="@style/CoreAppTheme.Transparent" />
         <activity
             android:name=".mvp.ui.activity.PdfActivity"
+            android:screenOrientation="sensor"
             android:theme="@style/CoreAppTheme.Transparent" />
         <activity
             android:name=".mvp.ui.activity.PhotoPreviewActivity"

@@ -116,7 +116,7 @@ public class AuthActivity extends BaseActivity<AuthPresenter> implements AuthCon
     @Override
     public void showUserAuthInfo(UserAuthInfoBean.DataEntity data) {
         UserAuthInfoBean.DataEntity.ZcAuthEntity zcAuthEntity = data.getZc_auth();
-        imAuth.setVisibility(data.getZc_auth().getIs_auditing() ? View.VISIBLE : View.GONE);
+        imAuth.setImageResource(data.getZc_auth().getIs_auditing() ? R.drawable.auth_cn_status_1 : R.drawable.im_auth);
         tagLeft.setImageResource(data.getZc_auth().getStatus() == 4 ? R.drawable.auth_zc_1 : R.drawable.auth_zc_0);
         tagRight.setImageResource(data.getZc_auth().getFile_status() == 2 ? R.drawable.auth_right_1 : R.drawable.auth_right_0);
         if (zcAuthEntity.getStatus() == 0 || zcAuthEntity.getStatus() == 3 || zcAuthEntity.getStatus() == 5) {
@@ -131,7 +131,7 @@ public class AuthActivity extends BaseActivity<AuthPresenter> implements AuthCon
         }
 
         UserAuthInfoBean.DataEntity.ConformityAuthEntity conformityAuthEntity = data.getConformity_auth();
-        imAuth2.setVisibility(data.getConformity_auth().getIs_auditing() ? View.VISIBLE : View.GONE);
+        imAuth2.setImageResource(data.getConformity_auth().getIs_auditing() ? R.drawable.auth_cn_status_1 : R.drawable.im_auth);
         tagLeft2.setImageResource(data.getConformity_auth().getStatus() == 4 ? R.drawable.auth_conformity_1 : R.drawable.auth_conformity_0);
         tagRight2.setImageResource(data.getConformity_auth().getFile_status() == 2 ? R.drawable.auth_right_1 : R.drawable.auth_right_0);
         if (conformityAuthEntity.getStatus() == 0 || conformityAuthEntity.getStatus() == 3 || conformityAuthEntity.getStatus() == 5) {
@@ -146,7 +146,7 @@ public class AuthActivity extends BaseActivity<AuthPresenter> implements AuthCon
         }
 
         UserAuthInfoBean.DataEntity.OrganAuthEntity organAuthEntity = data.getOrgan_auth();
-        imAuth3.setVisibility(data.getOrgan_auth().getIs_auditing() ? View.VISIBLE : View.GONE);
+        imAuth3.setImageResource(data.getOrgan_auth().getIs_auditing() ? R.drawable.auth_cn_status_1 : R.drawable.im_auth);
         tagLeft3.setImageResource(data.getOrgan_auth().getStatus() == 4 ? R.drawable.auth_organ_1 : R.drawable.auth_organ_0);
         tagRight3.setImageResource(data.getOrgan_auth().getFile_status() == 2 ? R.drawable.auth_right_1 : R.drawable.auth_right_0);
         if (organAuthEntity.getStatus() == 0 || organAuthEntity.getStatus() == 3 || organAuthEntity.getStatus() == 5) {

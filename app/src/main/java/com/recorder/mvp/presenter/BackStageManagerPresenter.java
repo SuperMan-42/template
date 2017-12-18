@@ -119,7 +119,7 @@ public class BackStageManagerPresenter extends BasePresenter<BackStageManagerCon
 //                        piflie3.setDealID("123456789");
 //                        piflie3.setFiles(files3);
 //                        piFiles.add(piflie3);
-
+//
 //                        orderPimanageBean.getData().setPi_files(piFiles);
                         mRootView.showOrderPimanage(orderPimanageBean.getData());
                     }

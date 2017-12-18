@@ -46,6 +46,7 @@ import com.recorder.mvp.ui.activity.HomeActivity;
 import com.recorder.mvp.ui.activity.MyAttentionActivity;
 import com.recorder.mvp.ui.activity.MyInvestmentActivity;
 import com.recorder.mvp.ui.activity.SearchActivity;
+import com.recorder.utils.CommonUtils;
 import com.recorder.utils.DeviceInfoUtils;
 import com.squareup.leakcanary.LeakCanary;
 import com.squareup.leakcanary.RefWatcher;
@@ -324,11 +325,13 @@ public class GlobalConfiguration implements ConfigModule {
                                     button.setText("重新连接");
                                     break;
                                 case Constants.NO_LOGIN:
+                                    CommonUtils.toLogin(currentActivity);
                                     currentActivity.findViewById(R.id.im_empty).setBackgroundResource(msg.arg1);
                                     ((TextView) currentActivity.findViewById(R.id.tv_empty)).setText(CoreUtils.getString(currentActivity, msg.arg2));
                                     button.setVisibility(View.VISIBLE);
                                     button.setText((CharSequence) msg.obj);
                                     button.setOnClickListener(view -> {
+                                        CommonUtils.toLogin(currentActivity);
                                         String retry = "";
                                         if (currentActivity instanceof HomeActivity) {
                                             retry = Constants.RETRY_FRAGMENT;

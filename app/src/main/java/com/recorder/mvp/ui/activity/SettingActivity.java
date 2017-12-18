@@ -138,6 +138,7 @@ public class SettingActivity extends BaseActivity<SettingPresenter> implements S
                                 EventBus.getDefault().post(new LoginBean(), "loginout");
                                 CustomPopupWindow.killMySelf();
                                 tvLoginOut.setVisibility(View.GONE);
+                                killMyself();
                             });
                             contentView.findViewById(R.id.tv_cancel).setOnClickListener(view1 -> CustomPopupWindow.killMySelf());
                             contentView.findViewById(R.id.view).setOnClickListener(view1 -> CustomPopupWindow.killMySelf());

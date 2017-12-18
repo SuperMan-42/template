@@ -98,6 +98,8 @@ public class AuthInfoActivity extends BaseActivity<AuthInfoPresenter> implements
     TextView tvContent;
     @BindView(R.id.ll_root)
     View llRoot;
+    @BindView(R.id.toolbar_left)
+    View back;
 
     AppStartBean bean;
     File positive;
@@ -244,10 +246,8 @@ public class AuthInfoActivity extends BaseActivity<AuthInfoPresenter> implements
                 }
                 break;
             case R.id.im_agree:
-                if (dataEntity.getIs_modify()) {
-                    isCheck = !isCheck;
-                    imAgree.setImageResource(isCheck ? R.drawable.ic_item_buy_selector : R.drawable.ic_item_buy);
-                }
+                isCheck = !isCheck;
+                imAgree.setImageResource(isCheck ? R.drawable.ic_item_buy_selector : R.drawable.ic_item_buy);
                 break;
             case R.id.tv_next:
                 doNext();
@@ -255,7 +255,7 @@ public class AuthInfoActivity extends BaseActivity<AuthInfoPresenter> implements
             case R.id.tv_go_home:
 //                EventBus.getDefault().post(0, Constants.HOME_INDEX);
 //                ARouter.getInstance().build("/app/HomeActivity").navigation();
-                EventBus.getDefault().post(new Object(), Constants.FINISH);
+//                EventBus.getDefault().post(new Object(), Constants.FINISH);
                 killMyself();
                 break;
         }
@@ -350,6 +350,7 @@ public class AuthInfoActivity extends BaseActivity<AuthInfoPresenter> implements
 
     @Override
     public void showSuccess(int type) {
+        back.setVisibility(View.INVISIBLE);
         if (dataEntity.getIs_modify_survey()) {
             String url;
             String token = BCache.getInstance().getString(Constants.TOKEN);
@@ -386,6 +387,7 @@ public class AuthInfoActivity extends BaseActivity<AuthInfoPresenter> implements
     @SuppressLint("SetTextI18n")
     @Override
     public void showFail(String msg) {
+        back.setVisibility(View.INVISIBLE);
         CoreUtils.imgLoader(this, R.drawable.ic_result_fail, imCover);
         tvTitle.setText(CoreUtils.getString(this, R.string.text_authinfo_title_fail));
         tvContent.setText(getString(R.string.text_authinfo_fail) + msg);

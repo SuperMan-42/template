@@ -122,6 +122,13 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
                         case "recommend":
                             CommonUtils.share(getActivity(), "http://baidu.com", "昊翔分享测试", "昊翔分享测试", "http://bpic.588ku.com/element_origin_min_pic/00/00/05/115732f19cc0079.jpg");
                             break;
+                        case "/app/AuthActivity":
+                            if (TextUtils.isEmpty(BCache.getInstance().getString(Constants.TOKEN))) {
+                                ARouter.getInstance().build("/app/LoginActivity").withString(Constants.RETRY_WHEN_LOGIN_OR_AUTH, Constants.RETRY_MY).navigation();
+                            } else {
+                                ARouter.getInstance().build(item.getOther()).navigation();
+                            }
+                            break;
                         default:
                             ARouter.getInstance().build(item.getOther()).navigation();
                             break;
@@ -210,7 +217,11 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
                 ARouter.getInstance().build("/app/LoginActivity").withString(Constants.RETRY_WHEN_LOGIN_OR_AUTH, Constants.RETRY_MY).navigation();
                 break;
             case R.id.profile_image:
-                ARouter.getInstance().build("/app/PersonActivity").navigation();
+                if (!TextUtils.isEmpty(BCache.getInstance().getString(Constants.TOKEN))) {
+                    ARouter.getInstance().build("/app/PersonActivity").navigation();
+                } else {
+                    ARouter.getInstance().build("/app/LoginActivity").withString(Constants.RETRY_WHEN_LOGIN_OR_AUTH, Constants.RETRY_MY).navigation();
+                }
                 break;
             case R.id.ll_investment:
                 ARouter.getInstance().build("/app/MyInvestmentActivity").navigation();

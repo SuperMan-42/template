@@ -17,9 +17,11 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
 
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.arjinmc.recyclerviewdecoration.RecyclerViewItemDecoration;
 import com.arjinmc.recyclerviewdecoration.RecyclerViewSpaceItemDecoration;
 import com.core.integration.cache.BCache;
+import com.core.utils.Constants;
 import com.core.utils.CoreUtils;
 import com.core.utils.RxLifecycleUtils;
 import com.google.gson.Gson;
@@ -36,6 +38,12 @@ import com.recorder.R;
 import com.recorder.mvp.model.api.Api;
 import com.recorder.mvp.model.entity.PayPayBean;
 import com.recorder.mvp.model.entity.UserInfoBean;
+import com.recorder.mvp.ui.activity.BackStageManagerActivity;
+import com.recorder.mvp.ui.activity.EquityDetailsActivity;
+import com.recorder.mvp.ui.activity.HomeActivity;
+import com.recorder.mvp.ui.activity.MyAttentionActivity;
+import com.recorder.mvp.ui.activity.MyInvestmentActivity;
+import com.recorder.mvp.ui.activity.SearchActivity;
 import com.ucfpay.plugin.certification.utils.UcfpayInterface;
 import com.umeng.socialize.ShareAction;
 import com.umeng.socialize.UMShareListener;
@@ -464,5 +472,23 @@ public class CommonUtils {
 
     public static boolean isEvict(Application mApplication) {
         return !(!NetUtils.isConnected() || !NetUtils.isAvailableByPing(Api.APP_HOST));
+    }
+
+    public static void toLogin(Activity currentActivity) {
+        String retry = "";
+        if (currentActivity instanceof HomeActivity) {
+            retry = Constants.RETRY_FRAGMENT;
+        } else if (currentActivity instanceof SearchActivity) {
+            retry = Constants.RETRY_SEARCH;
+        } else if (currentActivity instanceof MyAttentionActivity) {
+            retry = Constants.RETRY_MYATTENTION;
+        } else if (currentActivity instanceof MyInvestmentActivity) {
+            retry = Constants.RETRY_MYINVESTMENT;
+        } else if (currentActivity instanceof BackStageManagerActivity) {
+            retry = Constants.RETRY_BACKSTAGEMANAGER;
+        } else if (currentActivity instanceof EquityDetailsActivity) {
+            retry = Constants.RETRY_EQUITYDETAILS;
+        }
+        ARouter.getInstance().build("/app/LoginActivity").withString(Constants.RETRY_WHEN_LOGIN_OR_AUTH, retry).navigation();
     }
 }
