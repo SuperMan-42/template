@@ -161,8 +161,8 @@
 
         <activity
             android:name=".mvp.ui.activity.HomeActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:launchMode="singleTask" />
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".mvp.ui.activity.LoginActivity"
             android:launchMode="singleTask"

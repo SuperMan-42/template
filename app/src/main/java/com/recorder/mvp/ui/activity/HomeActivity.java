@@ -2,6 +2,7 @@ package com.recorder.mvp.ui.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -88,6 +89,7 @@ public class HomeActivity extends BaseActivity<HomePresenter> implements HomeCon
     NavigationController mNavigationController;
     private ArrayList<MultiItemEntity> res = new ArrayList<>();
     private static long firstTime = 0;
+    private int position = 0;
 
     @Override
     public void setupActivityComponent(AppComponent appComponent) {
@@ -143,11 +145,12 @@ public class HomeActivity extends BaseActivity<HomePresenter> implements HomeCon
                 CoreUtils.getString(this, R.string.Private), CoreUtils.getString(this, R.string.Dynamic), CoreUtils.getString(this, R.string.My)};
         AdapterViewPager adapterViewPager = new AdapterViewPager(getSupportFragmentManager(), fragments, strings);
         viewPager.setAdapter(adapterViewPager);
-        viewPager.setOffscreenPageLimit(3);
+        viewPager.setOffscreenPageLimit(0);
         mNavigationController.setupWithViewPager(viewPager);
         mNavigationController.addTabItemSelectedListener(new OnTabItemSelectedListener() {
             @Override
             public void onSelected(int index, int old) {
+                position = index;
                 viewEmpty.setVisibility(View.GONE);
                 search.setVisibility(index == 1 || index == 2 ? View.VISIBLE : View.INVISIBLE);
                 back.setVisibility(index == 1 || index == 2 ? View.VISIBLE : View.INVISIBLE);
@@ -167,6 +170,12 @@ public class HomeActivity extends BaseActivity<HomePresenter> implements HomeCon
 
             }
         });
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        mNavigationController.setSelect(position);
     }
 
     private BaseTabItem newItem(int drawable, int checkedDrawable, String text) {
