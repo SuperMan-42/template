@@ -123,6 +123,7 @@ public class BackStageManagerActivity extends BaseActivity<BackStageManagerPrese
                 }
             }
         }, adapter, false);
+        adapter.expand(0);
     }
 
     private static class HeaderItem extends AbstractExpandableItem<MultiItemEntity> implements MultiItemEntity {
@@ -168,7 +169,7 @@ public class BackStageManagerActivity extends BaseActivity<BackStageManagerPrese
                     holder.itemView.setOnClickListener(v -> {
                         int pos = holder.getAdapterPosition();
                         if (lv0.isExpanded()) {
-                            collapse(pos);
+                            collapse(pos, false);
                         } else {
                             expand(pos);
                         }
