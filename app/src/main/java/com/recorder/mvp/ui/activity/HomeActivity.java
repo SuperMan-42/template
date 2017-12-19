@@ -2,7 +2,6 @@ package com.recorder.mvp.ui.activity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -110,8 +109,22 @@ public class HomeActivity extends BaseActivity<HomePresenter> implements HomeCon
     public void initView(Bundle savedInstanceState) {
         PushManager.startWork(getApplicationContext(), PushConstants.LOGIN_TYPE_API_KEY, "xRXgNId4ct4tDpNrC5BOAGsb");
         imLeft.setImageResource(R.drawable.title_fliter);
-        mPresenter.getPermissons();
-        mPresenter.dealFilter();
+        ExpandableItemAdapter adapter = new ExpandableItemAdapter(res);
+        final GridLayoutManager manager = new GridLayoutManager(this, 4);
+        manager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+            @Override
+            public int getSpanSize(int position) {
+                return adapter.getItemViewType(position) == ExpandableItemAdapter.TYPE_CONTENT ? 1 : manager.getSpanCount();
+            }
+        });
+        recyclerView.init(manager, adapter, false);
+        recyclerView.getRecyclerView().addItemDecoration(new SimpleDividerDecoration(this));
+        if (getLastCustomNonConfigurationInstance() == null) {
+            mPresenter.getPermissons();
+            mPresenter.dealFilter();
+        } else {
+            recyclerView.getAdapter().setNewData((List) getLastCustomNonConfigurationInstance());
+        }
         initHome();
     }
 
@@ -173,9 +186,8 @@ public class HomeActivity extends BaseActivity<HomePresenter> implements HomeCon
     }
 
     @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-        mNavigationController.setSelect(position);
+    public Object onRetainCustomNonConfigurationInstance() {
+        return CoreUtils.obtainRxCache(this).get("res");
     }
 
     private BaseTabItem newItem(int drawable, int checkedDrawable, String text) {
@@ -292,17 +304,9 @@ public class HomeActivity extends BaseActivity<HomePresenter> implements HomeCon
             headerItem1.addSubItem(new ContentItem(data.getRounds().get(i).getName(), data.getRounds().get(i).getId(), (i + 1) % 4 == 0, false, false));
         }
         res.add(headerItem1);
-        ExpandableItemAdapter adapter = new ExpandableItemAdapter(res);
-        final GridLayoutManager manager = new GridLayoutManager(this, 4);
-        manager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
-            @Override
-            public int getSpanSize(int position) {
-                return adapter.getItemViewType(position) == ExpandableItemAdapter.TYPE_CONTENT ? 1 : manager.getSpanCount();
-            }
-        });
-        recyclerView.init(manager, adapter, false);
-        recyclerView.getRecyclerView().addItemDecoration(new SimpleDividerDecoration(this));
-        adapter.expandAll();
+        recyclerView.getAdapter().setNewData(res);
+        recyclerView.getAdapter().expandAll();
+        CoreUtils.obtainRxCache(this).put("res", res);
     }
 
     @Override

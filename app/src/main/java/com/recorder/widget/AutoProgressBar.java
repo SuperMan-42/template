@@ -173,7 +173,7 @@ public class AutoProgressBar extends ViewGroup implements Runnable {
     }
 
     private void initPgBimap() {
-        pgBitmap = Bitmap.createBitmap(getMeasuredWidth() - borderWidth, getMeasuredHeight() - borderWidth, Bitmap.Config.ARGB_4444);
+        pgBitmap = Bitmap.createBitmap(getMeasuredWidth() - borderWidth, getMeasuredHeight() - borderWidth, Bitmap.Config.ARGB_8888);
         pgCanvas = new Canvas(pgBitmap);
         thread = new Thread(this);
         thread.start();
