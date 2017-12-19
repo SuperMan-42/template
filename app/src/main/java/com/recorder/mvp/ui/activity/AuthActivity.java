@@ -119,7 +119,7 @@ public class AuthActivity extends BaseActivity<AuthPresenter> implements AuthCon
         if (data.getZc_auth().getCn_status().equals("已认证")) {
             imAuth.setImageResource(R.drawable.im_auth);
         } else {
-            imAuth.setImageResource(data.getZc_auth().getIs_auditing() ? R.drawable.auth_cn_status_1 : R.drawable.auth_cn_status_0);
+            imAuth.setVisibility(data.getZc_auth().getIs_auditing() ? View.VISIBLE : View.INVISIBLE);
         }
         tagLeft.setImageResource(data.getZc_auth().getStatus() == 4 ? R.drawable.auth_zc_1 : R.drawable.auth_zc_0);
         tagRight.setImageResource(data.getZc_auth().getFile_status() == 2 ? R.drawable.auth_right_1 : R.drawable.auth_right_0);
@@ -138,7 +138,7 @@ public class AuthActivity extends BaseActivity<AuthPresenter> implements AuthCon
         if (data.getConformity_auth().getCn_status().equals("已认证")) {
             imAuth2.setImageResource(R.drawable.im_auth);
         } else {
-            imAuth2.setImageResource(data.getConformity_auth().getIs_auditing() ? R.drawable.auth_cn_status_1 : R.drawable.auth_cn_status_0);
+            imAuth2.setImageResource(data.getConformity_auth().getIs_auditing() ? View.VISIBLE : View.INVISIBLE);
         }
         tagLeft2.setImageResource(data.getConformity_auth().getStatus() == 4 ? R.drawable.auth_conformity_1 : R.drawable.auth_conformity_0);
         tagRight2.setImageResource(data.getConformity_auth().getFile_status() == 2 ? R.drawable.auth_right_1 : R.drawable.auth_right_0);
@@ -157,7 +157,7 @@ public class AuthActivity extends BaseActivity<AuthPresenter> implements AuthCon
         if (data.getOrgan_auth().getCn_status().equals("已认证")) {
             imAuth3.setImageResource(R.drawable.im_auth);
         } else {
-            imAuth3.setImageResource(data.getOrgan_auth().getIs_auditing() ? R.drawable.auth_cn_status_1 : R.drawable.auth_cn_status_0);
+            imAuth3.setImageResource(data.getOrgan_auth().getIs_auditing() ? View.VISIBLE : View.INVISIBLE);
         }
         tagLeft3.setImageResource(data.getOrgan_auth().getStatus() == 4 ? R.drawable.auth_organ_1 : R.drawable.auth_organ_0);
         tagRight3.setImageResource(data.getOrgan_auth().getFile_status() == 2 ? R.drawable.auth_right_1 : R.drawable.auth_right_0);
