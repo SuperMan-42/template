@@ -120,10 +120,10 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter> implements
                 ARouter.getInstance().build("/app/AuthActivity").navigation();
                 break;
             case R.id.tv_go_home:
-//                EventBus.getDefault().post(0, Constants.HOME_INDEX);
-//                ARouter.getInstance().build("/app/HomeActivity").navigation();
-                EventBus.getDefault().post(new Object(), Constants.FINISH);
-                killMyself();
+                EventBus.getDefault().post(4, Constants.HOME_INDEX);
+                ARouter.getInstance().build("/app/HomeActivity").navigation();
+//                EventBus.getDefault().post(new Object(), Constants.FINISH);
+//                killMyself();
                 break;
             case R.id.im_pic_code:
                 mPresenter.verify(etPhone.getText().toString(), imPicCode, llPicCode);
@@ -141,7 +141,7 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter> implements
                     .customListener(contentView -> contentView.findViewById(R.id.tv_sure).setOnClickListener(view -> CustomPopupWindow.killMySelf())).build().show();
             return;
         }
-        CoreUtils.hideSoftInput(etPhone);
+        CoreUtils.hideSoftInput(this);
         mPresenter.registerUser(etPhone.getText().toString(), etPassword.getText().toString(), etCode.getText().toString());
     }
 

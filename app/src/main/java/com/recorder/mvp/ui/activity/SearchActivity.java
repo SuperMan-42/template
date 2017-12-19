@@ -122,7 +122,7 @@ public class SearchActivity extends BaseActivity<SearchPresenter> implements Sea
                         .setText(R.id.tv_online_str, item.getOnline_str())
                         .setVisible(R.id.tv_is_group, item.getIs_group().equals("1"));
                 EquityBean.DataEntity.ListEntity.ViewFooterEntity viewFooterEntity = item.getView_footer();
-                if (viewFooterEntity != null) {
+                if (viewFooterEntity.getConsult() != null || viewFooterEntity.getFocus() != null || viewFooterEntity.getView() != null) {
                     holder.setText(R.id.tv_view, String.valueOf(viewFooterEntity.getView()))
                             .setText(R.id.tv_focus, String.valueOf(viewFooterEntity.getFocus()))
                             .setText(R.id.tv_consult, String.valueOf(viewFooterEntity.getConsult()))

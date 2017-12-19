@@ -48,7 +48,6 @@
         android:id="@+id/ll_fee"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:gravity="center_vertical"
         android:minHeight="318px"
         android:orientation="vertical"
         android:paddingBottom="24px"
@@ -92,157 +91,19 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="管理费: "
+                android:text="支付金额: "
                 android:textColor="#A0A0A0"
                 android:textSize="42px" />
 
             <TextView
-                android:id="@+id/tv_manager_amount"
+                android:id="@+id/tv_actual_amount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="#333333"
                 android:textSize="42px"
-                tools:text="0.1%" />
+                tools:text="10万元" />
         </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/ll_consult_amount"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="9px"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="财务管理费: "
-                android:textColor="#A0A0A0"
-                android:textSize="42px" />
-
-            <TextView
-                android:id="@+id/tv_consult_amount"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="#333333"
-                android:textSize="42px"
-                tools:text="￥0元" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/ll_subscription_amount"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="9px"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="申购费: "
-                android:textColor="#A0A0A0"
-                android:textSize="42px" />
-
-            <TextView
-                android:id="@+id/tv_subscription_amount"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="#333333"
-                android:textSize="42px"
-                tools:text="￥0元" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/ll_partner_amount"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="9px"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="合伙人费: "
-                android:textColor="#A0A0A0"
-                android:textSize="42px" />
-
-            <TextView
-                android:id="@+id/tv_partner_amount"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="#333333"
-                android:textSize="42px"
-                tools:text="￥0元" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/ll_plat_manage_amount"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="9px"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="平台管理费: "
-                android:textColor="#A0A0A0"
-                android:textSize="42px" />
-
-            <TextView
-                android:id="@+id/tv_plat_manage_amount"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="#333333"
-                android:textSize="42px"
-                tools:text="￥0元" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/ll_other_amount"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="9px"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="其他费用: "
-                android:textColor="#A0A0A0"
-                android:textSize="42px" />
-
-            <TextView
-                android:id="@+id/tv_other_amount"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="#333333"
-                android:textSize="42px"
-                tools:text="￥0元" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/ll_custom_amount"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="9px"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/tv_custom_amount_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="其他费用: "
-                android:textColor="#A0A0A0"
-                android:textSize="42px" />
-
-            <TextView
-                android:id="@+id/tv_custom_amount"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="#333333"
-                android:textSize="42px"
-                tools:text="￥0元" />
-        </LinearLayout>
     </LinearLayout>
 
     <View
@@ -271,28 +132,6 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="@id/cl_is_show" />
 
-        <TextView
-            android:id="@+id/tv_actual_amount"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="75px"
-            android:textColor="#FC3F08"
-            android:textSize="39px"
-            app:layout_constraintBaseline_toBaselineOf="@+id/tv_pay_bt"
-            app:layout_constraintLeft_toRightOf="@id/tv_1"
-            tools:text="￥10万元" />
-
-        <TextView
-            android:id="@+id/tv_1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="45px"
-            android:layout_marginRight="20px"
-            android:text="支付金额: "
-            android:textColor="#919191"
-            android:textSize="42px"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="@id/tv_actual_amount" />
     </com.core.widget.autolayout.AutoConstraintLayout>
 
 </com.core.widget.autolayout.AutoConstraintLayout>

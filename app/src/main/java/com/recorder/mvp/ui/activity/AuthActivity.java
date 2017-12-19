@@ -118,8 +118,9 @@ public class AuthActivity extends BaseActivity<AuthPresenter> implements AuthCon
         UserAuthInfoBean.DataEntity.ZcAuthEntity zcAuthEntity = data.getZc_auth();
         if (data.getZc_auth().getCn_status().equals("已认证")) {
             imAuth.setImageResource(R.drawable.im_auth);
+            imAuth.setVisibility(View.VISIBLE);
         } else {
-            imAuth.setVisibility(data.getZc_auth().getIs_auditing() ? View.VISIBLE : View.INVISIBLE);
+            imAuth.setVisibility(data.getZc_auth().getIs_auditing() ? View.VISIBLE : View.GONE);
         }
         tagLeft.setImageResource(data.getZc_auth().getStatus() == 4 ? R.drawable.auth_zc_1 : R.drawable.auth_zc_0);
         tagRight.setImageResource(data.getZc_auth().getFile_status() == 2 ? R.drawable.auth_right_1 : R.drawable.auth_right_0);
@@ -137,8 +138,9 @@ public class AuthActivity extends BaseActivity<AuthPresenter> implements AuthCon
         UserAuthInfoBean.DataEntity.ConformityAuthEntity conformityAuthEntity = data.getConformity_auth();
         if (data.getConformity_auth().getCn_status().equals("已认证")) {
             imAuth2.setImageResource(R.drawable.im_auth);
+            imAuth2.setVisibility(View.VISIBLE);
         } else {
-            imAuth2.setImageResource(data.getConformity_auth().getIs_auditing() ? View.VISIBLE : View.INVISIBLE);
+            imAuth2.setVisibility(data.getConformity_auth().getIs_auditing() ? View.VISIBLE : View.GONE);
         }
         tagLeft2.setImageResource(data.getConformity_auth().getStatus() == 4 ? R.drawable.auth_conformity_1 : R.drawable.auth_conformity_0);
         tagRight2.setImageResource(data.getConformity_auth().getFile_status() == 2 ? R.drawable.auth_right_1 : R.drawable.auth_right_0);
@@ -156,8 +158,9 @@ public class AuthActivity extends BaseActivity<AuthPresenter> implements AuthCon
         UserAuthInfoBean.DataEntity.OrganAuthEntity organAuthEntity = data.getOrgan_auth();
         if (data.getOrgan_auth().getCn_status().equals("已认证")) {
             imAuth3.setImageResource(R.drawable.im_auth);
+            imAuth3.setVisibility(View.VISIBLE);
         } else {
-            imAuth3.setImageResource(data.getOrgan_auth().getIs_auditing() ? View.VISIBLE : View.INVISIBLE);
+            imAuth3.setVisibility(data.getOrgan_auth().getIs_auditing() ? View.VISIBLE : View.GONE);
         }
         tagLeft3.setImageResource(data.getOrgan_auth().getStatus() == 4 ? R.drawable.auth_organ_1 : R.drawable.auth_organ_0);
         tagRight3.setImageResource(data.getOrgan_auth().getFile_status() == 2 ? R.drawable.auth_right_1 : R.drawable.auth_right_0);

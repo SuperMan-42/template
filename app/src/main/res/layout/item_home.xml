@@ -26,14 +26,17 @@
 
     <TextView
         android:id="@+id/tv_title"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="30px"
-        android:text="小白1号基金"
+        android:layout_marginRight="30px"
+        android:singleLine="true"
         android:textColor="#333333"
         android:textSize="45px"
         app:layout_constraintLeft_toRightOf="@id/tv_tag"
-        app:layout_constraintTop_toTopOf="@id/tv_tag" />
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tv_tag"
+        tools:text="小白1号基金" />
 
     <ImageView
         android:id="@+id/im_pic"

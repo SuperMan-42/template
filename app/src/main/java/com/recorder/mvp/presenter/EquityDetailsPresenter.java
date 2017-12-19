@@ -105,10 +105,12 @@ public class EquityDetailsPresenter extends BasePresenter<EquityDetailsContract.
                     public void onNext(PayCheckBean payCheckBean) {
                         switch (payCheckBean.getErrno()) {
                             case ERROR_USER_AUTHORIZED:
-                                showDialog(CoreUtils.getString(mApplication, R.string.text_error_user_authorized));
+//                                showDialog(CoreUtils.getString(mApplication, R.string.text_error_user_authorized));
+                                showDialog(CoreUtils.getString(mApplication, R.string.text_error_user_info_audit));
                                 break;
                             case ERROR_USER_INFO_NOT_ALL:
-                                showDialog(CoreUtils.getString(mApplication, R.string.text_error_user_info_not_all));
+//                                showDialog(CoreUtils.getString(mApplication, R.string.text_error_user_info_not_all));
+                                showDialog(CoreUtils.getString(mApplication, R.string.text_error_user_info_audit));
                                 break;
                             case ERROR_USER_INFO_AUDIT:
                                 showDialog(CoreUtils.getString(mApplication, R.string.text_error_user_info_audit));

@@ -111,7 +111,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
                 ARouter.getInstance().build("/app/ForgetPasswordActivity").navigation();
                 break;
             case R.id.register:
-                ARouter.getInstance().build("/app/RegisterActivity").navigation();
+                ARouter.getInstance().build("/app/RegisterActivity").greenChannel().navigation();
                 break;
         }
     }

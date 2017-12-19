@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.text.SpannableString;
 import android.text.Spanned;
-import android.text.TextUtils;
 import android.text.style.ForegroundColorSpan;
 import android.view.View;
 import android.view.animation.AnimationUtils;
@@ -92,9 +91,15 @@ public class MyInvestmentActivity extends BaseActivity<MyInvestmentPresenter> im
             protected void convert(BaseViewHolder holder, OrderListBean.DataEntity.ListEntity item) {
                 CoreUtils.imgLoader(holder.itemView.getContext(), item.getCover(), holder.getView(R.id.im_cover));
                 holder.setText(R.id.tv_deal_name, item.getDeal_name())
-                        .setText(R.id.tv_amount, item.getAmount())
+                        .setText(R.id.tv_amount, item.getAmount() + "元")
                         .setText(R.id.tv_actual_amount, item.getActual_amount() + "元")
                         .setText(R.id.tv_order_status_name, item.getOrder_status_name());
+                holder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        //TODO
+                    }
+                });
                 if (item.getIs_publish()) {
                     if (item.getOrder_status() == 0 || item.getOrder_status() == 1) {
                         holder.getView(R.id.tv_pay_bt).setVisibility(View.VISIBLE);
@@ -118,13 +123,6 @@ public class MyInvestmentActivity extends BaseActivity<MyInvestmentPresenter> im
                 } else {
                     holder.getView(R.id.tv_pay_bt).setVisibility(View.INVISIBLE);
                 }
-                setContent(holder, item, item.getManager_amount(), R.id.ll_manager_amount, R.id.tv_manager_amount);
-                setContent(holder, item, item.getConsult_amount(), R.id.ll_consult_amount, R.id.tv_consult_amount);
-                setContent(holder, item, item.getSubscription_amount(), R.id.ll_subscription_amount, R.id.tv_subscription_amount);
-                setContent(holder, item, item.getPartner_amount(), R.id.ll_partner_amount, R.id.tv_partner_amount);
-                setContent(holder, item, item.getPlat_manage_amount(), R.id.ll_plat_manage_amount, R.id.tv_plat_manage_amount);
-                setContent(holder, item, item.getOther_amount(), R.id.ll_other_amount, R.id.tv_other_amount);
-                setContent(holder, item, item.getCustom_amount(), R.id.ll_custom_amount, R.id.tv_custom_amount);
             }
         }).openRefresh(page -> mPresenter.orderList("1", Constants.PAGE_SIZE))
                 .openLoadMore(Constants.PAGE_SIZE_INT, page -> mPresenter.orderList(String.valueOf(page), Constants.PAGE_SIZE)).reStart();
@@ -205,18 +203,6 @@ public class MyInvestmentActivity extends BaseActivity<MyInvestmentPresenter> im
                 mPresenter.orderPay(item.getOrderID(), item, "2");
             }
         });
-    }
-
-    private void setContent(BaseViewHolder holder, OrderListBean.DataEntity.ListEntity data, String value, int ll, int tv) {
-        if (TextUtils.isEmpty(value) || Float.parseFloat(value) <= 0) {
-            holder.setVisible(ll, false);
-        } else {
-            holder.setVisible(ll, true);
-            holder.setText(tv, value);
-            if (value.equals(data.getCustom_amount())) {
-                holder.setText(R.id.tv_custom_amount_name, data.getCustom_amount_name());
-            }
-        }
     }
 
     @OnClick({R.id.toolbar_left, R.id.tv_go_authentication, R.id.tv_go_home})

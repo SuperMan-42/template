@@ -33,9 +33,9 @@
             android:layout_centerVertical="true"
             android:drawablePadding="39px"
             android:drawableRight="@drawable/ic_person_right"
+            android:text="010-57610686"
             android:textColor="#999999"
-            android:textSize="42px"
-            tools:text="400-800-666" />
+            android:textSize="42px" />
 
     </RelativeLayout>
 
@@ -68,9 +68,9 @@
             android:layout_centerVertical="true"
             android:drawablePadding="39px"
             android:drawableRight="@drawable/ic_person_right"
+            android:text="dfc@dreamflyc.com"
             android:textColor="#999999"
-            android:textSize="42px"
-            tools:text="haoxiang@163.com" />
+            android:textSize="42px" />
 
     </RelativeLayout>
 </LinearLayout>

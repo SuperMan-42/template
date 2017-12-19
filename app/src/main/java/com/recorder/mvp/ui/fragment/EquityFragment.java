@@ -84,7 +84,7 @@ public class EquityFragment extends BaseFragment<EquityPresenter> implements Equ
                         .setVisible(R.id.tv_brief, !item.getIs_group().equals("1"));
                 ((LinearLayout) holder.getView(R.id.ll_tag)).setOrientation(item.getIs_group().equals("1") ? LinearLayout.VERTICAL : LinearLayout.HORIZONTAL);
                 EquityBean.DataEntity.ListEntity.ViewFooterEntity viewFooterEntity = item.getView_footer();
-                if (viewFooterEntity != null) {
+                if (viewFooterEntity.getConsult() != null || viewFooterEntity.getFocus() != null || viewFooterEntity.getView() != null) {
                     holder.setText(R.id.tv_view, String.valueOf(viewFooterEntity.getView()))
                             .setText(R.id.tv_focus, String.valueOf(viewFooterEntity.getFocus()))
                             .setText(R.id.tv_consult, String.valueOf(viewFooterEntity.getConsult()))

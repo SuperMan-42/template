@@ -51,7 +51,7 @@
             android:layout_marginTop="15px"
             app:layout_constraintLeft_toLeftOf="@id/tv_title"
             app:layout_constraintTop_toBottomOf="@id/tv_title"
-            tools:src="@drawable/bga_button_blue" />
+            tools:src="@drawable/auth_zc_0" />
 
         <ImageView
             android:id="@+id/tag_right"
@@ -60,7 +60,7 @@
             android:layout_marginLeft="15px"
             app:layout_constraintLeft_toRightOf="@id/tag_left"
             app:layout_constraintTop_toTopOf="@id/tag_left"
-            tools:src="@drawable/bga_button_blue" />
+            tools:src="@drawable/auth_right_0" />
 
         <TextView
             android:id="@+id/tv_content"
@@ -83,6 +83,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="30px"
             android:src="@drawable/auth_cn_status_1"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
     </com.core.widget.autolayout.AutoConstraintLayout>
@@ -128,7 +129,7 @@
             android:layout_marginTop="15px"
             app:layout_constraintLeft_toLeftOf="@id/tv_title2"
             app:layout_constraintTop_toBottomOf="@id/tv_title2"
-            tools:src="@drawable/bga_button_blue" />
+            tools:src="@drawable/auth_conformity_0" />
 
         <ImageView
             android:id="@+id/tag_right2"
@@ -137,7 +138,7 @@
             android:layout_marginLeft="15px"
             app:layout_constraintLeft_toRightOf="@id/tag_left2"
             app:layout_constraintTop_toTopOf="@id/tag_left2"
-            tools:src="@drawable/bga_button_blue" />
+            tools:src="@drawable/auth_right_0" />
 
         <TextView
             android:id="@+id/tv_content2"
@@ -160,6 +161,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="30px"
             android:src="@drawable/auth_cn_status_1"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
     </com.core.widget.autolayout.AutoConstraintLayout>
@@ -205,7 +207,7 @@
             android:layout_marginTop="15px"
             app:layout_constraintLeft_toLeftOf="@id/tv_title3"
             app:layout_constraintTop_toBottomOf="@id/tv_title3"
-            tools:src="@drawable/bga_button_blue" />
+            tools:src="@drawable/auth_organ_0" />
 
         <ImageView
             android:id="@+id/tag_right3"
@@ -214,7 +216,7 @@
             android:layout_marginLeft="15px"
             app:layout_constraintLeft_toRightOf="@id/tag_left3"
             app:layout_constraintTop_toTopOf="@id/tag_left3"
-            tools:src="@drawable/bga_button_blue" />
+            tools:src="@drawable/auth_right_0" />
 
         <TextView
             android:id="@+id/tv_content3"
@@ -237,6 +239,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="30px"
             android:src="@drawable/auth_cn_status_1"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
     </com.core.widget.autolayout.AutoConstraintLayout>

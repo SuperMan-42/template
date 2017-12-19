@@ -117,10 +117,10 @@ public class SettingActivity extends BaseActivity<SettingPresenter> implements S
                         }).build().show(this);
                 break;
             case R.id.rl_2:
-                ARouter.getInstance().build("/app/FeedBackActivity").navigation();
+                ARouter.getInstance().build("/app/FeedBackActivity").greenChannel().navigation();
                 break;
             case R.id.rl_3:
-                ARouter.getInstance().build("/app/ServiceCenterActivity").navigation();
+                ARouter.getInstance().build("/app/ServiceCenterActivity").greenChannel().navigation();
                 break;
             case R.id.tv_login_out:
                 CustomPopupWindow.builder().contentView(CoreUtils.inflate(this, R.layout.view_setting_bottom))
