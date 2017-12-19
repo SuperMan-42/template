@@ -75,6 +75,7 @@
                         android:layout_marginLeft="21px"
                         android:background="@null"
                         android:gravity="center|start"
+                        android:inputType="numberDecimal"
                         android:maxLength="2"
                         android:maxLines="1"
                         android:maxWidth="720px"

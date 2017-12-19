@@ -318,6 +318,7 @@ public class EquityDetailsActivity extends BaseActivity<EquityDetailsPresenter> 
 
     @Override
     public void showDealDetail(DealDetailBean.DataEntity dataEntity) {
+        scrollview.setVisibility(View.VISIBLE);
         this.dataEntity = dataEntity;
         //显示关注情况
         if (alpha <= 0.5 && alpha >= 0) {

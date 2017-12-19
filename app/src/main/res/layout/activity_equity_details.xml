@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#EFF2F5">
 
     <com.core.widget.autolayout.AutoScrollView
         android:id="@+id/scrollview"
@@ -13,7 +14,8 @@
         android:background="#EFF2F5"
         android:fadingEdge="none"
         android:overScrollMode="never"
-        android:scrollbars="none">
+        android:scrollbars="none"
+        android:visibility="invisible">
 
         <RelativeLayout
             android:layout_width="match_parent"

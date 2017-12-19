@@ -12,6 +12,7 @@ import android.text.TextPaint;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.text.style.ClickableSpan;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -28,6 +29,7 @@ import com.core.widget.recyclerview.BaseQuickAdapter;
 import com.core.widget.recyclerview.BaseViewHolder;
 import com.core.widget.recyclerview.CoreRecyclerView;
 import com.google.gson.Gson;
+import com.orhanobut.logger.Logger;
 import com.recorder.R;
 import com.recorder.di.component.DaggerBuyComponent;
 import com.recorder.di.module.BuyModule;
@@ -187,6 +189,7 @@ public class BuyActivity extends BaseActivity<BuyPresenter> implements BuyContra
 
             @Override
             public void afterTextChanged(Editable editable) {
+                Logger.d("et1=> " + editable);
                 if (TextUtils.isEmpty(editable.toString()) || Integer.parseInt(editable.toString()) < Integer.parseInt(dataEntity.getLimit_price())) {
                     et1.setTextColor(TextUtils.isEmpty(editable.toString()) ? Color.parseColor("#333333") : Color.RED);
                     tvSubmit.setEnabled(false);
