@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.BitmapShader;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -51,12 +50,12 @@ public class AutoProgressBar extends ViewGroup implements Runnable {
     /**
      * 左右来回移动的滑块
      */
-    private Bitmap flikerBitmap;
+//    private Bitmap flikerBitmap;
 
     /**
      * 滑块移动最左边位置，作用是控制移动
      */
-    private float flickerLeft;
+//    private float flickerLeft;
 
     /**
      * 进度条 bitmap ，包含滑块
@@ -166,14 +165,14 @@ public class AutoProgressBar extends ViewGroup implements Runnable {
             progressColor = loadingColor;
         }
 
-        flikerBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.flicker);
-        flickerLeft = -flikerBitmap.getWidth();
+//        flikerBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.flicker);
+//        flickerLeft = -flikerBitmap.getWidth();
 
         initPgBimap();
     }
 
     private void initPgBimap() {
-        pgBitmap = Bitmap.createBitmap(getMeasuredWidth() - borderWidth, getMeasuredHeight() - borderWidth, Bitmap.Config.ARGB_8888);
+        pgBitmap = Bitmap.createBitmap(getMeasuredWidth() - borderWidth, getMeasuredHeight() - borderWidth, Bitmap.Config.ARGB_4444);
         pgCanvas = new Canvas(pgBitmap);
         thread = new Thread(this);
         thread.start();
@@ -247,7 +246,7 @@ public class AutoProgressBar extends ViewGroup implements Runnable {
 
         if (!isStop) {
             pgPaint.setXfermode(xfermode);
-            pgCanvas.drawBitmap(flikerBitmap, flickerLeft, 0, pgPaint);
+//            pgCanvas.drawBitmap(flikerBitmap, flickerLeft, 0, pgPaint);
             pgPaint.setXfermode(null);
         }
 
@@ -350,14 +349,14 @@ public class AutoProgressBar extends ViewGroup implements Runnable {
 
     @Override
     public void run() {
-        int width = flikerBitmap.getWidth();
+//        int width = flikerBitmap.getWidth();
         try {
             while (!isStop && !thread.isInterrupted()) {
-                flickerLeft += dp2px(5);
-                float progressWidth = (progress / maxProgress) * getMeasuredWidth();
-                if (flickerLeft >= progressWidth) {
-                    flickerLeft = -width;
-                }
+//                flickerLeft += dp2px(5);
+//                float progressWidth = (progress / maxProgress) * getMeasuredWidth();
+//                if (flickerLeft >= progressWidth) {
+//                    flickerLeft = -width;
+//                }
                 postInvalidate();
                 Thread.sleep(20);
             }
@@ -376,7 +375,7 @@ public class AutoProgressBar extends ViewGroup implements Runnable {
         isStop = false;
         progressColor = loadingColor;
         progressText = "";
-        flickerLeft = -flikerBitmap.getWidth();
+//        flickerLeft = -flikerBitmap.getWidth();
         initPgBimap();
     }
 
