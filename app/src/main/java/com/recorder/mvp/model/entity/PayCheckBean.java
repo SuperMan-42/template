@@ -1,5 +1,6 @@
 package com.recorder.mvp.model.entity;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -247,7 +248,7 @@ public class PayCheckBean {
             return purchse_agreement;
         }
 
-        public static class PurchseAgreementEntity {
+        public static class PurchseAgreementEntity implements Serializable {
             /**
              * file_name : 投资顾问协议协议协议
              * file : http://ustatic-test.dreamflyc.com//attachment/201712/11/15/5a2e3ac9f2337.pdf

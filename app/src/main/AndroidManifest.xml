@@ -265,6 +265,9 @@
         <activity
             android:name=".mvp.ui.activity.UploadActivity"
             android:theme="@style/CoreAppTheme.Transparent" />
+        <activity
+            android:name=".mvp.ui.activity.AgreeActivity"
+            android:theme="@style/CoreAppTheme.Transparent" />
     </application>
 
 </manifest>
