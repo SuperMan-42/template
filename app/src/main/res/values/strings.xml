@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">昊翔</string>
+    <string name="app_name">般若云</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -64,4 +64,5 @@
     <string name="text_permission">6.0以上系统请开启相关权限</string>
     <string name="text_smsCode_fail">验证码发送失败</string>
     <string name="text_pic_code_null">请输入图片验证码</string>
+    <string name="Home_1">首页</string>
 </resources>

@@ -12,17 +12,18 @@ import com.alibaba.android.arouter.launcher.ARouter;
 import com.core.base.BaseActivity;
 import com.core.di.component.AppComponent;
 import com.core.utils.Constants;
-import com.jaeger.library.StatusBarUtil;
-import com.recorder.utils.CommonUtils;
 import com.core.utils.CoreUtils;
+import com.jaeger.library.StatusBarUtil;
 import com.recorder.R;
 import com.recorder.di.component.DaggerLoginComponent;
 import com.recorder.di.module.LoginModule;
 import com.recorder.mvp.contract.LoginContract;
 import com.recorder.mvp.model.entity.LoginBean;
 import com.recorder.mvp.presenter.LoginPresenter;
+import com.recorder.utils.CommonUtils;
 
 import org.simple.eventbus.EventBus;
+import org.simple.eventbus.Subscriber;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -73,6 +74,11 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
     @Override
     public void hideLoading() {
 
+    }
+
+    @Subscriber(tag = Constants.FINISH)
+    private void kill(Object object) {
+        killMyself();
     }
 
     @Override

@@ -130,7 +130,7 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
                             }
                             break;
                         default:
-                            ARouter.getInstance().build(item.getOther()).navigation();
+                            ARouter.getInstance().build(item.getOther()).greenChannel().navigation();
                             break;
                     }
                 });

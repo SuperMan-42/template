@@ -142,7 +142,7 @@ public class HomeActivity extends BaseActivity<HomePresenter> implements HomeCon
         title("般若云");
         back.setVisibility(View.INVISIBLE);
         mNavigationController = navigation.custom()
-                .addItem(newItem(R.drawable.bottom_home, R.drawable.bottom_home_selector, CoreUtils.getString(this, R.string.Home)))
+                .addItem(newItem(R.drawable.bottom_home, R.drawable.bottom_home_selector, CoreUtils.getString(this, R.string.Home_1)))
                 .addItem(newItem(R.drawable.bottom_equity, R.drawable.bottom_equity_selector, CoreUtils.getString(this, R.string.Equity)))
                 .addItem(newItem(R.drawable.bottom_private, R.drawable.bottom_private_selector, CoreUtils.getString(this, R.string.Private)))
                 .addItem(newItem(R.drawable.bottom_dynamic, R.drawable.bottom_dynamic_selector, CoreUtils.getString(this, R.string.Dynamic)))

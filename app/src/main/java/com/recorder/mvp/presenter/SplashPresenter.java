@@ -63,7 +63,7 @@ public class SplashPresenter extends BasePresenter<SplashContract.Model, SplashC
                 .subscribe(new ErrorHandleSubscriber<Object>(mErrorHandler) {
                     @Override
                     public void onNext(Object o) {
-                        ARouter.getInstance().build("/app/HomeActivity").withTransition(R.anim.fade_in, R.anim.zoom_out).navigation();
+                        ARouter.getInstance().build("/app/HomeActivity").withTransition(R.anim.fade_in, R.anim.zoom_out).greenChannel().navigation();
                     }
 
                     @Override

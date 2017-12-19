@@ -103,6 +103,8 @@ public class BackStageManagerActivity extends BaseActivity<BackStageManagerPrese
 
     @Override
     public void showOrderPimanage(OrderPimanageBean.DataEntity data) {
+        if (data.getPi_files().size() == 0)
+            return;
         for (OrderPimanageBean.DataEntity.PiFilesEntity piFilesEntity : data.getPi_files()) {
             HeaderItem headerItem = new HeaderItem(piFilesEntity.getDeal_name(), true);
             for (int i = 0; i < piFilesEntity.getFiles().size(); i++) {

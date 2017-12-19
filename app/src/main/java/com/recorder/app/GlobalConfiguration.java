@@ -41,7 +41,6 @@ import com.recorder.R;
 import com.recorder.mvp.model.api.Api;
 import com.recorder.mvp.model.entity.LoginBean;
 import com.recorder.mvp.ui.activity.BackStageManagerActivity;
-import com.recorder.mvp.ui.activity.EquityDetailsActivity;
 import com.recorder.mvp.ui.activity.HomeActivity;
 import com.recorder.mvp.ui.activity.MyAttentionActivity;
 import com.recorder.mvp.ui.activity.MyInvestmentActivity;
@@ -114,6 +113,7 @@ public class GlobalConfiguration implements ConfigModule {
                                 case ERROR_OUT_TIME:
                                     isConnection = false;
                                     response.body().close();
+                                    BCache.getInstance().remove(Constants.TOKEN);
                                     CoreUtils.showEmpty(Constants.NO_LOGIN, R.drawable.ic_no_login, R.string.empty_no_login, "去登录");
                                     break;
                                 case ApiErrorCode.ERROR_USER_AUTHORIZED:
@@ -325,29 +325,12 @@ public class GlobalConfiguration implements ConfigModule {
                                     button.setText("重新连接");
                                     break;
                                 case Constants.NO_LOGIN:
-                                    CommonUtils.toLogin(currentActivity);
+//                                    CommonUtils.toLogin(currentActivity);
                                     currentActivity.findViewById(R.id.im_empty).setBackgroundResource(msg.arg1);
                                     ((TextView) currentActivity.findViewById(R.id.tv_empty)).setText(CoreUtils.getString(currentActivity, msg.arg2));
                                     button.setVisibility(View.VISIBLE);
                                     button.setText((CharSequence) msg.obj);
-                                    button.setOnClickListener(view -> {
-                                        CommonUtils.toLogin(currentActivity);
-                                        String retry = "";
-                                        if (currentActivity instanceof HomeActivity) {
-                                            retry = Constants.RETRY_FRAGMENT;
-                                        } else if (currentActivity instanceof SearchActivity) {
-                                            retry = Constants.RETRY_SEARCH;
-                                        } else if (currentActivity instanceof MyAttentionActivity) {
-                                            retry = Constants.RETRY_MYATTENTION;
-                                        } else if (currentActivity instanceof MyInvestmentActivity) {
-                                            retry = Constants.RETRY_MYINVESTMENT;
-                                        } else if (currentActivity instanceof BackStageManagerActivity) {
-                                            retry = Constants.RETRY_BACKSTAGEMANAGER;
-                                        } else if (currentActivity instanceof EquityDetailsActivity) {
-                                            retry = Constants.RETRY_EQUITYDETAILS;
-                                        }
-                                        ARouter.getInstance().build("/app/LoginActivity").withString(Constants.RETRY_WHEN_LOGIN_OR_AUTH, retry).navigation();
-                                    });
+                                    button.setOnClickListener(view -> CommonUtils.toLogin(currentActivity));
                                     break;
                                 case Constants.NO_AUTH:
                                     currentActivity.findViewById(R.id.im_empty).setBackgroundResource(msg.arg1);

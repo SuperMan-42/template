@@ -489,6 +489,6 @@ public class CommonUtils {
         } else if (currentActivity instanceof EquityDetailsActivity) {
             retry = Constants.RETRY_EQUITYDETAILS;
         }
-        ARouter.getInstance().build("/app/LoginActivity").withString(Constants.RETRY_WHEN_LOGIN_OR_AUTH, retry).navigation();
+        ARouter.getInstance().build("/app/LoginActivity").withString(Constants.RETRY_WHEN_LOGIN_OR_AUTH, retry).greenChannel().navigation();
     }
 }
