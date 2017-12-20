@@ -11,6 +11,7 @@ import android.text.Spanned;
 import android.text.TextPaint;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.view.View;
 import android.widget.EditText;
@@ -28,7 +29,6 @@ import com.core.widget.recyclerview.BaseQuickAdapter;
 import com.core.widget.recyclerview.BaseViewHolder;
 import com.core.widget.recyclerview.CoreRecyclerView;
 import com.google.gson.Gson;
-import com.orhanobut.logger.Logger;
 import com.recorder.R;
 import com.recorder.di.component.DaggerBuyComponent;
 import com.recorder.di.module.BuyModule;
@@ -146,20 +146,21 @@ public class BuyActivity extends BaseActivity<BuyPresenter> implements BuyContra
                 super.updateDrawState(ds);
                 ds.setColor(Color.parseColor("#3782E9"));
                 ds.setUnderlineText(true);
+                ds.setFakeBoldText(true);
             }
 
             @Override
             public void onClick(View view) {
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("data", (Serializable) dataEntity.getPurchse_agreement());
-                ARouter.getInstance().build("/app/AgreeActivity")
-                        .withBundle("data", bundle).navigation();
+                ARouter.getInstance().build("/app/AgreeActivity").withBundle("data", bundle).greenChannel().navigation();
             }
-        }, content.indexOf("阅读并同意"), content.indexOf(""), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        }, content.indexOf("《"), content.indexOf("》") + 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         list.add(new Bean(spannableString, false));
         recyclerview.init(manager, new BaseQuickAdapter<Bean, BaseViewHolder>(R.layout.item_buy, list) {
             @Override
             protected void convert(BaseViewHolder holder, Bean item) {
+                ((TextView) holder.getView(R.id.tv_agree)).setMovementMethod(LinkMovementMethod.getInstance());
                 holder.setText(R.id.tv_agree, item.getKey())
                         .setImageResource(R.id.im_agree, item.getCheck() ? R.drawable.ic_item_buy_selector : R.drawable.ic_item_buy);
                 holder.getView(R.id.im_agree).setOnClickListener(view -> {
@@ -191,7 +192,6 @@ public class BuyActivity extends BaseActivity<BuyPresenter> implements BuyContra
 
             @Override
             public void afterTextChanged(Editable editable) {
-                Logger.d("et1=> " + editable);
                 if (TextUtils.isEmpty(editable.toString()) || Integer.parseInt(editable.toString()) < Integer.parseInt(dataEntity.getLimit_price())) {
                     et1.setTextColor(TextUtils.isEmpty(editable.toString()) ? Color.parseColor("#333333") : Color.RED);
                     tvSubmit.setEnabled(false);

@@ -45,13 +45,14 @@ public class AgreeActivity extends BaseActivity {
     @Override
     public void initView(Bundle savedInstanceState) {
         title("股权协议");
+        ARouter.getInstance().inject(this);
         LinearLayoutManager manager = new LinearLayoutManager(this);
         manager.setAutoMeasureEnabled(true);
         recyclerview.init(manager, new BaseQuickAdapter<PayCheckBean.DataEntity.PurchseAgreementEntity, BaseViewHolder>(R.layout.item_help_list, (List<PayCheckBean.DataEntity.PurchseAgreementEntity>) data.getSerializable("data")) {
             @Override
             protected void convert(BaseViewHolder holder, PayCheckBean.DataEntity.PurchseAgreementEntity item) {
                 holder.setText(R.id.tv_title, item.getFile_name());
-                holder.getView(R.id.tv_agree).setOnClickListener(view -> ARouter.getInstance().build("/app/PdfActivity")
+                holder.itemView.setOnClickListener(view -> ARouter.getInstance().build("/app/PdfActivity")
                         .withString(Constants.PDF_HTTP, item.getFile()).withString(Constants.PDF_NAME, item.getFile_name()).navigation());
             }
         }, false);
