@@ -122,6 +122,7 @@ public class AuthInfoActivity extends BaseActivity<AuthInfoPresenter> implements
         return R.layout.activity_auth_info; //如果你不需要框架帮你设置 setContentView(id) 需要自行设置,请返回 0
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void initView(Bundle savedInstanceState) {
         ARouter.getInstance().inject(this);
@@ -137,11 +138,11 @@ public class AuthInfoActivity extends BaseActivity<AuthInfoPresenter> implements
             tvPositive.setText("上传营业执照");
             imOther.setVisibility(View.GONE);
             tvOther.setVisibility(View.GONE);
-            tvAgree.setText(bean.getData().getUser_auth_prompt().getOrgan_auth());
+            tvAgree.setText("勾选并承诺" + bean.getData().getUser_auth_prompt().getOrgan_auth());
         } else if (authType == 2) {
-            tvAgree.setText(bean.getData().getUser_auth_prompt().getConformity_auth());
+            tvAgree.setText("勾选并承诺" + bean.getData().getUser_auth_prompt().getConformity_auth());
         } else if (authType == 1) {
-            tvAgree.setText(bean.getData().getUser_auth_prompt().getZc_auth());
+            tvAgree.setText("勾选并承诺" + bean.getData().getUser_auth_prompt().getZc_auth());
         }
         List<Bean<Boolean>> list = new ArrayList<>();
         list.add(new Bean<>(true, null, null));
@@ -356,9 +357,9 @@ public class AuthInfoActivity extends BaseActivity<AuthInfoPresenter> implements
             String token = BCache.getInstance().getString(Constants.TOKEN);
             String uid = new Gson().fromJson(BCache.getInstance().getString(Constants.USER_INFO), UserInfoBean.class).getData().getUserID();
             if (type == 3) {
-                url = Api.WEB_DOMAIN + "survey/?token=" + token + "&u=" + uid + "&type=" + authType + "&survey={\"1\":\"A\",\"2\":\"B\"}#/agency";
+                url = Api.WEB_DOMAIN + "survey/organ-detail/?token=" + token + "&u=" + uid + "&type=" + authType + "&survey={\"1\":\"A\",\"2\":\"B\"}#/agency";
             } else {
-                url = Api.WEB_DOMAIN + "survey/?token=" + token + "&u=" + uid + "&type=" + authType + "&survey={\"1\":\"A\",\"2\":\"B\"}#/questionnaire";
+                url = Api.WEB_DOMAIN + "survey/person-detail/?token=" + token + "&u=" + uid + "&type=" + authType + "&survey={\"1\":\"A\",\"2\":\"B\"}#/questionnaire";
             }
             ARouter.getInstance().build("/app/WebActivity")
                     .withBoolean(Constants.IS_SHOW_RIGHT, false)

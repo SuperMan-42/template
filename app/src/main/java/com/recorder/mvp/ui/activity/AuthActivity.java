@@ -3,6 +3,7 @@ package com.recorder.mvp.ui.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -11,13 +12,16 @@ import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.core.base.BaseActivity;
 import com.core.di.component.AppComponent;
+import com.core.integration.cache.BCache;
 import com.core.utils.Constants;
 import com.core.utils.CoreUtils;
 import com.core.widget.CustomPopupWindow;
+import com.google.gson.Gson;
 import com.recorder.R;
 import com.recorder.di.component.DaggerAuthComponent;
 import com.recorder.di.module.AuthModule;
 import com.recorder.mvp.contract.AuthContract;
+import com.recorder.mvp.model.entity.AppStartBean;
 import com.recorder.mvp.model.entity.UserAuthInfoBean;
 import com.recorder.mvp.presenter.AuthPresenter;
 
@@ -54,6 +58,13 @@ public class AuthActivity extends BaseActivity<AuthPresenter> implements AuthCon
     View cl2;
     @BindView(R.id.cl_3)
     View cl3;
+    @BindView(R.id.tv_content)
+    TextView tvContent;
+    @BindView(R.id.tv_content2)
+    TextView tvContent2;
+    @BindView(R.id.tv_content3)
+    TextView tvContent3;
+    AppStartBean bean;
 
     @Override
     public void setupActivityComponent(AppComponent appComponent) {
@@ -73,7 +84,17 @@ public class AuthActivity extends BaseActivity<AuthPresenter> implements AuthCon
     @Override
     public void initView(Bundle savedInstanceState) {
         title("投资人认证");
+        bean = new Gson().fromJson(BCache.getInstance().getString(Constants.APPSTART), AppStartBean.class);
         mPresenter.userAuthInfo();
+        setContent(tvContent, bean.getData().getUser_auth_prompt().getZc_auth());
+        setContent(tvContent2, bean.getData().getUser_auth_prompt().getConformity_auth());
+        setContent(tvContent3, bean.getData().getUser_auth_prompt().getOrgan_auth());
+    }
+
+    private void setContent(TextView tv, String content) {
+        if (!TextUtils.isEmpty(content)) {
+            tv.setText(content);
+        }
     }
 
     @Override
