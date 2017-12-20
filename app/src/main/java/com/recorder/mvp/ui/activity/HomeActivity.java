@@ -75,6 +75,8 @@ public class HomeActivity extends BaseActivity<HomePresenter> implements HomeCon
     View back;
     @BindView(R.id.im_left)
     ImageView imLeft;
+    @BindView(R.id.toolbar_title_im)
+    ImageView imTitle;
     @BindView(R.id.toolbar_right)
     View search;
     @BindView(R.id.recyclerview)
@@ -146,7 +148,7 @@ public class HomeActivity extends BaseActivity<HomePresenter> implements HomeCon
     }
 
     private void initHome() {
-        title("般若云");
+        imTitle.setVisibility(View.VISIBLE);
         back.setVisibility(View.INVISIBLE);
         mNavigationController = navigation.custom()
                 .addItem(newItem(R.drawable.bottom_home, R.drawable.bottom_home_selector, CoreUtils.getString(this, R.string.Home_1)))
@@ -175,7 +177,13 @@ public class HomeActivity extends BaseActivity<HomePresenter> implements HomeCon
                 search.setVisibility(index == 1 || index == 2 ? View.VISIBLE : View.INVISIBLE);
                 back.setVisibility(index == 1 || index == 2 ? View.VISIBLE : View.INVISIBLE);
                 CoreUtils.obtainRxCache(getApplicationContext()).remove("isClear");
-                title(viewPager.getAdapter().getPageTitle(viewPager.getCurrentItem()));
+                if (index != 0) {
+                    imTitle.setVisibility(View.GONE);
+                    title(viewPager.getAdapter().getPageTitle(viewPager.getCurrentItem()));
+                } else {
+                    imTitle.setVisibility(View.VISIBLE);
+                    title("");
+                }
                 findViewById(R.id.toolbar).setVisibility(index == 4 ? View.GONE : View.VISIBLE);
                 if (index == 4) {
                     findViewById(R.id.view_empty).setVisibility(View.GONE);

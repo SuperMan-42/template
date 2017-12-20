@@ -30,6 +30,8 @@
             android:layout_marginBottom="100px"
             android:layout_marginTop="55px"
             android:gravity="center"
+            android:paddingLeft="30px"
+            android:paddingRight="30px"
             android:textColor="#333333"
             android:textSize="45px"
             tools:text="认证用户需上传符合条件的金融资产证明，审核通过以后再认购众筹项目" />

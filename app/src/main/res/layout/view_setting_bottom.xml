@@ -44,6 +44,8 @@
                 android:clickable="true"
                 android:gravity="center"
                 android:padding="16dp"
+                android:textColor="@color/alivc_red"
+                android:textStyle="bold"
                 tools:text="退出登录" />
         </LinearLayout>
 

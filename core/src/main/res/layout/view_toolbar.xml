@@ -35,17 +35,32 @@
 
         </RelativeLayout>
 
-        <TextView
-            android:id="@+id/toolbar_title"
+        <FrameLayout
             android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:ellipsize="end"
-            android:gravity="center"
-            android:maxLines="1"
-            android:textColor="@android:color/black"
-            android:textSize="50px"
-            tools:text="Android" />
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/toolbar_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:maxLines="1"
+                android:textColor="@android:color/black"
+                android:textSize="50px"
+                tools:text="Android" />
+
+            <ImageView
+                android:id="@+id/toolbar_title_im"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@drawable/im_title"
+                android:visibility="gone" />
+        </FrameLayout>
 
         <RelativeLayout
             android:id="@+id/toolbar_right"
