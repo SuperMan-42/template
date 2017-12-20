@@ -20,6 +20,14 @@
         <item name="android:background">@color/divider_color</item>
     </style>
 
+    <!-- 单线分隔条 -->
+    <style name="divider_left_15">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1.5px</item>
+        <item name="android:layout_marginLeft">45px</item>
+        <item name="android:background">@color/divider_color</item>
+    </style>
+
     <style name="picture.hx.style" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
         <!--标题栏背景色-->

@@ -160,7 +160,7 @@ public class WebActivity extends BaseActivity {
 
     @OnClick(R.id.toolbar_right)
     public void onViewClicked() {
-        CommonUtils.share(this, "", "昊翔分享测试", "昊翔分享测试", "http://bpic.588ku.com/element_origin_min_pic/00/00/05/115732f19cc0079.jpg");
+        CommonUtils.share(this, "", "般若云分享测试", "般若云分享测试", "http://bpic.588ku.com/element_origin_min_pic/00/00/05/115732f19cc0079.jpg");
     }
 
     public static class AndroidInterface {

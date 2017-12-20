@@ -65,6 +65,7 @@ public class OffLinePayActivity extends BaseActivity {
     @OnClick(R.id.tv_submit)
     public void onViewClicked() {
         finish();
+        overridePendingTransition(R.anim.slide_in_right, R.anim.empty);
         ARouter.getInstance().build("/app/MyInvestmentActivity").navigation();
     }
 }

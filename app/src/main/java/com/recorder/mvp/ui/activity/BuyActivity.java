@@ -12,7 +12,6 @@ import android.text.TextPaint;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.text.style.ClickableSpan;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -171,6 +170,9 @@ public class BuyActivity extends BaseActivity<BuyPresenter> implements BuyContra
                         if (!entity.getCheck()) {
                             tvSubmit.setEnabled(false);
                         }
+                    }
+                    if (TextUtils.isEmpty(et1.getText().toString()) || Integer.parseInt(et1.getText().toString()) < Integer.parseInt(dataEntity.getLimit_price())) {
+                        tvSubmit.setEnabled(false);
                     }
                 });
             }

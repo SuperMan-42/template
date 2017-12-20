@@ -60,7 +60,7 @@ public class SettingActivity extends BaseActivity<SettingPresenter> implements S
     @Override
     public void initView(Bundle savedInstanceState) {
         title("设置");
-        tvVersion.setText("昊翔V" + DeviceUtils.getVersionName(this));
+        tvVersion.setText("般若云V" + DeviceUtils.getVersionName(this));
         tvCache.setText("缓存大小" + FileUtils.getFileAllSize(Constants.SDCARD_PATH) / 1048576 + "M");
         tvLoginOut.setVisibility(TextUtils.isEmpty(BCache.getInstance().getString(Constants.TOKEN)) ? View.GONE : View.VISIBLE);
     }

@@ -63,6 +63,7 @@
             android:id="@+id/ll_amount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="18px"
             android:orientation="horizontal">
 
             <TextView
@@ -85,7 +86,7 @@
             android:id="@+id/ll_manager_amount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="9px"
+            android:layout_marginTop="18px"
             android:orientation="horizontal">
 
             <TextView
@@ -106,16 +107,13 @@
 
     </LinearLayout>
 
-    <View
-        android:id="@+id/divider1"
-        style="@style/divider"
-        app:layout_constraintTop_toBottomOf="@id/ll_fee" />
-
     <com.core.widget.autolayout.AutoConstraintLayout
         android:id="@+id/cl_is_show"
         android:layout_width="match_parent"
         android:layout_height="120px"
-        app:layout_constraintTop_toBottomOf="@id/divider1">
+        app:layout_constraintTop_toBottomOf="@id/ll_fee">
+
+        <View style="@style/divider" />
 
         <Button
             android:id="@+id/tv_pay_bt"

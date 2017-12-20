@@ -58,7 +58,7 @@
                         android:textColor="@color/white"
                         android:textSize="39px"
                         android:visibility="invisible"
-                        tools:text="昊翔投资经理" />
+                        tools:text="般若云投资经理" />
 
                     <TextView
                         android:id="@+id/tv_login"

@@ -67,7 +67,7 @@ public class MyInvestmentPresenter extends BasePresenter<MyInvestmentContract.Mo
                     mRootView.showMessage(data);
                 }, e -> {
                     Logger.d("buy=> e " + e.getMessage() + " " + e.toString());
-                    mRootView.showResult(false, null, e.getMessage());
+                    mRootView.showResult(false, item, e.getMessage());
                 }, () -> {
                     mRootView.showResult(true, item, item.getAmount());
                     Logger.d("buy=> complete");

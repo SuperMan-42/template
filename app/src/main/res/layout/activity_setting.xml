@@ -22,7 +22,7 @@
         android:layout_marginTop="33px"
         android:textColor="#333333"
         android:textSize="42px"
-        tools:text="昊翔V1.0" />
+        tools:text="般若云V1.0" />
 
     <RelativeLayout
         android:id="@+id/rl_1"

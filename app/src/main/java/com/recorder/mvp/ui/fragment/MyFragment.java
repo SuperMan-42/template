@@ -120,7 +120,7 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
                 holder.itemView.setOnClickListener(view1 -> {
                     switch (item.getOther()) {
                         case "recommend":
-                            CommonUtils.share(getActivity(), "http://baidu.com", "昊翔分享测试", "昊翔分享测试", "http://bpic.588ku.com/element_origin_min_pic/00/00/05/115732f19cc0079.jpg");
+                            CommonUtils.share(getActivity(), "http://baidu.com", "般若云分享测试", "般若云分享测试", "http://bpic.588ku.com/element_origin_min_pic/00/00/05/115732f19cc0079.jpg");
                             break;
                         case "/app/AuthActivity":
                             if (TextUtils.isEmpty(BCache.getInstance().getString(Constants.TOKEN))) {

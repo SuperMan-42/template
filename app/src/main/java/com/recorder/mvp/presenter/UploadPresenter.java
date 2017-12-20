@@ -57,7 +57,7 @@ public class UploadPresenter extends BasePresenter<UploadContract.Model, UploadC
         this.mApplication = null;
     }
 
-    public void upload(int type, String orderID, List<Bean<Boolean>> list, boolean isOrderProof) {
+    public void upload(int type, String orderID, List<Bean<Boolean>> list, boolean isOrderProof, int position) {
         List<String> stringList = new ArrayList<>();
         Observable.fromArray(list.toArray())
                 .flatMap(data -> {
@@ -87,7 +87,7 @@ public class UploadPresenter extends BasePresenter<UploadContract.Model, UploadC
                                 public void onNext(Object object) {
                                     CoreUtils.snackbarText(CoreUtils.getString(mApplication, R.string.text_order_proof_success));
                                     if (isOrderProof) {
-                                        EventBus.getDefault().post(object, Constants.ORDER_PROOF);
+                                        EventBus.getDefault().post(position, Constants.ORDER_PROOF);
                                     } else {
                                         EventBus.getDefault().post(object, Constants.AUTH_TYPE);
                                     }

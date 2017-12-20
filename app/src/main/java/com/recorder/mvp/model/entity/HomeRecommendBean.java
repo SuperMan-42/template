@@ -11,7 +11,7 @@ public class HomeRecommendBean {
     /**
      * errno : 0
      * error : 成功
-     * data : {"deal_recommend":{"cover":"http://ustatic-test.dreamflyc.com//attachment/201711/27/181511779800.jpg","url":"","text":"1212"},"news_recommend":[{"newsID":"56697f0ef36ff116b433c34e","title":"昊翔资本投资安恒信息 积极布局网络安全领域","cover":"http://ustatic-test.dreamflyc.com/group1/M00/02/37/ChIGqldLyNuATr6zAADXlrJMiTY036.jpg","url":"http://www.dreamflyc.com/newsitem/278075987"},{"newsID":"05d515a14c0ff26ff116c44e","title":"","cover":"","url":""}],"zc":[{"dealID":"e4cb262a5ed06a876e07b5a8","deal_name":"","cover":"","limit_price":0,"target_fund":0,"progress":0}],"sm":[{"dealID":"32892cd8d3b3e8070c540ba9","deal_name":"","cover":"http://ustatic-test.dreamflyc.com//attachment/201711/27/181511777573.jpg","limit_price":0,"target_fund":0,"progress":0},{"dealID":"32892cd8d3b3e8070c540ba9","deal_name":"","cover":"http://ustatic-test.dreamflyc.com//attachment/201711/27/181511777580.jpg","limit_price":0,"target_fund":0,"progress":0},{"dealID":"abfcdcf7f8d510afd43407a9","deal_name":"","cover":"http://ustatic-test.dreamflyc.com//attachment/201711/27/181511779723.jpg","limit_price":0,"target_fund":0,"progress":0}]}
+     * data : {"deal_recommend":{"cover":"http://ustatic-test.dreamflyc.com//attachment/201711/27/181511779800.jpg","url":"","text":"1212"},"news_recommend":[{"newsID":"56697f0ef36ff116b433c34e","title":"般若云资本投资安恒信息 积极布局网络安全领域","cover":"http://ustatic-test.dreamflyc.com/group1/M00/02/37/ChIGqldLyNuATr6zAADXlrJMiTY036.jpg","url":"http://www.dreamflyc.com/newsitem/278075987"},{"newsID":"05d515a14c0ff26ff116c44e","title":"","cover":"","url":""}],"zc":[{"dealID":"e4cb262a5ed06a876e07b5a8","deal_name":"","cover":"","limit_price":0,"target_fund":0,"progress":0}],"sm":[{"dealID":"32892cd8d3b3e8070c540ba9","deal_name":"","cover":"http://ustatic-test.dreamflyc.com//attachment/201711/27/181511777573.jpg","limit_price":0,"target_fund":0,"progress":0},{"dealID":"32892cd8d3b3e8070c540ba9","deal_name":"","cover":"http://ustatic-test.dreamflyc.com//attachment/201711/27/181511777580.jpg","limit_price":0,"target_fund":0,"progress":0},{"dealID":"abfcdcf7f8d510afd43407a9","deal_name":"","cover":"http://ustatic-test.dreamflyc.com//attachment/201711/27/181511779723.jpg","limit_price":0,"target_fund":0,"progress":0}]}
      */
 
     private int errno;
@@ -45,7 +45,7 @@ public class HomeRecommendBean {
     public static class DataEntity {
         /**
          * deal_recommend : {"cover":"http://ustatic-test.dreamflyc.com//attachment/201711/27/181511779800.jpg","url":"","text":"1212"}
-         * news_recommend : [{"newsID":"56697f0ef36ff116b433c34e","title":"昊翔资本投资安恒信息 积极布局网络安全领域","cover":"http://ustatic-test.dreamflyc.com/group1/M00/02/37/ChIGqldLyNuATr6zAADXlrJMiTY036.jpg","url":"http://www.dreamflyc.com/newsitem/278075987"},{"newsID":"05d515a14c0ff26ff116c44e","title":"","cover":"","url":""}]
+         * news_recommend : [{"newsID":"56697f0ef36ff116b433c34e","title":"般若云资本投资安恒信息 积极布局网络安全领域","cover":"http://ustatic-test.dreamflyc.com/group1/M00/02/37/ChIGqldLyNuATr6zAADXlrJMiTY036.jpg","url":"http://www.dreamflyc.com/newsitem/278075987"},{"newsID":"05d515a14c0ff26ff116c44e","title":"","cover":"","url":""}]
          * zc : [{"dealID":"e4cb262a5ed06a876e07b5a8","deal_name":"","cover":"","limit_price":0,"target_fund":0,"progress":0}]
          * sm : [{"dealID":"32892cd8d3b3e8070c540ba9","deal_name":"","cover":"http://ustatic-test.dreamflyc.com//attachment/201711/27/181511777573.jpg","limit_price":0,"target_fund":0,"progress":0},{"dealID":"32892cd8d3b3e8070c540ba9","deal_name":"","cover":"http://ustatic-test.dreamflyc.com//attachment/201711/27/181511777580.jpg","limit_price":0,"target_fund":0,"progress":0},{"dealID":"abfcdcf7f8d510afd43407a9","deal_name":"","cover":"http://ustatic-test.dreamflyc.com//attachment/201711/27/181511779723.jpg","limit_price":0,"target_fund":0,"progress":0}]
          */
@@ -81,7 +81,7 @@ public class HomeRecommendBean {
         public static class NewsRecommendEntity {
             /**
              * newsID : 56697f0ef36ff116b433c34e
-             * title : 昊翔资本投资安恒信息 积极布局网络安全领域
+             * title : 般若云资本投资安恒信息 积极布局网络安全领域
              * cover : http://ustatic-test.dreamflyc.com/group1/M00/02/37/ChIGqldLyNuATr6zAADXlrJMiTY036.jpg
              * url : http://www.dreamflyc.com/newsitem/278075987
              */

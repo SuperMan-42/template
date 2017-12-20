@@ -1,5 +1,6 @@
 package com.recorder.mvp.model.entity;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -97,7 +98,8 @@ public class OrderListBean {
             return list;
         }
 
-        public static class ListEntity {
+        public static class ListEntity implements Serializable {
+            private static final long serialVersionUID = 4565942603600479141L;
             /**
              * orderID : c0c93dbf2639c6dffe336b43
              * order_sn : 17113012470400000349231
@@ -119,6 +121,7 @@ public class OrderListBean {
 
             private String orderID;
             private String order_sn;
+            private String dealID;
             private String deal_name;
             private String cover;
             private String amount;
@@ -134,6 +137,8 @@ public class OrderListBean {
             private int order_status;
             private String order_status_name;
             private boolean is_publish;
+            private String subscribe_time;
+            private String payment_way;
 
             public void setOrderID(String orderID) {
                 this.orderID = orderID;
@@ -269,6 +274,30 @@ public class OrderListBean {
 
             public void setIs_publish(boolean is_publish) {
                 this.is_publish = is_publish;
+            }
+
+            public String getSubscribe_time() {
+                return subscribe_time;
+            }
+
+            public void setSubscribe_time(String subscribe_time) {
+                this.subscribe_time = subscribe_time;
+            }
+
+            public String getPayment_way() {
+                return payment_way;
+            }
+
+            public void setPayment_way(String payment_way) {
+                this.payment_way = payment_way;
+            }
+
+            public String getDealID() {
+                return dealID;
+            }
+
+            public void setDealID(String dealID) {
+                this.dealID = dealID;
             }
         }
     }
