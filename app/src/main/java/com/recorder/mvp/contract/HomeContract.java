@@ -3,7 +3,6 @@ package com.recorder.mvp.contract;
 import com.core.http.imageloader.ImageLoader;
 import com.core.mvp.IModel;
 import com.core.mvp.IView;
-import com.recorder.mvp.model.entity.AppVersionBean;
 import com.recorder.mvp.model.entity.DealFilter;
 import com.recorder.mvp.model.entity.HomeRecommendBean;
 
@@ -22,7 +21,5 @@ public interface HomeContract {
         Observable<DealFilter> dealFilter();
 
         Observable<HomeRecommendBean> homeRecommend();
-
-        Observable<AppVersionBean> appVersion();
     }
 }

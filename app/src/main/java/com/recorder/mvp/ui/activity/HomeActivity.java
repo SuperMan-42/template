@@ -14,6 +14,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.baidu.android.pushservice.PushConstants;
@@ -63,6 +64,9 @@ import static com.core.utils.Preconditions.checkNotNull;
 @Route(path = "/app/HomeActivity")
 public class HomeActivity extends BaseActivity<HomePresenter> implements HomeContract.View {
 
+    @Autowired
+    String update;
+
     @BindView(R.id.navigation)
     AutoPageNavigationView navigation;
     @BindView(R.id.viewPager)
@@ -107,6 +111,10 @@ public class HomeActivity extends BaseActivity<HomePresenter> implements HomeCon
 
     @Override
     public void initView(Bundle savedInstanceState) {
+        ARouter.getInstance().inject(this);
+        if (!update.equals("no")) {
+            mPresenter.updateApp(this, update);
+        }
         PushManager.startWork(getApplicationContext(), PushConstants.LOGIN_TYPE_API_KEY, "xRXgNId4ct4tDpNrC5BOAGsb");
         imLeft.setImageResource(R.drawable.title_fliter);
         ExpandableItemAdapter adapter = new ExpandableItemAdapter(res);
@@ -120,7 +128,6 @@ public class HomeActivity extends BaseActivity<HomePresenter> implements HomeCon
         recyclerView.init(manager, adapter, false);
         recyclerView.getRecyclerView().addItemDecoration(new SimpleDividerDecoration(this));
         if (getLastCustomNonConfigurationInstance() == null) {
-            mPresenter.getPermissons();
             mPresenter.dealFilter();
         } else {
             recyclerView.getAdapter().setNewData((List) getLastCustomNonConfigurationInstance());

@@ -10,6 +10,7 @@ import com.recorder.mvp.contract.SplashContract;
 import com.recorder.mvp.model.api.cache.ApiCache;
 import com.recorder.mvp.model.api.service.ApiService;
 import com.recorder.mvp.model.entity.AppStartBean;
+import com.recorder.mvp.model.entity.AppVersionBean;
 import com.recorder.utils.CommonUtils;
 
 import javax.inject.Inject;
@@ -43,5 +44,10 @@ public class SplashModel extends BaseModel implements SplashContract.Model {
                 .flatMap(resultObservable -> mRepositoryManager.obtainCacheService(ApiCache.class)
                         .appStart(resultObservable, new EvictProvider(CommonUtils.isEvict(mApplication)))
                         .map(Reply::getData));
+    }
+
+    @Override
+    public Observable<AppVersionBean> appVersion() {
+        return mRepositoryManager.obtainRetrofitService(ApiService.class).appVersion("1");
     }
 }

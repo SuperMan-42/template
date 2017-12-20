@@ -9,7 +9,6 @@ import com.google.gson.Gson;
 import com.recorder.mvp.contract.HomeContract;
 import com.recorder.mvp.model.api.cache.ApiCache;
 import com.recorder.mvp.model.api.service.ApiService;
-import com.recorder.mvp.model.entity.AppVersionBean;
 import com.recorder.mvp.model.entity.DealFilter;
 import com.recorder.mvp.model.entity.HomeRecommendBean;
 import com.recorder.utils.CommonUtils;
@@ -53,10 +52,5 @@ public class HomeModel extends BaseModel implements HomeContract.Model {
                 .flatMap(resultObservable -> mRepositoryManager.obtainCacheService(ApiCache.class)
                         .homeRecommend(resultObservable, new EvictProvider(CommonUtils.isEvict(mApplication)))
                         .map(Reply::getData));
-    }
-
-    @Override
-    public Observable<AppVersionBean> appVersion() {
-        return mRepositoryManager.obtainRetrofitService(ApiService.class).appVersion("1");
     }
 }

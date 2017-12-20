@@ -3,6 +3,7 @@ package com.recorder.mvp.contract;
 import com.core.mvp.IModel;
 import com.core.mvp.IView;
 import com.recorder.mvp.model.entity.AppStartBean;
+import com.recorder.mvp.model.entity.AppVersionBean;
 
 import io.reactivex.Observable;
 
@@ -17,5 +18,7 @@ public interface SplashContract {
     interface Model extends IModel {
 
         Observable<AppStartBean> appStart();
+
+        Observable<AppVersionBean> appVersion();
     }
 }
