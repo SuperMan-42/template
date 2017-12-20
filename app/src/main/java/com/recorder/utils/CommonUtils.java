@@ -489,4 +489,12 @@ public class CommonUtils {
         }
         ARouter.getInstance().build("/app/LoginActivity").withString(Constants.RETRY_WHEN_LOGIN_OR_AUTH, retry).greenChannel().navigation();
     }
+
+    public static String isNull(String content) {
+        if (TextUtils.isEmpty(content)) {
+            return null;
+        } else {
+            return content;
+        }
+    }
 }

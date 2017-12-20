@@ -8,6 +8,7 @@ import com.core.mvp.BaseModel;
 import com.google.gson.Gson;
 import com.recorder.mvp.contract.FeedBackContract;
 import com.recorder.mvp.model.api.service.ApiService;
+import com.recorder.utils.CommonUtils;
 
 import javax.inject.Inject;
 
@@ -34,6 +35,6 @@ public class FeedBackModel extends BaseModel implements FeedBackContract.Model {
 
     @Override
     public Observable<Object> appFeedback(String content, String contact) {
-        return mRepositoryManager.obtainRetrofitService(ApiService.class).appFeedback("1", content, contact);
+        return mRepositoryManager.obtainRetrofitService(ApiService.class).appFeedback("1", content, CommonUtils.isNull(contact));
     }
 }

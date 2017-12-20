@@ -8,6 +8,7 @@ import com.core.mvp.BaseModel;
 import com.google.gson.Gson;
 import com.recorder.mvp.contract.DealRecommendContract;
 import com.recorder.mvp.model.api.service.ApiService;
+import com.recorder.utils.CommonUtils;
 
 import javax.inject.Inject;
 
@@ -34,6 +35,7 @@ public class DealRecommendModel extends BaseModel implements DealRecommendContra
 
     @Override
     public Observable<Object> dealRecommend(String deal_name, String industry, String requirement, String contact, String phone, String business, String team) {
-        return mRepositoryManager.obtainRetrofitService(ApiService.class).dealRecommend("1", deal_name, industry, requirement, contact, phone, business, team);
+        return mRepositoryManager.obtainRetrofitService(ApiService.class).dealRecommend("1", deal_name, CommonUtils.isNull(industry),
+                CommonUtils.isNull(requirement), contact, phone, CommonUtils.isNull(business), CommonUtils.isNull(team));
     }
 }
