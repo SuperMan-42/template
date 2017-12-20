@@ -3,6 +3,7 @@ package com.recorder.mvp.ui.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 
@@ -108,7 +109,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
                 doLogin();
                 break;
             case R.id.tv_forget_password:
-                ARouter.getInstance().build("/app/ForgetPasswordActivity").navigation();
+                ARouter.getInstance().build("/app/ForgetPasswordActivity").greenChannel().navigation();
                 break;
             case R.id.register:
                 ARouter.getInstance().build("/app/RegisterActivity").greenChannel().navigation();
@@ -118,7 +119,11 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
 
     private void doLogin() {
         if (!CommonUtils.isPhone(etPhone.getText().toString())) {
-            CoreUtils.snackbarText("手机号格式错误");
+            CoreUtils.snackbarText(getString(R.string.text_phone));
+            return;
+        }
+        if (TextUtils.isEmpty(etPassword.getText().toString())) {
+            CoreUtils.snackbarText(getString(R.string.text_password_no_null));
             return;
         }
         CoreUtils.hideSoftInput(etPhone);

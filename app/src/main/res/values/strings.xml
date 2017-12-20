@@ -65,4 +65,9 @@
     <string name="text_smsCode_fail">验证码发送失败</string>
     <string name="text_pic_code_null">请输入图片验证码</string>
     <string name="Home_1">首页</string>
+    <string name="text_code">请输入验证码</string>
+    <string name="text_password_new">请输入新密码</string>
+    <string name="deal_name">项目名称为空</string>
+    <string name="et_contact">联系人为空</string>
+    <string name="et_phone">联系方式为空</string>
 </resources>

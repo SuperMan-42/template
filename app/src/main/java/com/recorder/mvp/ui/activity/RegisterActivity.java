@@ -3,6 +3,7 @@ package com.recorder.mvp.ui.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.widget.EditText;
@@ -134,6 +135,18 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter> implements
     private void doRegister() {
         if (!CommonUtils.isPhone(etPhone.getText().toString())) {
             CoreUtils.snackbarText(CoreUtils.getString(this, R.string.text_phone));
+            return;
+        }
+        if (TextUtils.isEmpty(etCode.getText().toString())) {
+            CoreUtils.snackbarText(CoreUtils.getString(this, R.string.text_code));
+            return;
+        }
+        if (TextUtils.isEmpty(etPassword.getText().toString())) {
+            CoreUtils.snackbarText(CoreUtils.getString(this, R.string.text_password_no_null));
+            return;
+        }
+        if (TextUtils.isEmpty(etPasswordNext.getText().toString()) || !etPassword.getText().toString().equals(etPasswordNext.getText().toString())) {
+            CoreUtils.snackbarText(CoreUtils.getString(this, R.string.text_password_no));
             return;
         }
         if (!etPassword.getText().toString().equals(etPasswordNext.getText().toString())) {

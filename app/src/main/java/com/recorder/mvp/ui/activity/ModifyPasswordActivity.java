@@ -121,6 +121,14 @@ public class ModifyPasswordActivity extends BaseActivity<ModifyPasswordPresenter
             CoreUtils.snackbarText(CoreUtils.getString(this, R.string.text_password_no_null));
             return;
         }
+        if (TextUtils.isEmpty(etCode.getText().toString())) {
+            CoreUtils.snackbarText(CoreUtils.getString(this, R.string.text_code));
+            return;
+        }
+        if (TextUtils.isEmpty(etNewPassword.getText().toString())) {
+            CoreUtils.snackbarText(CoreUtils.getString(this, R.string.text_password_new));
+            return;
+        }
         mPresenter.userModifypwd(etPassword.getText().toString(), etNewPassword.getText().toString(), etCode.getText().toString());
     }
 

@@ -109,15 +109,15 @@ public class DealRecommendActivity extends BaseActivity<DealRecommendPresenter> 
 
     private void dealRecommend() {
         if (TextUtils.isEmpty(etDealName.getText().toString())) {
-            CoreUtils.snackbarText("项目名称为空");
+            CoreUtils.snackbarText(getString(R.string.deal_name));
             return;
         }
         if (TextUtils.isEmpty(etContact.getText().toString())) {
-            CoreUtils.snackbarText("联系人为空");
+            CoreUtils.snackbarText(getString(R.string.et_contact));
             return;
         }
         if (TextUtils.isEmpty(etPhone.getText().toString())) {
-            CoreUtils.snackbarText("联系方式为空");
+            CoreUtils.snackbarText(getString(R.string.et_phone));
             return;
         }
         mPresenter.dealRecommend(etDealName.getText().toString(), etIndustry.getText().toString(), etRequirement.getText().toString(),

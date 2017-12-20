@@ -108,10 +108,7 @@ public class ForgetPasswordPresenter extends BasePresenter<ForgetPasswordContrac
                 .subscribe(new ErrorHandleSubscriber<Object>(mErrorHandler) {
                     @Override
                     public void onNext(Object o) {
-                        ARouter.getInstance().build("/app/NewPasswordActivity")
-                                .withString("mobile", mobile)
-                                .withString("code", code)
-                                .navigation();
+                        ARouter.getInstance().build("/app/NewPasswordActivity").withString("mobile", mobile).withString("code", code).greenChannel().navigation();
                         mRootView.killMyself();
                     }
                 });

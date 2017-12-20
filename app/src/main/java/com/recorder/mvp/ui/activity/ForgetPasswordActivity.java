@@ -3,6 +3,7 @@ package com.recorder.mvp.ui.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -105,6 +106,14 @@ public class ForgetPasswordActivity extends BaseActivity<ForgetPasswordPresenter
                 break;
             case R.id.tv_next:
                 CoreUtils.hideSoftInput(this);
+                if (!CommonUtils.isPhone(etPhone.getText().toString())) {
+                    CoreUtils.snackbarText(CoreUtils.getString(this, R.string.text_phone));
+                    return;
+                }
+                if (TextUtils.isEmpty(etCode.getText().toString())) {
+                    CoreUtils.snackbarText(CoreUtils.getString(this, R.string.text_code));
+                    return;
+                }
                 mPresenter.smsVerify(etPhone.getText().toString(), etCode.getText().toString(), "2");
                 break;
             case R.id.im_pic_code:

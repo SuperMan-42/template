@@ -129,6 +129,7 @@ public class GlobalConfiguration implements ConfigModule {
                                     CoreUtils.snackbarText(jsonObject.optString("error"));
                                     break;
                                 case ERROR_PARAMETER:
+                                    response.body().close();//TODO 为了登录密码问题改的 可能有问题
                                     CoreUtils.snackbarText(jsonObject.optString("error"));
                                     break;
                                 case 102:
