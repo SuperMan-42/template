@@ -10,21 +10,26 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/status_bar" />
 
-    <ImageView
+    <FrameLayout
         android:id="@+id/im_close"
-        android:layout_width="42px"
-        android:layout_height="42px"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_gravity="right"
-        android:layout_marginRight="70px"
-        android:layout_marginTop="45px"
-        android:src="@drawable/im_login_close" />
+        android:layout_marginRight="45px"
+        android:padding="25px">
+
+        <ImageView
+            android:layout_width="42px"
+            android:layout_height="42px"
+            android:src="@drawable/im_login_close" />
+    </FrameLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="66px"
         android:layout_marginRight="66px"
-        android:layout_marginTop="111px"
+        android:layout_marginTop="106px"
         android:background="@drawable/bga_login_round"
         android:orientation="vertical">
 

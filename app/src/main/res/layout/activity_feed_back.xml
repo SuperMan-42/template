@@ -34,6 +34,7 @@
                 android:paddingRight="45px"
                 android:paddingTop="33px"
                 android:textColor="#333333"
+                android:textColorHint="#999999"
                 android:textSize="45px" />
 
             <EditText
@@ -51,6 +52,7 @@
                 android:paddingTop="33px"
                 android:singleLine="true"
                 android:textColor="#333333"
+                android:textColorHint="#999999"
                 android:textSize="45px" />
         </LinearLayout>
     </com.core.widget.autolayout.AutoScrollView>

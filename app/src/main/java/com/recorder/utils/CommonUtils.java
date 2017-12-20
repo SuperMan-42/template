@@ -20,11 +20,9 @@ import android.widget.TextView;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.arjinmc.recyclerviewdecoration.RecyclerViewItemDecoration;
 import com.arjinmc.recyclerviewdecoration.RecyclerViewSpaceItemDecoration;
-import com.core.integration.cache.BCache;
 import com.core.utils.Constants;
 import com.core.utils.CoreUtils;
 import com.core.utils.RxLifecycleUtils;
-import com.google.gson.Gson;
 import com.jaeger.library.StatusBarUtil;
 import com.liulishuo.filedownloader.BaseDownloadTask;
 import com.liulishuo.filedownloader.FileDownloadSampleListener;
@@ -37,7 +35,6 @@ import com.recorder.BuildConfig;
 import com.recorder.R;
 import com.recorder.mvp.model.api.Api;
 import com.recorder.mvp.model.entity.PayPayBean;
-import com.recorder.mvp.model.entity.UserInfoBean;
 import com.recorder.mvp.ui.activity.BackStageManagerActivity;
 import com.recorder.mvp.ui.activity.EquityDetailsActivity;
 import com.recorder.mvp.ui.activity.HomeActivity;
@@ -334,11 +331,12 @@ public class CommonUtils {
     }
 
     public static void pay(Activity activity, ObservableEmitter<String> e, PayPayBean.DataEntity dataEntity) {
-        UserInfoBean userInfoBean = new Gson().fromJson(BCache.getInstance().getString(com.core.utils.Constants.USER_INFO), UserInfoBean.class);
+//        UserInfoBean userInfoBean = new Gson().fromJson(BCache.getInstance().getString(com.core.utils.Constants.USER_INFO), UserInfoBean.class);
         // 封装接口参数
         Bundle b = new Bundle();
         b.putString("merchantId", dataEntity.getMerchantId()); // 商户ID
-        b.putString("userId", userInfoBean.getData().getUser_id()); // 商户系统用户ID
+//        b.putString("userId", userInfoBean.getData().getUser_id()); // 商户系统用户ID
+        b.putString("userId", dataEntity.getUser_id()); // 商户系统用户ID
         b.putString("outOrderId", dataEntity.getPayment_sn()); // 商户订单号
         //b.putString("merchantBankCardNo", temp.get); // 银行卡号(非必填)
         b.putString("sign", dataEntity.getSign()); // 签名由商户后台签名后传给客户端，分为MD5和RSA两种签名加密

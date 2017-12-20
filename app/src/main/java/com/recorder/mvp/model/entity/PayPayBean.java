@@ -54,6 +54,7 @@ public class PayPayBean {
         private String member_user_id;
         private String sign;
         private String merchantId;
+        private String user_id;
 
         public void setPayment_sn(String payment_sn) {
             this.payment_sn = payment_sn;
@@ -93,6 +94,14 @@ public class PayPayBean {
 
         public String getMerchantId() {
             return merchantId;
+        }
+
+        public String getUser_id() {
+            return user_id;
+        }
+
+        public void setUser_id(String user_id) {
+            this.user_id = user_id;
         }
     }
 }
