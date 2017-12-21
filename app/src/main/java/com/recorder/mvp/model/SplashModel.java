@@ -48,6 +48,9 @@ public class SplashModel extends BaseModel implements SplashContract.Model {
 
     @Override
     public Observable<AppVersionBean> appVersion() {
-        return mRepositoryManager.obtainRetrofitService(ApiService.class).appVersion("1");
+        return Observable.just(mRepositoryManager.obtainRetrofitService(ApiService.class).appVersion("1"))
+                .flatMap(resultObservable -> mRepositoryManager.obtainCacheService(ApiCache.class)
+                        .appVersion(resultObservable, new EvictProvider(CommonUtils.isEvict(mApplication)))
+                        .map(Reply::getData));
     }
 }

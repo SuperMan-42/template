@@ -2,6 +2,7 @@ package com.recorder.mvp.model.api.cache;
 
 import com.recorder.mvp.model.entity.AppMsgsBean;
 import com.recorder.mvp.model.entity.AppStartBean;
+import com.recorder.mvp.model.entity.AppVersionBean;
 import com.recorder.mvp.model.entity.AuthGetBean;
 import com.recorder.mvp.model.entity.DealDetailBean;
 import com.recorder.mvp.model.entity.DealFilter;
@@ -61,4 +62,6 @@ public interface ApiCache {
     Observable<Reply<AppMsgsBean>> appMsgs(Observable<AppMsgsBean> resultObservable, EvictProvider evictProvider);
 
     Observable<Reply<OrderListBean>> orderList(Observable<OrderListBean> resultObservable, EvictProvider evictProvider);
+
+    Observable<Reply<AppVersionBean>> appVersion(Observable<AppVersionBean> resultObservable, EvictProvider evictProvider);
 }
