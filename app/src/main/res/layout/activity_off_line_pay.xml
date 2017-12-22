@@ -184,7 +184,7 @@
                 android:layout_marginTop="120px"
                 android:background="@drawable/bga_button"
                 android:gravity="center"
-                android:text="完成"
+                android:text="我的投资"
                 android:textColor="@color/white"
                 android:textSize="45px"
                 app:layout_constraintBottom_toBottomOf="@id/cl"

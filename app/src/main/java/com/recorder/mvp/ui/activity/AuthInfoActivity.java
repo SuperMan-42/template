@@ -157,8 +157,10 @@ public class AuthInfoActivity extends BaseActivity<AuthInfoPresenter> implements
             protected void convert(BaseViewHolder holder, Bean<Boolean> item) {
                 if (item.getKey()) {
                     holder.setImageResource(R.id.im_upload, R.drawable.ic_upload);
+                    holder.setVisible(R.id.im_close, false);
                 } else {
                     CoreUtils.imgLoader(getApplicationContext(), item.getValue(), holder.getView(R.id.im_upload));
+                    holder.setVisible(R.id.im_close, true);
                 }
                 if (dataEntity.getIs_modify_file()) {
                     holder.itemView.setOnClickListener(view -> {
@@ -180,6 +182,21 @@ public class AuthInfoActivity extends BaseActivity<AuthInfoPresenter> implements
                                 .previewEggs(true)
                                 .theme(R.style.picture_hx_style)
                                 .forResult(holder.getAdapterPosition() + (item.getKey() ? 0 : 10));
+                    });
+                    holder.getView(R.id.im_close).setOnClickListener(view -> {
+                        int index = 0;
+                        for (Bean<Boolean> bean : getData()) {
+                            if (!bean.getKey()) {
+                                index++;
+                            }
+                        }
+                        if (index == 4) {
+                            addData(new Bean<>(true, null, null));
+                            notifyItemRangeChanged(holder.getAdapterPosition(), 4);
+                        }
+                        if (!item.getKey()) {
+                            recyclerview.remove(holder.getAdapterPosition());
+                        }
                     });
                     holder.itemView.setOnLongClickListener(view -> {
                         int index = 0;

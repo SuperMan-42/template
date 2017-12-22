@@ -105,8 +105,10 @@ public class UploadActivity extends BaseActivity<UploadPresenter> implements Upl
                 toolbarRight.setVisibility(getItemCount() == 1 ? View.INVISIBLE : View.VISIBLE);
                 if (item.getKey()) {
                     holder.setImageResource(R.id.im_upload, R.drawable.ic_upload);
+                    holder.setVisible(R.id.im_close, false);
                 } else {
                     CoreUtils.imgLoader(getApplicationContext(), item.getValue(), holder.getView(R.id.im_upload));
+                    holder.setVisible(R.id.im_close, true);
                 }
                 holder.itemView.setOnClickListener(view -> PictureSelector.create(UploadActivity.this)
                         .openGallery(PictureMimeType.ofImage())
@@ -116,6 +118,21 @@ public class UploadActivity extends BaseActivity<UploadPresenter> implements Upl
                         .previewEggs(true)
                         .theme(R.style.picture_hx_style)
                         .forResult(holder.getAdapterPosition() + (item.getKey() ? 0 : 10)));
+                holder.getView(R.id.im_close).setOnClickListener(view -> {
+                    int index = 0;
+                    for (Bean<Boolean> bean : getData()) {
+                        if (!bean.getKey()) {
+                            index++;
+                        }
+                    }
+                    if (index == 4) {
+                        addData(new Bean<>(true, null, null));
+                        notifyItemRangeChanged(holder.getAdapterPosition(), 4);
+                    }
+                    if (!item.getKey()) {
+                        recyclerView.remove(holder.getAdapterPosition());
+                    }
+                });
                 holder.itemView.setOnLongClickListener(view -> {
                     int index = 0;
                     for (Bean<Boolean> bean : getData()) {
