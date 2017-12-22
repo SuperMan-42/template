@@ -59,7 +59,9 @@
                 android:layout_marginLeft="90px"
                 android:layout_marginRight="90px"
                 android:layout_marginTop="33px"
+                android:ellipsize="end"
                 android:gravity="center"
+                android:maxLines="2"
                 android:textColor="@color/white"
                 android:textSize="39px"
                 tools:text="目前已为全国各大知名公司提供过基础形象服务,运营服务..." />

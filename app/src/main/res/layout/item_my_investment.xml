@@ -8,14 +8,16 @@
 
     <TextView
         android:id="@+id/tv_deal_name"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="45px"
         android:layout_marginTop="30px"
+        android:singleLine="true"
         android:textColor="#333333"
         android:textSize="42px"
         android:textStyle="bold"
         app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/tv_order_status_name"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="早山品牌形象设计" />
 

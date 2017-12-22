@@ -86,6 +86,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="24px"
                     android:ellipsize="end"
+                    android:maxLines="2"
                     android:textColor="#666666"
                     android:textSize="42px"
                     tools:text="快速测量婴儿体温,同步到app,智能家居生活,从这里开始" />

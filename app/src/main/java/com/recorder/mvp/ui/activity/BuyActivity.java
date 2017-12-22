@@ -1,5 +1,6 @@
 package com.recorder.mvp.ui.activity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -29,6 +30,7 @@ import com.core.widget.recyclerview.BaseQuickAdapter;
 import com.core.widget.recyclerview.BaseViewHolder;
 import com.core.widget.recyclerview.CoreRecyclerView;
 import com.google.gson.Gson;
+import com.orhanobut.logger.Logger;
 import com.recorder.R;
 import com.recorder.di.component.DaggerBuyComponent;
 import com.recorder.di.module.BuyModule;
@@ -36,7 +38,6 @@ import com.recorder.mvp.contract.BuyContract;
 import com.recorder.mvp.model.entity.PayCheckBean;
 import com.recorder.mvp.presenter.BuyPresenter;
 
-import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -57,10 +58,10 @@ public class BuyActivity extends BaseActivity<BuyPresenter> implements BuyContra
     EditText et1;
     @BindView(R.id.tv_limit_price)
     TextView tvLimitPrice;
-    @BindView(R.id.tv_shakes)
-    TextView tvShakes;
-    @BindView(R.id.ll_shakes)
-    LinearLayout llShakes;
+    @BindView(R.id.tv_amount)
+    TextView tvAmount;
+    @BindView(R.id.ll_amount)
+    LinearLayout llAmount;
     @BindView(R.id.tv_manager_fee)
     TextView tvManagerFee;
     @BindView(R.id.ll_manager_fee)
@@ -113,6 +114,7 @@ public class BuyActivity extends BaseActivity<BuyPresenter> implements BuyContra
         return R.layout.activity_buy; //如果你不需要框架帮你设置 setContentView(id) 需要自行设置,请返回 0
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void initView(Bundle savedInstanceState) {
         ARouter.getInstance().inject(this);
@@ -120,14 +122,15 @@ public class BuyActivity extends BaseActivity<BuyPresenter> implements BuyContra
         title("我要认购");
         tvDealName.setText(dataEntity.getDeal_name());
         tvLimitPrice.setText("起投金额" + dataEntity.getLimit_price() + "万元");
-        setContent(dataEntity.getShakes(), llShakes, tvShakes);
-        setContent(dataEntity.getManager_fee(), dataEntity.getManager_fee_year(), llManagerFee, tvManagerFee);
-        setContent(dataEntity.getConsult_fee(), dataEntity.getConsult_fee_year(), llConsultFee, tvConsultFee);
-        setContent(dataEntity.getSubscription_fee(), dataEntity.getSubscription_fee_year(), llSubscriptionFee, tvSubscriptionFee);
-        setContent(dataEntity.getPartner_fee(), dataEntity.getPartner_fee_year(), llPartnerFee, tvPartnerFee);
-        setContent(dataEntity.getPlat_manage_fee(), dataEntity.getPlat_manage_fee_year(), llPlatManageFee, tvPlatManageFee);
-        setContent(dataEntity.getOther_fee(), dataEntity.getOther_fee_year(), llOtherFee, tvOtherFee);
-        setContent(dataEntity.getCustom_fee(), dataEntity.getCustom_fee_year(), llCustomFee, tvCustomFee);
+        float manage = setContent(dataEntity.getManager_fee(), dataEntity.getManager_fee_year(), llManagerFee, tvManagerFee);
+        float consult = setContent(dataEntity.getConsult_fee(), dataEntity.getConsult_fee_year(), llConsultFee, tvConsultFee);
+        float subscription = setContent(dataEntity.getSubscription_fee(), dataEntity.getSubscription_fee_year(), llSubscriptionFee, tvSubscriptionFee);
+        float partner = setContent(dataEntity.getPartner_fee(), dataEntity.getPartner_fee_year(), llPartnerFee, tvPartnerFee);
+        float plat_manage = setContent(dataEntity.getPlat_manage_fee(), dataEntity.getPlat_manage_fee_year(), llPlatManageFee, tvPlatManageFee);
+        float other = setContent(dataEntity.getOther_fee(), dataEntity.getOther_fee_year(), llOtherFee, tvOtherFee);
+        float custom = setContent(dataEntity.getCustom_fee(), dataEntity.getCustom_fee_year(), llCustomFee, tvCustomFee);
+        int fee = (int) ((TextUtils.isEmpty(et1.getText().toString()) ? 0 : Integer.parseInt(et1.getText().toString()) * 10000) * (1 + manage + consult + subscription + partner + plat_manage + other + custom));
+        tvAmount.setText(fee + "元");
         LinearLayoutManager manager = new LinearLayoutManager(this) {
             @Override
             public boolean canScrollVertically() {
@@ -136,27 +139,29 @@ public class BuyActivity extends BaseActivity<BuyPresenter> implements BuyContra
         };
         manager.setAutoMeasureEnabled(true);
         List<Bean> list = new ArrayList<>();
-        list.add(new Bean("协议", false));
-        list.add(new Bean("协议", false));
-        String content = "阅读并同意《股权投资协议》";
-        SpannableString spannableString = new SpannableString(content);
-        spannableString.setSpan(new ClickableSpan() {
-            @Override
-            public void updateDrawState(TextPaint ds) {
-                super.updateDrawState(ds);
-                ds.setColor(Color.parseColor("#3782E9"));
-                ds.setUnderlineText(true);
-                ds.setFakeBoldText(true);
-            }
+        list.add(new Bean(getString(R.string.text_agree_1), false));
+        list.add(new Bean(getString(R.string.text_agree_2), false));
+        list.add(new Bean(getString(R.string.text_agree_3), false));
+        for (PayCheckBean.DataEntity.PurchseAgreementEntity entity : dataEntity.getPurchse_agreement()) {
+            String content = "我已完整阅读《" + entity.getFile_name() + "》，并同意签署。";
+            SpannableString spannableString = new SpannableString(content);
+            spannableString.setSpan(new ClickableSpan() {
+                @Override
+                public void updateDrawState(TextPaint ds) {
+                    super.updateDrawState(ds);
+                    ds.setColor(Color.parseColor("#3782E9"));
+                    ds.setUnderlineText(true);
+                    ds.setFakeBoldText(true);
+                }
 
-            @Override
-            public void onClick(View view) {
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("data", (Serializable) dataEntity.getPurchse_agreement());
-                ARouter.getInstance().build("/app/AgreeActivity").withBundle("data", bundle).greenChannel().navigation();
-            }
-        }, content.indexOf("《"), content.indexOf("》") + 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        list.add(new Bean(spannableString, false));
+                @Override
+                public void onClick(View view) {
+                    ARouter.getInstance().build("/app/PdfActivity")
+                            .withString(Constants.PDF_HTTP, entity.getFile()).withString(Constants.PDF_NAME, entity.getFile_name()).navigation();
+                }
+            }, content.indexOf("《"), content.indexOf("》") + 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            list.add(new Bean(spannableString, false));
+        }
         recyclerview.init(manager, new BaseQuickAdapter<Bean, BaseViewHolder>(R.layout.item_buy, list) {
             @Override
             protected void convert(BaseViewHolder holder, Bean item) {
@@ -172,7 +177,7 @@ public class BuyActivity extends BaseActivity<BuyPresenter> implements BuyContra
                             tvSubmit.setEnabled(false);
                         }
                     }
-                    if (TextUtils.isEmpty(et1.getText().toString()) || Integer.parseInt(et1.getText().toString()) < Integer.parseInt(dataEntity.getLimit_price())) {
+                    if (TextUtils.isEmpty(et1.getText().toString()) || Float.parseFloat(et1.getText().toString()) < Float.parseFloat(dataEntity.getLimit_price())) {
                         tvSubmit.setEnabled(false);
                     }
                 });
@@ -192,10 +197,12 @@ public class BuyActivity extends BaseActivity<BuyPresenter> implements BuyContra
 
             @Override
             public void afterTextChanged(Editable editable) {
-                if (TextUtils.isEmpty(editable.toString()) || Integer.parseInt(editable.toString()) < Integer.parseInt(dataEntity.getLimit_price())) {
-                    et1.setTextColor(TextUtils.isEmpty(editable.toString()) ? Color.parseColor("#333333") : Color.RED);
+                if (TextUtils.isEmpty(et1.getText().toString()) || Float.parseFloat(et1.getText().toString()) < Float.parseFloat(dataEntity.getLimit_price())) {
+                    et1.setTextColor(Color.RED);
+                    et1.setTextColor(TextUtils.isEmpty(et1.getText().toString()) ? Color.parseColor("#333333") : Color.RED);
                     tvSubmit.setEnabled(false);
                 } else {
+                    et1.setTextColor(Color.parseColor("#333333"));
                     tvSubmit.setEnabled(true);
                     for (Object entity : recyclerview.getAdapter().getData()) {
                         if (!((Bean) entity).getCheck()) {
@@ -203,22 +210,24 @@ public class BuyActivity extends BaseActivity<BuyPresenter> implements BuyContra
                         }
                     }
                 }
+                Logger.d("float=> " + (TextUtils.isEmpty(et1.getText().toString()) ? 0 : Integer.parseInt(et1.getText().toString()) * 10000) + " " + (1 + manage + consult + subscription + partner + plat_manage + other + custom));
+                int fee = (int) ((TextUtils.isEmpty(et1.getText().toString()) ? 0 : Integer.parseInt(et1.getText().toString()) * 10000) * (1 + manage + consult + subscription + partner + plat_manage + other + custom));
+                tvAmount.setText(fee + "元");
             }
         });
     }
 
-    private void setContent(String value, String year, LinearLayout ll, TextView tv) {
-        if (TextUtils.isEmpty(value) || Float.parseFloat(value) <= 0) {
+    private float setContent(int value, int year, LinearLayout ll, TextView tv) {
+        if (value <= 0) {
             ll.setVisibility(View.GONE);
         } else {
             ll.setVisibility(View.VISIBLE);
-            int yearInt = Integer.parseInt(year);
-            int valueInt = Integer.parseInt(value);
-            tv.setText((valueInt * yearInt) + "%  (" + valueInt + "% * " + yearInt + "年)");
-            if (value.equals(dataEntity.getCustom_fee())) {
-                tvCustomFeeName.setText(dataEntity.getCustom_fee_name());
+            tv.setText((value * year) + "%  (" + value + "% * " + year + "年)");
+            if (value == dataEntity.getCustom_fee()) {
+                tvCustomFeeName.setText(dataEntity.getCustom_fee_name() + ": ");
             }
         }
+        return value * year / Float.parseFloat("100");
     }
 
     private void setContent(String value, LinearLayout ll, TextView tv) {

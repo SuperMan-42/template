@@ -362,7 +362,7 @@ public class EquityDetailsActivity extends BaseActivity<EquityDetailsPresenter> 
         //进度条相关
         tvProgress.setText(dataEntity.getProgress() + "%");
         if (dataEntity.getProgress() == 0) {
-            progress.reset();
+//            progress.reset();
         } else {
             progress.setProgress(dataEntity.getProgress());
         }

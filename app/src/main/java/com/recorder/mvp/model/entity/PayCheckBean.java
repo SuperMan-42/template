@@ -71,21 +71,21 @@ public class PayCheckBean {
         private String deal_name;
         private String limit_price;
         private String shakes;
-        private String manager_fee;
-        private String manager_fee_year;
-        private String consult_fee;
-        private String consult_fee_year;
-        private String subscription_fee;
-        private String subscription_fee_year;
-        private String partner_fee;
-        private String partner_fee_year;
-        private String plat_manage_fee;
-        private String plat_manage_fee_year;
-        private String other_fee;
-        private String other_fee_year;
+        private int manager_fee;
+        private int manager_fee_year;
+        private int consult_fee;
+        private int consult_fee_year;
+        private int subscription_fee;
+        private int subscription_fee_year;
+        private int partner_fee;
+        private int partner_fee_year;
+        private int plat_manage_fee;
+        private int plat_manage_fee_year;
+        private int other_fee;
+        private int other_fee_year;
         private String custom_fee_name;
-        private String custom_fee;
-        private String custom_fee_year;
+        private int custom_fee;
+        private int custom_fee_year;
         private List<PurchseAgreementEntity> purchse_agreement;
 
         public void setDealID(String dealID) {
@@ -104,51 +104,51 @@ public class PayCheckBean {
             this.shakes = shakes;
         }
 
-        public void setManager_fee(String manager_fee) {
+        public void setManager_fee(int manager_fee) {
             this.manager_fee = manager_fee;
         }
 
-        public void setManager_fee_year(String manager_fee_year) {
+        public void setManager_fee_year(int manager_fee_year) {
             this.manager_fee_year = manager_fee_year;
         }
 
-        public void setConsult_fee(String consult_fee) {
+        public void setConsult_fee(int consult_fee) {
             this.consult_fee = consult_fee;
         }
 
-        public void setConsult_fee_year(String consult_fee_year) {
+        public void setConsult_fee_year(int consult_fee_year) {
             this.consult_fee_year = consult_fee_year;
         }
 
-        public void setSubscription_fee(String subscription_fee) {
+        public void setSubscription_fee(int subscription_fee) {
             this.subscription_fee = subscription_fee;
         }
 
-        public void setSubscription_fee_year(String subscription_fee_year) {
+        public void setSubscription_fee_year(int subscription_fee_year) {
             this.subscription_fee_year = subscription_fee_year;
         }
 
-        public void setPartner_fee(String partner_fee) {
+        public void setPartner_fee(int partner_fee) {
             this.partner_fee = partner_fee;
         }
 
-        public void setPartner_fee_year(String partner_fee_year) {
+        public void setPartner_fee_year(int partner_fee_year) {
             this.partner_fee_year = partner_fee_year;
         }
 
-        public void setPlat_manage_fee(String plat_manage_fee) {
+        public void setPlat_manage_fee(int plat_manage_fee) {
             this.plat_manage_fee = plat_manage_fee;
         }
 
-        public void setPlat_manage_fee_year(String plat_manage_fee_year) {
+        public void setPlat_manage_fee_year(int plat_manage_fee_year) {
             this.plat_manage_fee_year = plat_manage_fee_year;
         }
 
-        public void setOther_fee(String other_fee) {
+        public void setOther_fee(int other_fee) {
             this.other_fee = other_fee;
         }
 
-        public void setOther_fee_year(String other_fee_year) {
+        public void setOther_fee_year(int other_fee_year) {
             this.other_fee_year = other_fee_year;
         }
 
@@ -156,11 +156,11 @@ public class PayCheckBean {
             this.custom_fee_name = custom_fee_name;
         }
 
-        public void setCustom_fee(String custom_fee) {
+        public void setCustom_fee(int custom_fee) {
             this.custom_fee = custom_fee;
         }
 
-        public void setCustom_fee_year(String custom_fee_year) {
+        public void setCustom_fee_year(int custom_fee_year) {
             this.custom_fee_year = custom_fee_year;
         }
 
@@ -184,51 +184,51 @@ public class PayCheckBean {
             return shakes;
         }
 
-        public String getManager_fee() {
+        public int getManager_fee() {
             return manager_fee;
         }
 
-        public String getManager_fee_year() {
+        public int getManager_fee_year() {
             return manager_fee_year;
         }
 
-        public String getConsult_fee() {
+        public int getConsult_fee() {
             return consult_fee;
         }
 
-        public String getConsult_fee_year() {
+        public int getConsult_fee_year() {
             return consult_fee_year;
         }
 
-        public String getSubscription_fee() {
+        public int getSubscription_fee() {
             return subscription_fee;
         }
 
-        public String getSubscription_fee_year() {
+        public int getSubscription_fee_year() {
             return subscription_fee_year;
         }
 
-        public String getPartner_fee() {
+        public int getPartner_fee() {
             return partner_fee;
         }
 
-        public String getPartner_fee_year() {
+        public int getPartner_fee_year() {
             return partner_fee_year;
         }
 
-        public String getPlat_manage_fee() {
+        public int getPlat_manage_fee() {
             return plat_manage_fee;
         }
 
-        public String getPlat_manage_fee_year() {
+        public int getPlat_manage_fee_year() {
             return plat_manage_fee_year;
         }
 
-        public String getOther_fee() {
+        public int getOther_fee() {
             return other_fee;
         }
 
-        public String getOther_fee_year() {
+        public int getOther_fee_year() {
             return other_fee_year;
         }
 
@@ -236,11 +236,11 @@ public class PayCheckBean {
             return custom_fee_name;
         }
 
-        public String getCustom_fee() {
+        public int getCustom_fee() {
             return custom_fee;
         }
 
-        public String getCustom_fee_year() {
+        public int getCustom_fee_year() {
             return custom_fee_year;
         }
 

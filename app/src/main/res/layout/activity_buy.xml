@@ -75,10 +75,10 @@
                         android:layout_marginLeft="21px"
                         android:background="@null"
                         android:gravity="center|start"
-                        android:inputType="numberDecimal"
+                        android:inputType="number"
                         android:maxLength="2"
                         android:maxLines="1"
-                        android:maxWidth="720px"
+                        android:maxWidth="750px"
                         android:minWidth="180px"
                         android:singleLine="true"
                         android:textColor="#333333"
@@ -123,31 +123,6 @@
                 android:paddingLeft="51px"
                 android:paddingRight="51px"
                 android:paddingTop="12px">
-
-                <LinearLayout
-                    android:id="@+id/ll_shakes"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="24px"
-                    android:gravity="center"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="项目出让股份: "
-                        android:textColor="#878787"
-                        android:textSize="42px" />
-
-                    <TextView
-                        android:id="@+id/tv_shakes"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="18%"
-                        android:textColor="#262626"
-                        android:textSize="42px"
-                        android:textStyle="bold" />
-                </LinearLayout>
 
                 <LinearLayout
                     android:id="@+id/ll_manager_fee"
@@ -325,6 +300,31 @@
                         android:textStyle="bold" />
                 </LinearLayout>
 
+                <LinearLayout
+                    android:id="@+id/ll_amount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24px"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="支付金额: "
+                        android:textColor="#878787"
+                        android:textSize="42px" />
+
+                    <TextView
+                        android:id="@+id/tv_amount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="18%"
+                        android:textColor="@color/alivc_red"
+                        android:textSize="42px"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
             </LinearLayout>
 
             <com.core.widget.recyclerview.CoreRecyclerView
@@ -338,7 +338,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="132px"
                 android:layout_marginBottom="180px"
-                android:layout_marginTop="180px"
+                android:layout_marginTop="132px"
                 android:background="@drawable/bga_button"
                 android:enabled="false"
                 android:gravity="center"

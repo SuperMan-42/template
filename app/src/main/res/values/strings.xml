@@ -70,4 +70,7 @@
     <string name="deal_name">项目名称为空</string>
     <string name="et_contact">联系人为空</string>
     <string name="et_phone">联系方式为空</string>
+    <string name="text_agree_1">本人承诺为本次投资人认证提供的有关信息及资料均真实、准确，不存在虚假信息。</string>
+    <string name="text_agree_2">般若云不对我的投资决策提供建议，我的投资行为完全依赖于我个人的思考和行动。</string>
+    <string name="text_agree_3">我已完整阅读《投资流程说明》，知晓投资风险、投资相关费用与完整投资手续流程。</string>
 </resources>
