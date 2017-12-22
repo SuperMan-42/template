@@ -384,7 +384,7 @@ public class EquityDetailsActivity extends BaseActivity<EquityDetailsPresenter> 
             }
         }
         //以下应该只分组合非组合的情况 无众筹私募的区分
-        tv1.setText(dataEntity.getIs_group().equals("1") ? "项目亮点" : "项目介绍");
+        tv1.setText(dataEntity.getIs_group().equals("1") ? "项目亮点" : "项目亮点");
         tvIntro.setText(dataEntity.getIntro());
         LinearLayoutManager teamManager = new LinearLayoutManager(this) {
             @Override
@@ -439,6 +439,9 @@ public class EquityDetailsActivity extends BaseActivity<EquityDetailsPresenter> 
         //退出渠道
         tvWithdrawal.setText(Html.fromHtml(dataEntity.getWithdrawal()));
         //QA
+        if (dataEntity.getQa() == null || dataEntity.getQa().size() == 0) {
+            llIsShowQa.setVisibility(View.GONE);
+        }
         LinearLayoutManager qaManager = new LinearLayoutManager(this) {
             @Override
             public boolean canScrollVertically() {
@@ -458,7 +461,9 @@ public class EquityDetailsActivity extends BaseActivity<EquityDetailsPresenter> 
         if (dataEntity.getIs_group().equals("1")) {
             llIsShowPublicFiles.setVisibility(View.GONE);
         } else {
-            llIsShowPublicFiles.setVisibility(View.VISIBLE);
+            if (dataEntity.getPublic_files() == null || dataEntity.getPublic_files().size() == 0) {
+                llIsShowPublicFiles.setVisibility(View.GONE);
+            }
             LinearLayoutManager gridMganager = new GridLayoutManager(this, 3) {
                 @Override
                 public boolean canScrollVertically() {
