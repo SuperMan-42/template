@@ -140,6 +140,7 @@ public class HomeRecommendBean {
             private String limit_price;
             private String target_fund;
             private float progress;
+            private int type;
 
             public void setDealID(String dealID) {
                 this.dealID = dealID;
@@ -187,6 +188,14 @@ public class HomeRecommendBean {
 
             public float getProgress() {
                 return progress;
+            }
+
+            public int getType() {
+                return type;
+            }
+
+            public void setType(int type) {
+                this.type = type;
             }
         }
 
