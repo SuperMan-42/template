@@ -3,6 +3,7 @@ package com.recorder.mvp.model.api.service;
 import com.recorder.mvp.model.entity.AppMsgsBean;
 import com.recorder.mvp.model.entity.AppStartBean;
 import com.recorder.mvp.model.entity.AppVersionBean;
+import com.recorder.mvp.model.entity.AuthBean;
 import com.recorder.mvp.model.entity.AuthGetBean;
 import com.recorder.mvp.model.entity.DealDetailBean;
 import com.recorder.mvp.model.entity.DealFilter;
@@ -173,13 +174,13 @@ public interface ApiService {
 
     @FormUrlEncoded
     @POST("auth/person")
-    Observable<Object> authPerson(@Header("DIVERSION-VERSION") String version, @Field("type") int type, @Field("true_name") String true_name,
-                                  @Field("id_card") String id_card, @Field("idcard_imgf") String idcard_imgf, @Field("idcard_imgb") String idcard_imgb,
-                                  @Field("check") String check, @Field("assets") String assets);
+    Observable<AuthBean> authPerson(@Header("DIVERSION-VERSION") String version, @Field("type") int type, @Field("true_name") String true_name,
+                                    @Field("id_card") String id_card, @Field("idcard_imgf") String idcard_imgf, @Field("idcard_imgb") String idcard_imgb,
+                                    @Field("check") String check, @Field("assets") String assets);
 
     @FormUrlEncoded
     @POST("auth/organ")
-    Observable<Object> authOrgan(@Header("DIVERSION-VERSION") String version, @Field("organ_name") String organ_name, @Field("legal_person") String legal_person,
+    Observable<AuthBean> authOrgan(@Header("DIVERSION-VERSION") String version, @Field("organ_name") String organ_name, @Field("legal_person") String legal_person,
                                  @Field("contact") String contact, @Field("license") String license, @Field("check") String check, @Field("assets") String assets);
 
     @GET("user/authinfo")

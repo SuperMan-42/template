@@ -34,7 +34,6 @@ import com.recorder.R;
 import com.recorder.di.component.DaggerAuthInfoComponent;
 import com.recorder.di.module.AuthInfoModule;
 import com.recorder.mvp.contract.AuthInfoContract;
-import com.recorder.mvp.model.api.Api;
 import com.recorder.mvp.model.entity.AppStartBean;
 import com.recorder.mvp.model.entity.AuthGetBean;
 import com.recorder.mvp.model.entity.Bean;
@@ -350,16 +349,16 @@ public class AuthInfoActivity extends BaseActivity<AuthInfoPresenter> implements
     }
 
     @Override
-    public void showSuccess(int type) {
+    public void showSuccess(int type, String string) {
         back.setVisibility(View.INVISIBLE);
         if (dataEntity.getIs_modify_survey()) {
             String url;
             String token = BCache.getInstance().getString(Constants.TOKEN);
             String uid = new Gson().fromJson(BCache.getInstance().getString(Constants.USER_INFO), UserInfoBean.class).getData().getUserID();
             if (type == 3) {
-                url = Api.WEB_DOMAIN + "survey/organ-detail/?token=" + token + "&u=" + uid + "&type=" + authType + "&survey={\"1\":\"A\",\"2\":\"B\"}#/agency";
+                url = string + "/?token=" + token + "&u=" + uid + "&type=" + authType + "&survey={\"1\":\"A\",\"2\":\"B\"}#/agency";
             } else {
-                url = Api.WEB_DOMAIN + "survey/person-detail/?token=" + token + "&u=" + uid + "&type=" + authType + "&survey={\"1\":\"A\",\"2\":\"B\"}#/questionnaire";
+                url = string + "/?token=" + token + "&u=" + uid + "&type=" + authType + "&survey={\"1\":\"A\",\"2\":\"B\"}#/questionnaire";
             }
             ARouter.getInstance().build("/app/WebActivity")
                     .withBoolean(Constants.IS_SHOW_RIGHT, false)

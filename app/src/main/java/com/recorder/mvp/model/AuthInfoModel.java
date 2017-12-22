@@ -10,6 +10,7 @@ import com.orhanobut.logger.Logger;
 import com.recorder.mvp.contract.AuthInfoContract;
 import com.recorder.mvp.model.api.cache.ApiCache;
 import com.recorder.mvp.model.api.service.ApiService;
+import com.recorder.mvp.model.entity.AuthBean;
 import com.recorder.mvp.model.entity.AuthGetBean;
 import com.recorder.mvp.model.entity.ImageUploadBean;
 import com.recorder.utils.CommonUtils;
@@ -51,13 +52,13 @@ public class AuthInfoModel extends BaseModel implements AuthInfoContract.Model {
     }
 
     @Override
-    public Observable<Object> authPerson(int type, String true_name, String id_card, String idcard_imgf, String idcard_imgb, String check, String assets) {
+    public Observable<AuthBean> authPerson(int type, String true_name, String id_card, String idcard_imgf, String idcard_imgb, String check, String assets) {
         Logger.d("upload=> type=> " + type + " true_name=> " + true_name + " id_card=> " + id_card + " idcard_imgf=> " + idcard_imgf + " idcard_imgb=> " + idcard_imgb + " check=> " + check + " assets=> " + assets);
         return mRepositoryManager.obtainRetrofitService(ApiService.class).authPerson("1", type, true_name, id_card, idcard_imgf, idcard_imgb, check, assets);
     }
 
     @Override
-    public Observable<Object> authOrgan(String organ_name, String legal_person, String contact, String license, String check, String assets) {
+    public Observable<AuthBean> authOrgan(String organ_name, String legal_person, String contact, String license, String check, String assets) {
         Logger.d("upload=> 3 organ_name=> " + organ_name + " legal_person=> " + legal_person + " contact=> " + contact + " license=> " + license + " check=> " + check + " assets=> " + assets);
         return mRepositoryManager.obtainRetrofitService(ApiService.class).authOrgan("1", organ_name, legal_person, contact, license, check, assets);
     }

@@ -2,6 +2,7 @@ package com.recorder.mvp.contract;
 
 import com.core.mvp.IModel;
 import com.core.mvp.IView;
+import com.recorder.mvp.model.entity.AuthBean;
 import com.recorder.mvp.model.entity.AuthGetBean;
 import com.recorder.mvp.model.entity.ImageUploadBean;
 
@@ -16,7 +17,7 @@ public interface AuthInfoContract {
 
         void showAuthGet(AuthGetBean.DataEntity data);
 
-        void showSuccess(int type);
+        void showSuccess(int type, String url);
 
         void showFail(String msg);
     }
@@ -26,9 +27,9 @@ public interface AuthInfoContract {
 
         Observable<AuthGetBean> authGet(int tpye);
 
-        Observable<Object> authPerson(int type, String true_name, String id_card, String idcard_imgf, String idcard_imgb, String check, String assets);
+        Observable<AuthBean> authPerson(int type, String true_name, String id_card, String idcard_imgf, String idcard_imgb, String check, String assets);
 
-        Observable<Object> authOrgan(String organ_name, String legal_person, String contact, String license, String check, String assets);
+        Observable<AuthBean> authOrgan(String organ_name, String legal_person, String contact, String license, String check, String assets);
 
         Observable<ImageUploadBean> imageUpload(List<MultipartBody.Part> images);
     }

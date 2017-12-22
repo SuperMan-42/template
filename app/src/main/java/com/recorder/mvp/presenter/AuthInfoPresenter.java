@@ -9,12 +9,10 @@ import com.core.mvp.BasePresenter;
 import com.core.utils.RxLifecycleUtils;
 import com.google.gson.Gson;
 import com.recorder.mvp.contract.AuthInfoContract;
+import com.recorder.mvp.model.entity.AuthBean;
 import com.recorder.mvp.model.entity.AuthGetBean;
 import com.recorder.mvp.model.entity.Bean;
 import com.recorder.mvp.model.entity.ImageUploadBean;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -156,7 +154,7 @@ public class AuthInfoPresenter extends BasePresenter<AuthInfoContract.Model, Aut
     }
 
     private void person(List<String> stringList, List<MultipartBody.Part> imgf, List<MultipartBody.Part> imgb, int type, String true_name, String id_card, Object idcard_imgf, Object idcard_imgb, String check) {
-        Observable<Object> observable;
+        Observable<AuthBean> observable;
         if (idcard_imgf instanceof String && idcard_imgb instanceof String) {
             observable = mModel.authPerson(type, true_name, id_card, (String) idcard_imgf, (String) idcard_imgb, check, stringList == null ? null : new Gson().toJson(stringList));
         } else if (idcard_imgf instanceof String) {
@@ -179,25 +177,20 @@ public class AuthInfoPresenter extends BasePresenter<AuthInfoContract.Model, Aut
                 return data;
             }).flatMap(strings -> mModel.authPerson(type, true_name, id_card, strings.get(0), strings.get(1), check, stringList == null ? null : new Gson().toJson(stringList)));
         }
-        observable.compose(RxLifecycleUtils.transformer(mRootView)).subscribe(new ErrorHandleSubscriber<Object>(mErrorHandler) {
-            public void onNext(Object o) {
-                try {
-                    JSONObject jsonObject = new JSONObject(o.toString());
-                    if (jsonObject.optInt("errno") == 0) {
-                        com.orhanobut.logger.Logger.d("upload=> zip onNext " + new Gson().toJson(o));
-                        mRootView.showSuccess(type);
-                    } else {
-                        mRootView.showFail(jsonObject.optString("error"));
-                    }
-                } catch (JSONException e) {
-                    mRootView.showFail(e.getMessage());
+        observable.compose(RxLifecycleUtils.transformer(mRootView)).subscribe(new ErrorHandleSubscriber<AuthBean>(mErrorHandler) {
+            public void onNext(AuthBean o) {
+                if (o.getErrno() == 0) {
+                    com.orhanobut.logger.Logger.d("upload=> zip onNext " + new Gson().toJson(o));
+                    mRootView.showSuccess(type, o.getData().getSurvey_host());
+                } else {
+                    mRootView.showFail(o.getError());
                 }
             }
         });
     }
 
     private void organ(List<String> stringList, List<MultipartBody.Part> licenseParts, String organ_name, String legal_person, String contact, Object license, String check) {
-        Observable<Object> observable;
+        Observable<AuthBean> observable;
         if (license instanceof File) {
             observable = mModel.imageUpload(licenseParts).flatMap(imageUploadBean -> {
                 com.orhanobut.logger.Logger.d("upload=> add image " + imageUploadBean.getData().getImages().get(0));
@@ -206,18 +199,13 @@ public class AuthInfoPresenter extends BasePresenter<AuthInfoContract.Model, Aut
         } else {
             observable = mModel.authOrgan(organ_name, legal_person, contact, (String) license, check, stringList == null ? null : new Gson().toJson(stringList));
         }
-        observable.compose(RxLifecycleUtils.transformer(mRootView)).subscribe(new ErrorHandleSubscriber<Object>(mErrorHandler) {
-            public void onNext(Object o) {
-                try {
-                    JSONObject jsonObject = new JSONObject(o.toString());
-                    if (jsonObject.optInt("errno") == 0) {
-                        com.orhanobut.logger.Logger.d("upload=> zip onNext " + new Gson().toJson(o));
-                        mRootView.showSuccess(3);
-                    } else {
-                        mRootView.showFail(jsonObject.optString("error"));
-                    }
-                } catch (JSONException e) {
-                    mRootView.showFail(e.getMessage());
+        observable.compose(RxLifecycleUtils.transformer(mRootView)).subscribe(new ErrorHandleSubscriber<AuthBean>(mErrorHandler) {
+            public void onNext(AuthBean o) {
+                if (o.getErrno() == 0) {
+                    com.orhanobut.logger.Logger.d("upload=> zip onNext " + new Gson().toJson(o));
+                    mRootView.showSuccess(3, o.getData().getSurvey_host());
+                } else {
+                    mRootView.showFail(o.getError());
                 }
             }
         });

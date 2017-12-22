@@ -2,6 +2,7 @@ package com.recorder.mvp.contract;
 
 import com.core.mvp.IModel;
 import com.core.mvp.IView;
+import com.recorder.mvp.model.entity.AuthBean;
 import com.recorder.mvp.model.entity.ImageUploadBean;
 
 import java.util.List;
@@ -21,8 +22,8 @@ public interface UploadContract {
 
         Observable<Object> orderProof(String orderID, String proof);
 
-        Observable<Object> authPerson(int type, String true_name, String id_card, String idcard_imgf, String idcard_imgb, String check, String assets);
+        Observable<AuthBean> authPerson(int type, String true_name, String id_card, String idcard_imgf, String idcard_imgb, String check, String assets);
 
-        Observable<Object> authOrgan(String organ_name, String legal_person, String contact, String license, String check, String assets);
+        Observable<AuthBean> authOrgan(String organ_name, String legal_person, String contact, String license, String check, String assets);
     }
 }

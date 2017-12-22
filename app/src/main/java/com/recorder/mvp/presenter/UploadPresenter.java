@@ -71,7 +71,7 @@ public class UploadPresenter extends BasePresenter<UploadContract.Model, UploadC
                 })
                 .compose(RxLifecycleUtils.transformer(mRootView))
                 .doOnComplete(() -> {
-                    Observable<Object> observable = null;
+                    Observable<?> observable = null;
                     if (isOrderProof) {
                         observable = mModel.orderProof(orderID, new Gson().toJson(stringList));
                     } else {

@@ -8,6 +8,7 @@ import com.core.mvp.BaseModel;
 import com.google.gson.Gson;
 import com.recorder.mvp.contract.UploadContract;
 import com.recorder.mvp.model.api.service.ApiService;
+import com.recorder.mvp.model.entity.AuthBean;
 import com.recorder.mvp.model.entity.ImageUploadBean;
 
 import java.util.List;
@@ -47,12 +48,12 @@ public class UploadModel extends BaseModel implements UploadContract.Model {
     }
 
     @Override
-    public Observable<Object> authPerson(int type, String true_name, String id_card, String idcard_imgf, String idcard_imgb, String check, String assets) {
+    public Observable<AuthBean> authPerson(int type, String true_name, String id_card, String idcard_imgf, String idcard_imgb, String check, String assets) {
         return mRepositoryManager.obtainRetrofitService(ApiService.class).authPerson("1", type, true_name, id_card, idcard_imgf, idcard_imgb, check, assets);
     }
 
     @Override
-    public Observable<Object> authOrgan(String organ_name, String legal_person, String contact, String license, String check, String assets) {
+    public Observable<AuthBean> authOrgan(String organ_name, String legal_person, String contact, String license, String check, String assets) {
         return mRepositoryManager.obtainRetrofitService(ApiService.class).authOrgan("1", organ_name, legal_person, contact, license, check, assets);
     }
 }
