@@ -75,9 +75,9 @@ public class SplashPresenter extends BasePresenter<SplashContract.Model, SplashC
                 .subscribe(new ErrorHandleSubscriber<AppStartBean>(mErrorHandler) {
                     @Override
                     public void onNext(AppStartBean appStartBean) {
-                        BCache.getInstance().put(Constants.APPSTART, new Gson().toJson(appStartBean));
                         mRootView.showAppStart(appStartBean.getData());
                         getPermissons();
+                        BCache.getInstance().put(Constants.APPSTART, new Gson().toJson(appStartBean));
                     }
                 });
     }

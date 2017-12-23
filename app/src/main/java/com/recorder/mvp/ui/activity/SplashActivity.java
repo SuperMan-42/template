@@ -3,6 +3,7 @@ package com.recorder.mvp.ui.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.text.TextUtils;
 import android.widget.ImageView;
 
 import com.core.base.BaseActivity;
@@ -91,6 +92,6 @@ public class SplashActivity extends BaseActivity<SplashPresenter> implements Spl
 
     @Override
     public void showAppStart(AppStartBean.DataEntity data) {
-        CoreUtils.imgLoader(this, data.getSp_img(), R.drawable.ic_splash, imSplash);
+        CoreUtils.imgLoader(this, TextUtils.isEmpty(data.getSp_img()) ? R.drawable.ic_splash : data.getSp_img(), R.drawable.ic_splash, imSplash);
     }
 }

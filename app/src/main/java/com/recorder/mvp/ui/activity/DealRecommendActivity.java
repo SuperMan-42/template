@@ -21,6 +21,7 @@ import com.recorder.di.module.DealRecommendModule;
 import com.recorder.mvp.contract.DealRecommendContract;
 import com.recorder.mvp.model.entity.AppStartBean;
 import com.recorder.mvp.presenter.DealRecommendPresenter;
+import com.recorder.utils.CommonUtils;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -71,6 +72,7 @@ public class DealRecommendActivity extends BaseActivity<DealRecommendPresenter> 
         AppStartBean bean = new Gson().fromJson(BCache.getInstance().getString(Constants.APPSTART), AppStartBean.class);
         if (bean != null) {
             tvPhone.setText(bean.getData().getService_tel());
+            tvPhone.setOnClickListener(view -> CommonUtils.call(bean.getData().getService_tel()));
             tvEmail.setText(bean.getData().getEmail());
         }
     }

@@ -11,8 +11,10 @@ import com.core.utils.Constants;
 import com.google.gson.Gson;
 import com.recorder.R;
 import com.recorder.mvp.model.entity.AppStartBean;
+import com.recorder.utils.CommonUtils;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 @Route(path = "/app/ServiceCenterActivity")
 public class ServiceCenterActivity extends BaseActivity {
@@ -21,6 +23,7 @@ public class ServiceCenterActivity extends BaseActivity {
     TextView tvPhone;
     @BindView(R.id.tv_email)
     TextView tvEmail;
+    AppStartBean bean;
 
     @Override
     public void setupActivityComponent(AppComponent appComponent) {
@@ -35,10 +38,15 @@ public class ServiceCenterActivity extends BaseActivity {
     @Override
     public void initView(Bundle savedInstanceState) {
         title("客服中心");
-        AppStartBean bean = new Gson().fromJson(BCache.getInstance().getString(Constants.APPSTART), AppStartBean.class);
+        bean = new Gson().fromJson(BCache.getInstance().getString(Constants.APPSTART), AppStartBean.class);
         if (bean != null) {
             tvPhone.setText(bean.getData().getService_tel());
             tvEmail.setText(bean.getData().getEmail());
         }
+    }
+
+    @OnClick(R.id.ll_phone)
+    public void onViewClicked() {
+        CommonUtils.call(bean.getData().getService_tel());
     }
 }

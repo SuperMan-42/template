@@ -13,7 +13,12 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.text.Html;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.TextPaint;
 import android.text.TextUtils;
+import android.text.method.LinkMovementMethod;
+import android.text.style.ClickableSpan;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -65,10 +70,9 @@ import static com.core.utils.Preconditions.checkNotNull;
 
 @Route(path = "/app/EquityDetailsActivity")
 public class EquityDetailsActivity extends BaseActivity<EquityDetailsPresenter> implements EquityDetailsContract.View {
-    @Autowired(name = Constants.IS_EQUITY)
-    boolean isEquity;
     @Autowired(name = Constants.DEAL_ID)
     String dealId;
+
     DealDetailBean.DataEntity dataEntity;
 
     @BindView(R.id.ll_bottom)
@@ -97,6 +101,8 @@ public class EquityDetailsActivity extends BaseActivity<EquityDetailsPresenter> 
     TextView tvBrief;
     @BindView(R.id.tv_labels)
     TextView tvLabels;
+    @BindView(R.id.fl_progress)
+    LinearLayout flProgress;
     @BindView(R.id.tv_progress)
     TextView tvProgress;
     @BindView(R.id.progress)
@@ -254,9 +260,25 @@ public class EquityDetailsActivity extends BaseActivity<EquityDetailsPresenter> 
                             CoreUtils.imgLoader(this, manager.getAvatar(), R.drawable.ic_contact, contentView.findViewById(R.id.im_avatar));
                             ((TextView) contentView.findViewById(R.id.tv_manager_name)).setText(manager.getManager_name());
                             ((TextView) contentView.findViewById(R.id.tv_position)).setText(manager.getPosition());
-                            ((TextView) contentView.findViewById(R.id.tv_mobile)).setText(manager.getMobile());
-                            ((TextView) contentView.findViewById(R.id.tv_weixin)).setText(manager.getWechat());
-                            ((TextView) contentView.findViewById(R.id.tv_email)).setText(manager.getEmail());
+                            String content = "电话: " + manager.getMobile();
+                            SpannableString spannableString = new SpannableString(content);
+                            spannableString.setSpan(new ClickableSpan() {
+                                @Override
+                                public void updateDrawState(TextPaint ds) {
+                                    super.updateDrawState(ds);
+                                    ds.setColor(Color.parseColor("#303BD3"));
+                                }
+
+                                @Override
+                                public void onClick(View view) {
+                                    CommonUtils.call(manager.getMobile());
+                                }
+                            }, content.indexOf(": ") + 2, content.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                            TextView textView = contentView.findViewById(R.id.tv_mobile);
+                            textView.setMovementMethod(LinkMovementMethod.getInstance());
+                            textView.setText(spannableString);
+                            ((TextView) contentView.findViewById(R.id.tv_weixin)).setText("微信: " + manager.getWechat());
+                            ((TextView) contentView.findViewById(R.id.tv_email)).setText("邮箱: " + manager.getEmail());
                             contentView.findViewById(R.id.view).setOnClickListener(view -> CustomPopupWindow.killMySelf());
                         }).build().show(this);
                 break;
@@ -360,6 +382,7 @@ public class EquityDetailsActivity extends BaseActivity<EquityDetailsPresenter> 
         tvBrief.setText(dataEntity.getBrief());//头部简介
         tvLabels.setText(dataEntity.getLabels());//标签
         //进度条相关
+        flProgress.setVisibility(dataEntity.getType().equals("1") ? View.VISIBLE : View.GONE);
         tvProgress.setText(dataEntity.getProgress() + "%");
         if (dataEntity.getProgress() == 0) {
 //            progress.reset();
@@ -374,7 +397,7 @@ public class EquityDetailsActivity extends BaseActivity<EquityDetailsPresenter> 
             tagShakes.setText("项目数");
             tvShakes.setText(dataEntity.getNumber());
         } else {
-            if (isEquity) {//众筹非组合
+            if (dataEntity.getType().equals("1")) {//众筹非组合
                 tvLimitPrice.setText(dataEntity.getLimit_price() + "万");
                 tvShakes.setText(dataEntity.getShakes() + "%");
             } else {//私募

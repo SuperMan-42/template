@@ -116,8 +116,7 @@ public class CashierActivity extends BaseActivity<CashierPresenter> implements C
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.toolbar_left:
-                ARouter.getInstance().build("/app/EquityDetailsActivity").withString(Constants.DEAL_ID, dealID)
-                        .withBoolean(Constants.IS_EQUITY, true).navigation();
+                ARouter.getInstance().build("/app/EquityDetailsActivity").withString(Constants.DEAL_ID, dealID).navigation();
                 break;
             case R.id.rl_onLine:
                 mPresenter.payPay(dealID, amount, "2");
@@ -127,8 +126,7 @@ public class CashierActivity extends BaseActivity<CashierPresenter> implements C
                 break;
             case R.id.tv_go_authentication:
                 if (isSuccess) {
-                    ARouter.getInstance().build("/app/EquityDetailsActivity").withString(Constants.DEAL_ID, dealID)
-                            .withBoolean(Constants.IS_EQUITY, true).navigation();//TODO 怎么区分is_equity
+                    ARouter.getInstance().build("/app/EquityDetailsActivity").withString(Constants.DEAL_ID, dealID).navigation();
                 } else {
                     mPresenter.payPay(dealID, amount, "2");
                 }
@@ -178,7 +176,6 @@ public class CashierActivity extends BaseActivity<CashierPresenter> implements C
 
     @Override
     public void onBackPressed() {
-        ARouter.getInstance().build("/app/EquityDetailsActivity").withString(Constants.DEAL_ID, dealID)
-                .withBoolean(Constants.IS_EQUITY, true).navigation();
+        ARouter.getInstance().build("/app/EquityDetailsActivity").withString(Constants.DEAL_ID, dealID).navigation();
     }
 }

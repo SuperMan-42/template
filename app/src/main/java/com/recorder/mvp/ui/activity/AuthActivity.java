@@ -141,6 +141,7 @@ public class AuthActivity extends BaseActivity<AuthPresenter> implements AuthCon
             imAuth.setImageResource(R.drawable.im_auth);
             imAuth.setVisibility(View.VISIBLE);
         } else {
+            imAuth.setImageResource(R.drawable.auth_cn_status_1);
             imAuth.setVisibility(data.getZc_auth().getIs_auditing() ? View.VISIBLE : View.GONE);
         }
         tagLeft.setImageResource(data.getZc_auth().getStatus() == 4 ? R.drawable.auth_zc_1 : R.drawable.auth_zc_0);
@@ -161,6 +162,7 @@ public class AuthActivity extends BaseActivity<AuthPresenter> implements AuthCon
             imAuth2.setImageResource(R.drawable.im_auth);
             imAuth2.setVisibility(View.VISIBLE);
         } else {
+            imAuth2.setImageResource(R.drawable.auth_cn_status_1);
             imAuth2.setVisibility(data.getConformity_auth().getIs_auditing() ? View.VISIBLE : View.GONE);
         }
         tagLeft2.setImageResource(data.getConformity_auth().getStatus() == 4 ? R.drawable.auth_conformity_1 : R.drawable.auth_conformity_0);
@@ -181,6 +183,7 @@ public class AuthActivity extends BaseActivity<AuthPresenter> implements AuthCon
             imAuth3.setImageResource(R.drawable.im_auth);
             imAuth3.setVisibility(View.VISIBLE);
         } else {
+            imAuth3.setImageResource(R.drawable.auth_cn_status_1);
             imAuth3.setVisibility(data.getOrgan_auth().getIs_auditing() ? View.VISIBLE : View.GONE);
         }
         tagLeft3.setImageResource(data.getOrgan_auth().getStatus() == 4 ? R.drawable.auth_organ_1 : R.drawable.auth_organ_0);

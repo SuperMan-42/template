@@ -149,7 +149,7 @@ public class BuyActivity extends BaseActivity<BuyPresenter> implements BuyContra
                 @Override
                 public void updateDrawState(TextPaint ds) {
                     super.updateDrawState(ds);
-                    ds.setColor(Color.parseColor("#3782E9"));
+                    ds.setColor(Color.parseColor("#303BD3"));
                     ds.setUnderlineText(true);
                     ds.setFakeBoldText(true);
                 }

@@ -79,7 +79,7 @@ public class MyAttentionActivity extends BaseActivity<MyAttentionPresenter> impl
                     holder.setVisible(R.id.ll_view_footer, false);
                 }
                 holder.itemView.setOnClickListener(view1 -> ARouter.getInstance().build("/app/EquityDetailsActivity")
-                        .withBoolean(Constants.IS_EQUITY, true).withString(Constants.DEAL_ID, item.getDealID()).navigation());//TODO 少一个字段
+                       .withString(Constants.DEAL_ID, item.getDealID()).navigation());//TODO 少一个字段
             }
         }).openRefresh(page -> mPresenter.userFollowlist("1", Constants.PAGE_SIZE))
                 .openLoadMore(Constants.PAGE_SIZE_INT, page -> mPresenter.userFollowlist(String.valueOf(page), Constants.PAGE_SIZE)).reStart();

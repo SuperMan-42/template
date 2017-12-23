@@ -221,7 +221,7 @@ public class PayDetailsActivity extends BaseActivity<PayDetailsPresenter> implem
         switch (view.getId()) {
             case R.id.ll_deal_name:
                 ARouter.getInstance().build("/app/EquityDetailsActivity")
-                        .withBoolean(Constants.IS_EQUITY, true).withString(Constants.DEAL_ID, listEntity.getDealID()).navigation();
+                        .withString(Constants.DEAL_ID, listEntity.getDealID()).navigation();
                 break;
             case R.id.tv_go_home:
                 killMyself();
@@ -258,8 +258,7 @@ public class PayDetailsActivity extends BaseActivity<PayDetailsPresenter> implem
         flDialog.startAnimation(AnimationUtils.loadAnimation(this, R.anim.fade_in));
         tvGoAuthentication.setOnClickListener(view -> {
             if (isSuccess) {
-                ARouter.getInstance().build("/app/EquityDetailsActivity").withString(Constants.DEAL_ID, item.getDealID())
-                        .withBoolean(Constants.IS_EQUITY, true).navigation();
+                ARouter.getInstance().build("/app/EquityDetailsActivity").withString(Constants.DEAL_ID, item.getDealID()).navigation();
             } else {
                 mPresenter.orderPay(item.getOrderID(), item, "2");
             }

@@ -125,7 +125,7 @@ public class WebActivity extends BaseActivity {
     }
 
     private ChromeClientCallbackManager.ReceivedTitleCallback mCallback = (view, title) -> {
-        if (findViewById(R.id.toolbar_title) != null)
+        if (findViewById(R.id.toolbar_title) != null && getUrl().startsWith("http"))
             title(title);
     };
 

@@ -198,8 +198,7 @@ public class MyInvestmentActivity extends BaseActivity<MyInvestmentPresenter> im
         flDialog.startAnimation(AnimationUtils.loadAnimation(this, R.anim.fade_in));
         tvGoAuthentication.setOnClickListener(view -> {
             if (isSuccess) {
-                ARouter.getInstance().build("/app/EquityDetailsActivity").withString(Constants.DEAL_ID, item.getDealID())
-                        .withBoolean(Constants.IS_EQUITY, true).navigation();
+                ARouter.getInstance().build("/app/EquityDetailsActivity").withString(Constants.DEAL_ID, item.getDealID()).navigation();
             } else {
                 mPresenter.orderPay(item.getOrderID(), item, "2");
             }

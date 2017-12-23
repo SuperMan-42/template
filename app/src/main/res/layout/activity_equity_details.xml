@@ -103,7 +103,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="right"
-                    android:textColor="#4D57B6"
+                    android:textColor="#645936"
                     android:textSize="39px"
                     tools:text="60%" />
 

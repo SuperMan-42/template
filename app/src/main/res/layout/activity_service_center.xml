@@ -10,6 +10,7 @@
     <include layout="@layout/view_toolbar" />
 
     <RelativeLayout
+        android:id="@+id/ll_phone"
         android:layout_width="match_parent"
         android:layout_height="132px"
         android:layout_marginTop="40px"
@@ -67,10 +68,10 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:drawablePadding="39px"
-            android:drawableRight="@drawable/ic_person_right"
             android:text="dfc@dreamflyc.com"
             android:textColor="#999999"
             android:textSize="42px" />
+        <!--android:layout_marginRight="59px"-->
 
     </RelativeLayout>
 </LinearLayout>

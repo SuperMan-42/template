@@ -3,7 +3,9 @@ package com.recorder.utils;
 import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -67,6 +69,8 @@ import io.reactivex.ObservableTransformer;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
+
+import static com.core.utils.CoreUtils.startActivity;
 
 /**
  * Created by hpw on 17-11-23.
@@ -380,7 +384,8 @@ public class CommonUtils {
     public static void share(Activity activity, String url, String title, String content, String img) {
         ShareBoardConfig config = new ShareBoardConfig();
         config.setIndicatorVisibility(false);
-        config.setCancelButtonVisibility(true);
+        config.setCancelButtonVisibility(false);
+        config.setTitleVisibility(false);
         config.setShareboardBackgroundColor(Color.parseColor("#F9F9F9"));
         UMWeb web = new UMWeb(url);
         web.setTitle(title);
@@ -496,5 +501,11 @@ public class CommonUtils {
         } else {
             return content;
         }
+    }
+
+    public static void call(String phone) {
+        Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + phone));
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
     }
 }
