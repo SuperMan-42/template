@@ -10,7 +10,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.text.Html;
 import android.text.SpannableString;
@@ -384,10 +383,10 @@ public class EquityDetailsActivity extends BaseActivity<EquityDetailsPresenter> 
         //进度条相关
         flProgress.setVisibility(dataEntity.getType().equals("1") ? View.VISIBLE : View.GONE);
         tvProgress.setText(dataEntity.getProgress() + "%");
-        if (dataEntity.getProgress() == 0) {
+        if (Float.parseFloat(dataEntity.getProgress()) == 0) {
 //            progress.reset();
         } else {
-            progress.setProgress(dataEntity.getProgress());
+            progress.setProgress(Float.parseFloat(dataEntity.getProgress()));
         }
         tvRound.setText(dataEntity.getRound());//轮次
         tvTargetFund.setText(dataEntity.getTarget_fund() + "万");
@@ -487,14 +486,7 @@ public class EquityDetailsActivity extends BaseActivity<EquityDetailsPresenter> 
             if (dataEntity.getPublic_files() == null || dataEntity.getPublic_files().size() == 0) {
                 llIsShowPublicFiles.setVisibility(View.GONE);
             }
-            LinearLayoutManager gridMganager = new GridLayoutManager(this, 3) {
-                @Override
-                public boolean canScrollVertically() {
-                    return false;
-                }
-            };
-            gridMganager.setAutoMeasureEnabled(true);
-            rvPublicFiles.init(gridMganager, new BaseQuickAdapter<DealDetailBean.DataEntity.PublicFilesEntity, BaseViewHolder>(R.layout.item_detail_publicfiles, dataEntity.getPublic_files()) {
+            rvPublicFiles.init(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false), new BaseQuickAdapter<DealDetailBean.DataEntity.PublicFilesEntity, BaseViewHolder>(R.layout.item_detail_publicfiles, dataEntity.getPublic_files()) {
                 @Override
                 protected void convert(BaseViewHolder holder, DealDetailBean.DataEntity.PublicFilesEntity item) {
                     holder.setText(R.id.tv_file_name, item.getFile_name());

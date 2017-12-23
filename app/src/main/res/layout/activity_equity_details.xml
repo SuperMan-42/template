@@ -655,9 +655,7 @@
                         android:id="@+id/rv_public_files"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@color/white"
-                        android:paddingLeft="36px"
-                        android:paddingRight="36px" />
+                        android:background="@color/white" />
                 </LinearLayout>
 
                 <FrameLayout
