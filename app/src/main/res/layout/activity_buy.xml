@@ -65,7 +65,6 @@
                         android:text="￥"
                         android:textColor="#333333"
                         android:textSize="66px"
-                        android:textStyle="bold"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <EditText
@@ -76,12 +75,13 @@
                         android:background="@null"
                         android:gravity="center|start"
                         android:inputType="number"
-                        android:maxLength="2"
+                        android:maxLength="6"
                         android:maxLines="1"
                         android:maxWidth="750px"
-                        android:minWidth="180px"
+                        android:minWidth="195px"
                         android:singleLine="true"
                         android:textColor="#333333"
+                        android:textCursorDrawable="@drawable/color_cursor"
                         android:textSize="165px"
                         app:layout_constraintLeft_toRightOf="@id/tv_1"
                         tools:text="--" />
@@ -91,11 +91,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="48px"
-                        android:layout_marginLeft="30px"
+                        android:layout_marginLeft="20px"
                         android:text="万元"
                         android:textColor="#333333"
                         android:textSize="42px"
-                        android:textStyle="bold"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintLeft_toRightOf="@id/et_1" />
                 </com.core.widget.autolayout.AutoConstraintLayout>
@@ -145,8 +144,7 @@
                         android:layout_height="wrap_content"
                         android:text="22%"
                         android:textColor="#262626"
-                        android:textSize="42px"
-                        android:textStyle="bold" />
+                        android:textSize="42px" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -170,8 +168,7 @@
                         android:layout_height="wrap_content"
                         android:text="33%"
                         android:textColor="#262626"
-                        android:textSize="42px"
-                        android:textStyle="bold" />
+                        android:textSize="42px" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -195,8 +192,7 @@
                         android:layout_height="wrap_content"
                         android:text="33%"
                         android:textColor="#262626"
-                        android:textSize="42px"
-                        android:textStyle="bold" />
+                        android:textSize="42px" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -220,8 +216,7 @@
                         android:layout_height="wrap_content"
                         android:text="33%"
                         android:textColor="#262626"
-                        android:textSize="42px"
-                        android:textStyle="bold" />
+                        android:textSize="42px" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -245,8 +240,7 @@
                         android:layout_height="wrap_content"
                         android:text="33%"
                         android:textColor="#262626"
-                        android:textSize="42px"
-                        android:textStyle="bold" />
+                        android:textSize="42px" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -270,8 +264,7 @@
                         android:layout_height="wrap_content"
                         android:text="33%"
                         android:textColor="#262626"
-                        android:textSize="42px"
-                        android:textStyle="bold" />
+                        android:textSize="42px" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -311,7 +304,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="支付金额: "
+                        android:text="支付总额: "
                         android:textColor="#878787"
                         android:textSize="42px" />
 
@@ -321,8 +314,7 @@
                         android:layout_height="wrap_content"
                         android:text="18%"
                         android:textColor="@color/alivc_red"
-                        android:textSize="42px"
-                        android:textStyle="bold" />
+                        android:textSize="45px" />
                 </LinearLayout>
 
             </LinearLayout>

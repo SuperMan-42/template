@@ -438,3 +438,9 @@
 #pdf
 -keep class com.github.barteksc.pdfviewer.** {*;}
 -keep class com.shockwave.pdfium.** {*;}
+
+#视频播放
+-keep class com.alivc.player.**{*;}
+-keep class com.aliyun.clientinforeport.**{*;}
+-keep class com.aliyun.vodplayer.**{*;}
+-keep class com.aliyun.vodplayerview.**{*;}

@@ -174,8 +174,8 @@ public class CashierActivity extends BaseActivity<CashierPresenter> implements C
         killMyself();
     }
 
-    @Override
-    public void onBackPressed() {
-        ARouter.getInstance().build("/app/EquityDetailsActivity").withString(Constants.DEAL_ID, dealID).navigation();
-    }
+//    @Override
+//    public void onBackPressed() {
+//        ARouter.getInstance().build("/app/EquityDetailsActivity").withString(Constants.DEAL_ID, dealID).navigation();
+//    }
 }

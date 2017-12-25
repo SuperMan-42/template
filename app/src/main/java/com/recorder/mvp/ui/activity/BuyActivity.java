@@ -120,16 +120,17 @@ public class BuyActivity extends BaseActivity<BuyPresenter> implements BuyContra
         ARouter.getInstance().inject(this);
         dataEntity = new Gson().fromJson(payCheck, PayCheckBean.class).getData();
         title("我要认购");
+        tvLimitPrice.setTextColor(Color.RED);
         tvDealName.setText(dataEntity.getDeal_name());
         tvLimitPrice.setText("起投金额" + dataEntity.getLimit_price() + "万元");
-        float manage = setContent(dataEntity.getManager_fee(), dataEntity.getManager_fee_year(), llManagerFee, tvManagerFee);
-        float consult = setContent(dataEntity.getConsult_fee(), dataEntity.getConsult_fee_year(), llConsultFee, tvConsultFee);
-        float subscription = setContent(dataEntity.getSubscription_fee(), dataEntity.getSubscription_fee_year(), llSubscriptionFee, tvSubscriptionFee);
-        float partner = setContent(dataEntity.getPartner_fee(), dataEntity.getPartner_fee_year(), llPartnerFee, tvPartnerFee);
-        float plat_manage = setContent(dataEntity.getPlat_manage_fee(), dataEntity.getPlat_manage_fee_year(), llPlatManageFee, tvPlatManageFee);
-        float other = setContent(dataEntity.getOther_fee(), dataEntity.getOther_fee_year(), llOtherFee, tvOtherFee);
-        float custom = setContent(dataEntity.getCustom_fee(), dataEntity.getCustom_fee_year(), llCustomFee, tvCustomFee);
-        int fee = (int) ((TextUtils.isEmpty(et1.getText().toString()) ? 0 : Integer.parseInt(et1.getText().toString()) * 10000) * (1 + manage + consult + subscription + partner + plat_manage + other + custom));
+        BigDecimal manage = setContent(dataEntity.getManager_fee(), dataEntity.getManager_fee_year(), llManagerFee, tvManagerFee);
+        BigDecimal consult = setContent(dataEntity.getConsult_fee(), dataEntity.getConsult_fee_year(), llConsultFee, tvConsultFee);
+        BigDecimal subscription = setContent(dataEntity.getSubscription_fee(), dataEntity.getSubscription_fee_year(), llSubscriptionFee, tvSubscriptionFee);
+        BigDecimal partner = setContent(dataEntity.getPartner_fee(), dataEntity.getPartner_fee_year(), llPartnerFee, tvPartnerFee);
+        BigDecimal plat_manage = setContent(dataEntity.getPlat_manage_fee(), dataEntity.getPlat_manage_fee_year(), llPlatManageFee, tvPlatManageFee);
+        BigDecimal other = setContent(dataEntity.getOther_fee(), dataEntity.getOther_fee_year(), llOtherFee, tvOtherFee);
+        BigDecimal custom = setContent(dataEntity.getCustom_fee(), dataEntity.getCustom_fee_year(), llCustomFee, tvCustomFee);
+        BigDecimal fee = (TextUtils.isEmpty(et1.getText().toString()) ? BigDecimal.ZERO : new BigDecimal(et1.getText().toString()).movePointRight(4).multiply(BigDecimal.ONE.add(manage).add(consult).add(subscription).add(partner).add(plat_manage).add(other).add(custom)));
         tvAmount.setText(fee + "元");
         LinearLayoutManager manager = new LinearLayoutManager(this) {
             @Override
@@ -197,12 +198,12 @@ public class BuyActivity extends BaseActivity<BuyPresenter> implements BuyContra
 
             @Override
             public void afterTextChanged(Editable editable) {
+                Logger.d("buy=> " + et1.getText().toString() + " " + TextUtils.isEmpty(et1.getText().toString()));
                 if (TextUtils.isEmpty(et1.getText().toString()) || Float.parseFloat(et1.getText().toString()) < Float.parseFloat(dataEntity.getLimit_price())) {
-                    et1.setTextColor(Color.RED);
-                    et1.setTextColor(TextUtils.isEmpty(et1.getText().toString()) ? Color.parseColor("#333333") : Color.RED);
+                    tvLimitPrice.setTextColor(Color.RED);
                     tvSubmit.setEnabled(false);
                 } else {
-                    et1.setTextColor(Color.parseColor("#333333"));
+                    tvLimitPrice.setTextColor(Color.parseColor("#333333"));
                     tvSubmit.setEnabled(true);
                     for (Object entity : recyclerview.getAdapter().getData()) {
                         if (!((Bean) entity).getCheck()) {
@@ -210,14 +211,13 @@ public class BuyActivity extends BaseActivity<BuyPresenter> implements BuyContra
                         }
                     }
                 }
-                Logger.d("float=> " + (TextUtils.isEmpty(et1.getText().toString()) ? 0 : Integer.parseInt(et1.getText().toString()) * 10000) + " " + (1 + manage + consult + subscription + partner + plat_manage + other + custom));
-                int fee = (int) ((TextUtils.isEmpty(et1.getText().toString()) ? 0 : Integer.parseInt(et1.getText().toString()) * 10000) * (1 + manage + consult + subscription + partner + plat_manage + other + custom));
+                BigDecimal fee = (TextUtils.isEmpty(et1.getText().toString()) ? BigDecimal.ZERO : new BigDecimal(et1.getText().toString()).movePointRight(4).multiply(BigDecimal.ONE.add(manage).add(consult).add(subscription).add(partner).add(plat_manage).add(other).add(custom)));
                 tvAmount.setText(fee + "元");
             }
         });
     }
 
-    private float setContent(int value, int year, LinearLayout ll, TextView tv) {
+    private BigDecimal setContent(int value, int year, LinearLayout ll, TextView tv) {
         if (value <= 0) {
             ll.setVisibility(View.GONE);
         } else {
@@ -227,7 +227,7 @@ public class BuyActivity extends BaseActivity<BuyPresenter> implements BuyContra
                 tvCustomFeeName.setText(dataEntity.getCustom_fee_name() + ": ");
             }
         }
-        return value * year / Float.parseFloat("100");
+        return BigDecimal.valueOf(value).multiply(BigDecimal.valueOf(year)).movePointLeft(2);
     }
 
     private void setContent(String value, LinearLayout ll, TextView tv) {
@@ -278,8 +278,8 @@ public class BuyActivity extends BaseActivity<BuyPresenter> implements BuyContra
                         .withString(Constants.DEAL_ID, dataEntity.getDealID())
                         .withString("deal_name", dataEntity.getDeal_name())
                         .withString("amount", bigDecimal.multiply(new BigDecimal(10000)).toString()).navigation();
-                killMyself();
-                overridePendingTransition(R.anim.slide_in_right, R.anim.empty);
+//                killMyself();
+//                overridePendingTransition(R.anim.slide_in_right, R.anim.empty);
                 break;
         }
     }
