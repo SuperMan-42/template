@@ -162,6 +162,7 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter> implements
     public void showRegisterSuccess(ImageLoader imageLoader, LoginBean loginBean) {
         title("提交成功");
         flDialog.setVisibility(View.VISIBLE);
+        EventBus.getDefault().post(loginBean, Constants.RETRY_MY);
         flDialog.startAnimation(AnimationUtils.loadAnimation(this, R.anim.fade_in));
     }
 

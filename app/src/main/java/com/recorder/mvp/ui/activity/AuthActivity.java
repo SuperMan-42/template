@@ -85,13 +85,7 @@ public class AuthActivity extends BaseActivity<AuthPresenter> implements AuthCon
 
     @Override
     public void initView(Bundle savedInstanceState) {
-        title("投资人认证");
-        bean = new Gson().fromJson(BCache.getInstance().getString(Constants.APPSTART), AppStartBean.class);
-        tvAuthAlert.setText(getString(R.string.text_auth_alert, bean.getData().getService_tel()));
-        mPresenter.userAuthInfo();
-        setContent(tvContent, bean.getData().getUser_auth_prompt().getZc_auth());
-        setContent(tvContent2, bean.getData().getUser_auth_prompt().getConformity_auth());
-        setContent(tvContent3, bean.getData().getUser_auth_prompt().getOrgan_auth());
+
     }
 
     private void setContent(TextView tv, String content) {
@@ -132,9 +126,16 @@ public class AuthActivity extends BaseActivity<AuthPresenter> implements AuthCon
         finish();
     }
 
-    @Subscriber(tag = Constants.AUTH_TYPE)
-    private void upload(Object object) {
+    @Override
+    protected void onResume() {
+        super.onResume();
+        title("投资人认证");
         mPresenter.userAuthInfo();
+        bean = new Gson().fromJson(BCache.getInstance().getString(Constants.APPSTART), AppStartBean.class);
+        tvAuthAlert.setText(getString(R.string.text_auth_alert, bean.getData().getService_tel()));
+        setContent(tvContent, bean.getData().getUser_auth_prompt().getZc_auth());
+        setContent(tvContent2, bean.getData().getUser_auth_prompt().getConformity_auth());
+        setContent(tvContent3, bean.getData().getUser_auth_prompt().getOrgan_auth());
     }
 
     @Override
