@@ -15,6 +15,7 @@ import com.core.utils.CoreUtils;
 import com.core.widget.recyclerview.BaseQuickAdapter;
 import com.core.widget.recyclerview.BaseViewHolder;
 import com.core.widget.recyclerview.CoreRecyclerView;
+import com.cunoraz.gifview.library.GifView;
 import com.recorder.R;
 import com.recorder.di.component.DaggerMyAttentionComponent;
 import com.recorder.di.module.MyAttentionModule;
@@ -23,7 +24,6 @@ import com.recorder.mvp.model.entity.LoginBean;
 import com.recorder.mvp.model.entity.UserFollowListBean;
 import com.recorder.mvp.presenter.MyAttentionPresenter;
 import com.recorder.utils.CommonUtils;
-import com.wang.avi.AVLoadingIndicatorView;
 
 import org.simple.eventbus.Subscriber;
 
@@ -36,7 +36,7 @@ public class MyAttentionActivity extends BaseActivity<MyAttentionPresenter> impl
     @BindView(R.id.recyclerview)
     CoreRecyclerView recyclerView;
     @BindView(R.id.avi)
-    AVLoadingIndicatorView avi;
+    GifView avi;
 
     @Override
     public void setupActivityComponent(AppComponent appComponent) {

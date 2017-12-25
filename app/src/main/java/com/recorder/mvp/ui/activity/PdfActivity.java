@@ -13,6 +13,7 @@ import com.core.base.BaseActivity;
 import com.core.di.component.AppComponent;
 import com.core.utils.Constants;
 import com.core.utils.CoreUtils;
+import com.cunoraz.gifview.library.GifView;
 import com.github.barteksc.pdfviewer.PDFView;
 import com.github.barteksc.pdfviewer.link.LinkHandler;
 import com.github.barteksc.pdfviewer.listener.OnDrawListener;
@@ -31,7 +32,6 @@ import com.recorder.di.module.PdfModule;
 import com.recorder.mvp.contract.PdfContract;
 import com.recorder.mvp.presenter.PdfPresenter;
 import com.recorder.utils.CommonUtils;
-import com.wang.avi.AVLoadingIndicatorView;
 
 import java.io.File;
 
@@ -50,7 +50,7 @@ public class PdfActivity extends BaseActivity<PdfPresenter> implements PdfContra
     @BindView(R.id.pdfView)
     PDFView pdfView;
     @BindView(R.id.avi)
-    AVLoadingIndicatorView avi;
+    GifView avi;
 
     @Override
     public void setupActivityComponent(AppComponent appComponent) {

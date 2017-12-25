@@ -17,6 +17,7 @@ import com.core.widget.recyclerview.BaseQuickAdapter;
 import com.core.widget.recyclerview.BaseViewHolder;
 import com.core.widget.recyclerview.CoreRecyclerView;
 import com.core.widget.recyclerview.SpacesItemDecoration;
+import com.cunoraz.gifview.library.GifView;
 import com.recorder.R;
 import com.recorder.di.component.DaggerDynamicComponent;
 import com.recorder.di.module.DynamicModule;
@@ -24,7 +25,6 @@ import com.recorder.mvp.contract.DynamicContract;
 import com.recorder.mvp.model.entity.NewsListBean;
 import com.recorder.mvp.presenter.DynamicPresenter;
 import com.recorder.utils.CommonUtils;
-import com.wang.avi.AVLoadingIndicatorView;
 
 import butterknife.BindView;
 
@@ -35,7 +35,7 @@ public class DynamicFragment extends BaseFragment<DynamicPresenter> implements D
     @BindView(R.id.recyclerview)
     CoreRecyclerView recyclerView;
     @BindView(R.id.avi)
-    AVLoadingIndicatorView avi;
+    GifView avi;
 
     public static DynamicFragment newInstance() {
         DynamicFragment fragment = new DynamicFragment();

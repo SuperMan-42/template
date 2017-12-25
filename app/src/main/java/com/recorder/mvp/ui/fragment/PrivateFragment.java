@@ -19,6 +19,7 @@ import com.core.utils.CoreUtils;
 import com.core.widget.recyclerview.BaseQuickAdapter;
 import com.core.widget.recyclerview.BaseViewHolder;
 import com.core.widget.recyclerview.CoreRecyclerView;
+import com.cunoraz.gifview.library.GifView;
 import com.recorder.R;
 import com.recorder.di.component.DaggerPrivateComponent;
 import com.recorder.di.module.PrivateModule;
@@ -27,7 +28,6 @@ import com.recorder.mvp.model.entity.EquityBean;
 import com.recorder.mvp.model.entity.LoginBean;
 import com.recorder.mvp.presenter.PrivatePresenter;
 import com.recorder.utils.CommonUtils;
-import com.wang.avi.AVLoadingIndicatorView;
 
 import org.simple.eventbus.Subscriber;
 
@@ -42,7 +42,7 @@ public class PrivateFragment extends BaseFragment<PrivatePresenter> implements P
     @BindView(R.id.tv_tag)
     TextView tvTag;
     @BindView(R.id.avi)
-    AVLoadingIndicatorView avi;
+    GifView avi;
 
     public static PrivateFragment newInstance() {
         PrivateFragment fragment = new PrivateFragment();

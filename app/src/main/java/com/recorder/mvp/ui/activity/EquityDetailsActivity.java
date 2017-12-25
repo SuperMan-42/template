@@ -34,6 +34,7 @@ import com.core.widget.autolayout.AutoToolbar;
 import com.core.widget.recyclerview.BaseQuickAdapter;
 import com.core.widget.recyclerview.BaseViewHolder;
 import com.core.widget.recyclerview.CoreRecyclerView;
+import com.cunoraz.gifview.library.GifView;
 import com.jaeger.library.StatusBarUtil;
 import com.recorder.R;
 import com.recorder.di.component.DaggerEquityDetailsComponent;
@@ -47,7 +48,6 @@ import com.recorder.utils.CommonUtils;
 import com.recorder.utils.DateUtil;
 import com.recorder.widget.AutoHeightViewPager;
 import com.recorder.widget.AutoProgressBar;
-import com.wang.avi.AVLoadingIndicatorView;
 
 import org.simple.eventbus.Subscriber;
 
@@ -181,7 +181,7 @@ public class EquityDetailsActivity extends BaseActivity<EquityDetailsPresenter> 
     ImageView imVideo;
     private float alpha = 0;
     @BindView(R.id.avi)
-    AVLoadingIndicatorView avi;
+    GifView avi;
 
     @Override
     protected void onPause() {

@@ -19,6 +19,7 @@ import com.core.utils.CoreUtils;
 import com.core.widget.recyclerview.BaseQuickAdapter;
 import com.core.widget.recyclerview.BaseViewHolder;
 import com.core.widget.recyclerview.CoreRecyclerView;
+import com.cunoraz.gifview.library.GifView;
 import com.recorder.R;
 import com.recorder.di.component.DaggerHomeComponent;
 import com.recorder.di.module.HomeModule;
@@ -29,7 +30,6 @@ import com.recorder.mvp.model.entity.HomeRecommendBean;
 import com.recorder.mvp.presenter.HomePresenter;
 import com.recorder.utils.CommonUtils;
 import com.recorder.widget.AutoProgressBar;
-import com.wang.avi.AVLoadingIndicatorView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,7 +47,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
     @BindView(R.id.recyclerview)
     CoreRecyclerView recyclerView;
     @BindView(R.id.avi)
-    AVLoadingIndicatorView avi;
+    GifView avi;
 
     private BGABanner banner;
 

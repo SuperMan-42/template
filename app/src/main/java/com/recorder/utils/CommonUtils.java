@@ -1,5 +1,6 @@
 package com.recorder.utils;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
@@ -25,6 +26,7 @@ import com.arjinmc.recyclerviewdecoration.RecyclerViewSpaceItemDecoration;
 import com.core.utils.Constants;
 import com.core.utils.CoreUtils;
 import com.core.utils.RxLifecycleUtils;
+import com.cunoraz.gifview.library.GifView;
 import com.jaeger.library.StatusBarUtil;
 import com.liulishuo.filedownloader.BaseDownloadTask;
 import com.liulishuo.filedownloader.FileDownloadSampleListener;
@@ -51,7 +53,6 @@ import com.umeng.socialize.media.UMImage;
 import com.umeng.socialize.media.UMWeb;
 import com.umeng.socialize.shareboard.ShareBoardConfig;
 import com.vector.update_app.HttpManager;
-import com.wang.avi.AVLoadingIndicatorView;
 
 import java.io.File;
 import java.lang.reflect.Field;
@@ -459,16 +460,23 @@ public class CommonUtils {
                 .forResult(resultCode);
     }
 
-    public static void show(AVLoadingIndicatorView avi) {
+    @SuppressLint("WrongConstant")
+    public static void show(GifView avi) {
         if (avi != null) {
-            avi.show();
-            Observable.timer(10, TimeUnit.SECONDS).compose(RxLifecycleUtils.transformer()).subscribe(aLong -> avi.hide());
+            avi.play();
+            if (avi.getVisibility() == 4)
+                avi.setVisibility(View.VISIBLE);
+            Observable.timer(10, TimeUnit.SECONDS).compose(RxLifecycleUtils.transformer()).subscribe(aLong -> avi.pause());
         }
     }
 
-    public static void hide(AVLoadingIndicatorView avi) {
-        if (avi != null)
-            avi.hide();
+    @SuppressLint("WrongConstant")
+    public static void hide(GifView avi) {
+        if (avi != null && !avi.isPaused()) {
+            avi.pause();
+            if (avi.getVisibility() == 0)
+                avi.setVisibility(View.GONE);
+        }
     }
 
     public static boolean isEvict(Application mApplication) {

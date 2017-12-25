@@ -19,6 +19,7 @@ import com.core.utils.CoreUtils;
 import com.core.widget.recyclerview.BaseQuickAdapter;
 import com.core.widget.recyclerview.BaseViewHolder;
 import com.core.widget.recyclerview.CoreRecyclerView;
+import com.cunoraz.gifview.library.GifView;
 import com.recorder.R;
 import com.recorder.di.component.DaggerEquityComponent;
 import com.recorder.di.module.EquityModule;
@@ -27,7 +28,6 @@ import com.recorder.mvp.model.entity.EquityBean;
 import com.recorder.mvp.model.entity.LoginBean;
 import com.recorder.mvp.presenter.EquityPresenter;
 import com.recorder.utils.CommonUtils;
-import com.wang.avi.AVLoadingIndicatorView;
 
 import org.simple.eventbus.Subscriber;
 
@@ -42,7 +42,7 @@ public class EquityFragment extends BaseFragment<EquityPresenter> implements Equ
     @BindView(R.id.tv_tag)
     TextView tvTag;
     @BindView(R.id.avi)
-    AVLoadingIndicatorView avi;
+    GifView avi;
 
     public static EquityFragment newInstance() {
         EquityFragment fragment = new EquityFragment();

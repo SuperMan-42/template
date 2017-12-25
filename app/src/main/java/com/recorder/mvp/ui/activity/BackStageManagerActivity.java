@@ -18,6 +18,7 @@ import com.core.widget.recyclerview.BaseViewHolder;
 import com.core.widget.recyclerview.CoreRecyclerView;
 import com.core.widget.recyclerview.entity.AbstractExpandableItem;
 import com.core.widget.recyclerview.entity.MultiItemEntity;
+import com.cunoraz.gifview.library.GifView;
 import com.recorder.R;
 import com.recorder.di.component.DaggerBackStageManagerComponent;
 import com.recorder.di.module.BackStageManagerModule;
@@ -26,7 +27,6 @@ import com.recorder.mvp.model.entity.LoginBean;
 import com.recorder.mvp.model.entity.OrderPimanageBean;
 import com.recorder.mvp.presenter.BackStageManagerPresenter;
 import com.recorder.utils.CommonUtils;
-import com.wang.avi.AVLoadingIndicatorView;
 
 import org.simple.eventbus.Subscriber;
 
@@ -43,7 +43,7 @@ public class BackStageManagerActivity extends BaseActivity<BackStageManagerPrese
     @BindView(R.id.recyclerview)
     CoreRecyclerView recyclerView;
     @BindView(R.id.avi)
-    AVLoadingIndicatorView avi;
+    GifView avi;
 
     private ArrayList<MultiItemEntity> res = new ArrayList<>();
 

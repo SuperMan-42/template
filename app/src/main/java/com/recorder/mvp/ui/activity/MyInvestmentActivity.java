@@ -25,6 +25,7 @@ import com.core.widget.recyclerview.BaseQuickAdapter;
 import com.core.widget.recyclerview.BaseViewHolder;
 import com.core.widget.recyclerview.CoreRecyclerView;
 import com.core.widget.recyclerview.SpacesItemDecoration;
+import com.cunoraz.gifview.library.GifView;
 import com.google.gson.Gson;
 import com.recorder.R;
 import com.recorder.di.component.DaggerMyInvestmentComponent;
@@ -34,7 +35,6 @@ import com.recorder.mvp.model.entity.LoginBean;
 import com.recorder.mvp.model.entity.OrderListBean;
 import com.recorder.mvp.presenter.MyInvestmentPresenter;
 import com.recorder.utils.CommonUtils;
-import com.wang.avi.AVLoadingIndicatorView;
 
 import org.simple.eventbus.Subscriber;
 
@@ -65,7 +65,7 @@ public class MyInvestmentActivity extends BaseActivity<MyInvestmentPresenter> im
     @BindView(R.id.tv_content)
     TextView tvContent;
     @BindView(R.id.avi)
-    AVLoadingIndicatorView avi;
+    GifView avi;
 
     @Override
     public void setupActivityComponent(AppComponent appComponent) {

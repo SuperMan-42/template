@@ -1,14 +1,13 @@
 package com.core.widget.recyclerview.pullrefreshlayout;
 
 import android.content.Context;
-import android.graphics.drawable.AnimationDrawable;
 import android.util.AttributeSet;
 import android.view.animation.Animation;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.core.R;
+import com.cunoraz.gifview.library.GifView;
 
 /**
  * Created by Aspsine on 2015/11/5.
@@ -17,14 +16,11 @@ public class RefreshHeaderView extends RelativeLayout implements SwipeTrigger, S
 
     private TextView tvRefresh;
 
-    private ImageView ivRefresh;
-
-    private AnimationDrawable mAnimDrawable;
+    private GifView ivRefresh;
 
     private Animation mTwinkleAnim;
 
     private int mTriggerOffset;
-
 
     public RefreshHeaderView(Context context) {
         super(context);
@@ -44,13 +40,12 @@ public class RefreshHeaderView extends RelativeLayout implements SwipeTrigger, S
         super.onFinishInflate();
         ivRefresh = findViewById(R.id.ivRefresh);
         tvRefresh = findViewById(R.id.tvRefresh);
-        mAnimDrawable = (AnimationDrawable) ivRefresh.getBackground();
     }
 
     @Override
     public void onRefresh() {
-        if (!mAnimDrawable.isRunning()) {
-            mAnimDrawable.start();
+        if (!ivRefresh.isPlaying()) {
+            ivRefresh.play();
         }
     }
 
@@ -65,8 +60,8 @@ public class RefreshHeaderView extends RelativeLayout implements SwipeTrigger, S
 
     @Override
     public void onRelease() {
-        if (!mAnimDrawable.isRunning()) {
-            mAnimDrawable.start();
+        if (!ivRefresh.isPlaying()) {
+            ivRefresh.play();
         }
         tvRefresh.setText(getContext().getString(R.string.refresh_down));
     }
@@ -77,7 +72,9 @@ public class RefreshHeaderView extends RelativeLayout implements SwipeTrigger, S
 
     @Override
     public void onReset() {
-        mAnimDrawable.stop();
+        if (!ivRefresh.isPaused()) {
+            ivRefresh.pause();
+        }
         tvRefresh.setText(getContext().getString(R.string.refresh_pull));
     }
 }
