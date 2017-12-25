@@ -106,7 +106,7 @@ public class SettingActivity extends BaseActivity<SettingPresenter> implements S
                             button.setText("清除");
                             button.setOnClickListener(view12 -> {
                                 FileUtils.cleanCustomCache(Constants.SDCARD_PATH);
-                                FileUtils.cleanExternalCache(this);
+//                                FileUtils.cleanExternalCache(this);
                                 FileUtils.cleanInternalDbs(this);
                                 FileUtils.cleanInternalFiles(this);
                                 FileUtils.cleanInternalSP(this);
