@@ -237,7 +237,7 @@ public class PayDetailsActivity extends BaseActivity<PayDetailsPresenter> implem
         if (isSuccess) {
             CoreUtils.imgLoader(this, R.drawable.ic_result_success, imCover);
             tvTitle.setText(CoreUtils.getString(this, R.string.text_buy_success));
-            String content = CoreUtils.getString(this, R.string.text_buy_success_alter) + item.getDeal_name() + ",认购金额:" + msg + "元";
+            String content = CoreUtils.getString(this, R.string.text_buy_success_alter) + item.getDeal_name() + ",支付金额:" + msg + "元";
             SpannableString spannableString = new SpannableString(content);
             spannableString.setSpan(new ForegroundColorSpan(Color.parseColor("#FC3F08")), content.indexOf(msg), content.indexOf("元"), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
             tvContent.setText(spannableString);

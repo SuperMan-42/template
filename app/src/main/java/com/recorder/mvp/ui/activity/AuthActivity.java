@@ -137,7 +137,7 @@ public class AuthActivity extends BaseActivity<AuthPresenter> implements AuthCon
     @Override
     public void showUserAuthInfo(UserAuthInfoBean.DataEntity data) {
         UserAuthInfoBean.DataEntity.ZcAuthEntity zcAuthEntity = data.getZc_auth();
-        if (data.getZc_auth().getCn_status().equals("已认证")) {
+        if (zcAuthEntity.getStatus() == 4 && zcAuthEntity.getFile_status() == 2) {
             imAuth.setImageResource(R.drawable.im_auth);
             imAuth.setVisibility(View.VISIBLE);
         } else {
@@ -158,7 +158,7 @@ public class AuthActivity extends BaseActivity<AuthPresenter> implements AuthCon
         }
 
         UserAuthInfoBean.DataEntity.ConformityAuthEntity conformityAuthEntity = data.getConformity_auth();
-        if (data.getConformity_auth().getCn_status().equals("已认证")) {
+        if (conformityAuthEntity.getStatus() == 4 && conformityAuthEntity.getFile_status() == 2) {
             imAuth2.setImageResource(R.drawable.im_auth);
             imAuth2.setVisibility(View.VISIBLE);
         } else {
@@ -179,7 +179,7 @@ public class AuthActivity extends BaseActivity<AuthPresenter> implements AuthCon
         }
 
         UserAuthInfoBean.DataEntity.OrganAuthEntity organAuthEntity = data.getOrgan_auth();
-        if (data.getOrgan_auth().getCn_status().equals("已认证")) {
+        if (organAuthEntity.getStatus() == 4 && organAuthEntity.getFile_status() == 2) {
             imAuth3.setImageResource(R.drawable.im_auth);
             imAuth3.setVisibility(View.VISIBLE);
         } else {

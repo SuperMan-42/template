@@ -79,7 +79,8 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
         banner.setAdapter((banner1, itemView, model, position) -> {
             CoreUtils.imgLoader(getContext(), ((Bean) model).getValue(), ((Bean) model).getKey().equals("deal") ? R.drawable.ic_deal_recommend : R.drawable.home_banner, (ImageView) itemView);
             itemView.setOnClickListener(view12 -> {
-                if (((Bean) model).getOther().equals("hx://deal-recommend")) {
+                if (TextUtils.isEmpty(((Bean) model).getOther())) {
+                } else if (((Bean) model).getOther().equals("hx://deal-recommend")) {
                     ARouter.getInstance().build("/app/DealRecommendActivity").navigation();
                 } else {
                     ARouter.getInstance().build("/app/WebActivity")

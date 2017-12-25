@@ -28,8 +28,6 @@ import com.recorder.mvp.contract.CashierContract;
 import com.recorder.mvp.model.entity.PayPayOffLineBean;
 import com.recorder.mvp.presenter.CashierPresenter;
 
-import java.math.BigDecimal;
-
 import butterknife.BindView;
 import butterknife.OnClick;
 
@@ -41,6 +39,8 @@ public class CashierActivity extends BaseActivity<CashierPresenter> implements C
     String dealID;
     @Autowired
     String amount;
+    @Autowired
+    int buy;
     @Autowired
     String deal_name;
 
@@ -81,7 +81,7 @@ public class CashierActivity extends BaseActivity<CashierPresenter> implements C
     public void initView(Bundle savedInstanceState) {
         title("收银台");
         ARouter.getInstance().inject(this);
-        tvAmount.setText(new BigDecimal(amount).divide(new BigDecimal(10000)) + "万元");
+        tvAmount.setText(amount + "元");
     }
 
     @Override
@@ -119,16 +119,16 @@ public class CashierActivity extends BaseActivity<CashierPresenter> implements C
                 ARouter.getInstance().build("/app/EquityDetailsActivity").withString(Constants.DEAL_ID, dealID).navigation();
                 break;
             case R.id.rl_onLine:
-                mPresenter.payPay(dealID, amount, "2");
+                mPresenter.payPay(dealID, String.valueOf(buy), "2");
                 break;
             case R.id.rl_offLine:
-                mPresenter.payPayOffLine(dealID, amount, "1");
+                mPresenter.payPayOffLine(dealID, String.valueOf(buy), "1");
                 break;
             case R.id.tv_go_authentication:
                 if (isSuccess) {
                     ARouter.getInstance().build("/app/EquityDetailsActivity").withString(Constants.DEAL_ID, dealID).navigation();
                 } else {
-                    mPresenter.payPay(dealID, amount, "2");
+                    mPresenter.payPay(dealID, String.valueOf(buy), "2");
                 }
                 break;
             case R.id.tv_go_home:
@@ -145,7 +145,7 @@ public class CashierActivity extends BaseActivity<CashierPresenter> implements C
         if (isSuccess) {
             CoreUtils.imgLoader(this, R.drawable.ic_result_success, imCover);
             tvTitle.setText(CoreUtils.getString(this, R.string.text_buy_success));
-            String content = CoreUtils.getString(this, R.string.text_buy_success_alter) + deal_name + ",认购金额:" + msg + "元";
+            String content = CoreUtils.getString(this, R.string.text_buy_success_alter) + deal_name + ",支付金额:" + msg + "元";
             SpannableString spannableString = new SpannableString(content);
             spannableString.setSpan(new ForegroundColorSpan(Color.parseColor("#FC3F08")), content.indexOf(msg), content.indexOf("元"), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
             tvContent.setText(spannableString);
@@ -169,7 +169,7 @@ public class CashierActivity extends BaseActivity<CashierPresenter> implements C
     public void showPayOffLine(PayPayOffLineBean.DataEntity data) {
         Bundle bundle = new Bundle();
         bundle.putSerializable("offlinedata", data);
-        bundle.putString("amount", new BigDecimal(amount).divide(new BigDecimal(10000)) + "万元");
+        bundle.putString("amount", amount + "元");
         ARouter.getInstance().build("/app/OffLinePayActivity").withBundle("offlinedata", bundle).navigation();
         killMyself();
     }
