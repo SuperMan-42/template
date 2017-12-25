@@ -56,7 +56,6 @@ public class MyAttentionActivity extends BaseActivity<MyAttentionPresenter> impl
     @Override
     public void initView(Bundle savedInstanceState) {
         title("我的关注");
-        mPresenter.userFollowlist("1", Constants.PAGE_SIZE);
         recyclerView.init(new BaseQuickAdapter<UserFollowListBean.DataEntity.ListEntity, BaseViewHolder>(R.layout.item_equity) {
             @Override
             protected void convert(BaseViewHolder holder, UserFollowListBean.DataEntity.ListEntity item) {
@@ -79,10 +78,16 @@ public class MyAttentionActivity extends BaseActivity<MyAttentionPresenter> impl
                     holder.setVisible(R.id.ll_view_footer, false);
                 }
                 holder.itemView.setOnClickListener(view1 -> ARouter.getInstance().build("/app/EquityDetailsActivity")
-                       .withString(Constants.DEAL_ID, item.getDealID()).navigation());//TODO 少一个字段
+                        .withString(Constants.DEAL_ID, item.getDealID()).navigation());//TODO 少一个字段
             }
         }).openRefresh(page -> mPresenter.userFollowlist("1", Constants.PAGE_SIZE))
                 .openLoadMore(Constants.PAGE_SIZE_INT, page -> mPresenter.userFollowlist(String.valueOf(page), Constants.PAGE_SIZE)).reStart();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mPresenter.userFollowlist("1", Constants.PAGE_SIZE);
     }
 
     @Subscriber(tag = Constants.RETRY_MYATTENTION)

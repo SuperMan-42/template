@@ -498,6 +498,14 @@ public class EquityDetailsActivity extends BaseActivity<EquityDetailsPresenter> 
         AdapterViewPager adapterViewPager = new AdapterViewPager(getSupportFragmentManager(), fragments);
         dynamicVp.setAdapter(adapterViewPager);
 
+        if (mGrowths.size() == 1) {
+            lastTimeIv.setVisibility(View.INVISIBLE);
+            lastTimeTv.setVisibility(View.INVISIBLE);
+        } else {
+            lastTimeTv.setVisibility(View.VISIBLE);
+            lastTimeTv.setText(DateUtil.StringToString("" + mGrowths.get(0).getOcc_time(), DateUtil.DateStyle.MM_DD_CN));
+        }
+
         dynamicVp.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageSelected(int position) {
