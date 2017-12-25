@@ -222,6 +222,7 @@
             android:windowSoftInputMode="stateVisible" />
         <activity
             android:name=".mvp.ui.activity.WebActivity"
+            android:launchMode="singleTop"
             android:theme="@style/CoreAppTheme.Transparent" />
         <activity
             android:name=".mvp.ui.activity.SearchActivity"

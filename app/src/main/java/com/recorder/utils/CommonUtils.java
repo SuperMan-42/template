@@ -464,9 +464,19 @@ public class CommonUtils {
     public static void show(GifView avi) {
         if (avi != null) {
             avi.play();
-            if (avi.getVisibility() == 4)
+            if (avi.getVisibility() == 8)
                 avi.setVisibility(View.VISIBLE);
-            Observable.timer(10, TimeUnit.SECONDS).compose(RxLifecycleUtils.transformer()).subscribe(aLong -> avi.pause());
+            Observable.timer(10, TimeUnit.SECONDS).compose(RxLifecycleUtils.transformer()).subscribe(aLong -> avi.setVisibility(View.GONE));
+        }
+    }
+
+    @SuppressLint("WrongConstant")
+    public static void show(GifView avi, boolean isRestart) {
+        if (avi != null) {
+            avi.play();
+            if (avi.getVisibility() == 8)
+                avi.setVisibility(View.VISIBLE);
+            Observable.timer(10, TimeUnit.SECONDS).compose(RxLifecycleUtils.transformer()).subscribe(aLong -> avi.setVisibility(isRestart ? View.GONE : View.INVISIBLE));
         }
     }
 
@@ -475,7 +485,16 @@ public class CommonUtils {
         if (avi != null && !avi.isPaused()) {
             avi.pause();
             if (avi.getVisibility() == 0)
-                avi.setVisibility(View.GONE);
+                avi.setVisibility(View.INVISIBLE);
+        }
+    }
+
+    @SuppressLint("WrongConstant")
+    public static void hide(GifView avi, boolean isRestart) {
+        if (avi != null && !avi.isPaused()) {
+            avi.pause();
+            if (avi.getVisibility() == 0)
+                avi.setVisibility(isRestart ? View.GONE : View.INVISIBLE);
         }
     }
 

@@ -25,6 +25,7 @@ import com.core.widget.recyclerview.BaseQuickAdapter;
 import com.core.widget.recyclerview.BaseViewHolder;
 import com.core.widget.recyclerview.CoreRecyclerView;
 import com.core.widget.recyclerview.GridSpacingItemDecoration;
+import com.cunoraz.gifview.library.GifView;
 import com.google.gson.Gson;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
@@ -99,6 +100,8 @@ public class AuthInfoActivity extends BaseActivity<AuthInfoPresenter> implements
     View llRoot;
     @BindView(R.id.toolbar_left)
     View back;
+    @BindView(R.id.avi)
+    GifView avi;
 
     AppStartBean bean;
     File positive;
@@ -287,6 +290,7 @@ public class AuthInfoActivity extends BaseActivity<AuthInfoPresenter> implements
         if (data.size() > 1 && data.get(data.size() - 1).getKey()) {
             data.remove(data.size() - 1);
         }
+        CommonUtils.show(avi, true);
         if (data.size() > 0) {
             if (authType == 3) {
                 mPresenter.upload(value(etName, dataEntity.getTrue_name()), value(etId, dataEntity.getId_card()), value(etContact, dataEntity.getOrgan_contact()), value(positive, dataEntity.getOrgan_license()), bean.getData().getUser_auth_prompt().getOrgan_auth(), data);
@@ -377,6 +381,7 @@ public class AuthInfoActivity extends BaseActivity<AuthInfoPresenter> implements
             } else {
                 url = string + "/?token=" + token + "&u=" + uid + "&type=" + authType + "&survey={\"1\":\"A\",\"2\":\"B\"}#/questionnaire";
             }
+            CommonUtils.hide(avi, true);
             ARouter.getInstance().build("/app/WebActivity")
                     .withBoolean(Constants.IS_SHOW_RIGHT, false)
                     .withString(Constants.WEB_URL, url).navigation();
