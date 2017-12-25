@@ -432,6 +432,7 @@ public class GlobalConfiguration implements ConfigModule {
     }
 
     private void setEmpty(Activity activity, Button button, int res, int text) {
+        Logger.d("setEmpty=> " + activity + " button=> " + button + " res=> " + res + " text=> " + text);
         button.setVisibility(View.VISIBLE);
         button.setText("去看项目");
         button.setVisibility(View.VISIBLE);

@@ -72,7 +72,7 @@ public class DealRecommendActivity extends BaseActivity<DealRecommendPresenter> 
         AppStartBean bean = new Gson().fromJson(BCache.getInstance().getString(Constants.APPSTART), AppStartBean.class);
         if (bean != null) {
             tvPhone.setText(bean.getData().getService_tel());
-            tvPhone.setOnClickListener(view -> CommonUtils.call(bean.getData().getService_tel()));
+            tvPhone.setOnClickListener(view -> CommonUtils.call(this, bean.getData().getService_tel()));
             tvEmail.setText(bean.getData().getEmail());
         }
     }

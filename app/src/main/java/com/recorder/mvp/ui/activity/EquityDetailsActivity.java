@@ -12,12 +12,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.text.Html;
-import android.text.SpannableString;
-import android.text.Spanned;
-import android.text.TextPaint;
 import android.text.TextUtils;
-import android.text.method.LinkMovementMethod;
-import android.text.style.ClickableSpan;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -71,9 +66,7 @@ import static com.core.utils.Preconditions.checkNotNull;
 public class EquityDetailsActivity extends BaseActivity<EquityDetailsPresenter> implements EquityDetailsContract.View {
     @Autowired(name = Constants.DEAL_ID)
     String dealId;
-
     DealDetailBean.DataEntity dataEntity;
-
     @BindView(R.id.ll_bottom)
     View llBottom;
     @BindView(R.id.scrollview)
@@ -259,23 +252,12 @@ public class EquityDetailsActivity extends BaseActivity<EquityDetailsPresenter> 
                             CoreUtils.imgLoader(this, manager.getAvatar(), R.drawable.ic_contact, contentView.findViewById(R.id.im_avatar));
                             ((TextView) contentView.findViewById(R.id.tv_manager_name)).setText(manager.getManager_name());
                             ((TextView) contentView.findViewById(R.id.tv_position)).setText(manager.getPosition());
-                            String content = "电话: " + manager.getMobile();
-                            SpannableString spannableString = new SpannableString(content);
-                            spannableString.setSpan(new ClickableSpan() {
-                                @Override
-                                public void updateDrawState(TextPaint ds) {
-                                    super.updateDrawState(ds);
-                                    ds.setColor(Color.parseColor("#303BD3"));
-                                }
-
-                                @Override
-                                public void onClick(View view) {
-                                    CommonUtils.call(manager.getMobile());
-                                }
-                            }, content.indexOf(": ") + 2, content.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
                             TextView textView = contentView.findViewById(R.id.tv_mobile);
-                            textView.setMovementMethod(LinkMovementMethod.getInstance());
-                            textView.setText(spannableString);
+                            textView.setText(manager.getMobile());
+                            textView.setOnClickListener(view -> {
+                                CustomPopupWindow.killMySelf();
+                                CommonUtils.call(this, manager.getMobile());
+                            });
                             ((TextView) contentView.findViewById(R.id.tv_weixin)).setText("微信: " + manager.getWechat());
                             ((TextView) contentView.findViewById(R.id.tv_email)).setText("邮箱: " + manager.getEmail());
                             contentView.findViewById(R.id.view).setOnClickListener(view -> CustomPopupWindow.killMySelf());

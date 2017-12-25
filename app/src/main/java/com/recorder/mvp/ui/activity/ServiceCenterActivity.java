@@ -47,6 +47,6 @@ public class ServiceCenterActivity extends BaseActivity {
 
     @OnClick(R.id.ll_phone)
     public void onViewClicked() {
-        CommonUtils.call(bean.getData().getService_tel());
+        CommonUtils.call(this, bean.getData().getService_tel());
     }
 }

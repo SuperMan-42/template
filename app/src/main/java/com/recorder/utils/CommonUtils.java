@@ -70,8 +70,6 @@ import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 
-import static com.core.utils.CoreUtils.startActivity;
-
 /**
  * Created by hpw on 17-11-23.
  */
@@ -503,9 +501,10 @@ public class CommonUtils {
         }
     }
 
-    public static void call(String phone) {
+    public static void call(Activity context, String phone) {
         Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + phone));
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
+        context.startActivity(intent);
+        context.overridePendingTransition(R.anim.slide_in_right, R.anim.empty);
     }
 }

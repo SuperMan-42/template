@@ -114,6 +114,7 @@ public class SettingActivity extends BaseActivity<SettingPresenter> implements S
                                 CustomPopupWindow.killMySelf();
                             });
                             contentView.findViewById(R.id.tv_cancel).setOnClickListener(view1 -> CustomPopupWindow.killMySelf());
+                            contentView.findViewById(R.id.view).setOnClickListener(view1 -> CustomPopupWindow.killMySelf());
                         }).build().show(this);
                 break;
             case R.id.rl_2:

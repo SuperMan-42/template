@@ -64,6 +64,8 @@ public class AuthActivity extends BaseActivity<AuthPresenter> implements AuthCon
     TextView tvContent2;
     @BindView(R.id.tv_content3)
     TextView tvContent3;
+    @BindView(R.id.tv_auth_alert)
+    TextView tvAuthAlert;
     AppStartBean bean;
 
     @Override
@@ -85,6 +87,7 @@ public class AuthActivity extends BaseActivity<AuthPresenter> implements AuthCon
     public void initView(Bundle savedInstanceState) {
         title("投资人认证");
         bean = new Gson().fromJson(BCache.getInstance().getString(Constants.APPSTART), AppStartBean.class);
+        tvAuthAlert.setText(getString(R.string.text_auth_alert, bean.getData().getService_tel()));
         mPresenter.userAuthInfo();
         setContent(tvContent, bean.getData().getUser_auth_prompt().getZc_auth());
         setContent(tvContent2, bean.getData().getUser_auth_prompt().getConformity_auth());

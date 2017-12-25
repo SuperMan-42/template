@@ -53,15 +53,26 @@
             tools:text="高级合伙人" />
 
         <TextView
-            android:id="@+id/tv_mobile"
+            android:id="@+id/tag_mobile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="15px"
+            android:text="电话: "
             android:textColor="#262626"
             android:textSize="42px"
             app:layout_constraintLeft_toLeftOf="@id/tv_manager_name"
-            app:layout_constraintTop_toBottomOf="@id/tv_manager_name"
-            tools:text="电话: 18511885858" />
+            app:layout_constraintTop_toBottomOf="@id/tv_manager_name" />
+
+        <TextView
+            android:id="@+id/tv_mobile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#303BD3"
+            android:textSize="42px"
+            app:layout_constraintBottom_toBottomOf="@id/tag_mobile"
+            app:layout_constraintLeft_toRightOf="@id/tag_mobile"
+            app:layout_constraintTop_toTopOf="@id/tag_mobile"
+            tools:text="18511885858" />
 
         <TextView
             android:id="@+id/tv_weixin"
@@ -70,8 +81,8 @@
             android:layout_marginTop="15px"
             android:textColor="#262626"
             android:textSize="42px"
-            app:layout_constraintLeft_toLeftOf="@id/tv_mobile"
-            app:layout_constraintTop_toBottomOf="@id/tv_mobile"
+            app:layout_constraintLeft_toLeftOf="@id/tag_mobile"
+            app:layout_constraintTop_toBottomOf="@id/tag_mobile"
             tools:text="微信: bizhengd" />
 
         <TextView

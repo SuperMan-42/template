@@ -270,15 +270,16 @@
                 app:layout_constraintTop_toBottomOf="@id/cl_3" />
 
             <TextView
+                android:id="@+id/tv_auth_alert"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="132px"
                 android:layout_marginLeft="45px"
                 android:layout_marginRight="45px"
                 android:layout_marginTop="9px"
-                android:text="1.认证众筹投资人可以查看众筹项目\n2.认证合格、机构投资人可以查看众筹和私募项目\n3.必须上传审核通过任意资产认证才可以购买众筹项目\n4.私募项目app内不提供购买，请线下资询"
                 android:textColor="#666666"
-                android:textSize="39px" />
+                android:textSize="39px"
+                tools:text="@string/text_auth_alert" />
         </LinearLayout>
     </com.core.widget.autolayout.AutoScrollView>
 
