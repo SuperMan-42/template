@@ -54,13 +54,13 @@ public class HelpListPresenter extends BasePresenter<HelpListContract.Model, Hel
                 });
     }
 
-    public void helpContent(String helperID) {
-        mModel.helpContent(helperID)
+    public void helpContent(HelpListBean.DataEntity.ListEntity entity) {
+        mModel.helpContent(entity.getHelperID())
                 .compose(RxLifecycleUtils.transformer(mRootView))
                 .subscribe(new ErrorHandleSubscriber<HelpContentBean>(mErrorHandler) {
                     @Override
                     public void onNext(HelpContentBean helpContent) {
-                        mRootView.showHelpContent(helpContent.getData());
+                        mRootView.showHelpContent(helpContent.getData(), entity);
                     }
                 });
     }

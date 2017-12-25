@@ -13,7 +13,7 @@ public interface HelpListContract {
 
         void showHelpList(HelpListBean.DataEntity data);
 
-        void showHelpContent(HelpContentBean.DataEntity data);
+        void showHelpContent(HelpContentBean.DataEntity data, HelpListBean.DataEntity.ListEntity entity);
     }
 
     //Model层定义接口,外部只需关心Model返回的数据,无需关心内部细节,即是否使用缓存

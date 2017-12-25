@@ -38,4 +38,5 @@ public class Constants {
     public static final int PAGE_SIZE_INT = 20;
     public static final String FINISH = "finish";
     public static final String PAY_SUCCESS = "pay_success";
+    public static final String TITLE = "title";
 }

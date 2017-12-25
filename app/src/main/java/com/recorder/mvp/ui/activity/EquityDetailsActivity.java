@@ -419,29 +419,44 @@ public class EquityDetailsActivity extends BaseActivity<EquityDetailsPresenter> 
         if (dataEntity.getIs_group().equals("1")) {
             llIsShowOverview.setVisibility(View.GONE);
         } else {
-            llIsShowOverview.setVisibility(View.VISIBLE);
-            tvOverview.setText(Html.fromHtml(dataEntity.getOverview()));
+            if (TextUtils.isEmpty(dataEntity.getOverview())) {
+                llIsShowOverview.setVisibility(View.GONE);
+            } else {
+                llIsShowOverview.setVisibility(View.VISIBLE);
+                tvOverview.setText(Html.fromHtml(dataEntity.getOverview()));
+            }
         }
         //融资历史(非组合)
         if (dataEntity.getIs_group().equals("1")) {
             llIsShowFinanceHistory.setVisibility(View.GONE);
         } else {
-            llIsShowFinanceHistory.setVisibility(View.VISIBLE);
-            tvFinanceHistory.setText(Html.fromHtml(dataEntity.getFinance_history()));
+            if (TextUtils.isEmpty(dataEntity.getFinance_history())) {
+                llIsShowFinanceHistory.setVisibility(View.GONE);
+            } else {
+                llIsShowFinanceHistory.setVisibility(View.VISIBLE);
+                tvFinanceHistory.setText(Html.fromHtml(dataEntity.getFinance_history()));
+            }
         }
         //项目风险(可隐藏)
         if (TextUtils.isEmpty(dataEntity.getRisk())) {
             llIsShowRisk.setVisibility(View.GONE);
         } else {
-            llIsShowRisk.setVisibility(View.VISIBLE);
-            tvRisk.setText(Html.fromHtml(dataEntity.getRisk()));
+            if (TextUtils.isEmpty(dataEntity.getRisk())) {
+                llIsShowRisk.setVisibility(View.GONE);
+            } else {
+                llIsShowRisk.setVisibility(View.VISIBLE);
+                tvRisk.setText(Html.fromHtml(dataEntity.getRisk()));
+            }
         }
         //专家及管理团队意见
         tvOpinion.setText(Html.fromHtml(dataEntity.getOpinion()));
+        llIsShowOpinion.setVisibility(TextUtils.isEmpty(dataEntity.getOpinion()) ? View.GONE : View.VISIBLE);
         //投资方案
         tvPlan.setText(Html.fromHtml(dataEntity.getPlan()));
+        llIsShowPlan.setVisibility(TextUtils.isEmpty(dataEntity.getPlan()) ? View.GONE : View.VISIBLE);
         //退出渠道
         tvWithdrawal.setText(Html.fromHtml(dataEntity.getWithdrawal()));
+        llIsShowWithdrawal.setVisibility(TextUtils.isEmpty(dataEntity.getWithdrawal()) ? View.GONE : View.VISIBLE);
         //QA
         if (dataEntity.getQa() == null || dataEntity.getQa().size() == 0) {
             llIsShowQa.setVisibility(View.GONE);

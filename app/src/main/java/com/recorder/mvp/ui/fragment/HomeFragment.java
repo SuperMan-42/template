@@ -84,7 +84,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
                     ARouter.getInstance().build("/app/DealRecommendActivity").navigation();
                 } else {
                     ARouter.getInstance().build("/app/WebActivity")
-                            .withBoolean(Constants.IS_SHOW_RIGHT, true).withString(Constants.WEB_URL, ((Bean) model).getOther()).navigation();
+                            .withBoolean(Constants.IS_SHOW_RIGHT, true).withString(Constants.WEB_URL, ((Bean) model).getOther()).greenChannel().navigation();
                 }
             });
         });

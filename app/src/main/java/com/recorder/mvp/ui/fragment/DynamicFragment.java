@@ -67,8 +67,7 @@ public class DynamicFragment extends BaseFragment<DynamicPresenter> implements D
                 CoreUtils.imgLoader(getContext(), item.getCover(), R.drawable.ic_dynamic, holder.getView(R.id.im_cover));
                 holder.setText(R.id.tv_title, item.getTitle());
                 holder.itemView.setOnClickListener(view1 -> ARouter.getInstance().build("/app/WebActivity")
-                        .withBoolean(Constants.IS_SHOW_RIGHT, true)
-                        .withString(Constants.WEB_URL, item.getUrl()).navigation());
+                        .withBoolean(Constants.IS_SHOW_RIGHT, true).withString(Constants.WEB_URL, item.getUrl()).greenChannel().navigation());
             }
         }).openRefresh(page -> mPresenter.newsList("1", Constants.PAGE_SIZE))
                 .openLoadMore(Constants.PAGE_SIZE_INT, page -> mPresenter.newsList(String.valueOf(page), Constants.PAGE_SIZE)).reStart();

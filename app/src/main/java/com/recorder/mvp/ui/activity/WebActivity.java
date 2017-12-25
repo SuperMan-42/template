@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
 import android.webkit.JavascriptInterface;
@@ -39,6 +40,8 @@ import butterknife.OnClick;
 public class WebActivity extends BaseActivity {
     @Autowired(name = Constants.WEB_URL)
     String url;
+    @Autowired(name = Constants.TITLE)
+    String title;
     @Autowired(name = Constants.IS_SHOW_RIGHT)
     boolean right;
     protected AgentWeb mAgentWeb;
@@ -80,6 +83,9 @@ public class WebActivity extends BaseActivity {
         mAgentWeb.getJsInterfaceHolder().addJavaObject("android", new AndroidInterface(mAgentWeb, this));
         if (!getUrl().startsWith("http")) {
             mAgentWeb.getWebCreator().get().loadData(getUrl(), "text/html; charset=UTF-8", null);
+        }
+        if (!TextUtils.isEmpty(title)) {
+            title(title);
         }
     }
 

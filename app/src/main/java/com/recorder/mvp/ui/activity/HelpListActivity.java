@@ -89,16 +89,17 @@ public class HelpListActivity extends BaseActivity<HelpListPresenter> implements
             @Override
             protected void convert(BaseViewHolder holder, HelpListBean.DataEntity.ListEntity item) {
                 holder.setText(R.id.tv_title, item.getTitle());
-                holder.itemView.setOnClickListener(view1 -> mPresenter.helpContent(item.getHelperID()));
+                holder.itemView.setOnClickListener(view1 -> mPresenter.helpContent(item));
             }
         }, false);
         recyclerview.getRecyclerView().addItemDecoration(CommonUtils.linearDivider(this, 45));
     }
 
     @Override
-    public void showHelpContent(HelpContentBean.DataEntity data) {
+    public void showHelpContent(HelpContentBean.DataEntity data, HelpListBean.DataEntity.ListEntity entity) {
         ARouter.getInstance().build("/app/WebActivity")
                 .withBoolean(Constants.IS_SHOW_RIGHT, false)
-                .withString(Constants.WEB_URL, data.getContent()).navigation();
+                .withString(Constants.TITLE, entity.getTitle())
+                .withString(Constants.WEB_URL, data.getContent()).greenChannel().navigation();
     }
 }
