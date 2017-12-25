@@ -87,6 +87,7 @@ public class MyAttentionActivity extends BaseActivity<MyAttentionPresenter> impl
     @Override
     protected void onResume() {
         super.onResume();
+        recyclerView.reStart();
         mPresenter.userFollowlist("1", Constants.PAGE_SIZE);
     }
 
