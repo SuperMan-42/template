@@ -395,7 +395,7 @@ public class AutoProgressBar extends ViewGroup implements Runnable {
         String text = "";
         if (!isFinish) {
             if (!isStop) {
-                text = progress + "%";
+                text = (int) progress + "%";
             } else {
                 text = "";
             }
