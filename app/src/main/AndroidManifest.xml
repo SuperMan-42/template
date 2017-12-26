@@ -115,7 +115,6 @@
         <!-- 此处Receiver名字修改为当前包名路径 -->
         <receiver android:name=".app.PushReceiver">
             <intent-filter>
-
                 <!-- 接收push消息 -->
                 <action android:name="com.baidu.android.pushservice.action.MESSAGE" />
                 <!-- 接收bind、setTags等method的返回结果 -->
@@ -167,22 +166,22 @@
             android:name=".mvp.ui.activity.LoginActivity"
             android:launchMode="singleTask"
             android:theme="@style/CoreAppTheme.Transparent"
-            android:windowSoftInputMode="adjustResize" />
+            android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
             android:name=".mvp.ui.activity.ForgetPasswordActivity"
             android:launchMode="singleTop"
             android:theme="@style/CoreAppTheme.Transparent"
-            android:windowSoftInputMode="adjustResize" />
+            android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
             android:name=".mvp.ui.activity.NewPasswordActivity"
             android:launchMode="singleTop"
             android:theme="@style/CoreAppTheme.Transparent"
-            android:windowSoftInputMode="adjustResize" />
+            android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
             android:name=".mvp.ui.activity.RegisterActivity"
             android:launchMode="singleTop"
             android:theme="@style/CoreAppTheme.Transparent"
-            android:windowSoftInputMode="adjustResize" />
+            android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
             android:name=".mvp.ui.activity.AuthActivity"
             android:launchMode="singleTask"
@@ -253,7 +252,7 @@
         <activity
             android:name=".mvp.ui.activity.FeedBackActivity"
             android:theme="@style/CoreAppTheme.Transparent"
-            android:windowSoftInputMode="adjustResize" />
+            android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
             android:name=".mvp.ui.activity.HelpListActivity"
             android:theme="@style/CoreAppTheme.Transparent" />
