@@ -89,6 +89,7 @@ ext {
             "retrofit-url-manager"     : "me.jessyan:retrofit-url-manager:1.1.0",
             "agentweb"                 : "com.just.agentweb:agentweb:2.0.1",
             "gifview"                  : "com.github.Cutta:GifView:1.1",
+            "snackbar"                 : 'com.nispok:snackbar:2.11.+',
 
             //test
             "junit"                    : "junit:junit:4.12",

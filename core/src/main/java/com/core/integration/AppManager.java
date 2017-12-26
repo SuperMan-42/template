@@ -5,10 +5,12 @@ import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Message;
-import android.support.design.widget.Snackbar;
 import android.view.View;
 
 import com.core.base.delegate.AppLifecycles;
+import com.nispok.snackbar.Snackbar;
+import com.nispok.snackbar.SnackbarManager;
+import com.nispok.snackbar.enums.SnackbarType;
 
 import org.simple.eventbus.EventBus;
 import org.simple.eventbus.Subscriber;
@@ -128,7 +130,9 @@ public final class AppManager {
             return;
         }
         View view = getCurrentActivity().getWindow().getDecorView().findViewById(android.R.id.content);
-        Snackbar.make(view, message, isLong ? Snackbar.LENGTH_LONG : Snackbar.LENGTH_SHORT).show();
+//        Snackbar.make(view, message, isLong ? Snackbar.LENGTH_LONG : Snackbar.LENGTH_SHORT).show();
+//        Toast.makeText(view.getContext(), message, isLong ? Toast.LENGTH_LONG : Toast.LENGTH_SHORT).show();
+        SnackbarManager.show(Snackbar.with(view.getContext()).position(Snackbar.SnackbarPosition.TOP).text(message).type(SnackbarType.MULTI_LINE).duration(isLong ? 3000 : 1500));
     }
 
     /**
