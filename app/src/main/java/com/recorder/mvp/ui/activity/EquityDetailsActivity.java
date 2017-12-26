@@ -347,7 +347,7 @@ public class EquityDetailsActivity extends BaseActivity<EquityDetailsPresenter> 
             tvBuyContent.setText(dataEntity.getButton().getButton_name());
         }
         //认购时间
-        if (dataEntity.getBegin_time().compareTo(DateUtil.DateToString(new Date(System.currentTimeMillis()), DateUtil.DateStyle.YYYY_MM_DD_HH_MM_SS)) == 1) {//1 > -2< 0=
+        if (dataEntity.getBegin_time().compareTo(DateUtil.DateToString(new Date(System.currentTimeMillis()), DateUtil.DateStyle.YYYY_MM_DD_HH_MM_SS)) > 0) {//1 > -2< 0=
             tvTime.setVisibility(View.VISIBLE);
             tvTime.setText("项目于: " + dataEntity.getBegin_time() + "开始认购");
         } else {

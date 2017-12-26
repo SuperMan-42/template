@@ -769,7 +769,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@id/ll_bottom"
-        android:alpha="0.9"
+        android:alpha="0.8"
         android:background="#70718A"
         android:paddingBottom="20px"
         android:paddingLeft="45px"

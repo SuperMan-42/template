@@ -217,7 +217,7 @@ public class AutoProgressBar extends ViewGroup implements Runnable {
         drawProgressText(canvas);
 
         //变色处理
-        drawColorProgressText(canvas);
+//        drawColorProgressText(canvas);
     }
 
     /**
@@ -262,7 +262,8 @@ public class AutoProgressBar extends ViewGroup implements Runnable {
      * @param canvas
      */
     private void drawProgressText(Canvas canvas) {
-        textPaint.setColor(progressColor);
+//        textPaint.setColor(progressColor);
+        textPaint.setColor(Color.parseColor("#645936"));
         progressText = getProgressText();
         textPaint.getTextBounds(progressText, 0, progressText.length(), textRect);
         int tWidth = textRect.width();
