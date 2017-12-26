@@ -224,6 +224,7 @@ public class PayDetailsActivity extends BaseActivity<PayDetailsPresenter> implem
                         .withString(Constants.DEAL_ID, listEntity.getDealID()).navigation();
                 break;
             case R.id.tv_go_home:
+                EventBus.getDefault().post(position, Constants.PAY_SUCCESS);
                 killMyself();
 //                ARouter.getInstance().build("/app/MyInvestmentActivity").navigation();
 //                overridePendingTransition(R.anim.slide_in_right, R.anim.empty);
@@ -237,9 +238,9 @@ public class PayDetailsActivity extends BaseActivity<PayDetailsPresenter> implem
         if (isSuccess) {
             CoreUtils.imgLoader(this, R.drawable.ic_result_success, imCover);
             tvTitle.setText(CoreUtils.getString(this, R.string.text_buy_success));
-            String content = CoreUtils.getString(this, R.string.text_buy_success_alter) + item.getDeal_name() + ",支付金额:" + msg + "元";
+            String content = CoreUtils.getString(this, R.string.text_buy_success_alter) + item.getDeal_name() + ",支付金额:" + listEntity.getActual_amount() + "元";
             SpannableString spannableString = new SpannableString(content);
-            spannableString.setSpan(new ForegroundColorSpan(Color.parseColor("#FC3F08")), content.indexOf(msg), content.indexOf("元"), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            spannableString.setSpan(new ForegroundColorSpan(Color.parseColor("#FC3F08")), content.indexOf(listEntity.getActual_amount()), content.indexOf("元"), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
             tvContent.setText(spannableString);
             tvContent.setTextColor(Color.parseColor("#333333"));
             tvGoAuthentication.setText("项目详情");

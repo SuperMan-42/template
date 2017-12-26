@@ -145,9 +145,9 @@ public class CashierActivity extends BaseActivity<CashierPresenter> implements C
         if (isSuccess) {
             CoreUtils.imgLoader(this, R.drawable.ic_result_success, imCover);
             tvTitle.setText(CoreUtils.getString(this, R.string.text_buy_success));
-            String content = CoreUtils.getString(this, R.string.text_buy_success_alter) + deal_name + ",支付金额:" + msg + "元";
+            String content = CoreUtils.getString(this, R.string.text_buy_success_alter) + deal_name + ",支付金额:" + amount + "元";
             SpannableString spannableString = new SpannableString(content);
-            spannableString.setSpan(new ForegroundColorSpan(Color.parseColor("#FC3F08")), content.indexOf(msg), content.indexOf("元"), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            spannableString.setSpan(new ForegroundColorSpan(Color.parseColor("#FC3F08")), content.indexOf(amount), content.indexOf("元"), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
             tvContent.setText(spannableString);
             tvContent.setTextColor(Color.parseColor("#333333"));
             tvGoAuthentication.setText("项目详情");
