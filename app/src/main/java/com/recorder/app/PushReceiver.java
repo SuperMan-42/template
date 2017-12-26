@@ -4,7 +4,9 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.text.TextUtils;
 
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.baidu.android.pushservice.PushMessageReceiver;
 import com.core.utils.Constants;
 import com.core.utils.CoreUtils;
@@ -20,6 +22,9 @@ import com.vector.update_app.HttpManager;
 import com.vector.update_app.UpdateAppBean;
 import com.vector.update_app.UpdateAppManager;
 import com.vector.update_app.UpdateCallback;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.List;
 import java.util.Map;
@@ -60,6 +65,17 @@ public class PushReceiver extends PushMessageReceiver {
     @Override
     public void onNotificationClicked(Context context, String s, String s1, String s2) {
         update(context, s, s1);
+        try {
+            Logger.d("push=> title " + s + " content=> " + s1 + " s2=> " + s2);
+            if (!TextUtils.isEmpty(s2)) {
+                ARouter.getInstance().build("/app/WebActivity")
+                        .withBoolean(Constants.IS_SHOW_RIGHT, true)
+                        .withString(Constants.WEB_URL, new JSONObject(s2).optString("url"))
+                        .greenChannel().navigation();
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
