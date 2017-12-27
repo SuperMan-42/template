@@ -259,6 +259,14 @@ public class HomeActivity extends BaseActivity<HomePresenter> implements HomeCon
                 break;
             case R.id.tv_filter_reset:
                 resetFilter();
+                switch (mNavigationController.getSelected()) {
+                    case 1:
+                        EventBus.getDefault().post(new Bundle(), "equityfragment_reset");
+                        break;
+                    case 2:
+                        EventBus.getDefault().post(new Bundle(), "privatefragment_reset");
+                        break;
+                }
                 break;
             case R.id.tv_filter_do:
                 lablesList.clear();

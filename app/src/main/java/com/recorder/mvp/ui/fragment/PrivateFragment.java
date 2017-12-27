@@ -43,6 +43,7 @@ public class PrivateFragment extends BaseFragment<PrivatePresenter> implements P
     TextView tvTag;
     @BindView(R.id.avi)
     GifView avi;
+    Bundle bundle = new Bundle();
 
     public static PrivateFragment newInstance() {
         PrivateFragment fragment = new PrivateFragment();
@@ -91,12 +92,21 @@ public class PrivateFragment extends BaseFragment<PrivatePresenter> implements P
                 holder.itemView.setOnClickListener(view1 -> ARouter.getInstance().build("/app/EquityDetailsActivity")
                         .withBoolean(Constants.IS_EQUITY, false).withString(Constants.DEAL_ID, item.getDealID()).navigation());
             }
-        }).openRefresh(page -> mPresenter.dealList("2", null, null, null, "1", Constants.PAGE_SIZE))
-                .openLoadMore(Constants.PAGE_SIZE_INT, page -> mPresenter.dealList("2", null, null, null, String.valueOf(page), Constants.PAGE_SIZE)).reStart();
+        }).openRefresh(page -> mPresenter.dealList("2", TextUtils.isEmpty(bundle.getString("lables")) ? null : bundle.getString("lables"), TextUtils.isEmpty(bundle.getString("round")) ? null : bundle.getString("round"), null, "1", Constants.PAGE_SIZE))
+                .openLoadMore(Constants.PAGE_SIZE_INT, page -> mPresenter.dealList("2", TextUtils.isEmpty(bundle.getString("lables")) ? null : bundle.getString("lables"), TextUtils.isEmpty(bundle.getString("round")) ? null : bundle.getString("round"), null, String.valueOf(page), Constants.PAGE_SIZE)).reStart();
     }
 
     @Subscriber(tag = Constants.RETRY_FRAGMENT)
     private void retry(LoginBean loginBean) {
+        getActivity().findViewById(R.id.view_empty).setVisibility(View.GONE);
+        recyclerView.reStart();
+        mPresenter.dealList("2", null, null, null, "1", Constants.PAGE_SIZE);
+    }
+
+    @Subscriber(tag = "privatefragment_reset")
+    private void reset(Bundle bundle) {
+        this.bundle = new Bundle();
+        tvTag.setVisibility(View.GONE);
         getActivity().findViewById(R.id.view_empty).setVisibility(View.GONE);
         recyclerView.reStart();
         mPresenter.dealList("2", null, null, null, "1", Constants.PAGE_SIZE);
@@ -121,8 +131,9 @@ public class PrivateFragment extends BaseFragment<PrivatePresenter> implements P
 
     @Subscriber(tag = "privatefragment")
     private void privatefragment(Bundle bundle) {
+        this.bundle = bundle;
         if (!TextUtils.isEmpty(bundle.getString("lablesName")) && TextUtils.isEmpty(bundle.getString("roundName"))) {
-            tvTag.setText("已选: " + bundle.getString("lables"));
+            tvTag.setText("已选: " + bundle.getString("lablesName"));
         } else if (TextUtils.isEmpty(bundle.getString("lablesName")) && !TextUtils.isEmpty(bundle.getString("roundName"))) {
             tvTag.setText("已选: " + bundle.getString("roundName"));
         } else {

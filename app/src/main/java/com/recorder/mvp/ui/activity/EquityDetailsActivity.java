@@ -518,7 +518,8 @@ public class EquityDetailsActivity extends BaseActivity<EquityDetailsPresenter> 
             lastTimeTv.setVisibility(View.INVISIBLE);
         } else {
             lastTimeTv.setVisibility(View.VISIBLE);
-            lastTimeTv.setText(DateUtil.StringToString("" + mGrowths.get(0).getOcc_time(), DateUtil.DateStyle.MM_DD_CN));
+//            lastTimeTv.setText(DateUtil.StringToString("" + mGrowths.get(0).getOcc_time(), DateUtil.DateStyle.MM_DD_CN));
+            lastTimeTv.setText(mGrowths.get(0).getOcc_time());
         }
 
         dynamicVp.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -536,13 +537,15 @@ public class EquityDetailsActivity extends BaseActivity<EquityDetailsPresenter> 
                     nextTimeIv.setVisibility(View.VISIBLE);
                     if (position - 1 >= 0 && position - 1 <= mGrowths.size() - 1) {
                         DealDetailBean.DataEntity.GrowthEntity nextGrowth = mGrowths.get(position - 1);
-                        nextTimeTv.setText(DateUtil.StringToString("" + nextGrowth.getOcc_time(), DateUtil.DateStyle.MM_DD_CN));
+//                        nextTimeTv.setText(DateUtil.StringToString("" + nextGrowth.getOcc_time(), DateUtil.DateStyle.MM_DD_CN));
+                        nextTimeTv.setText(nextGrowth.getOcc_time());
                     }
                 }
                 if (position + 1 <= mGrowths.size() - 1) {
                     //如果不是最后一项
                     DealDetailBean.DataEntity.GrowthEntity lastGrowth = mGrowths.get(position + 1);
-                    lastTimeTv.setText(DateUtil.StringToString("" + lastGrowth.getOcc_time(), DateUtil.DateStyle.MM_DD_CN));
+//                    lastTimeTv.setText(DateUtil.StringToString("" + lastGrowth.getOcc_time(), DateUtil.DateStyle.MM_DD_CN));
+                    lastTimeTv.setText(lastGrowth.getOcc_time());
                     lastTimeIv.setVisibility(View.VISIBLE);
                     lastTimeTv.setVisibility(View.VISIBLE);
                 } else {

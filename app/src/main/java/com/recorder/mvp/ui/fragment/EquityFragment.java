@@ -43,6 +43,7 @@ public class EquityFragment extends BaseFragment<EquityPresenter> implements Equ
     TextView tvTag;
     @BindView(R.id.avi)
     GifView avi;
+    Bundle bundle = new Bundle();
 
     public static EquityFragment newInstance() {
         EquityFragment fragment = new EquityFragment();
@@ -95,12 +96,21 @@ public class EquityFragment extends BaseFragment<EquityPresenter> implements Equ
                 holder.itemView.setOnClickListener(view1 -> ARouter.getInstance().build("/app/EquityDetailsActivity")
                         .withBoolean(Constants.IS_EQUITY, true).withString(Constants.DEAL_ID, item.getDealID()).navigation());
             }
-        }).openRefresh(page -> mPresenter.dealList("1", null, null, null, "1", Constants.PAGE_SIZE))
-                .openLoadMore(Constants.PAGE_SIZE_INT, page -> mPresenter.dealList("1", null, null, null, String.valueOf(page), Constants.PAGE_SIZE)).reStart();
+        }).openRefresh(page -> mPresenter.dealList("1", TextUtils.isEmpty(bundle.getString("lables")) ? null : bundle.getString("lables"), TextUtils.isEmpty(bundle.getString("round")) ? null : bundle.getString("round"), null, "1", Constants.PAGE_SIZE))
+                .openLoadMore(Constants.PAGE_SIZE_INT, page -> mPresenter.dealList("1", TextUtils.isEmpty(bundle.getString("lables")) ? null : bundle.getString("lables"), TextUtils.isEmpty(bundle.getString("round")) ? null : bundle.getString("round"), null, String.valueOf(page), Constants.PAGE_SIZE)).reStart();
     }
 
     @Subscriber(tag = Constants.RETRY_FRAGMENT)
     private void retry(LoginBean loginBean) {
+        getActivity().findViewById(R.id.view_empty).setVisibility(View.GONE);
+        recyclerView.reStart();
+        mPresenter.dealList("1", null, null, null, "1", Constants.PAGE_SIZE);
+    }
+
+    @Subscriber(tag = "equityfragment_reset")
+    private void reset(Bundle bundle) {
+        this.bundle = new Bundle();
+        tvTag.setVisibility(View.GONE);
         getActivity().findViewById(R.id.view_empty).setVisibility(View.GONE);
         recyclerView.reStart();
         mPresenter.dealList("1", null, null, null, "1", Constants.PAGE_SIZE);
@@ -125,6 +135,7 @@ public class EquityFragment extends BaseFragment<EquityPresenter> implements Equ
 
     @Subscriber(tag = "equityfragment")
     private void equityfragment(Bundle bundle) {
+        this.bundle = bundle;
         if (!TextUtils.isEmpty(bundle.getString("lablesName")) && TextUtils.isEmpty(bundle.getString("roundName"))) {
             tvTag.setText("已选: " + bundle.getString("lablesName"));
         } else if (TextUtils.isEmpty(bundle.getString("lablesName")) && !TextUtils.isEmpty(bundle.getString("roundName"))) {
