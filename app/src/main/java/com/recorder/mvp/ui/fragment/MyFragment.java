@@ -92,9 +92,12 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
             CoreUtils.imgLoaderCircle(getContext(), R.drawable.ic_person, profileImage, R.drawable.ic_person);
             tvLogin.setVisibility(View.VISIBLE);
             flIsLogin.setVisibility(View.VISIBLE);
-            tvMyInvestment.setText("0");
-            tvFollowCount.setText("0");
-            tvPostInvestment.setText("0");
+//            tvMyInvestment.setText("0");
+//            tvFollowCount.setText("0");
+//            tvPostInvestment.setText("0");
+            tvMyInvestment.setVisibility(View.GONE);
+            tvFollowCount.setVisibility(View.GONE);
+            tvPostInvestment.setVisibility(View.GONE);
         } else {
             mPresenter.userInfo();
         }
@@ -195,9 +198,12 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
         tvLogin.setVisibility(View.VISIBLE);
         flIsLogin.setVisibility(View.VISIBLE);
         tvAuthType.setVisibility(View.GONE);
-        tvMyInvestment.setText("0");
-        tvFollowCount.setText("0");
-        tvPostInvestment.setText("0");
+//        tvMyInvestment.setText("0");
+//        tvFollowCount.setText("0");
+//        tvPostInvestment.setText("0");
+        tvMyInvestment.setVisibility(View.GONE);
+        tvFollowCount.setVisibility(View.GONE);
+        tvPostInvestment.setVisibility(View.GONE);
     }
 
     @Subscriber(tag = "person_avatar")
@@ -260,6 +266,8 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
         tvMyInvestment.setText(userInfoBean.getData().getMy_investment());
         tvFollowCount.setText(userInfoBean.getData().getMy_follow_count());
         tvPostInvestment.setText(userInfoBean.getData().getPost_investment());
+        tvMyInvestment.setVisibility(View.VISIBLE);
+        tvFollowCount.setVisibility(View.VISIBLE);
+        tvPostInvestment.setVisibility(View.VISIBLE);
     }
-
 }
