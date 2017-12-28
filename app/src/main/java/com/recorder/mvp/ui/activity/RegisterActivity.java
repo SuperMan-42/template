@@ -118,6 +118,9 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter> implements
                 doRegister();
                 break;
             case R.id.tv_go_authentication:
+                killMyself();
+                overridePendingTransition(R.anim.slide_in_right, R.anim.empty);
+                EventBus.getDefault().post(new Object(), Constants.FINISH);
                 ARouter.getInstance().build("/app/AuthActivity").navigation();
                 break;
             case R.id.tv_go_home:

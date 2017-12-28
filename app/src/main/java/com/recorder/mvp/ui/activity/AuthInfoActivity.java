@@ -38,7 +38,7 @@ import com.recorder.mvp.contract.AuthInfoContract;
 import com.recorder.mvp.model.entity.AppStartBean;
 import com.recorder.mvp.model.entity.AuthGetBean;
 import com.recorder.mvp.model.entity.Bean;
-import com.recorder.mvp.model.entity.UserInfoBean;
+import com.recorder.mvp.model.entity.LoginBean;
 import com.recorder.mvp.presenter.AuthInfoPresenter;
 import com.recorder.utils.CommonUtils;
 
@@ -375,7 +375,7 @@ public class AuthInfoActivity extends BaseActivity<AuthInfoPresenter> implements
         if (dataEntity.getIs_modify_survey()) {
             String url;
             String token = BCache.getInstance().getString(Constants.TOKEN);
-            String uid = new Gson().fromJson(BCache.getInstance().getString(Constants.USER_INFO), UserInfoBean.class).getData().getUserID();
+            String uid = new Gson().fromJson(BCache.getInstance().getString(Constants.LOGIN_INFO), LoginBean.class).getData().getUserID();
             if (type == 3) {
                 url = string + "/?token=" + token + "&u=" + uid + "&type=" + authType + "&survey={\"1\":\"A\",\"2\":\"B\"}#/agency";
             } else {
