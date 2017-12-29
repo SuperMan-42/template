@@ -5,7 +5,6 @@ import android.app.Application;
 import com.core.di.scope.ActivityScope;
 import com.core.integration.IRepositoryManager;
 import com.core.mvp.BaseModel;
-import com.core.utils.DeviceUtils;
 import com.google.gson.Gson;
 import com.recorder.mvp.contract.EquityDetailsContract;
 import com.recorder.mvp.model.api.cache.ApiCache;
@@ -17,6 +16,7 @@ import com.recorder.utils.CommonUtils;
 import javax.inject.Inject;
 
 import io.reactivex.Observable;
+import io.rx_cache2.DynamicKey;
 import io.rx_cache2.EvictProvider;
 import io.rx_cache2.Reply;
 
@@ -43,7 +43,7 @@ public class EquityDetailsModel extends BaseModel implements EquityDetailsContra
     public Observable<DealDetailBean> dealDetail(String dealID) {
         return Observable.just(mRepositoryManager.obtainRetrofitService(ApiService.class).dealDetail("1", dealID))
                 .flatMap(resultObservable -> mRepositoryManager.obtainCacheService(ApiCache.class)
-                        .dealDetail(resultObservable, new EvictProvider(CommonUtils.isEvict(mApplication)))
+                        .dealDetail(resultObservable, new DynamicKey(dealID), new EvictProvider(CommonUtils.isEvict(mApplication)))
                         .map(Reply::getData));
     }
 

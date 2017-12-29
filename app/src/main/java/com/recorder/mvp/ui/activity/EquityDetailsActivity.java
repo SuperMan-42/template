@@ -119,6 +119,8 @@ public class EquityDetailsActivity extends BaseActivity<EquityDetailsPresenter> 
     TextView tv1;
     @BindView(R.id.tv_intro)
     TextView tvIntro;
+    @BindView(R.id.tv_2)
+    View llIsShowTeam;
     @BindView(R.id.rv_team)
     CoreRecyclerView rvTeam;
     @BindView(R.id.ll_isShow_growth)
@@ -321,6 +323,7 @@ public class EquityDetailsActivity extends BaseActivity<EquityDetailsPresenter> 
 
     @Override
     public void showDealDetail(DealDetailBean.DataEntity dataEntity) {
+        toolbar.setVisibility(View.VISIBLE);
         scrollview.setVisibility(View.VISIBLE);
         this.dataEntity = dataEntity;
         //显示关注情况
@@ -398,6 +401,7 @@ public class EquityDetailsActivity extends BaseActivity<EquityDetailsPresenter> 
         };
         teamManager.setAutoMeasureEnabled(true);
         //团队成员
+        llIsShowTeam.setVisibility(dataEntity.getTeam() == null || dataEntity.getTeam().size() == 0 ? View.GONE : View.VISIBLE);
         rvTeam.init(teamManager, new BaseQuickAdapter<DealDetailBean.DataEntity.TeamEntity, BaseViewHolder>(R.layout.item_detail_team, dataEntity.getTeam()) {
             @Override
             protected void convert(BaseViewHolder holder, DealDetailBean.DataEntity.TeamEntity item) {

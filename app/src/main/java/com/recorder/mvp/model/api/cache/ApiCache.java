@@ -20,6 +20,7 @@ import com.recorder.mvp.model.entity.UserInfoBean;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
+import io.rx_cache2.DynamicKey;
 import io.rx_cache2.EvictProvider;
 import io.rx_cache2.LifeCache;
 import io.rx_cache2.Reply;
@@ -43,7 +44,7 @@ public interface ApiCache {
 
     Observable<Reply<HomeRecommendBean>> homeRecommend(Observable<HomeRecommendBean> resultObservable, EvictProvider evictProvider);
 
-    Observable<Reply<DealDetailBean>> dealDetail(Observable<DealDetailBean> resultObservable, EvictProvider evictProvider);
+    Observable<Reply<DealDetailBean>> dealDetail(Observable<DealDetailBean> resultObservable, DynamicKey dealID, EvictProvider evictProvider);
 
     Observable<Reply<UserFollowListBean>> userFollowlist(Observable<UserFollowListBean> resultObservable, EvictProvider evictProvider);
 
