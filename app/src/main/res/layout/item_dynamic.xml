@@ -17,7 +17,7 @@
         <ImageView
             android:id="@+id/im_cover"
             android:layout_width="match_parent"
-            android:layout_height="480px"
+            android:layout_height="600px"
             android:adjustViewBounds="true"
             android:scaleType="fitXY"
             tools:src="@color/white" />

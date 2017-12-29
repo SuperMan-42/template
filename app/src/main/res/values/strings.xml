@@ -74,4 +74,5 @@
     <string name="text_agree_2">般若云不对我的投资决策提供建议，我的投资行为完全依赖于我个人的思考和行动。</string>
     <string name="text_agree_3">我已完整阅读《投资流程说明》，知晓投资风险、投资相关费用与完整投资手续流程。</string>
     <string name="text_auth_alert">1.认证众筹投资人可以查看众筹项目。\n2.认证合格投资人、机构投资人可以查看众筹、私募项目。\n3.认购众筹项目，需要上传金融资产证明。\n4.私募项目仅支持线下认购，请来电咨询%1$s。</string>
+    <string name="empty_error">当前项目异常，请稍后查看</string>
 </resources>

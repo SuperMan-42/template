@@ -41,6 +41,7 @@ import com.recorder.R;
 import com.recorder.mvp.model.api.Api;
 import com.recorder.mvp.model.entity.LoginBean;
 import com.recorder.mvp.ui.activity.BackStageManagerActivity;
+import com.recorder.mvp.ui.activity.EquityDetailsActivity;
 import com.recorder.mvp.ui.activity.HomeActivity;
 import com.recorder.mvp.ui.activity.MyAttentionActivity;
 import com.recorder.mvp.ui.activity.MyInvestmentActivity;
@@ -140,6 +141,7 @@ public class GlobalConfiguration implements ConfigModule {
                                 default:
                                     response.body().close();
                                     CoreUtils.snackbarText(jsonObject.optString("error"));
+                                    CoreUtils.showEmpty(Constants.ERROR, R.drawable.ic_list_empty, R.string.empty_error, "");
                             }
                             Object data = jsonObject.optJSONObject("data").opt("total_count");
                             if (response.request().method().equals("GET")) {
@@ -319,6 +321,13 @@ public class GlobalConfiguration implements ConfigModule {
                             currentActivity.findViewById(R.id.view_empty).setVisibility(View.VISIBLE);
                             Button button = currentActivity.findViewById(R.id.bt_empty);
                             switch (msg.what) {
+                                case Constants.ERROR:
+                                    if (currentActivity instanceof EquityDetailsActivity) {
+                                        button.setVisibility(View.GONE);
+                                        currentActivity.findViewById(R.id.im_empty).setBackgroundResource(R.drawable.ic_list_empty);
+                                        ((TextView) currentActivity.findViewById(R.id.tv_empty)).setText(CoreUtils.getString(activity, R.string.empty_error));
+                                    }
+                                    break;
                                 case Constants.NO_NET:
                                     currentActivity.findViewById(R.id.im_empty).setBackgroundResource(msg.arg1);
                                     ((TextView) currentActivity.findViewById(R.id.tv_empty)).setText(CoreUtils.getString(currentActivity, msg.arg2));

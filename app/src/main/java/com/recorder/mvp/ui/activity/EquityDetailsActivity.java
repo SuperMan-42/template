@@ -362,7 +362,7 @@ public class EquityDetailsActivity extends BaseActivity<EquityDetailsPresenter> 
         }
         tvDealName.setText(dataEntity.getDeal_name());//头部标题
         CoreUtils.imgLoader(this, dataEntity.getCover(), R.drawable.ic_detail_cover, imCover);//头部头像
-        CoreUtils.imgLoaderCircle(this, dataEntity.getCover(), bitmapTransform(new BlurTransformation()), R.drawable.ic_detail_cover_bg, imBg);//头部高斯模糊背景
+        CoreUtils.imgLoaderCircle(this, dataEntity.getCover(), bitmapTransform(new BlurTransformation(15, 30)), R.drawable.ic_detail_cover_bg, imBg);//头部高斯模糊背景
         tvBrief.setText(dataEntity.getBrief());//头部简介
         tvLabels.setText(dataEntity.getLabels());//标签
         //进度条相关

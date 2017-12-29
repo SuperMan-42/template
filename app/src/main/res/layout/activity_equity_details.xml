@@ -72,7 +72,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/im_bg"
                 android:background="@color/white"
-                android:drawableLeft="@drawable/ic_labels"
+                android:drawableLeft="@drawable/ic_labels_black"
                 android:drawablePadding="15px"
                 android:paddingBottom="21px"
                 android:paddingLeft="36px"

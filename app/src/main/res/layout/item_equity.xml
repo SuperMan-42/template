@@ -144,7 +144,7 @@
         android:id="@+id/ll_view_footer"
         android:layout_width="match_parent"
         android:layout_height="75px"
-        android:background="@color/colorTitle"
+        android:background="#F9F9F8"
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
