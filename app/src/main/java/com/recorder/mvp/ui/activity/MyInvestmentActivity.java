@@ -64,6 +64,8 @@ public class MyInvestmentActivity extends BaseActivity<MyInvestmentPresenter> im
     TextView tvTitle;
     @BindView(R.id.tv_content)
     TextView tvContent;
+    @BindView(R.id.toolbar_left)
+    View back;
     @BindView(R.id.avi)
     GifView avi;
 
@@ -174,6 +176,7 @@ public class MyInvestmentActivity extends BaseActivity<MyInvestmentPresenter> im
 
     @Override
     public void showResult(boolean isSuccess, OrderListBean.DataEntity.ListEntity item, String msg) {
+        back.setVisibility(View.INVISIBLE);
         this.isSuccess = isSuccess;
         if (isSuccess) {
             CoreUtils.imgLoader(this, R.drawable.ic_result_success, imCover);

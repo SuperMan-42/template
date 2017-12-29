@@ -43,9 +43,7 @@ public class CashierActivity extends BaseActivity<CashierPresenter> implements C
     int buy;
     @Autowired
     String deal_name;
-
     boolean isSuccess;
-
     @BindView(R.id.tv_amount)
     TextView tvAmount;
     @BindView(R.id.tv_go_authentication)
@@ -60,6 +58,8 @@ public class CashierActivity extends BaseActivity<CashierPresenter> implements C
     TextView tvTitle;
     @BindView(R.id.tv_content)
     TextView tvContent;
+    @BindView(R.id.toolbar_left)
+    View back;
 
     @Override
     public void setupActivityComponent(AppComponent appComponent) {
@@ -141,6 +141,7 @@ public class CashierActivity extends BaseActivity<CashierPresenter> implements C
 
     @Override
     public void showResult(boolean isSuccess, String msg) {
+        back.setVisibility(View.INVISIBLE);
         this.isSuccess = isSuccess;
         if (isSuccess) {
             CoreUtils.imgLoader(this, R.drawable.ic_result_success, imCover);

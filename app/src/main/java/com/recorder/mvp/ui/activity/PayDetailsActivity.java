@@ -46,9 +46,7 @@ public class PayDetailsActivity extends BaseActivity<PayDetailsPresenter> implem
     String data;
     @Autowired
     int position;
-
     private boolean isSuccess;
-
     @BindView(R.id.tv_order_status_name)
     TextView tvOrderStatusName;
     @BindView(R.id.tv_actual_amount)
@@ -109,6 +107,8 @@ public class PayDetailsActivity extends BaseActivity<PayDetailsPresenter> implem
     LinearLayout llDialog;
     @BindView(R.id.fl_dialog)
     FrameLayout flDialog;
+    @BindView(R.id.toolbar_left)
+    View back;
 
     private OrderListBean.DataEntity.ListEntity listEntity;
 
@@ -234,6 +234,7 @@ public class PayDetailsActivity extends BaseActivity<PayDetailsPresenter> implem
 
     @Override
     public void showResult(boolean isSuccess, OrderListBean.DataEntity.ListEntity item, String msg) {
+        back.setVisibility(View.INVISIBLE);
         this.isSuccess = isSuccess;
         if (isSuccess) {
             CoreUtils.imgLoader(this, R.drawable.ic_result_success, imCover);

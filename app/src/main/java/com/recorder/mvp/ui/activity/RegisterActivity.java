@@ -57,6 +57,8 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter> implements
     ImageView imPicCode;
     @BindView(R.id.ll_pic_code)
     LinearLayout llPicCode;
+    @BindView(R.id.toolbar_left)
+    View back;
 
     @Override
     public void setupActivityComponent(AppComponent appComponent) {
@@ -164,6 +166,7 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter> implements
     @Override
     public void showRegisterSuccess(ImageLoader imageLoader, LoginBean loginBean) {
         title("提交成功");
+        back.setVisibility(View.INVISIBLE);
         flDialog.setVisibility(View.VISIBLE);
         EventBus.getDefault().post(loginBean, Constants.RETRY_MY);
         flDialog.startAnimation(AnimationUtils.loadAnimation(this, R.anim.fade_in));
@@ -176,5 +179,11 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter> implements
             return;
         }
         mPresenter.smsCode(etPhone.getText().toString(), "1", null, imPicCode, llPicCode);
+    }
+
+    @Override
+    public void onBackPressed() {
+        EventBus.getDefault().post(4, Constants.HOME_INDEX);
+        ARouter.getInstance().build("/app/HomeActivity").navigation();
     }
 }
