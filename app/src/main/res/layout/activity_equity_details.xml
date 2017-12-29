@@ -271,7 +271,10 @@
                     android:drawablePadding="20px"
                     android:gravity="center_vertical"
                     android:paddingLeft="36px"
-                    android:text="项目亮点" />
+                    android:text="项目亮点"
+                    android:textColor="#333333"
+                    android:textSize="45px"
+                    android:textStyle="bold" />
 
                 <View style="@style/divider" />
 
@@ -298,7 +301,10 @@
                     android:drawablePadding="20px"
                     android:gravity="center_vertical"
                     android:paddingLeft="36px"
-                    android:text="团队成员" />
+                    android:text="团队成员"
+                    android:textColor="#333333"
+                    android:textSize="45px"
+                    android:textStyle="bold" />
 
                 <View style="@style/divider" />
 
@@ -326,7 +332,10 @@
                         android:drawablePadding="20px"
                         android:gravity="center_vertical"
                         android:paddingLeft="36px"
-                        android:text="项目动态" />
+                        android:text="项目动态"
+                        android:textColor="#333333"
+                        android:textSize="45px"
+                        android:textStyle="bold" />
 
                     <View style="@style/divider" />
 
@@ -414,7 +423,10 @@
                         android:drawablePadding="20px"
                         android:gravity="center_vertical"
                         android:paddingLeft="36px"
-                        android:text="行业概况" />
+                        android:text="行业概况"
+                        android:textColor="#333333"
+                        android:textSize="45px"
+                        android:textStyle="bold" />
 
                     <View style="@style/divider" />
 
@@ -448,7 +460,10 @@
                         android:drawablePadding="20px"
                         android:gravity="center_vertical"
                         android:paddingLeft="36px"
-                        android:text="融资历史" />
+                        android:text="融资历史"
+                        android:textColor="#333333"
+                        android:textSize="45px"
+                        android:textStyle="bold" />
 
                     <View style="@style/divider" />
 
@@ -482,7 +497,10 @@
                         android:drawablePadding="20px"
                         android:gravity="center_vertical"
                         android:paddingLeft="36px"
-                        android:text="项目风险提示" />
+                        android:text="项目风险提示"
+                        android:textColor="#333333"
+                        android:textSize="45px"
+                        android:textStyle="bold" />
 
                     <View style="@style/divider" />
 
@@ -516,7 +534,10 @@
                         android:drawablePadding="20px"
                         android:gravity="center_vertical"
                         android:paddingLeft="36px"
-                        android:text="专家及管理团队意见" />
+                        android:text="专家及管理团队意见"
+                        android:textColor="#333333"
+                        android:textSize="45px"
+                        android:textStyle="bold" />
 
                     <View style="@style/divider" />
 
@@ -550,7 +571,10 @@
                         android:drawablePadding="20px"
                         android:gravity="center_vertical"
                         android:paddingLeft="36px"
-                        android:text="投资方案" />
+                        android:text="投资方案"
+                        android:textColor="#333333"
+                        android:textSize="45px"
+                        android:textStyle="bold" />
 
                     <View style="@style/divider" />
 
@@ -584,7 +608,10 @@
                         android:drawablePadding="20px"
                         android:gravity="center_vertical"
                         android:paddingLeft="36px"
-                        android:text="退出渠道" />
+                        android:text="退出渠道"
+                        android:textColor="#333333"
+                        android:textSize="45px"
+                        android:textStyle="bold" />
 
                     <View style="@style/divider" />
 
@@ -618,7 +645,10 @@
                         android:drawablePadding="20px"
                         android:gravity="center_vertical"
                         android:paddingLeft="36px"
-                        android:text="Q&amp;A" />
+                        android:text="Q&amp;A"
+                        android:textColor="#333333"
+                        android:textSize="45px"
+                        android:textStyle="bold" />
 
                     <View style="@style/divider" />
 
@@ -647,7 +677,10 @@
                         android:drawablePadding="20px"
                         android:gravity="center_vertical"
                         android:paddingLeft="36px"
-                        android:text="投资文件" />
+                        android:text="投资文件"
+                        android:textColor="#333333"
+                        android:textSize="45px"
+                        android:textStyle="bold" />
 
                     <View style="@style/divider" />
 

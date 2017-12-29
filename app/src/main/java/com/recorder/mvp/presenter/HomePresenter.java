@@ -73,13 +73,13 @@ public class HomePresenter extends BasePresenter<HomeContract.Model, HomeContrac
                 });
     }
 
-    public void homeRecommend() {
+    public void homeRecommend(boolean isFirst) {
         mModel.homeRecommend()
                 .compose(RxLifecycleUtils.transformer(mRootView))
                 .subscribe(new ErrorHandleSubscriber<HomeRecommendBean>(mErrorHandler) {
                     @Override
                     public void onNext(HomeRecommendBean homeRecommendBean) {
-                        mRootView.showHomeRecomment(homeRecommendBean.getData());
+                        mRootView.showHomeRecomment(homeRecommendBean.getData(), isFirst);
                     }
                 });
     }

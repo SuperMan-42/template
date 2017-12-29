@@ -70,7 +70,7 @@ public class PdfActivity extends BaseActivity<PdfPresenter> implements PdfContra
     @Override
     public void initView(Bundle savedInstanceState) {
         ARouter.getInstance().inject(this);
-        mPresenter.download(pdf_http, Constants.SDCARD_PATH + pdf_name + ".pdf");
+        mPresenter.download(pdf_http, Constants.SDCARD_PATH + CommonUtils.md5(pdf_http + pdf_name) + ".pdf");
     }
 
     @Override

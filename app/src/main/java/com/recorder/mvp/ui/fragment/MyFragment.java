@@ -126,6 +126,7 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
                             CommonUtils.share(getActivity(), "http://baidu.com", "般若云分享测试", "般若云分享测试", "http://bpic.588ku.com/element_origin_min_pic/00/00/05/115732f19cc0079.jpg");
                             break;
                         case "/app/AuthActivity":
+                        case "/app/MyMessageActivity":
                             if (TextUtils.isEmpty(BCache.getInstance().getString(Constants.TOKEN))) {
                                 ARouter.getInstance().build("/app/LoginActivity").withString(Constants.RETRY_WHEN_LOGIN_OR_AUTH, Constants.RETRY_MY).navigation();
                             } else {

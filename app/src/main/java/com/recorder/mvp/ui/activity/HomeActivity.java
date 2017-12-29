@@ -333,7 +333,7 @@ public class HomeActivity extends BaseActivity<HomePresenter> implements HomeCon
     }
 
     @Override
-    public void showHomeRecomment(HomeRecommendBean.DataEntity dataEntity) {
+    public void showHomeRecomment(HomeRecommendBean.DataEntity dataEntity, boolean isFirst) {
 
     }
 

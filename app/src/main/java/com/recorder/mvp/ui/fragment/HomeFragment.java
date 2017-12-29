@@ -73,7 +73,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
 
     @Override
     public void initData(Bundle savedInstanceState) {
-        mPresenter.homeRecommend();
+        mPresenter.homeRecommend(true);
         View view = CoreUtils.inflate(getContext(), R.layout.item_home_header);
         banner = view.findViewById(R.id.banner);
         banner.setAdapter((banner1, itemView, model, position) -> {
@@ -104,7 +104,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
                         .withBoolean(Constants.IS_EQUITY, item.getType() == 1)
                         .withString(Constants.DEAL_ID, item.getDealID()).navigation());
             }
-        }).openRefresh(page -> mPresenter.homeRecommend()).addHeaderView(view);
+        }).openRefresh(page -> mPresenter.homeRecommend(false)).addHeaderView(view);
     }
 
     /**
@@ -157,7 +157,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
     }
 
     @Override
-    public void showHomeRecomment(HomeRecommendBean.DataEntity dataEntity) {
+    public void showHomeRecomment(HomeRecommendBean.DataEntity dataEntity, boolean isFirst) {
         List<Bean> models = new ArrayList<>();
         List<String> titles = new ArrayList<>();
         for (HomeRecommendBean.DataEntity.NewsRecommendEntity entity : dataEntity.getNews_recommend()) {
@@ -165,6 +165,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
             titles.add(entity.getTitle());
         }
         banner.setData(models, titles);
+        banner.setCurrentItem(isFirst ? 0 : models.size() - 1);
         List<HomeRecommendBean.DataEntity.Entity> list = new ArrayList<>();
         list.addAll(dataEntity.getZc());
         list.addAll(dataEntity.getSm());

@@ -32,9 +32,10 @@
         android:layout_marginLeft="171px"
         android:layout_marginRight="171px"
         android:layout_marginTop="111px"
-        android:background="@drawable/bga_round_empty"
+        android:background="@drawable/bga_button"
         android:gravity="center"
         android:textColor="@color/white"
         android:textSize="45px"
         tools:text="重新连接" />
+    <!--android:background="@drawable/bga_round_empty"-->
 </LinearLayout>
