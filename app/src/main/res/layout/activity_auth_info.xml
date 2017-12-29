@@ -82,7 +82,7 @@
                 android:layout_height="450px"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="84px"
-                android:background="@drawable/id_0" />
+                android:src="@drawable/id_0" />
 
             <TextView
                 android:id="@+id/tv_positive"
@@ -100,7 +100,7 @@
                 android:layout_height="450px"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="84px"
-                android:background="@drawable/id_1" />
+                android:src="@drawable/id_1" />
 
             <TextView
                 android:id="@+id/tv_other"
