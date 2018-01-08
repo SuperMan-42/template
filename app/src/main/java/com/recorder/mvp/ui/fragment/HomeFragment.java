@@ -81,7 +81,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
             itemView.setOnClickListener(view12 -> {
                 if (TextUtils.isEmpty(((Bean) model).getOther())) {
                 } else if (((Bean) model).getOther().equals("hx://deal-recommend")) {
-                    ARouter.getInstance().build("/app/DealRecommendActivity").navigation();
+                    ARouter.getInstance().build("/app/DealRecommendActivity").greenChannel().navigation();
                 } else {
                     ARouter.getInstance().build("/app/WebActivity")
                             .withBoolean(Constants.IS_SHOW_RIGHT, true).withString(Constants.WEB_URL, ((Bean) model).getOther()).greenChannel().navigation();

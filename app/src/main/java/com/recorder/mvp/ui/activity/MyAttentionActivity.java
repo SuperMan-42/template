@@ -27,6 +27,8 @@ import com.recorder.utils.CommonUtils;
 
 import org.simple.eventbus.Subscriber;
 
+import java.util.Random;
+
 import butterknife.BindView;
 
 import static com.core.utils.Preconditions.checkNotNull;
@@ -66,7 +68,8 @@ public class MyAttentionActivity extends BaseActivity<MyAttentionPresenter> impl
                         .setText(R.id.tv_round, item.getRound())
                         .setText(R.id.tv_online_str, item.getOnline_str())
                         .setVisible(R.id.tv_is_group, item.getIs_group().equals("1"))
-                        .setVisible(R.id.tv_brief, !item.getIs_group().equals("1"));
+                        .setVisible(R.id.tv_brief, !item.getIs_group().equals("1"))
+                        .setVisible(R.id.im_isdone, new Random().nextBoolean());//TODO
                 ((LinearLayout) holder.getView(R.id.ll_tag)).setOrientation(item.getIs_group().equals("1") ? LinearLayout.VERTICAL : LinearLayout.HORIZONTAL);
                 UserFollowListBean.DataEntity.ListEntity.ViewFooterEntity viewFooterEntity = item.getView_footer();
                 if (viewFooterEntity.getConsult() != null || viewFooterEntity.getFocus() != null || viewFooterEntity.getView() != null) {

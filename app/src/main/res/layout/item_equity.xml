@@ -11,6 +11,7 @@
         android:background="#F0F2F5" />
 
     <RelativeLayout
+        android:id="@+id/rl"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white">
@@ -138,6 +139,16 @@
             android:textColor="#999999"
             android:textSize="33px"
             tools:text="一天前" />
+
+        <ImageView
+            android:id="@+id/im_isdone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/item_layout"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="6px"
+            android:layout_marginRight="6px"
+            android:src="@drawable/ic_down" />
     </RelativeLayout>
 
     <LinearLayout
