@@ -57,7 +57,7 @@
             android:inputType="phone"
             android:paddingLeft="40px"
             android:textColorHint="#9CADCC"
-            android:textCursorDrawable="@null"
+            android:textCursorDrawable="@drawable/color_cursor"
             android:textSize="45px" />
 
         <EditText
@@ -75,7 +75,7 @@
             android:inputType="textPassword"
             android:paddingLeft="40px"
             android:textColorHint="#9CADCC"
-            android:textCursorDrawable="@null"
+            android:textCursorDrawable="@drawable/color_cursor"
             android:textSize="45px" />
 
         <TextView

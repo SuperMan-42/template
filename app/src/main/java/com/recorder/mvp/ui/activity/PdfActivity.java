@@ -88,7 +88,7 @@ public class PdfActivity extends BaseActivity<PdfPresenter> implements PdfContra
         checkNotNull(message);
 //        CoreUtils.snackbarText(CoreUtils.getString(this, R.string.text_download));
         pdfView.fromFile(new File(message))
-                .pages(0, 2, 1, 3, 3, 3) // all pages are displayed by default
+//                .pages(0, 2, 1, 3, 3, 3) // all pages are displayed by default
                 .enableSwipe(true) // allows to block changing pages using swipe
                 .swipeHorizontal(false)
                 .enableDoubletap(true)

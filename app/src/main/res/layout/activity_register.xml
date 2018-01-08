@@ -28,7 +28,7 @@
             android:inputType="phone"
             android:paddingLeft="45px"
             android:textColorHint="#999999"
-            android:textCursorDrawable="@null"
+            android:textCursorDrawable="@drawable/color_cursor"
             android:textSize="45px" />
 
         <LinearLayout
@@ -50,7 +50,7 @@
                 android:inputType="number"
                 android:paddingLeft="45px"
                 android:textColorHint="#999999"
-                android:textCursorDrawable="@null"
+                android:textCursorDrawable="@drawable/color_cursor"
                 android:textSize="45px" />
 
             <TextView
@@ -110,7 +110,7 @@
             android:inputType="textPassword"
             android:paddingLeft="45px"
             android:textColorHint="#999999"
-            android:textCursorDrawable="@null"
+            android:textCursorDrawable="@drawable/color_cursor"
             android:textSize="45px" />
 
         <EditText
@@ -126,7 +126,7 @@
             android:inputType="textPassword"
             android:paddingLeft="45px"
             android:textColorHint="#999999"
-            android:textCursorDrawable="@null"
+            android:textCursorDrawable="@drawable/color_cursor"
             android:textSize="45px" />
     </LinearLayout>
 

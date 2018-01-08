@@ -53,10 +53,10 @@ public class CashierPresenter extends BasePresenter<CashierContract.Model, Cashi
                 .subscribe(data -> {
                     //处理中的情况
                     Logger.d("buy=> " + data);
-                    mRootView.showMessage(data);
+                    mRootView.showResult(false, data);
                 }, e -> {
                     Logger.d("buy=> e " + e.getMessage() + " " + e.toString());
-                    mRootView.showResult(false, e.getMessage());
+//                    mRootView.showMessage(e.getMessage());
                 }, () -> {
                     mRootView.showResult(true, amount);
                     Logger.d("buy=> complete");

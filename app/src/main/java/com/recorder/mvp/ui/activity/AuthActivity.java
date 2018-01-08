@@ -208,8 +208,8 @@ public class AuthActivity extends BaseActivity<AuthPresenter> implements AuthCon
         CustomPopupWindow.builder().contentView(CoreUtils.inflate(this, R.layout.layout_dialog_one_button)).isOutsideTouch(false)
                 .customListener(contentView -> {
                     ((TextView) contentView.findViewById(R.id.tv_title)).setText("提示");
-                    ((TextView) contentView.findViewById(R.id.tv_content)).setText("用户审核中");
-                    ((TextView) contentView.findViewById(R.id.tv_sure)).setText("确定");
+                    ((TextView) contentView.findViewById(R.id.tv_content)).setText("审核中，请稍后再试");
+                    ((TextView) contentView.findViewById(R.id.tv_sure)).setText("好的");
                     contentView.findViewById(R.id.tv_sure).setOnClickListener(view -> CustomPopupWindow.killMySelf());
                 }).build().show();
     }

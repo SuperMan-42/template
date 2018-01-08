@@ -218,17 +218,18 @@ public class BuyActivity extends BaseActivity<BuyPresenter> implements BuyContra
         });
     }
 
-    private BigDecimal setContent(int value, int year, LinearLayout ll, TextView tv) {
-        if (value <= 0) {
+    @SuppressLint("SetTextI18n")
+    private BigDecimal setContent(String value, int year, LinearLayout ll, TextView tv) {
+        if (new BigDecimal(value).compareTo(BigDecimal.ZERO) <= 0) {
             ll.setVisibility(View.GONE);
         } else {
             ll.setVisibility(View.VISIBLE);
-            tv.setText((value * year) + "%  (" + value + "% * " + year + "年)");
-            if (value == dataEntity.getCustom_fee()) {
+            tv.setText((new BigDecimal(value).multiply(BigDecimal.valueOf(year))) + "%  (" + value + "% * " + year + "年)");
+            if (value.equals(dataEntity.getCustom_fee())) {
                 tvCustomFeeName.setText(dataEntity.getCustom_fee_name() + ": ");
             }
         }
-        return BigDecimal.valueOf(value).multiply(BigDecimal.valueOf(year)).movePointLeft(2);
+        return new BigDecimal(value).multiply(BigDecimal.valueOf(year)).movePointLeft(2);
     }
 
     private void setContent(String value, LinearLayout ll, TextView tv) {

@@ -1,6 +1,5 @@
 package com.recorder.mvp.model.entity;
 
-import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -12,7 +11,7 @@ public class PayCheckBean {
     /**
      * errno : 0
      * error : 成功
-     * data : {"dealID":"6f10e0b2e9070c5484380ca9","deal_name":"长篇史诗电视剧<<利顺德传奇>>","limit_price":"5","shakes":"0.006","manager_fee":"1","manager_fee_year":"2","consult_fee":"0","consult_fee_year":"0","subscription_fee":"0","subscription_fee_year":"0","partner_fee":"0","partner_fee_year":"0","plat_manage_fee":"0","plat_manage_fee_year":"0","other_fee":"0","other_fee_year":"0","custom_fee_name":"","custom_fee":"0","custom_fee_year":"0","purchse_agreement":[{"file_name":"投资顾问协议协议协议","file":"http://ustatic-test.dreamflyc.com//attachment/201712/11/15/5a2e3ac9f2337.pdf"}]}
+     * data : {"dealID":"f01973ef54eb5a23800301a9","deal_name":"般若云","limit_price":"100","shakes":"5","manager_fee":"2","manager_fee_year":"3","consult_fee":"0","consult_fee_year":"0","subscription_fee":"0","subscription_fee_year":"0","partner_fee":"0.05","partner_fee_year":"3","plat_manage_fee":"0","plat_manage_fee_year":"0","other_fee":"0","other_fee_year":"0","custom_fee_name":"","custom_fee":"0","custom_fee_year":"0","purchse_agreement":[{"file_name":"私募投资基金风险揭示书","file":"http://ustatic.dreamflyc.com/group1/M00/00/01/CgECq1pDUKiADQF4AAKHpI1XyKA521.pdf"},{"file_name":"XXXX_合格投资者承诺函","file":"http://ustatic.dreamflyc.com/group1/M00/00/01/CgECq1pDUT6ASmMlAADwOK2LwAU165.pdf"}]}
      */
 
     private int errno;
@@ -45,18 +44,18 @@ public class PayCheckBean {
 
     public static class DataEntity {
         /**
-         * dealID : 6f10e0b2e9070c5484380ca9
-         * deal_name : 长篇史诗电视剧<<利顺德传奇>>
-         * limit_price : 5
-         * shakes : 0.006
-         * manager_fee : 1
-         * manager_fee_year : 2
+         * dealID : f01973ef54eb5a23800301a9
+         * deal_name : 般若云
+         * limit_price : 100
+         * shakes : 5
+         * manager_fee : 2
+         * manager_fee_year : 3
          * consult_fee : 0
          * consult_fee_year : 0
          * subscription_fee : 0
          * subscription_fee_year : 0
-         * partner_fee : 0
-         * partner_fee_year : 0
+         * partner_fee : 0.05
+         * partner_fee_year : 3
          * plat_manage_fee : 0
          * plat_manage_fee_year : 0
          * other_fee : 0
@@ -64,27 +63,27 @@ public class PayCheckBean {
          * custom_fee_name :
          * custom_fee : 0
          * custom_fee_year : 0
-         * purchse_agreement : [{"file_name":"投资顾问协议协议协议","file":"http://ustatic-test.dreamflyc.com//attachment/201712/11/15/5a2e3ac9f2337.pdf"}]
+         * purchse_agreement : [{"file_name":"私募投资基金风险揭示书","file":"http://ustatic.dreamflyc.com/group1/M00/00/01/CgECq1pDUKiADQF4AAKHpI1XyKA521.pdf"},{"file_name":"XXXX_合格投资者承诺函","file":"http://ustatic.dreamflyc.com/group1/M00/00/01/CgECq1pDUT6ASmMlAADwOK2LwAU165.pdf"}]
          */
 
         private String dealID;
         private String deal_name;
         private String limit_price;
         private String shakes;
-        private int manager_fee;
+        private String manager_fee;
         private int manager_fee_year;
-        private int consult_fee;
+        private String consult_fee;
         private int consult_fee_year;
-        private int subscription_fee;
+        private String subscription_fee;
         private int subscription_fee_year;
-        private int partner_fee;
+        private String partner_fee;
         private int partner_fee_year;
-        private int plat_manage_fee;
+        private String plat_manage_fee;
         private int plat_manage_fee_year;
-        private int other_fee;
+        private String other_fee;
         private int other_fee_year;
         private String custom_fee_name;
-        private int custom_fee;
+        private String custom_fee;
         private int custom_fee_year;
         private List<PurchseAgreementEntity> purchse_agreement;
 
@@ -104,7 +103,7 @@ public class PayCheckBean {
             this.shakes = shakes;
         }
 
-        public void setManager_fee(int manager_fee) {
+        public void setManager_fee(String manager_fee) {
             this.manager_fee = manager_fee;
         }
 
@@ -112,7 +111,7 @@ public class PayCheckBean {
             this.manager_fee_year = manager_fee_year;
         }
 
-        public void setConsult_fee(int consult_fee) {
+        public void setConsult_fee(String consult_fee) {
             this.consult_fee = consult_fee;
         }
 
@@ -120,7 +119,7 @@ public class PayCheckBean {
             this.consult_fee_year = consult_fee_year;
         }
 
-        public void setSubscription_fee(int subscription_fee) {
+        public void setSubscription_fee(String subscription_fee) {
             this.subscription_fee = subscription_fee;
         }
 
@@ -128,7 +127,7 @@ public class PayCheckBean {
             this.subscription_fee_year = subscription_fee_year;
         }
 
-        public void setPartner_fee(int partner_fee) {
+        public void setPartner_fee(String partner_fee) {
             this.partner_fee = partner_fee;
         }
 
@@ -136,7 +135,7 @@ public class PayCheckBean {
             this.partner_fee_year = partner_fee_year;
         }
 
-        public void setPlat_manage_fee(int plat_manage_fee) {
+        public void setPlat_manage_fee(String plat_manage_fee) {
             this.plat_manage_fee = plat_manage_fee;
         }
 
@@ -144,7 +143,7 @@ public class PayCheckBean {
             this.plat_manage_fee_year = plat_manage_fee_year;
         }
 
-        public void setOther_fee(int other_fee) {
+        public void setOther_fee(String other_fee) {
             this.other_fee = other_fee;
         }
 
@@ -156,7 +155,7 @@ public class PayCheckBean {
             this.custom_fee_name = custom_fee_name;
         }
 
-        public void setCustom_fee(int custom_fee) {
+        public void setCustom_fee(String custom_fee) {
             this.custom_fee = custom_fee;
         }
 
@@ -184,7 +183,7 @@ public class PayCheckBean {
             return shakes;
         }
 
-        public int getManager_fee() {
+        public String getManager_fee() {
             return manager_fee;
         }
 
@@ -192,7 +191,7 @@ public class PayCheckBean {
             return manager_fee_year;
         }
 
-        public int getConsult_fee() {
+        public String getConsult_fee() {
             return consult_fee;
         }
 
@@ -200,7 +199,7 @@ public class PayCheckBean {
             return consult_fee_year;
         }
 
-        public int getSubscription_fee() {
+        public String getSubscription_fee() {
             return subscription_fee;
         }
 
@@ -208,7 +207,7 @@ public class PayCheckBean {
             return subscription_fee_year;
         }
 
-        public int getPartner_fee() {
+        public String getPartner_fee() {
             return partner_fee;
         }
 
@@ -216,7 +215,7 @@ public class PayCheckBean {
             return partner_fee_year;
         }
 
-        public int getPlat_manage_fee() {
+        public String getPlat_manage_fee() {
             return plat_manage_fee;
         }
 
@@ -224,7 +223,7 @@ public class PayCheckBean {
             return plat_manage_fee_year;
         }
 
-        public int getOther_fee() {
+        public String getOther_fee() {
             return other_fee;
         }
 
@@ -236,7 +235,7 @@ public class PayCheckBean {
             return custom_fee_name;
         }
 
-        public int getCustom_fee() {
+        public String getCustom_fee() {
             return custom_fee;
         }
 
@@ -248,15 +247,14 @@ public class PayCheckBean {
             return purchse_agreement;
         }
 
-        public static class PurchseAgreementEntity implements Serializable {
+        public static class PurchseAgreementEntity {
             /**
-             * file_name : 投资顾问协议协议协议
-             * file : http://ustatic-test.dreamflyc.com//attachment/201712/11/15/5a2e3ac9f2337.pdf
+             * file_name : 私募投资基金风险揭示书
+             * file : http://ustatic.dreamflyc.com/group1/M00/00/01/CgECq1pDUKiADQF4AAKHpI1XyKA521.pdf
              */
 
             private String file_name;
             private String file;
-            private boolean isCheck = false;
 
             public void setFile_name(String file_name) {
                 this.file_name = file_name;
@@ -272,14 +270,6 @@ public class PayCheckBean {
 
             public String getFile() {
                 return file;
-            }
-
-            public boolean getCheck() {
-                return isCheck;
-            }
-
-            public void setCheck(boolean check) {
-                isCheck = check;
             }
         }
     }

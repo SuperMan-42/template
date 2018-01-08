@@ -355,23 +355,23 @@ public class CommonUtils {
                 switch (resultCode) {
                     case -5:
                         // 充值处理中
-                        e.onNext("充值处理中");
+                        CoreUtils.snackbarText("充值处理中");
                         break;
                     case -4:
                         // 认证结果失败
-                        e.onError(new Throwable("认证结果失败"));
+                        e.onNext("认证结果失败");
                         break;
                     case -3:
                         // 认证结果处理中
-                        e.onNext("认证结果处理中");
+                        CoreUtils.snackbarText("认证结果处理中");
                         break;
                     case -2:
                         // 错误
-                        e.onError(new Throwable("错误"));
+                        e.onNext("错误");
                         break;
                     case -1:
                         // 用户主动退出
-                        e.onError(new Throwable("用户主动退出"));
+                        e.onNext("用户主动退出");
                         break;
                     case 0:
                         // 充值成功

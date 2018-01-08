@@ -52,10 +52,10 @@ public class PayDetailsPresenter extends BasePresenter<PayDetailsContract.Model,
                 .subscribe(data -> {
                     //处理中的情况
                     Logger.d("buy=> " + data);
-                    mRootView.showMessage(data);
+                    mRootView.showResult(false, item, data);
                 }, e -> {
                     Logger.d("buy=> e " + e.getMessage() + " " + e.toString());
-                    mRootView.showResult(false, item, e.getMessage());
+//                    mRootView.showMessage(e.getMessage());
                 }, () -> {
                     mRootView.showResult(true, item, item.getAmount());
                     Logger.d("buy=> complete");

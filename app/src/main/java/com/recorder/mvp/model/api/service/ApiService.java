@@ -181,7 +181,7 @@ public interface ApiService {
     @FormUrlEncoded
     @POST("auth/organ")
     Observable<AuthBean> authOrgan(@Header("DIVERSION-VERSION") String version, @Field("organ_name") String organ_name, @Field("legal_person") String legal_person,
-                                 @Field("contact") String contact, @Field("license") String license, @Field("check") String check, @Field("assets") String assets);
+                                   @Field("contact") String contact, @Field("license") String license, @Field("check") String check, @Field("assets") String assets);
 
     @GET("user/authinfo")
     Observable<UserAuthInfoBean> userAuthInfo(@Header("DIVERSION-VERSION") String version);
