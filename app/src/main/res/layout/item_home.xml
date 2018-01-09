@@ -76,8 +76,7 @@
     <FrameLayout
         android:id="@+id/fl_progress"
         android:layout_width="match_parent"
-        android:layout_height="51px"
-        android:layout_marginBottom="40px"
+        android:layout_height="wrap_content"
         android:layout_marginTop="40px"
         android:paddingLeft="30px"
         android:paddingRight="30px"
@@ -88,6 +87,7 @@
             android:id="@+id/numberProgressBar"
             android:layout_width="match_parent"
             android:layout_height="51px"
+            android:layout_marginBottom="40px"
             android:background="#00000000"
             app:finishColor="#F7CE4D"
             app:loadingColor="#F7CE4D"

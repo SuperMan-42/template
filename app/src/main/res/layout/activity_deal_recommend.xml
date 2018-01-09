@@ -32,24 +32,38 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
                     android:paddingLeft="45px"
                     android:text="项目名称"
                     android:textColor="#666666"
                     android:textSize="45px" />
 
-                <EditText
-                    android:id="@+id/et_deal_name"
+                <FrameLayout
                     android:layout_width="match_parent"
-                    android:layout_height="132px"
-                    android:background="@color/white"
-                    android:gravity="center_vertical|right"
-                    android:hint="必填"
-                    android:paddingLeft="45px"
-                    android:paddingRight="45px"
-                    android:singleLine="true"
-                    android:textColorHint="#999999"
-                    android:textCursorDrawable="@null"
-                    android:textSize="45px" />
+                    android:layout_height="132px">
+
+                    <EditText
+                        android:id="@+id/et_deal_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="132px"
+                        android:background="@color/white"
+                        android:gravity="center_vertical|right"
+                        android:paddingLeft="45px"
+                        android:paddingRight="45px"
+                        android:singleLine="true"
+                        android:textCursorDrawable="@drawable/color_cursor"
+                        android:textSize="45px" />
+
+                    <TextView
+                        android:id="@+id/tv_deal_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginRight="51px"
+                        android:background="@null"
+                        android:gravity="right|center_vertical"
+                        android:text="必填"
+                        android:textColor="#999999" />
+                </FrameLayout>
             </LinearLayout>
 
             <View style="@style/divider" />
@@ -63,24 +77,39 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
                     android:paddingLeft="45px"
                     android:text="行业类型"
                     android:textColor="#666666"
                     android:textSize="45px" />
 
-                <EditText
-                    android:id="@+id/et_industry"
+                <FrameLayout
                     android:layout_width="match_parent"
-                    android:layout_height="132px"
-                    android:background="@color/white"
-                    android:gravity="center_vertical|right"
-                    android:hint="非必填"
-                    android:paddingLeft="45px"
-                    android:paddingRight="45px"
-                    android:singleLine="true"
-                    android:textColorHint="#999999"
-                    android:textCursorDrawable="@null"
-                    android:textSize="45px" />
+                    android:layout_height="132px">
+
+                    <EditText
+                        android:id="@+id/et_industry"
+                        android:layout_width="match_parent"
+                        android:layout_height="132px"
+                        android:background="@color/white"
+                        android:gravity="center_vertical|right"
+                        android:paddingLeft="45px"
+                        android:paddingRight="45px"
+                        android:singleLine="true"
+                        android:textCursorDrawable="@drawable/color_cursor"
+                        android:textSize="45px" />
+
+                    <TextView
+                        android:id="@+id/tv_industry"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginRight="51px"
+                        android:background="@null"
+                        android:gravity="right|center_vertical"
+                        android:text="非必填"
+                        android:textColor="#999999" />
+                </FrameLayout>
+
             </LinearLayout>
 
             <View style="@style/divider" />
@@ -94,24 +123,39 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
                     android:paddingLeft="45px"
                     android:text="融资需求"
                     android:textColor="#666666"
                     android:textSize="45px" />
 
-                <EditText
-                    android:id="@+id/et_requirement"
+                <FrameLayout
                     android:layout_width="match_parent"
-                    android:layout_height="132px"
-                    android:background="@color/white"
-                    android:gravity="center_vertical|right"
-                    android:hint="非必填"
-                    android:paddingLeft="45px"
-                    android:paddingRight="45px"
-                    android:singleLine="true"
-                    android:textColorHint="#999999"
-                    android:textCursorDrawable="@null"
-                    android:textSize="45px" />
+                    android:layout_height="132px">
+
+                    <EditText
+                        android:id="@+id/et_requirement"
+                        android:layout_width="match_parent"
+                        android:layout_height="132px"
+                        android:background="@color/white"
+                        android:gravity="center_vertical|right"
+                        android:paddingLeft="45px"
+                        android:paddingRight="45px"
+                        android:singleLine="true"
+                        android:textCursorDrawable="@drawable/color_cursor"
+                        android:textSize="45px" />
+
+                    <TextView
+                        android:id="@+id/tv_requirement"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginRight="51px"
+                        android:background="@null"
+                        android:gravity="right|center_vertical"
+                        android:text="非必填"
+                        android:textColor="#999999" />
+                </FrameLayout>
+
             </LinearLayout>
 
             <View style="@style/divider" />
@@ -125,24 +169,39 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
                     android:paddingLeft="45px"
                     android:text="联系人"
                     android:textColor="#666666"
                     android:textSize="45px" />
 
-                <EditText
-                    android:id="@+id/et_contact"
+                <FrameLayout
                     android:layout_width="match_parent"
-                    android:layout_height="132px"
-                    android:background="@color/white"
-                    android:gravity="center_vertical|right"
-                    android:hint="必填"
-                    android:paddingLeft="45px"
-                    android:paddingRight="45px"
-                    android:singleLine="true"
-                    android:textColorHint="#999999"
-                    android:textCursorDrawable="@null"
-                    android:textSize="45px" />
+                    android:layout_height="132px">
+
+                    <EditText
+                        android:id="@+id/et_contact"
+                        android:layout_width="match_parent"
+                        android:layout_height="132px"
+                        android:background="@color/white"
+                        android:gravity="center_vertical|right"
+                        android:paddingLeft="45px"
+                        android:paddingRight="45px"
+                        android:singleLine="true"
+                        android:textCursorDrawable="@drawable/color_cursor"
+                        android:textSize="45px" />
+
+                    <TextView
+                        android:id="@+id/tv_contact"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginRight="51px"
+                        android:background="@null"
+                        android:gravity="right|center_vertical"
+                        android:text="必填"
+                        android:textColor="#999999" />
+                </FrameLayout>
+
             </LinearLayout>
 
             <View style="@style/divider" />
@@ -156,24 +215,39 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
                     android:paddingLeft="45px"
                     android:text="电话/微信"
                     android:textColor="#666666"
                     android:textSize="45px" />
 
-                <EditText
-                    android:id="@+id/et_phone"
+                <FrameLayout
                     android:layout_width="match_parent"
-                    android:layout_height="132px"
-                    android:background="@color/white"
-                    android:gravity="center_vertical|right"
-                    android:hint="必填"
-                    android:paddingLeft="45px"
-                    android:paddingRight="45px"
-                    android:singleLine="true"
-                    android:textColorHint="#999999"
-                    android:textCursorDrawable="@null"
-                    android:textSize="45px" />
+                    android:layout_height="132px">
+
+                    <EditText
+                        android:id="@+id/et_phone"
+                        android:layout_width="match_parent"
+                        android:layout_height="132px"
+                        android:background="@color/white"
+                        android:gravity="center_vertical|right"
+                        android:paddingLeft="45px"
+                        android:paddingRight="45px"
+                        android:singleLine="true"
+                        android:textCursorDrawable="@drawable/color_cursor"
+                        android:textSize="45px" />
+
+                    <TextView
+                        android:id="@+id/tv_phone1"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginRight="51px"
+                        android:background="@null"
+                        android:gravity="right|center_vertical"
+                        android:text="必填"
+                        android:textColor="#999999" />
+                </FrameLayout>
+
             </LinearLayout>
 
             <TextView
@@ -197,7 +271,7 @@
                 android:paddingRight="45px"
                 android:paddingTop="24px"
                 android:textColorHint="#999999"
-                android:textCursorDrawable="@null"
+                android:textCursorDrawable="@drawable/color_cursor"
                 android:textSize="45px" />
 
             <TextView
@@ -221,7 +295,7 @@
                 android:paddingRight="45px"
                 android:paddingTop="24px"
                 android:textColorHint="#999999"
-                android:textCursorDrawable="@null"
+                android:textCursorDrawable="@drawable/color_cursor"
                 android:textSize="45px" />
 
             <TextView

@@ -3,7 +3,10 @@ package com.recorder.mvp.ui.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -33,14 +36,24 @@ public class DealRecommendActivity extends BaseActivity<DealRecommendPresenter> 
 
     @BindView(R.id.et_deal_name)
     EditText etDealName;
+    @BindView(R.id.tv_deal_name)
+    TextView tvDealName;
     @BindView(R.id.et_industry)
     EditText etIndustry;
+    @BindView(R.id.tv_industry)
+    TextView tvIndustry;
     @BindView(R.id.et_requirement)
     EditText etRequirement;
+    @BindView(R.id.tv_requirement)
+    TextView tvRequirement;
     @BindView(R.id.et_contact)
     EditText etContact;
+    @BindView(R.id.tv_contact)
+    TextView tvContact;
     @BindView(R.id.et_phone)
     EditText etPhone;
+    @BindView(R.id.tv_phone1)
+    TextView tvPhone1;
     @BindView(R.id.et_business)
     EditText etBusiness;
     @BindView(R.id.et_team)
@@ -74,6 +87,38 @@ public class DealRecommendActivity extends BaseActivity<DealRecommendPresenter> 
             tvPhone.setText(bean.getData().getService_tel());
             tvPhone.setOnClickListener(view -> CommonUtils.call(this, bean.getData().getService_tel()));
             tvEmail.setText(bean.getData().getEmail());
+        }
+        etDealName.addTextChangedListener(new MyWatcher(tvDealName));
+        etIndustry.addTextChangedListener(new MyWatcher(tvIndustry));
+        etRequirement.addTextChangedListener(new MyWatcher(tvRequirement));
+        etContact.addTextChangedListener(new MyWatcher(tvContact));
+        etPhone.addTextChangedListener(new MyWatcher(tvPhone1));
+    }
+
+    private static class MyWatcher implements TextWatcher {
+        TextView textView;
+
+        MyWatcher(TextView textView) {
+            this.textView = textView;
+        }
+
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            if (TextUtils.isEmpty(s)) {
+                this.textView.setVisibility(View.VISIBLE);
+            } else {
+                this.textView.setVisibility(View.GONE);
+            }
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+
         }
     }
 
