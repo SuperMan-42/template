@@ -117,8 +117,17 @@ public class UserFollowListBean {
             private String round;
             private String labels;
             private String is_group;
+            private String is_success;
             private String online_str;
             private ViewFooterEntity view_footer;
+
+            public String getIs_success() {
+                return is_success;
+            }
+
+            public void setIs_success(String is_success) {
+                this.is_success = is_success;
+            }
 
             public void setDealID(String dealID) {
                 this.dealID = dealID;

@@ -27,8 +27,6 @@ import com.recorder.mvp.presenter.SearchPresenter;
 
 import org.simple.eventbus.Subscriber;
 
-import java.util.Random;
-
 import butterknife.BindView;
 import butterknife.OnClick;
 
@@ -123,7 +121,7 @@ public class SearchActivity extends BaseActivity<SearchPresenter> implements Sea
                         .setText(R.id.tv_round, item.getRound())
                         .setText(R.id.tv_online_str, item.getOnline_str())
                         .setVisible(R.id.tv_is_group, item.getIs_group().equals("1"))
-                        .setVisible(R.id.im_isdone, new Random().nextBoolean());//TODO
+                        .setVisible(R.id.im_isdone, item.getIs_success().equals("1"));
                 EquityBean.DataEntity.ListEntity.ViewFooterEntity viewFooterEntity = item.getView_footer();
                 if (viewFooterEntity.getConsult() != null || viewFooterEntity.getFocus() != null || viewFooterEntity.getView() != null) {
                     holder.setText(R.id.tv_view, String.valueOf(viewFooterEntity.getView()))

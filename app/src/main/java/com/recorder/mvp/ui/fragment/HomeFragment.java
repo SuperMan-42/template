@@ -97,7 +97,8 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
                 holder.setText(R.id.tv_title, item.getDeal_name())
                         .setText(R.id.tv_investment, "起投金额: " + item.getLimit_price() + "万")
                         .setText(R.id.tv_financing, "融资总额: " + item.getTarget_fund() + "万")
-                        .setImageResource(R.id.tv_tag, item.getType() == 1 ? R.drawable.ic_home_equity : R.drawable.ic_home_private);
+                        .setImageResource(R.id.tv_tag, item.getType() == 1 ? R.drawable.ic_home_equity : R.drawable.ic_home_private)
+                        .setVisible(R.id.fl_progress, item.getType() == 1);
                 AutoProgressBar progressBar = holder.getView(R.id.numberProgressBar);
                 progressBar.setProgress(item.getProgress());
                 holder.itemView.setOnClickListener(view1 -> ARouter.getInstance().build("/app/EquityDetailsActivity")

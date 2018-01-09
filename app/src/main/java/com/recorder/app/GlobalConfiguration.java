@@ -279,9 +279,9 @@ public class GlobalConfiguration implements ConfigModule {
                 ARouter.init(application); // 尽可能早，推荐在Application中初始化
                 //友盟相关
                 MobclickAgent.setScenarioType(context, MobclickAgent.EScenarioType.E_UM_NORMAL);
-                UMConfigure.init(context, "58747d635312dd8e3f000d62", "haoxiang", UMConfigure.DEVICE_TYPE_PHONE, null);
+                UMConfigure.init(context, "58747d635312dd8e3f000d62", "haoxiang", UMConfigure.DEVICE_TYPE_PHONE, null);//5a334ea0b27b0a6bca00021e
                 //分享相关
-                PlatformConfig.setWeixin("wx69b8a72d8c645b32", "9175381035b534c13a53659f737c22e1");
+                PlatformConfig.setWeixin("wx69b8a72d8c645b32", "e8d3a5a99b260fd912c68b807ed5ac0e");
                 UMShareAPI.get(context);
             }
 
