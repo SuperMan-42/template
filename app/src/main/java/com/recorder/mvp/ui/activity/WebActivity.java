@@ -30,6 +30,7 @@ import com.just.library.ChromeClientCallbackManager;
 import com.orhanobut.logger.Logger;
 import com.recorder.R;
 import com.recorder.utils.CommonUtils;
+import com.umeng.socialize.media.UMImage;
 
 import org.simple.eventbus.EventBus;
 
@@ -166,7 +167,7 @@ public class WebActivity extends BaseActivity {
 
     @OnClick(R.id.toolbar_right)
     public void onViewClicked() {
-        CommonUtils.share(this, "", "般若云分享测试", "般若云分享测试", "http://bpic.588ku.com/element_origin_min_pic/00/00/05/115732f19cc0079.jpg");
+        CommonUtils.share(this, url, "新闻分享", title, new UMImage(this, R.mipmap.ic_launcher));
     }
 
     public static class AndroidInterface {

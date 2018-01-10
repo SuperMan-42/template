@@ -382,7 +382,7 @@ public class CommonUtils {
         }, BuildConfig.IS_RELEASE);
     }
 
-    public static void share(Activity activity, String url, String title, String content, String img) {
+    public static void share(Activity activity, String url, String title, String content, UMImage img) {
         ShareBoardConfig config = new ShareBoardConfig();
         config.setIndicatorVisibility(false);
         config.setCancelButtonVisibility(false);
@@ -391,7 +391,7 @@ public class CommonUtils {
         UMWeb web = new UMWeb(url);
         web.setTitle(title);
         web.setDescription(content);
-        web.setThumb(new UMImage(activity, img));
+        web.setThumb(img);
         new ShareAction(activity)
                 .setDisplayList(SHARE_MEDIA.WEIXIN, SHARE_MEDIA.WEIXIN_CIRCLE, SHARE_MEDIA.SMS, SHARE_MEDIA.EMAIL)
                 .setCallback(new UMShareListener() {

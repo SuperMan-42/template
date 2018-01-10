@@ -22,12 +22,15 @@
     <uses-permission android:name="android.permission.EXPAND_STATUS_BAR" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
+    <uses-permission android:name="android.permission.READ_LOGS" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
 
     <!-- 适配Android N系统必需的ContentProvider写权限声明，写权限包含应用包名 -->
-    <uses-permission android:name="baidu.push.permission.WRITE_PUSHINFOPROVIDER.YourPackageName" />
+    <uses-permission android:name="baidu.push.permission.WRITE_PUSHINFOPROVIDER.com.recorder" />
 
     <permission
-        android:name="baidu.push.permission.WRITE_PUSHINFOPROVIDER.YourPackageName"
+        android:name="baidu.push.permission.WRITE_PUSHINFOPROVIDER.com.recorder"
         android:protectionLevel="signature" />
 
     <application
