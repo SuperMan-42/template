@@ -25,10 +25,12 @@ import com.alibaba.android.arouter.launcher.ARouter;
 import com.core.base.BaseActivity;
 import com.core.di.component.AppComponent;
 import com.core.utils.Constants;
+import com.core.utils.CoreUtils;
 import com.just.library.AgentWeb;
 import com.just.library.ChromeClientCallbackManager;
 import com.orhanobut.logger.Logger;
 import com.recorder.R;
+import com.recorder.utils.BitmapUtil;
 import com.recorder.utils.CommonUtils;
 import com.umeng.socialize.media.UMImage;
 
@@ -167,7 +169,7 @@ public class WebActivity extends BaseActivity {
 
     @OnClick(R.id.toolbar_right)
     public void onViewClicked() {
-        CommonUtils.share(this, url, "新闻分享", title, new UMImage(this, R.mipmap.ic_launcher));
+        CommonUtils.share(this, url, "新闻分享", title, new UMImage(this, BitmapUtil.getBitmapFromDrawable(CoreUtils.getDrawablebyResource(this, R.drawable.ic_wx_share))));
     }
 
     public static class AndroidInterface {

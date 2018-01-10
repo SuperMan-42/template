@@ -31,6 +31,7 @@ import com.recorder.mvp.model.entity.Bean;
 import com.recorder.mvp.model.entity.LoginBean;
 import com.recorder.mvp.model.entity.UserInfoBean;
 import com.recorder.mvp.presenter.MyPresenter;
+import com.recorder.utils.BitmapUtil;
 import com.recorder.utils.CommonUtils;
 import com.umeng.socialize.media.UMImage;
 
@@ -124,7 +125,7 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
                 holder.itemView.setOnClickListener(view1 -> {
                     switch (item.getOther()) {
                         case "recommend":
-                            CommonUtils.share(getActivity(), "http://web.dreamflyc.com/#/", "般若云", getString(R.string.text_app_share), new UMImage(getActivity(), R.mipmap.ic_launcher));
+                            CommonUtils.share(getActivity(), "http://web.dreamflyc.com/#/", "般若云", getString(R.string.text_app_share), new UMImage(getActivity(), BitmapUtil.getBitmapFromDrawable(CoreUtils.getDrawablebyResource(getActivity(), R.drawable.ic_wx_share))));
                             break;
                         case "/app/AuthActivity":
                         case "/app/MyMessageActivity":
