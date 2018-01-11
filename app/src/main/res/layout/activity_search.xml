@@ -33,10 +33,11 @@
 
             <AutoCompleteTextView
                 android:id="@+id/etInput"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
                 android:layout_marginLeft="24px"
+                android:layout_weight="1"
                 android:background="@null"
                 android:completionThreshold="1"
                 android:focusable="true"
@@ -47,6 +48,15 @@
                 android:textColorHint="#999999"
                 android:textCursorDrawable="@drawable/color_cursor"
                 android:textSize="45px" />
+
+            <ImageView
+                android:id="@+id/img_deletecircle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="21px"
+                android:layout_marginRight="36px"
+                android:src="@drawable/icon_deletecircle"
+                android:visibility="gone" />
         </LinearLayout>
 
         <TextView

@@ -3,6 +3,9 @@ package com.recorder.mvp.ui.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.AutoCompleteTextView;
@@ -40,6 +43,8 @@ public class SearchActivity extends BaseActivity<SearchPresenter> implements Sea
     CoreRecyclerView recyclerView;
     @BindView(R.id.etInput)
     AutoCompleteTextView etInput;
+    @BindView(R.id.img_deletecircle)
+    View mInputDeleteButton;
 
     @Override
     public void setupActivityComponent(AppComponent appComponent) {
@@ -62,12 +67,34 @@ public class SearchActivity extends BaseActivity<SearchPresenter> implements Sea
 //        setStatusBarColor(Color.parseColor("#F9F9F9"), 0);
         etInput.setOnEditorActionListener((textView, actionId, keyEvent) -> {
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                findViewById(R.id.view_empty).setVisibility(View.GONE);
-                mPresenter.dealList(isEquity ? "1" : "2", null, null, etInput.getText().toString(), null, null);
+                if (!TextUtils.isEmpty(etInput.getText().toString().trim())) {
+                    findViewById(R.id.view_empty).setVisibility(View.GONE);
+                    mPresenter.dealList(isEquity ? "1" : "2", null, null, etInput.getText().toString(), null, null);
+                }
                 CoreUtils.hideSoftInput(etInput);
                 return true;
             }
             return false;
+        });
+        etInput.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (s.length() > 0) {
+                    mInputDeleteButton.setVisibility(View.VISIBLE);
+                } else {
+                    mInputDeleteButton.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
         });
     }
 
@@ -104,9 +131,16 @@ public class SearchActivity extends BaseActivity<SearchPresenter> implements Sea
         finish();
     }
 
-    @OnClick(R.id.search_button)
-    public void onViewClicked() {
-        killMyself();
+    @OnClick({R.id.search_button, R.id.img_deletecircle})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.search_button:
+                killMyself();
+                break;
+            case R.id.img_deletecircle:
+                etInput.getText().clear();
+                break;
+        }
     }
 
     @Override
