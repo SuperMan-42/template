@@ -191,7 +191,8 @@
             android:theme="@style/CoreAppTheme.Transparent" />
         <activity
             android:name=".mvp.ui.activity.AuthInfoActivity"
-            android:theme="@style/CoreAppTheme.Transparent" />
+            android:theme="@style/CoreAppTheme.Transparent"
+            android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".mvp.ui.activity.EquityDetailsActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"

@@ -250,7 +250,7 @@ public class AuthInfoActivity extends BaseActivity<AuthInfoPresenter> implements
         finish();
     }
 
-    @OnClick({R.id.im_positive, R.id.im_other, R.id.im_agree, R.id.tv_next, R.id.tv_go_home})
+    @OnClick({R.id.im_positive, R.id.im_other, R.id.im_agree, R.id.tv_next, R.id.tv_go_home, R.id.tv_info})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.im_positive:
@@ -277,6 +277,11 @@ public class AuthInfoActivity extends BaseActivity<AuthInfoPresenter> implements
 //                ARouter.getInstance().build("/app/HomeActivity").navigation();
 //                EventBus.getDefault().post(new Object(), Constants.FINISH);
                 killMyself();
+                break;
+            case R.id.tv_info:
+                ARouter.getInstance().build("/app/WebActivity")
+                        .withBoolean(Constants.IS_SHOW_RIGHT, false)
+                        .withString(Constants.WEB_URL, dataEntity.getAsset_prompt()).greenChannel().navigation();
                 break;
         }
     }
@@ -427,12 +432,12 @@ public class AuthInfoActivity extends BaseActivity<AuthInfoPresenter> implements
     }
 
     private void isModify(EditText editText, String string) {
-        if (editText == etName && TextUtils.isEmpty(string)) {
-            editText.setFocusable(true);
-            editText.setFocusableInTouchMode(true);
-            editText.requestFocus();
-            CoreUtils.openSoftInputForced(etName);
-        }
+//        if (editText == etName && TextUtils.isEmpty(string)) {
+//            editText.setFocusable(true);
+//            editText.setFocusableInTouchMode(true);
+//            editText.requestFocus();
+//            CoreUtils.openSoftInputForced(etName);
+//        }
         editText.setEnabled(TextUtils.isEmpty(string) || dataEntity.getIs_modify());
     }
 

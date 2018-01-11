@@ -76,6 +76,15 @@ public class AuthGetBean {
         private boolean is_modify_survey;
         private String is_hint;
         private List<String> assets;
+        private String asset_prompt;
+
+        public String getAsset_prompt() {
+            return asset_prompt;
+        }
+
+        public void setAsset_prompt(String asset_prompt) {
+            this.asset_prompt = asset_prompt;
+        }
 
         public void setTrue_name(String true_name) {
             this.true_name = true_name;
