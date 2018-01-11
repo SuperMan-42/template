@@ -31,6 +31,7 @@ import com.recorder.di.module.PayDetailsModule;
 import com.recorder.mvp.contract.PayDetailsContract;
 import com.recorder.mvp.model.entity.OrderListBean;
 import com.recorder.mvp.presenter.PayDetailsPresenter;
+import com.recorder.utils.CommonUtils;
 
 import org.simple.eventbus.EventBus;
 import org.simple.eventbus.Subscriber;
@@ -154,14 +155,19 @@ public class PayDetailsActivity extends BaseActivity<PayDetailsPresenter> implem
             if (listEntity.getOrder_status() == 0 || listEntity.getOrder_status() == 1) {
                 tvSubmit.setVisibility(View.VISIBLE);
                 tvSubmit.setText("支付");
-                tvSubmit.setOnClickListener(view -> mPresenter.orderPay(listEntity.getOrderID(), listEntity, "2"));
+                tvSubmit.setOnClickListener(view -> {
+                    if (CommonUtils.isFastClick())
+                        mPresenter.orderPay(listEntity.getOrderID(), listEntity, "2");
+                });
             } else if (listEntity.getOrder_status() == 4) {
                 tvSubmit.setVisibility(View.VISIBLE);
                 tvSubmit.setText("上传打款凭证");
                 tvSubmit.setOnClickListener(view -> {
-                    Bundle bundle = new Bundle();
-                    bundle.putString(Constants.UPLOAD_ORDERID, listEntity.getOrderID());
-                    ARouter.getInstance().build("/app/UploadActivity").withBundle(Constants.UPLOAD, bundle).withInt("position", position).withBoolean(Constants.ORDER_PROOF, true).navigation();
+                    if (CommonUtils.isFastClick()) {
+                        Bundle bundle = new Bundle();
+                        bundle.putString(Constants.UPLOAD_ORDERID, listEntity.getOrderID());
+                        ARouter.getInstance().build("/app/UploadActivity").withBundle(Constants.UPLOAD, bundle).withInt("position", position).withBoolean(Constants.ORDER_PROOF, true).navigation();
+                    }
                 });
             } else {
                 tvSubmit.setVisibility(View.GONE);
@@ -220,14 +226,19 @@ public class PayDetailsActivity extends BaseActivity<PayDetailsPresenter> implem
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ll_deal_name:
-                ARouter.getInstance().build("/app/EquityDetailsActivity")
-                        .withString(Constants.DEAL_ID, listEntity.getDealID()).navigation();
+                if (CommonUtils.isFastClick()) {
+                    ARouter.getInstance().build("/app/EquityDetailsActivity")
+                            .withString(Constants.DEAL_ID, listEntity.getDealID()).navigation();
+                }
                 break;
             case R.id.tv_go_home:
-                EventBus.getDefault().post(position, Constants.PAY_SUCCESS);
-                killMyself();
+                if (CommonUtils.isFastClick()) {
+                    if (isSuccess)
+                        EventBus.getDefault().post(position, Constants.PAY_SUCCESS);
+                    killMyself();
 //                ARouter.getInstance().build("/app/MyInvestmentActivity").navigation();
 //                overridePendingTransition(R.anim.slide_in_right, R.anim.empty);
+                }
                 break;
         }
     }
@@ -259,10 +270,12 @@ public class PayDetailsActivity extends BaseActivity<PayDetailsPresenter> implem
         flDialog.setVisibility(View.VISIBLE);
         flDialog.startAnimation(AnimationUtils.loadAnimation(this, R.anim.fade_in));
         tvGoAuthentication.setOnClickListener(view -> {
-            if (isSuccess) {
-                ARouter.getInstance().build("/app/EquityDetailsActivity").withString(Constants.DEAL_ID, item.getDealID()).navigation();
-            } else {
-                mPresenter.orderPay(item.getOrderID(), item, "2");
+            if (CommonUtils.isFastClick()) {
+                if (isSuccess) {
+                    ARouter.getInstance().build("/app/EquityDetailsActivity").withString(Constants.DEAL_ID, item.getDealID()).navigation();
+                } else {
+                    mPresenter.orderPay(item.getOrderID(), item, "2");
+                }
             }
         });
     }

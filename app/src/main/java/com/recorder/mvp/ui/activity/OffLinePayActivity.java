@@ -14,6 +14,7 @@ import com.core.base.BaseActivity;
 import com.core.di.component.AppComponent;
 import com.recorder.R;
 import com.recorder.mvp.model.entity.PayPayOffLineBean;
+import com.recorder.utils.CommonUtils;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -64,8 +65,10 @@ public class OffLinePayActivity extends BaseActivity {
 
     @OnClick(R.id.tv_submit)
     public void onViewClicked() {
-        finish();
-        overridePendingTransition(R.anim.slide_in_right, R.anim.empty);
-        ARouter.getInstance().build("/app/MyInvestmentActivity").navigation();
+        if (CommonUtils.isFastClick()) {
+            finish();
+            overridePendingTransition(R.anim.slide_in_right, R.anim.empty);
+            ARouter.getInstance().build("/app/MyInvestmentActivity").navigation();
+        }
     }
 }

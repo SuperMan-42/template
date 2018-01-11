@@ -299,24 +299,30 @@ public class EquityDetailsActivity extends BaseActivity<EquityDetailsPresenter> 
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.toolbar_right:
-                if (dataEntity.getIs_follow().equals("1")) {//1-关注
-                    mPresenter.dealUnfollow(dataEntity.getDealID());
-                } else {
-                    mPresenter.dealFollow(dataEntity.getDealID());
+                if (CommonUtils.isFastClick()) {
+                    if (dataEntity.getIs_follow().equals("1")) {//1-关注
+                        mPresenter.dealUnfollow(dataEntity.getDealID());
+                    } else {
+                        mPresenter.dealFollow(dataEntity.getDealID());
+                    }
                 }
                 break;
             case R.id.ll_bp_file:
-                if (TextUtils.isEmpty(dataEntity.getBp_file())) {
-                    CoreUtils.snackbarText(CoreUtils.getString(this, R.string.text_bp_no));
-                } else {
-                    ARouter.getInstance().build("/app/PdfActivity").withString(Constants.PDF_HTTP, dataEntity.getBp_file()).withString(Constants.PDF_NAME, "bp").navigation();
+                if (CommonUtils.isFastClick()) {
+                    if (TextUtils.isEmpty(dataEntity.getBp_file())) {
+                        CoreUtils.snackbarText(CoreUtils.getString(this, R.string.text_bp_no));
+                    } else {
+                        ARouter.getInstance().build("/app/PdfActivity").withString(Constants.PDF_HTTP, dataEntity.getBp_file()).withString(Constants.PDF_NAME, "bp").navigation();
+                    }
                 }
                 break;
             case R.id.ll_consultation:
-                mPresenter.dealConsult(dataEntity.getDealID());
+                if (CommonUtils.isFastClick())
+                    mPresenter.dealConsult(dataEntity.getDealID());
                 break;
             case R.id.ll_buy:
-                mPresenter.payCheck(dataEntity.getDealID());
+                if (CommonUtils.isFastClick())
+                    mPresenter.payCheck(dataEntity.getDealID());
                 break;
         }
     }

@@ -27,6 +27,7 @@ import com.recorder.di.module.CashierModule;
 import com.recorder.mvp.contract.CashierContract;
 import com.recorder.mvp.model.entity.PayPayOffLineBean;
 import com.recorder.mvp.presenter.CashierPresenter;
+import com.recorder.utils.CommonUtils;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -119,22 +120,30 @@ public class CashierActivity extends BaseActivity<CashierPresenter> implements C
                 ARouter.getInstance().build("/app/EquityDetailsActivity").withString(Constants.DEAL_ID, dealID).navigation();
                 break;
             case R.id.rl_onLine:
-                mPresenter.payPay(dealID, String.valueOf(buy), "2");
-                break;
-            case R.id.rl_offLine:
-                mPresenter.payPayOffLine(dealID, String.valueOf(buy), "1");
-                break;
-            case R.id.tv_go_authentication:
-                if (isSuccess) {
-                    ARouter.getInstance().build("/app/EquityDetailsActivity").withString(Constants.DEAL_ID, dealID).navigation();
-                } else {
+                if (CommonUtils.isFastClick()) {
                     mPresenter.payPay(dealID, String.valueOf(buy), "2");
                 }
                 break;
+            case R.id.rl_offLine:
+                if (CommonUtils.isFastClick()) {
+                    mPresenter.payPayOffLine(dealID, String.valueOf(buy), "1");
+                }
+                break;
+            case R.id.tv_go_authentication:
+                if (CommonUtils.isFastClick()) {
+                    if (isSuccess) {
+                        ARouter.getInstance().build("/app/EquityDetailsActivity").withString(Constants.DEAL_ID, dealID).navigation();
+                    } else {
+                        mPresenter.payPay(dealID, String.valueOf(buy), "2");
+                    }
+                }
+                break;
             case R.id.tv_go_home:
-                ARouter.getInstance().build("/app/MyInvestmentActivity").navigation();
-                killMyself();
-                overridePendingTransition(R.anim.slide_in_right, R.anim.empty);
+                if (CommonUtils.isFastClick()) {
+                    ARouter.getInstance().build("/app/MyInvestmentActivity").navigation();
+                    killMyself();
+                    overridePendingTransition(R.anim.slide_in_right, R.anim.empty);
+                }
                 break;
         }
     }

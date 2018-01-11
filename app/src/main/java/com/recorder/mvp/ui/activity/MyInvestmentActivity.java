@@ -97,23 +97,30 @@ public class MyInvestmentActivity extends BaseActivity<MyInvestmentPresenter> im
                         .setText(R.id.tv_amount, item.getAmount() + "元")
                         .setText(R.id.tv_actual_amount, item.getActual_amount() + "元")
                         .setText(R.id.tv_order_status_name, item.getOrder_status_name());
-                holder.itemView.setOnClickListener(view -> ARouter.getInstance().build("/app/PayDetailsActivity").withInt("position", holder.getAdapterPosition()).withString("data", new Gson().toJson(item)).navigation());
+                holder.itemView.setOnClickListener(view -> {
+                    if (CommonUtils.isFastClick())
+                        ARouter.getInstance().build("/app/PayDetailsActivity").withInt("position", holder.getAdapterPosition()).withString("data", new Gson().toJson(item)).navigation();
+                });
                 if (item.getIs_publish()) {
                     if (item.getOrder_status() == 0 || item.getOrder_status() == 1) {
                         holder.getView(R.id.cl_is_show).setVisibility(View.VISIBLE);
                         holder.setText(R.id.tv_pay_bt, "支付");
                         holder.getView(R.id.tv_pay_bt).setOnClickListener(view -> {
-                            mPresenter.orderPay(item.getOrderID(), item, "2");
-                            position = holder.getAdapterPosition();
+                            if (CommonUtils.isFastClick()) {
+                                mPresenter.orderPay(item.getOrderID(), item, "2");
+                                position = holder.getAdapterPosition();
+                            }
                         });
                     } else if (item.getOrder_status() == 4) {
                         holder.getView(R.id.cl_is_show).setVisibility(View.VISIBLE);
                         holder.setText(R.id.tv_pay_bt, "上传打款凭证");
                         holder.getView(R.id.tv_pay_bt).setOnClickListener(view -> {
-                            position = holder.getAdapterPosition();
-                            Bundle bundle = new Bundle();
-                            bundle.putString(Constants.UPLOAD_ORDERID, item.getOrderID());
-                            ARouter.getInstance().build("/app/UploadActivity").withBundle(Constants.UPLOAD, bundle).withInt("position", position).withBoolean(Constants.ORDER_PROOF, true).navigation();
+                            if (CommonUtils.isFastClick()) {
+                                position = holder.getAdapterPosition();
+                                Bundle bundle = new Bundle();
+                                bundle.putString(Constants.UPLOAD_ORDERID, item.getOrderID());
+                                ARouter.getInstance().build("/app/UploadActivity").withBundle(Constants.UPLOAD, bundle).withInt("position", position).withBoolean(Constants.ORDER_PROOF, true).navigation();
+                            }
                         });
                     } else {
                         holder.getView(R.id.cl_is_show).setVisibility(View.GONE);
@@ -200,10 +207,12 @@ public class MyInvestmentActivity extends BaseActivity<MyInvestmentPresenter> im
         flDialog.setVisibility(View.VISIBLE);
         flDialog.startAnimation(AnimationUtils.loadAnimation(this, R.anim.fade_in));
         tvGoAuthentication.setOnClickListener(view -> {
-            if (isSuccess) {
-                ARouter.getInstance().build("/app/EquityDetailsActivity").withString(Constants.DEAL_ID, item.getDealID()).navigation();
-            } else {
-                mPresenter.orderPay(item.getOrderID(), item, "2");
+            if (CommonUtils.isFastClick()) {
+                if (isSuccess) {
+                    ARouter.getInstance().build("/app/EquityDetailsActivity").withString(Constants.DEAL_ID, item.getDealID()).navigation();
+                } else {
+                    mPresenter.orderPay(item.getOrderID(), item, "2");
+                }
             }
         });
     }
@@ -215,7 +224,9 @@ public class MyInvestmentActivity extends BaseActivity<MyInvestmentPresenter> im
                 closeDialog();
                 break;
             case R.id.tv_go_home:
-                closeDialog();
+                if (CommonUtils.isFastClick()) {
+                    closeDialog();
+                }
                 break;
         }
     }

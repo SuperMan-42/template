@@ -37,6 +37,7 @@ import com.recorder.di.module.BuyModule;
 import com.recorder.mvp.contract.BuyContract;
 import com.recorder.mvp.model.entity.PayCheckBean;
 import com.recorder.mvp.presenter.BuyPresenter;
+import com.recorder.utils.CommonUtils;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -275,14 +276,16 @@ public class BuyActivity extends BaseActivity<BuyPresenter> implements BuyContra
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_submit:
-                BigDecimal fee = (TextUtils.isEmpty(et1.getText().toString()) ? BigDecimal.ZERO : new BigDecimal(et1.getText().toString()).movePointRight(4).multiply(BigDecimal.ONE.add(manage).add(consult).add(subscription).add(partner).add(plat_manage).add(other).add(custom)));
-                ARouter.getInstance().build("/app/CashierActivity")
-                        .withString(Constants.DEAL_ID, dataEntity.getDealID())
-                        .withString("deal_name", dataEntity.getDeal_name())
-                        .withString("amount", String.valueOf(fee.intValue()))
-                        .withInt("buy", new BigDecimal(et1.getText().toString()).multiply(BigDecimal.valueOf(10000)).intValue()).navigation();
+                if (CommonUtils.isFastClick()) {
+                    BigDecimal fee = (TextUtils.isEmpty(et1.getText().toString()) ? BigDecimal.ZERO : new BigDecimal(et1.getText().toString()).movePointRight(4).multiply(BigDecimal.ONE.add(manage).add(consult).add(subscription).add(partner).add(plat_manage).add(other).add(custom)));
+                    ARouter.getInstance().build("/app/CashierActivity")
+                            .withString(Constants.DEAL_ID, dataEntity.getDealID())
+                            .withString("deal_name", dataEntity.getDeal_name())
+                            .withString("amount", String.valueOf(fee.intValue()))
+                            .withInt("buy", new BigDecimal(et1.getText().toString()).multiply(BigDecimal.valueOf(10000)).intValue()).navigation();
 //                killMyself();
 //                overridePendingTransition(R.anim.slide_in_right, R.anim.empty);
+                }
                 break;
         }
     }
