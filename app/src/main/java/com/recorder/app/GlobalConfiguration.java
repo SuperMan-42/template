@@ -331,6 +331,9 @@ public class GlobalConfiguration implements ConfigModule {
                                     ((TextView) currentActivity.findViewById(R.id.tv_empty)).setText(CoreUtils.getString(currentActivity, msg.arg2));
                                     button.setVisibility(View.VISIBLE);
                                     button.setText("重新连接");
+                                    if (currentActivity instanceof HomeActivity) {
+                                        HomeActivity.showEmpty(currentActivity.findViewById(R.id.view_empty));
+                                    }
                                     break;
                                 case Constants.NO_LOGIN:
 //                                    CommonUtils.toLogin(currentActivity);

@@ -226,10 +226,12 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
                 ARouter.getInstance().build("/app/LoginActivity").withString(Constants.RETRY_WHEN_LOGIN_OR_AUTH, Constants.RETRY_MY).navigation();
                 break;
             case R.id.profile_image:
-                if (!TextUtils.isEmpty(BCache.getInstance().getString(Constants.TOKEN))) {
-                    ARouter.getInstance().build("/app/PersonActivity").navigation();
-                } else {
-                    ARouter.getInstance().build("/app/LoginActivity").withString(Constants.RETRY_WHEN_LOGIN_OR_AUTH, Constants.RETRY_MY).navigation();
+                if (CommonUtils.isFastClick()) {
+                    if (!TextUtils.isEmpty(BCache.getInstance().getString(Constants.TOKEN))) {
+                        ARouter.getInstance().build("/app/PersonActivity").navigation();
+                    } else {
+                        ARouter.getInstance().build("/app/LoginActivity").withString(Constants.RETRY_WHEN_LOGIN_OR_AUTH, Constants.RETRY_MY).navigation();
+                    }
                 }
                 break;
             case R.id.ll_investment:
@@ -246,31 +248,39 @@ public class MyFragment extends BaseFragment<MyPresenter> implements MyContract.
 
     @Override
     public void showUserInfo(ImageLoader imageLoader, UserInfoBean userInfoBean) {
-        BCache.getInstance().put(Constants.USER_INFO, new Gson().toJson(userInfoBean));
-        tvLogin.setVisibility(View.GONE);
-        flIsLogin.setVisibility(View.GONE);
-        CoreUtils.imgLoaderCircle(getContext(), userInfoBean.getData().getAvatar(), profileImage, R.drawable.ic_person);
-        tvUserName.setText(userInfoBean.getData().getUser_name());
-        switch (userInfoBean.getData().getAuth_type()) {
-            case 0:
-                tvAuthType.setText("未认证");
-                break;
-            case 1:
-                tvAuthType.setText("众筹认证");
-                break;
-            case 2:
-                tvAuthType.setText("合格认证");
-                break;
-            case 3:
-                tvAuthType.setText("机构认证");
-                break;
-        }
+        if (userInfoBean != null) {
+            BCache.getInstance().put(Constants.USER_INFO, new Gson().toJson(userInfoBean));
+            tvLogin.setVisibility(View.GONE);
+            flIsLogin.setVisibility(View.GONE);
+            CoreUtils.imgLoaderCircle(getContext(), userInfoBean.getData().getAvatar(), profileImage, R.drawable.ic_person);
+            tvUserName.setText(userInfoBean.getData().getUser_name());
+            switch (userInfoBean.getData().getAuth_type()) {
+                case 0:
+                    tvAuthType.setText("未认证");
+                    break;
+                case 1:
+                    tvAuthType.setText("众筹认证");
+                    break;
+                case 2:
+                    tvAuthType.setText("合格认证");
+                    break;
+                case 3:
+                    tvAuthType.setText("机构认证");
+                    break;
+            }
 //        tvAuthType.setVisibility(View.VISIBLE);
-        tvMyInvestment.setText(userInfoBean.getData().getMy_investment());
-        tvFollowCount.setText(userInfoBean.getData().getMy_follow_count());
-        tvPostInvestment.setText(userInfoBean.getData().getPost_investment());
-        tvMyInvestment.setVisibility(View.VISIBLE);
-        tvFollowCount.setVisibility(View.VISIBLE);
-        tvPostInvestment.setVisibility(View.VISIBLE);
+            tvMyInvestment.setText(userInfoBean.getData().getMy_investment());
+            tvFollowCount.setText(userInfoBean.getData().getMy_follow_count());
+            tvPostInvestment.setText(userInfoBean.getData().getPost_investment());
+            tvMyInvestment.setVisibility(View.VISIBLE);
+            tvFollowCount.setVisibility(View.VISIBLE);
+            tvPostInvestment.setVisibility(View.VISIBLE);
+        } else {
+            tvMyInvestment.setVisibility(View.GONE);
+            tvFollowCount.setVisibility(View.GONE);
+            tvPostInvestment.setVisibility(View.GONE);
+            profileImage.setVisibility(View.VISIBLE);
+            CoreUtils.imgLoaderCircle(getContext(), R.drawable.ic_person, profileImage, R.drawable.ic_person);
+        }
     }
 }

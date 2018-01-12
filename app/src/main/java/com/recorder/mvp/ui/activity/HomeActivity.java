@@ -94,7 +94,7 @@ public class HomeActivity extends BaseActivity<HomePresenter> implements HomeCon
     NavigationController mNavigationController;
     private ArrayList<MultiItemEntity> res = new ArrayList<>();
     private static long firstTime = 0;
-    private int position = 0;
+    private static int position = 0;
 
     @Override
     public void setupActivityComponent(AppComponent appComponent) {
@@ -335,6 +335,12 @@ public class HomeActivity extends BaseActivity<HomePresenter> implements HomeCon
     @Override
     public void showHomeRecomment(HomeRecommendBean.DataEntity dataEntity, boolean isFirst) {
 
+    }
+
+    public static void showEmpty(View view) {
+        if (position == 4) {
+            view.setVisibility(View.GONE);
+        }
     }
 
     private static class HeaderItem extends AbstractExpandableItem<MultiItemEntity> implements MultiItemEntity {

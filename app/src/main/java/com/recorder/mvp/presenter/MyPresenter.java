@@ -49,6 +49,11 @@ public class MyPresenter extends BasePresenter<MyContract.Model, MyContract.View
                     public void onNext(UserInfoBean userInfoBean) {
                         mRootView.showUserInfo(mImageLoader, userInfoBean);
                     }
+
+                    @Override
+                    public void onError(Throwable t) {
+                        mRootView.showUserInfo(mImageLoader, null);
+                    }
                 });
     }
 }
