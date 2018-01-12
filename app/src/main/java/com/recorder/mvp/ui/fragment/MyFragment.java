@@ -23,6 +23,7 @@ import com.core.widget.recyclerview.BaseQuickAdapter;
 import com.core.widget.recyclerview.BaseViewHolder;
 import com.core.widget.recyclerview.CoreRecyclerView;
 import com.google.gson.Gson;
+import com.orhanobut.logger.Logger;
 import com.recorder.R;
 import com.recorder.di.component.DaggerMyComponent;
 import com.recorder.di.module.MyModule;

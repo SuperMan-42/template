@@ -8,6 +8,7 @@ import com.core.di.scope.ActivityScope;
 import com.core.http.imageloader.ImageLoader;
 import com.core.integration.AppManager;
 import com.core.mvp.BasePresenter;
+import com.core.utils.Constants;
 import com.core.utils.CoreUtils;
 import com.core.utils.RxLifecycleUtils;
 import com.core.widget.CustomPopupWindow;
@@ -15,7 +16,10 @@ import com.google.gson.Gson;
 import com.recorder.R;
 import com.recorder.mvp.contract.EquityDetailsContract;
 import com.recorder.mvp.model.entity.DealDetailBean;
+import com.recorder.mvp.model.entity.LoginBean;
 import com.recorder.mvp.model.entity.PayCheckBean;
+
+import org.simple.eventbus.EventBus;
 
 import javax.inject.Inject;
 
@@ -81,6 +85,7 @@ public class EquityDetailsPresenter extends BasePresenter<EquityDetailsContract.
                 .subscribe(new ErrorHandleSubscriber<Object>(mErrorHandler) {
                     @Override
                     public void onNext(Object o) {
+                        EventBus.getDefault().post(new LoginBean(), Constants.RETRY_MY);
                         mRootView.showMessage(CoreUtils.getString(mApplication, R.string.text_deal_unfollow));
                     }
                 });

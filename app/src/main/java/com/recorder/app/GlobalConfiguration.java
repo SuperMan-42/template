@@ -124,21 +124,27 @@ public class GlobalConfiguration implements ConfigModule {
                                     CoreUtils.showEmpty(Constants.NO_AUTH, R.drawable.ic_no_auth, R.string.empty_no_auth, "投资人认证");
                                     throw new ApiException(code, jsonObject.optString("error"));
                                 case ERROR_USER_INFO_NOT_ALL:
+                                    isConnection = false;
                                     CoreUtils.snackbarText(jsonObject.optString("error"));
                                     break;
                                 case ERROR_USER_INFO_AUDIT:
+                                    isConnection = false;
                                     CoreUtils.snackbarText(jsonObject.optString("error"));
                                     break;
                                 case ERROR_PARAMETER:
+                                    isConnection = false;
                                     response.body().close();//TODO 为了登录密码问题改的 可能有问题
                                     CoreUtils.snackbarText(jsonObject.optString("error"));
                                     break;
                                 case 102:
+                                    isConnection = false;
                                     break;
                                 case 108:
+                                    isConnection = false;
                                     CoreUtils.snackbarText(jsonObject.optString("error"));
                                     break;
                                 default:
+                                    isConnection = false;
                                     response.body().close();
                                     CoreUtils.snackbarText(jsonObject.optString("error"));
                                     CoreUtils.showEmpty(Constants.ERROR, R.drawable.ic_list_empty, R.string.empty_error, "");
