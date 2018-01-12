@@ -21,6 +21,7 @@ import com.core.widget.recyclerview.BaseQuickAdapter;
 import com.core.widget.recyclerview.BaseViewHolder;
 import com.core.widget.recyclerview.CoreRecyclerView;
 import com.core.widget.recyclerview.GridSpacingItemDecoration;
+import com.cunoraz.gifview.library.GifView;
 import com.google.gson.Gson;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
@@ -33,6 +34,7 @@ import com.recorder.mvp.contract.UploadContract;
 import com.recorder.mvp.model.entity.Bean;
 import com.recorder.mvp.model.entity.UserInfoBean;
 import com.recorder.mvp.presenter.UploadPresenter;
+import com.recorder.utils.CommonUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,6 +65,8 @@ public class UploadActivity extends BaseActivity<UploadPresenter> implements Upl
     CoreRecyclerView recyclerView;
     @BindView(R.id.tv_title)
     TextView tvTitle;
+    @BindView(R.id.avi)
+    GifView avi;
 
     @Override
     public void setupActivityComponent(AppComponent appComponent) {
@@ -157,12 +161,16 @@ public class UploadActivity extends BaseActivity<UploadPresenter> implements Upl
 
     @Override
     public void showLoading() {
-
+        CommonUtils.show(avi);
     }
 
     @Override
     public void hideLoading() {
 
+    }
+
+    public GifView getAvi() {
+        return avi;
     }
 
     @Override

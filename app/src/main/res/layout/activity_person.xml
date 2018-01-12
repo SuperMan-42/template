@@ -8,297 +8,304 @@
 
     <include layout="@layout/view_toolbar" />
 
-    <com.core.widget.autolayout.AutoScrollView
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scrollbars="none">
+        android:layout_height="match_parent">
 
-        <LinearLayout
+        <com.core.widget.autolayout.AutoScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:scrollbars="none">
 
-            <RelativeLayout
-                android:id="@+id/rl_avatar"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="180px"
-                android:background="@color/white"
-                android:paddingLeft="45px"
-                android:paddingRight="45px">
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:text="头像"
-                    android:textColor="#333333"
-                    android:textSize="45px" />
+                <RelativeLayout
+                    android:id="@+id/rl_avatar"
+                    android:layout_width="match_parent"
+                    android:layout_height="180px"
+                    android:background="@color/white"
+                    android:paddingLeft="45px"
+                    android:paddingRight="45px">
 
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/im_avatar"
-                    android:layout_width="135px"
-                    android:layout_height="125px"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="39px"
-                    android:layout_toLeftOf="@id/im_right"
-                    android:src="@drawable/ic_person" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="头像"
+                        android:textColor="#333333"
+                        android:textSize="45px" />
 
-                <ImageView
-                    android:id="@+id/im_right"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:src="@drawable/ic_person_right" />
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/im_avatar"
+                        android:layout_width="135px"
+                        android:layout_height="125px"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="39px"
+                        android:layout_toLeftOf="@id/im_right"
+                        android:src="@drawable/ic_person" />
 
-            </RelativeLayout>
+                    <ImageView
+                        android:id="@+id/im_right"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/ic_person_right" />
 
-            <View
-                style="@style/divider"
-                android:layout_marginLeft="45px" />
+                </RelativeLayout>
 
-            <RelativeLayout
-                android:id="@+id/rl_user_name"
-                android:layout_width="match_parent"
-                android:layout_height="132px"
-                android:background="@color/white"
-                android:paddingLeft="45px"
-                android:paddingRight="45px">
+                <View
+                    style="@style/divider"
+                    android:layout_marginLeft="45px" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:text="用户名"
-                    android:textColor="#333333"
-                    android:textSize="45px" />
+                <RelativeLayout
+                    android:id="@+id/rl_user_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="132px"
+                    android:background="@color/white"
+                    android:paddingLeft="45px"
+                    android:paddingRight="45px">
 
-                <TextView
-                    android:id="@+id/tv_user_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:drawablePadding="39px"
-                    android:drawableRight="@drawable/ic_person_right"
-                    android:gravity="center"
-                    android:textColor="#999999"
-                    android:textSize="42px"
-                    tools:text="eddie0730" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="用户名"
+                        android:textColor="#333333"
+                        android:textSize="45px" />
 
-            </RelativeLayout>
+                    <TextView
+                        android:id="@+id/tv_user_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:drawablePadding="39px"
+                        android:drawableRight="@drawable/ic_person_right"
+                        android:gravity="center"
+                        android:textColor="#999999"
+                        android:textSize="42px"
+                        tools:text="eddie0730" />
 
-            <View
-                style="@style/divider"
-                android:layout_marginLeft="45px" />
+                </RelativeLayout>
 
-            <RelativeLayout
-                android:id="@+id/rl_intro"
-                android:layout_width="match_parent"
-                android:layout_height="132px"
-                android:background="@color/white"
-                android:paddingLeft="45px"
-                android:paddingRight="45px">
+                <View
+                    style="@style/divider"
+                    android:layout_marginLeft="45px" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:text="个人介绍"
-                    android:textColor="#333333"
-                    android:textSize="45px" />
+                <RelativeLayout
+                    android:id="@+id/rl_intro"
+                    android:layout_width="match_parent"
+                    android:layout_height="132px"
+                    android:background="@color/white"
+                    android:paddingLeft="45px"
+                    android:paddingRight="45px">
 
-                <TextView
-                    android:id="@+id/tv_intro"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:drawablePadding="39px"
-                    android:drawableRight="@drawable/ic_person_right"
-                    android:gravity="center"
-                    android:textColor="#999999"
-                    android:textSize="42px"
-                    tools:text="eddie0730" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="个人介绍"
+                        android:textColor="#333333"
+                        android:textSize="45px" />
 
-            </RelativeLayout>
+                    <TextView
+                        android:id="@+id/tv_intro"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:drawablePadding="39px"
+                        android:drawableRight="@drawable/ic_person_right"
+                        android:gravity="center"
+                        android:textColor="#999999"
+                        android:textSize="42px"
+                        tools:text="eddie0730" />
 
-            <View
-                style="@style/divider"
-                android:layout_marginLeft="45px" />
+                </RelativeLayout>
 
-            <RelativeLayout
-                android:id="@+id/rl_4"
-                android:layout_width="match_parent"
-                android:layout_height="132px"
-                android:background="@color/white"
-                android:paddingLeft="45px"
-                android:paddingRight="45px">
+                <View
+                    style="@style/divider"
+                    android:layout_marginLeft="45px" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:text="手机号"
-                    android:textColor="#333333"
-                    android:textSize="45px" />
+                <RelativeLayout
+                    android:id="@+id/rl_4"
+                    android:layout_width="match_parent"
+                    android:layout_height="132px"
+                    android:background="@color/white"
+                    android:paddingLeft="45px"
+                    android:paddingRight="45px">
 
-                <TextView
-                    android:id="@+id/tv_mobile"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="69px"
-                    android:gravity="center"
-                    android:textColor="#999999"
-                    android:textSize="42px"
-                    tools:text="eddie0730" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="手机号"
+                        android:textColor="#333333"
+                        android:textSize="45px" />
 
-            </RelativeLayout>
+                    <TextView
+                        android:id="@+id/tv_mobile"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="69px"
+                        android:gravity="center"
+                        android:textColor="#999999"
+                        android:textSize="42px"
+                        tools:text="eddie0730" />
 
-            <View
-                style="@style/divider"
-                android:layout_marginLeft="45px" />
+                </RelativeLayout>
 
-            <RelativeLayout
-                android:id="@+id/rl_email"
-                android:layout_width="match_parent"
-                android:layout_height="132px"
-                android:background="@color/white"
-                android:paddingLeft="45px"
-                android:paddingRight="45px">
+                <View
+                    style="@style/divider"
+                    android:layout_marginLeft="45px" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:text="邮箱"
-                    android:textColor="#333333"
-                    android:textSize="45px" />
+                <RelativeLayout
+                    android:id="@+id/rl_email"
+                    android:layout_width="match_parent"
+                    android:layout_height="132px"
+                    android:background="@color/white"
+                    android:paddingLeft="45px"
+                    android:paddingRight="45px">
 
-                <TextView
-                    android:id="@+id/tv_email"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:drawablePadding="39px"
-                    android:drawableRight="@drawable/ic_person_right"
-                    android:gravity="center"
-                    android:textColor="#999999"
-                    android:textSize="42px"
-                    tools:text="eddie0730" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="邮箱"
+                        android:textColor="#333333"
+                        android:textSize="45px" />
 
-            </RelativeLayout>
+                    <TextView
+                        android:id="@+id/tv_email"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:drawablePadding="39px"
+                        android:drawableRight="@drawable/ic_person_right"
+                        android:gravity="center"
+                        android:textColor="#999999"
+                        android:textSize="42px"
+                        tools:text="eddie0730" />
 
-            <View
-                style="@style/divider"
-                android:layout_marginLeft="45px" />
+                </RelativeLayout>
 
-            <RelativeLayout
-                android:id="@+id/rl_weixin"
-                android:layout_width="match_parent"
-                android:layout_height="132px"
-                android:background="@color/white"
-                android:paddingLeft="45px"
-                android:paddingRight="45px">
+                <View
+                    style="@style/divider"
+                    android:layout_marginLeft="45px" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:text="微信"
-                    android:textColor="#333333"
-                    android:textSize="45px" />
+                <RelativeLayout
+                    android:id="@+id/rl_weixin"
+                    android:layout_width="match_parent"
+                    android:layout_height="132px"
+                    android:background="@color/white"
+                    android:paddingLeft="45px"
+                    android:paddingRight="45px">
 
-                <TextView
-                    android:id="@+id/tv_weixin"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:drawablePadding="39px"
-                    android:drawableRight="@drawable/ic_person_right"
-                    android:gravity="center"
-                    android:textColor="#999999"
-                    android:textSize="42px"
-                    tools:text="eddie0730" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="微信"
+                        android:textColor="#333333"
+                        android:textSize="45px" />
 
-            </RelativeLayout>
+                    <TextView
+                        android:id="@+id/tv_weixin"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:drawablePadding="39px"
+                        android:drawableRight="@drawable/ic_person_right"
+                        android:gravity="center"
+                        android:textColor="#999999"
+                        android:textSize="42px"
+                        tools:text="eddie0730" />
 
-            <View
-                style="@style/divider"
-                android:layout_marginLeft="45px" />
+                </RelativeLayout>
 
-            <RelativeLayout
-                android:id="@+id/rl_address"
-                android:layout_width="match_parent"
-                android:layout_height="132px"
-                android:background="@color/white"
-                android:paddingLeft="45px"
-                android:paddingRight="45px">
+                <View
+                    style="@style/divider"
+                    android:layout_marginLeft="45px" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:text="邮寄地址"
-                    android:textColor="#333333"
-                    android:textSize="45px" />
+                <RelativeLayout
+                    android:id="@+id/rl_address"
+                    android:layout_width="match_parent"
+                    android:layout_height="132px"
+                    android:background="@color/white"
+                    android:paddingLeft="45px"
+                    android:paddingRight="45px">
 
-                <TextView
-                    android:id="@+id/tv_address"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:drawablePadding="39px"
-                    android:drawableRight="@drawable/ic_person_right"
-                    android:gravity="center"
-                    android:textColor="#999999"
-                    android:textSize="42px"
-                    tools:text="eddie0730" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="邮寄地址"
+                        android:textColor="#333333"
+                        android:textSize="45px" />
 
-            </RelativeLayout>
+                    <TextView
+                        android:id="@+id/tv_address"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:drawablePadding="39px"
+                        android:drawableRight="@drawable/ic_person_right"
+                        android:gravity="center"
+                        android:textColor="#999999"
+                        android:textSize="42px"
+                        tools:text="eddie0730" />
 
-            <View
-                style="@style/divider"
-                android:layout_marginLeft="45px" />
+                </RelativeLayout>
 
-            <RelativeLayout
-                android:id="@+id/rl_password"
-                android:layout_width="match_parent"
-                android:layout_height="132px"
-                android:background="@color/white"
-                android:paddingLeft="45px"
-                android:paddingRight="45px">
+                <View
+                    style="@style/divider"
+                    android:layout_marginLeft="45px" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:text="修改密码"
-                    android:textColor="#333333"
-                    android:textSize="45px" />
+                <RelativeLayout
+                    android:id="@+id/rl_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="132px"
+                    android:background="@color/white"
+                    android:paddingLeft="45px"
+                    android:paddingRight="45px">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:drawablePadding="39px"
-                    android:drawableRight="@drawable/ic_person_right"
-                    android:gravity="center"
-                    android:textColor="#999999"
-                    android:textSize="42px"
-                    tools:text="eddie0730" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="修改密码"
+                        android:textColor="#333333"
+                        android:textSize="45px" />
 
-            </RelativeLayout>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:drawablePadding="39px"
+                        android:drawableRight="@drawable/ic_person_right"
+                        android:gravity="center"
+                        android:textColor="#999999"
+                        android:textSize="42px"
+                        tools:text="eddie0730" />
 
-            <View
-                style="@style/divider"
-                android:layout_marginLeft="45px" />
-        </LinearLayout>
-    </com.core.widget.autolayout.AutoScrollView>
+                </RelativeLayout>
+
+                <View
+                    style="@style/divider"
+                    android:layout_marginLeft="45px" />
+            </LinearLayout>
+        </com.core.widget.autolayout.AutoScrollView>
+
+        <include layout="@layout/layout_loading" />
+    </FrameLayout>
 </LinearLayout>

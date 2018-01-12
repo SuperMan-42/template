@@ -14,6 +14,8 @@ import com.recorder.R;
 import com.recorder.mvp.contract.UploadContract;
 import com.recorder.mvp.model.entity.Bean;
 import com.recorder.mvp.model.entity.ImageUploadBean;
+import com.recorder.mvp.ui.activity.UploadActivity;
+import com.recorder.utils.CommonUtils;
 
 import org.simple.eventbus.EventBus;
 
@@ -91,6 +93,7 @@ public class UploadPresenter extends BasePresenter<UploadContract.Model, UploadC
                                     } else {
                                         EventBus.getDefault().post(object, Constants.AUTH_TYPE);
                                     }
+                                    CommonUtils.hide(((UploadActivity) mRootView).getAvi());
                                     mRootView.killMyself();
                                 }
                             });

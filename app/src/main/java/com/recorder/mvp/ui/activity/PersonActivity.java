@@ -13,6 +13,7 @@ import com.core.di.component.AppComponent;
 import com.core.integration.cache.BCache;
 import com.core.utils.Constants;
 import com.core.utils.CoreUtils;
+import com.cunoraz.gifview.library.GifView;
 import com.google.gson.Gson;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
@@ -23,6 +24,7 @@ import com.recorder.di.module.PersonModule;
 import com.recorder.mvp.contract.PersonContract;
 import com.recorder.mvp.model.entity.UserInfoBean;
 import com.recorder.mvp.presenter.PersonPresenter;
+import com.recorder.utils.CommonUtils;
 
 import java.io.File;
 import java.util.List;
@@ -55,6 +57,8 @@ public class PersonActivity extends BaseActivity<PersonPresenter> implements Per
     TextView tvWeixin;
     @BindView(R.id.tv_address)
     TextView tvAddress;
+    @BindView(R.id.avi)
+    GifView avi;
 
     @Override
     public void setupActivityComponent(AppComponent appComponent) {
@@ -94,12 +98,12 @@ public class PersonActivity extends BaseActivity<PersonPresenter> implements Per
 
     @Override
     public void showLoading() {
-
+        CommonUtils.show(avi);
     }
 
     @Override
     public void hideLoading() {
-
+        CommonUtils.hide(avi);
     }
 
     @Override

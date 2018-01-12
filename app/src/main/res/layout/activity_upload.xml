@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.core.widget.autolayout.AutoConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -20,6 +21,8 @@
         android:paddingTop="33px"
         android:textColor="#666666"
         android:textSize="42px"
+        app:layout_constraintBottom_toTopOf="@id/recyclerview"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
         tools:text="请上传金融资产不低于300万元或者最近三年个人年均收入不低于50万元的个人资产证明，认证通过后会短信通知您再进行购买。" />
 
     <com.core.widget.recyclerview.CoreRecyclerView
@@ -27,5 +30,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
-        android:padding="45px" />
-</LinearLayout>
+        android:padding="45px"
+        app:layout_constraintTop_toBottomOf="@id/tv_title" />
+
+    <include layout="@layout/layout_loading" />
+</com.core.widget.autolayout.AutoConstraintLayout>
