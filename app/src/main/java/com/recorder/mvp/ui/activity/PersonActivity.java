@@ -18,6 +18,7 @@ import com.google.gson.Gson;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
+import com.luck.picture.lib.entity.LocalMedia;
 import com.recorder.R;
 import com.recorder.di.component.DaggerPersonComponent;
 import com.recorder.di.module.PersonModule;
@@ -165,7 +166,8 @@ public class PersonActivity extends BaseActivity<PersonPresenter> implements Per
             switch (requestCode) {
                 case IM_AVATAR:
                     // 图片选择结果回调
-                    File file = new File(PictureSelector.obtainMultipleResult(data).get(0).getCompressPath());
+                    LocalMedia media = PictureSelector.obtainMultipleResult(data).get(0);
+                    File file = new File(media.isCompressed() ? media.getCompressPath() : media.getPath());
                     CoreUtils.imgLoaderCircle(this, file, imAvatar, imAvatar.getDrawable());
                     MultipartBody.Builder builder = new MultipartBody.Builder().setType(MultipartBody.FORM);//表单类型
                     RequestBody imageBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);

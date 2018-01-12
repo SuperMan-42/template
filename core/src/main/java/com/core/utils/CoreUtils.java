@@ -40,6 +40,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
+import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.RequestOptions;
 import com.core.R;
 import com.core.base.App;
@@ -519,8 +520,8 @@ public class CoreUtils {
         GlideArms.with(context).load(o).transition(DrawableTransitionOptions.withCrossFade().crossFade(200)).fallback(replace).error(replace).apply(requestOptions).into(image);
     }
 
-    public static void imgLoaderRound(Context context, Object o, int replace, ImageView image) {
-        GlideArms.with(context).load(o).fallback(replace).error(replace).into(image);
+    public static void imgLoaderRound(Context context, Object o, RequestListener listener, int replace, ImageView image) {
+        GlideArms.with(context).load(o).listener(listener).fallback(replace).error(replace).into(image);
     }
 
     public static void imgLoaderRound(Context context, Object o, RequestOptions requestOptions, int replace, ImageView image) {

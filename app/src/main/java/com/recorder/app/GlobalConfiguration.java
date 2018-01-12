@@ -223,10 +223,8 @@ public class GlobalConfiguration implements ConfigModule {
                     }
                 })
                 .responseErrorListener((context1, t) -> {
-                    if (t instanceof CompositeException && isConnection) {
-                        if (((CompositeException) t).getExceptions().toString().contains("RxCacheException")) {
-                            CoreUtils.showEmpty(Constants.NO_NET, R.drawable.ic_no_net, R.string.empty_no_net, "重新连接");
-                        }
+                    if (t.getMessage().contains("CompositeException") && isConnection) {//IllegalArgumentException
+                        CoreUtils.showEmpty(Constants.NO_NET, R.drawable.ic_no_net, R.string.empty_no_net, "重新连接");
                     } else {
                         if (t instanceof CompositeException) {
                             Logger.d(((CompositeException) t).getExceptions().toString());

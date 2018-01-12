@@ -76,13 +76,17 @@ public class SplashPresenter extends BasePresenter<SplashContract.Model, SplashC
                     @Override
                     public void onNext(AppStartBean appStartBean) {
                         mRootView.showAppStart(appStartBean.getData());
-                        getPermissons();
                         BCache.getInstance().put(Constants.APPSTART, new Gson().toJson(appStartBean));
+                    }
+
+                    @Override
+                    public void onError(Throwable t) {
+                        mRootView.showAppStart(null);
                     }
                 });
     }
 
-    private void getPermissons() {
+    public void getPermissons() {
         new RxPermissions((Activity) mRootView)
                 .requestEach(Manifest.permission.CAMERA,
                         Manifest.permission.ACCESS_COARSE_LOCATION,
@@ -132,6 +136,11 @@ public class SplashPresenter extends BasePresenter<SplashContract.Model, SplashC
                                     @Override
                                     public void onNext(AppVersionBean appVersionBean) {
                                         callBack.onResponse(new Gson().toJson(appVersionBean));
+                                    }
+
+                                    @Override
+                                    public void onError(Throwable t) {
+                                        callBack.onError("网络错误");
                                     }
                                 });
                     }

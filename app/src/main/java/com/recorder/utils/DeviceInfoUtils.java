@@ -54,8 +54,6 @@ public class DeviceInfoUtils {
         // 用户id
         deviceInfo.setUid("0");
         String deviceInfoJson = new Gson().toJson(deviceInfo);
-        Logger.i("deviceInfo json->" + deviceInfoJson);
-
         return deviceInfoJson;
     }
 

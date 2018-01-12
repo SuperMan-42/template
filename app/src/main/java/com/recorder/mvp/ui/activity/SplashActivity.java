@@ -3,9 +3,14 @@ package com.recorder.mvp.ui.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.widget.ImageView;
 
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 import com.core.base.BaseActivity;
 import com.core.di.component.AppComponent;
 import com.core.utils.CoreUtils;
@@ -92,6 +97,19 @@ public class SplashActivity extends BaseActivity<SplashPresenter> implements Spl
 
     @Override
     public void showAppStart(AppStartBean.DataEntity data) {
-        CoreUtils.imgLoader(this, TextUtils.isEmpty(data.getSp_img()) ? R.drawable.ic_splash : data.getSp_img(), R.drawable.ic_splash, imSplash);
+//        CoreUtils.imgLoader(this, (data != null && !TextUtils.isEmpty(data.getSp_img())) ? data.getSp_img() : R.drawable.ic_splash, R.drawable.ic_splash, imSplash);
+        CoreUtils.imgLoaderRound(this, (data != null && !TextUtils.isEmpty(data.getSp_img())) ? data.getSp_img() : R.drawable.ic_splash, new RequestListener() {
+            @Override
+            public boolean onLoadFailed(@Nullable GlideException e, Object model, Target target, boolean isFirstResource) {
+                mPresenter.getPermissons();
+                return false;
+            }
+
+            @Override
+            public boolean onResourceReady(Object resource, Object model, Target target, DataSource dataSource, boolean isFirstResource) {
+                mPresenter.getPermissons();
+                return false;
+            }
+        }, R.drawable.ic_splash, imSplash);
     }
 }

@@ -314,12 +314,12 @@ public class AuthInfoActivity extends BaseActivity<AuthInfoPresenter> implements
             switch (requestCode) {
                 case IM_POSITIVE:
                     List<LocalMedia> positiveList = PictureSelector.obtainMultipleResult(data);
-                    positive = new File(positiveList.get(0).getPath());
+                    positive = new File(positiveList.get(0).getCutPath());
                     CoreUtils.imgLoader(this, positiveList.get(0).getPath(), imPositive);
                     break;
                 case IM_OTHER:
                     List<LocalMedia> otherList = PictureSelector.obtainMultipleResult(data);
-                    other = new File(otherList.get(0).getPath());
+                    other = new File(otherList.get(0).getCutPath());
                     CoreUtils.imgLoader(this, otherList.get(0).getPath(), imOther);
                     break;
                 default:
