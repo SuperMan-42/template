@@ -92,7 +92,7 @@ public class MyInvestmentActivity extends BaseActivity<MyInvestmentPresenter> im
         recyclerView.init(new BaseQuickAdapter<OrderListBean.DataEntity.ListEntity, BaseViewHolder>(R.layout.item_my_investment) {
             @Override
             protected void convert(BaseViewHolder holder, OrderListBean.DataEntity.ListEntity item) {
-                CoreUtils.imgLoader(holder.itemView.getContext(), item.getCover(), holder.getView(R.id.im_cover));
+                CoreUtils.imgLoader(holder.itemView.getContext(), item.getCover(), R.drawable.ic_list, holder.getView(R.id.im_cover));
                 holder.setText(R.id.tv_deal_name, item.getDeal_name())
                         .setText(R.id.tv_amount, item.getAmount() + "元")
                         .setText(R.id.tv_actual_amount, item.getActual_amount() + "元")
