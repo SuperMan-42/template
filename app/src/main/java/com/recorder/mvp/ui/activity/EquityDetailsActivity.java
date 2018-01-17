@@ -35,6 +35,7 @@ import com.core.widget.recyclerview.BaseQuickAdapter;
 import com.core.widget.recyclerview.BaseViewHolder;
 import com.core.widget.recyclerview.CoreRecyclerView;
 import com.cunoraz.gifview.library.GifView;
+import com.google.gson.Gson;
 import com.jaeger.library.StatusBarUtil;
 import com.recorder.R;
 import com.recorder.di.component.DaggerEquityDetailsComponent;
@@ -322,7 +323,11 @@ public class EquityDetailsActivity extends BaseActivity<EquityDetailsPresenter> 
                 break;
             case R.id.ll_buy:
                 if (CommonUtils.isFastClick())
-                    mPresenter.payCheck(dataEntity.getDealID());
+                    if (dataEntity.getType().equals("1")) {
+                        mPresenter.payCheck(dataEntity.getDealID(), dataEntity);
+                    } else {
+                        ARouter.getInstance().build("/app/BuyIntentionActivity").withString("dealDetail", new Gson().toJson(dataEntity)).navigation();
+                    }
                 break;
         }
     }
@@ -372,7 +377,7 @@ public class EquityDetailsActivity extends BaseActivity<EquityDetailsPresenter> 
         tvBrief.setText(dataEntity.getBrief());//头部简介
         tvLabels.setText(dataEntity.getLabels());//标签
         //进度条相关
-        flProgress.setVisibility(dataEntity.getType().equals("1") ? View.VISIBLE : View.GONE);
+//        flProgress.setVisibility(dataEntity.getType().equals("1") ? View.VISIBLE : View.GONE);
         tvProgress.setText(dataEntity.getProgress() + "%");
         if (Float.parseFloat(dataEntity.getProgress()) == 0) {
 //            progress.reset();

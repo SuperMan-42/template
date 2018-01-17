@@ -118,6 +118,7 @@
         <!-- 此处Receiver名字修改为当前包名路径 -->
         <receiver android:name=".app.PushReceiver">
             <intent-filter>
+
                 <!-- 接收push消息 -->
                 <action android:name="com.baidu.android.pushservice.action.MESSAGE" />
                 <!-- 接收bind、setTags等method的返回结果 -->
@@ -274,6 +275,9 @@
             android:theme="@style/CoreAppTheme.Transparent" />
         <activity
             android:name=".mvp.ui.activity.PayDetailsActivity"
+            android:theme="@style/CoreAppTheme.Transparent" />
+        <activity
+            android:name=".mvp.ui.activity.BuyIntentionActivity"
             android:theme="@style/CoreAppTheme.Transparent" />
     </application>
 

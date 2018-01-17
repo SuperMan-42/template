@@ -143,6 +143,18 @@ public class GlobalConfiguration implements ConfigModule {
                                     isConnection = false;
                                     CoreUtils.snackbarText(jsonObject.optString("error"));
                                     break;
+                                case 215:
+                                    isConnection = false;
+                                    CoreUtils.snackbarText(jsonObject.optString("error"));
+                                    break;
+                                case 216:
+                                    isConnection = false;
+                                    CoreUtils.snackbarText(jsonObject.optString("error"));
+                                    break;
+                                case 200:
+                                    isConnection = false;
+                                    CoreUtils.snackbarText(jsonObject.optString("error"));
+                                    break;
                                 case 212:
                                     isConnection = false;
                                     CoreUtils.snackbarText(jsonObject.optString("error"));

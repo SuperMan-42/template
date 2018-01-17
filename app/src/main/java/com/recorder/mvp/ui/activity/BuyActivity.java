@@ -35,6 +35,7 @@ import com.recorder.R;
 import com.recorder.di.component.DaggerBuyComponent;
 import com.recorder.di.module.BuyModule;
 import com.recorder.mvp.contract.BuyContract;
+import com.recorder.mvp.model.entity.DealDetailBean;
 import com.recorder.mvp.model.entity.PayCheckBean;
 import com.recorder.mvp.presenter.BuyPresenter;
 import com.recorder.utils.CommonUtils;
@@ -52,6 +53,9 @@ import static com.core.utils.Preconditions.checkNotNull;
 public class BuyActivity extends BaseActivity<BuyPresenter> implements BuyContract.View {
     @Autowired
     String payCheck;
+    @Autowired
+    String dealDetail;
+    DealDetailBean.DataEntity dealEntity;
 
     @BindView(R.id.tv_deal_name)
     TextView tvDealName;
@@ -120,11 +124,12 @@ public class BuyActivity extends BaseActivity<BuyPresenter> implements BuyContra
     public void initView(Bundle savedInstanceState) {
         ARouter.getInstance().inject(this);
         dataEntity = new Gson().fromJson(payCheck, PayCheckBean.class).getData();
+        dealEntity = new Gson().fromJson(dealDetail, DealDetailBean.DataEntity.class);
         title("我要认购");
         tvLimitPrice.setTextColor(Color.RED);
+        tvLimitPrice.setText("起投金额" + dataEntity.getLimit_price() + "万元");
         tvAmount.setTextColor(Color.RED);
         tvDealName.setText(dataEntity.getDeal_name());
-        tvLimitPrice.setText("起投金额" + dataEntity.getLimit_price() + "万元");
         manage = setContent(dataEntity.getManager_fee(), dataEntity.getManager_fee_year(), llManagerFee, tvManagerFee);
         consult = setContent(dataEntity.getConsult_fee(), dataEntity.getConsult_fee_year(), llConsultFee, tvConsultFee);
         subscription = setContent(dataEntity.getSubscription_fee(), dataEntity.getSubscription_fee_year(), llSubscriptionFee, tvSubscriptionFee);
@@ -201,7 +206,7 @@ public class BuyActivity extends BaseActivity<BuyPresenter> implements BuyContra
             @Override
             public void afterTextChanged(Editable editable) {
                 Logger.d("buy=> " + et1.getText().toString() + " " + TextUtils.isEmpty(et1.getText().toString()));
-                if (TextUtils.isEmpty(et1.getText().toString()) || Float.parseFloat(et1.getText().toString()) < Float.parseFloat(dataEntity.getLimit_price())) {
+                if (TextUtils.isEmpty(et1.getText().toString()) || Float.parseFloat(et1.getText().toString()) > Float.parseFloat(dealEntity.getTarget_fund()) || Float.parseFloat(et1.getText().toString()) < Float.parseFloat(dataEntity.getLimit_price())) {
                     tvLimitPrice.setTextColor(Color.RED);
                     tvSubmit.setEnabled(false);
                 } else {
@@ -290,7 +295,7 @@ public class BuyActivity extends BaseActivity<BuyPresenter> implements BuyContra
         }
     }
 
-    public class Bean {
+    public static class Bean {
         CharSequence key;
         boolean isCheck;
 

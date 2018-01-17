@@ -29,7 +29,8 @@
                 android:layout_marginLeft="45px"
                 android:layout_marginRight="45px"
                 android:layout_marginTop="70px"
-                android:background="@drawable/bga_round_white">
+                android:background="@drawable/bga_round_white"
+                android:visibility="gone">
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/im_head"

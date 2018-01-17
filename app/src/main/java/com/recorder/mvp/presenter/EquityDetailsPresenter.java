@@ -102,7 +102,7 @@ public class EquityDetailsPresenter extends BasePresenter<EquityDetailsContract.
                 });
     }
 
-    public void payCheck(String dealID) {
+    public void payCheck(String dealID, DealDetailBean.DataEntity dealDetail) {
         mModel.payCheck(dealID)
                 .compose(RxLifecycleUtils.transformer(mRootView))
                 .subscribe(new ErrorHandleSubscriber<PayCheckBean>(mErrorHandler) {
@@ -121,7 +121,7 @@ public class EquityDetailsPresenter extends BasePresenter<EquityDetailsContract.
                                 showDialog(CoreUtils.getString(mApplication, R.string.text_error_user_info_audit));
                                 break;
                             case 0:
-                                ARouter.getInstance().build("/app/BuyActivity").withString("payCheck", new Gson().toJson(payCheckBean)).navigation();
+                                ARouter.getInstance().build("/app/BuyActivity").withString("dealDetail", new Gson().toJson(dealDetail)).withString("payCheck", new Gson().toJson(payCheckBean)).navigation();
                                 break;
                         }
                     }

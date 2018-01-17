@@ -6,7 +6,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="516px"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="120px"
         android:layout_marginRight="120px"
         android:background="@drawable/bga_round_white"
@@ -27,6 +27,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="100px"
+            android:layout_marginLeft="30px"
+            android:layout_marginRight="30px"
             android:layout_marginTop="55px"
             android:gravity="center"
             android:text="两次输入的密码不一致"
@@ -39,9 +41,9 @@
             android:id="@+id/tv_sure"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="40px"
+            android:layout_marginTop="40px"
             android:gravity="center"
-            android:paddingBottom="40px"
-            android:paddingTop="40px"
             android:text="重新输入"
             android:textColor="#0075FF"
             android:textSize="48px" />

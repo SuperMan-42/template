@@ -197,4 +197,8 @@ public interface ApiService {
 
     @GET("verify.php")
     Observable<ResponseBody> verify(@Header("DIVERSION-VERSION") String version, @Query("token") String token);
+
+    @FormUrlEncoded
+    @POST("order/intention")
+    Observable<Object> orderIntention(@Header("DIVERSION-VERSION") String version, @Field("dealID") String dealID, @Field("amount") String amount);
 }
