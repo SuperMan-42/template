@@ -39,6 +39,7 @@ import com.recorder.mvp.model.entity.DealDetailBean;
 import com.recorder.mvp.presenter.BuyIntentionPresenter;
 import com.recorder.utils.CommonUtils;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -200,7 +201,7 @@ public class BuyIntentionActivity extends BaseActivity<BuyIntentionPresenter> im
     @OnClick(R.id.tv_submit)
     public void onViewClicked() {
         if (CommonUtils.isFastClick()) {
-            mPresenter.orderIntention(dataEntity.getDealID(), et1.getText().toString());
+            mPresenter.orderIntention(dataEntity.getDealID(), new BigDecimal(et1.getText().toString()).multiply(BigDecimal.valueOf(10000)).toPlainString());
         }
     }
 }
