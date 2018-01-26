@@ -106,6 +106,16 @@ public class WebActivity extends BaseActivity {
                 case "hx://outh-list":
                     new Handler().post(() -> ARouter.getInstance().build("/app/AuthActivity").navigation());
                     break;
+                case "hx://outh-invest"://我要投资
+                    new Handler().post(() -> EventBus.getDefault().post(2, Constants.HOME_INDEX));
+                    finish();
+                    overridePendingTransition(R.anim.slide_in_right, R.anim.empty);
+                    break;
+                case "hx://outh-finace"://我要融资
+                    new Handler().post(() -> ARouter.getInstance().build("/app/DealRecommendActivity").greenChannel().navigation());
+                    finish();
+                    overridePendingTransition(R.anim.slide_in_right, R.anim.empty);
+                    break;
             }
             return super.shouldOverrideUrlLoading(view, url);
         }
